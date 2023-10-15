@@ -1,0 +1,246 @@
+nav{
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    background-image: url(https://github.com/aashishpanthi/hostque/blob/main/images/space.jpg?raw=true);
+}
+nav .brand{
+    display: flex;
+    align-items: center;
+}
+
+nav .brand img{
+    height: 50px;
+    margin: 0 5px;
+    ima
+}
+
+nav .brand a{
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.75rem;
+    font-weight: bold;
+}
+
+nav ul{
+    display: flex;
+}
+
+nav ul li{
+    list-style: none;
+    margin: 0 10px;
+}
+
+nav ul li a{
+    text-decoration: none;
+    color: #ffffff;
+    padding: 5px;
+    transition: .3s ease;
+    position: relative;
+}
+
+nav ul li a:hover{
+    color: #3678ad;
+}
+
+nav ul li a::after{
+    content: '';
+    width: 100%;
+    height: 3px;
+    background: #246da8;
+    position: absolute;
+    bottom: 0;
+    left:0;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: .3s ease-in-out;
+}
+
+nav ul li a:hover::after{
+    transform: scaleX(1);
+}
+
+nav .fa{
+    color:#817474;
+    font-size: 2rem;
+    display: none;
+    transition: 0.3s ease;
+}
+nav .fa:hover{
+    color: #000000;
+
+}
+
+@media screen and (max-width:600px) {
+
+    nav .fa{
+        display: block;
+    }
+
+    nav ul .fa{
+        margin-bottom: 30px;
+    }
+
+    nav .brand img{
+        height: 40px;
+    }
+
+    nav .brand a{
+        font-size: 1.2rem;
+    }
+    nav ul{
+        flex-direction: column;
+        position: absolute;
+        top:0;
+        right:0;
+        width:35%;
+        background-color: red;
+        padding:10px;
+        height: 100vh;
+        z-index: 99;
+        transform: scaleX(0);
+        transition: .1s ease-in;
+        transform-origin: right;
+    }
+    
+    nav ul.menu{
+        transform: scaleX(1);
+    }
+
+    nav ul li {
+        margin-top:10px;
+    }
+
+    nav ul li a{
+        font-size: 1rem;
+        font-weight: bold;
+    }
+}
+
+  .contact-main-text h1{
+      font-size: 4rem;
+  }
+  
+  .contact-main-text p{
+      font-size: 1.5rem;
+      margin: 1rem 0 2rem 0;  
+  }
+  
+  .contact-main-text a{
+      text-decoration: none;
+      color: #ffffff;
+      padding: 10px 25px;
+      border: 1px solid #ffffff;
+      position: relative;
+  }
+  
+  .contact-main-text a::before{
+      content: '';
+      position: absolute;
+      top:0;
+      left: 0;
+      background-color: rgb(34, 54, 167);
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      transform: scaleX(0);
+      transition: .2s ease-in-out;
+  }
+  
+  .contact-main-text a:hover::before{
+      transform: scaleX(1);
+  }
+  
+  @media screen and (max-width: 600px) {
+      .contact-main-text{
+          width: 90%;
+      }
+  
+      .contact-main-text h1{
+          font-size: 2rem;
+      }
+  
+      .contact-main-text p{
+          font-size: 1rem;
+      }
+  }
+  
+  .contact-form{
+      text-align: center;
+      padding: 1rem;
+      background-image: url(https://github.com/aashishpanthi/hostque/blob/main/images/space.jpg?raw=true);
+      height: 100vh;
+      color: #ffffff;
+  }
+  
+  .contact-form form{
+      max-width: 500px;
+      margin:2rem auto;
+      display: flex;
+      flex-direction: column;
+      color: #000000;
+  }
+  
+  .contact-form form input{
+      height: 40px;
+      padding: 5px 10px;
+      outline-color: #000000;
+      margin-bottom: 5px;
+      background: transparent;
+      color: #ffffff;
+  }
+  
+  .contact-form form textarea{
+      padding: 5px 10px;
+      outline: #ffffff
+  }
+  
+  .contact-form form input:focus, .contact-form form textarea:focus{
+      outline: 1px solid royalblue;
+  }
+  
+  .contact-form form button{
+      background-color: royalblue;
+      height: 40px;
+      color: #ffffff;
+      border-radius: 5px;
+      cursor: pointer;
+      border: none;
+      margin:5px 0;
+      transition: .3s ease-in-out;
+  }
+  
+  .contact-form form button:hover{
+      background-color: rgb(35, 64, 150);
+  }
+  
+  .social-medias{
+      max-width: 500px;
+      margin:0 auto;
+      text-align: left;
+      color: #ffffff;
+  }
+  
+  .social-medias ul li{
+      list-style: none;
+  }
+  
+  .social-medias ul li a{
+      text-decoration: none;
+      color: #ffffff;
+  }
+  
+  .social-medias ul li a:hover{
+      color: #5d399e;
+  }
+  
+  .social-medias ul li a i{
+      color: #ffffff;
+      margin-right: 5px;
+  }
+  
+  .social-medias ul li a:hover i{
+      color: rgb(70, 41, 173);
+  }

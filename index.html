@@ -15,6 +15,7 @@
       --gray: #657786;
       --danger: #d62828;
       --success: #198754;
+      --warning: #b26b00;
       --shadow: 0 20px 60px rgba(0, 122, 167, 0.18);
       --radius: 28px;
     }
@@ -37,6 +38,178 @@
         #f8fdff;
       color: var(--black);
       overflow-x: hidden;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .login-page {
+      min-height: 100vh;
+      width: min(1150px, 92%);
+      margin: auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 45px;
+      align-items: center;
+      padding: 50px 0;
+    }
+
+    .login-left h1 {
+      font-size: clamp(46px, 7vw, 86px);
+      line-height: 0.95;
+      letter-spacing: -4px;
+      margin-bottom: 22px;
+    }
+
+    .login-left h1 span {
+      color: var(--blue);
+    }
+
+    .login-left p {
+      color: var(--gray);
+      font-size: 18px;
+      line-height: 1.8;
+      max-width: 580px;
+    }
+
+    .login-logo {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 25px;
+      box-shadow: var(--shadow);
+      animation: float 5s ease-in-out infinite;
+    }
+
+    .login-card {
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid rgba(8, 169, 217, 0.18);
+      border-radius: 36px;
+      padding: 34px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+
+    .login-card h2 {
+      font-size: 36px;
+      letter-spacing: -2px;
+      margin-bottom: 10px;
+    }
+
+    .login-card p {
+      color: var(--gray);
+      line-height: 1.7;
+      margin-bottom: 22px;
+    }
+
+    .tag {
+      color: var(--dark-blue);
+      font-size: 13px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+    }
+
+    form {
+      display: grid;
+      gap: 14px;
+    }
+
+    label {
+      font-weight: 900;
+      font-size: 14px;
+      display: grid;
+      gap: 8px;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 14px 15px;
+      border-radius: 16px;
+      border: 1px solid rgba(8, 169, 217, 0.22);
+      outline: none;
+      background: rgba(255, 255, 255, 0.86);
+      color: var(--black);
+      font-size: 15px;
+    }
+
+    textarea {
+      resize: vertical;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 4px rgba(8, 169, 217, 0.12);
+    }
+
+    .btn {
+      border: none;
+      outline: none;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      padding: 15px 22px;
+      border-radius: 999px;
+      font-weight: 900;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+    }
+
+    .primary {
+      background: linear-gradient(135deg, var(--blue), var(--dark-blue));
+      color: var(--white);
+      box-shadow: 0 12px 28px rgba(8, 169, 217, 0.28);
+    }
+
+    .secondary {
+      background: var(--white);
+      color: var(--dark-blue);
+      border: 1px solid rgba(8, 169, 217, 0.22);
+    }
+
+    .danger {
+      background: #fff0f0;
+      color: var(--danger);
+      border: 1px solid rgba(214, 40, 40, 0.18);
+    }
+
+    .full {
+      width: 100%;
+    }
+
+    .login-actions {
+      display: grid;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .error {
+      color: var(--danger);
+      font-weight: bold;
+      min-height: 22px;
+      margin-top: 8px;
+    }
+
+    .demo-box {
+      margin-top: 18px;
+      padding: 16px;
+      background: var(--light-blue);
+      border-radius: 20px;
+      color: var(--gray);
+      font-size: 13px;
+      line-height: 1.7;
     }
 
     header {
@@ -84,6 +257,7 @@
     nav {
       display: flex;
       gap: 8px;
+      align-items: center;
     }
 
     nav a {
@@ -101,6 +275,32 @@
       background: var(--light-blue);
     }
 
+    .user-area {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .role-badge {
+      padding: 9px 13px;
+      border-radius: 999px;
+      background: var(--light-blue);
+      color: var(--dark-blue);
+      font-weight: 900;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .logout-btn {
+      border: none;
+      cursor: pointer;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: #fff0f0;
+      color: var(--danger);
+      font-weight: 900;
+    }
+
     .section {
       width: min(1150px, 92%);
       margin: auto;
@@ -113,15 +313,6 @@
       grid-template-columns: 1.1fr 0.9fr;
       gap: 45px;
       align-items: center;
-    }
-
-    .tag {
-      color: var(--dark-blue);
-      font-size: 13px;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      margin-bottom: 16px;
     }
 
     h1 {
@@ -148,42 +339,6 @@
       display: flex;
       gap: 14px;
       flex-wrap: wrap;
-    }
-
-    .btn {
-      border: none;
-      outline: none;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      padding: 15px 22px;
-      border-radius: 999px;
-      font-weight: 900;
-      transition: 0.3s;
-    }
-
-    .btn:hover {
-      transform: translateY(-3px);
-    }
-
-    .primary {
-      background: linear-gradient(135deg, var(--blue), var(--dark-blue));
-      color: var(--white);
-      box-shadow: 0 12px 28px rgba(8, 169, 217, 0.28);
-    }
-
-    .secondary {
-      background: var(--white);
-      color: var(--dark-blue);
-      border: 1px solid rgba(8, 169, 217, 0.22);
-    }
-
-    .danger {
-      background: #fff0f0;
-      color: var(--danger);
-      border: 1px solid rgba(214, 40, 40, 0.18);
     }
 
     .hero-card {
@@ -321,79 +476,23 @@
       line-height: 1.7;
     }
 
-    .lock-screen {
-      display: grid;
-      place-items: center;
-      min-height: 500px;
-    }
-
-    .lock-box {
-      width: min(430px, 100%);
+    .private-message {
+      padding: 35px;
       text-align: center;
-      padding: 34px;
+      border-radius: 34px;
       background: rgba(255, 255, 255, 0.82);
       border: 1px solid rgba(8, 169, 217, 0.18);
-      border-radius: 34px;
       box-shadow: var(--shadow);
     }
 
-    .lock-box img {
-      width: 110px;
-      height: 110px;
-      object-fit: cover;
-      border-radius: 50%;
-      margin-bottom: 18px;
+    .private-message h2 {
+      font-size: 38px;
+      margin-bottom: 12px;
     }
 
-    .lock-box h2 {
-      font-size: 36px;
-      margin-bottom: 10px;
-    }
-
-    .lock-box p {
+    .private-message p {
       color: var(--gray);
-      line-height: 1.7;
-    }
-
-    .pin-row {
-      display: flex;
-      gap: 10px;
-      margin: 22px 0 10px;
-    }
-
-    input,
-    select,
-    textarea {
-      width: 100%;
-      padding: 14px 15px;
-      border-radius: 16px;
-      border: 1px solid rgba(8, 169, 217, 0.22);
-      outline: none;
-      background: rgba(255, 255, 255, 0.86);
-      color: var(--black);
-      font-size: 15px;
-    }
-
-    textarea {
-      resize: vertical;
-    }
-
-    input:focus,
-    select:focus,
-    textarea:focus {
-      border-color: var(--blue);
-      box-shadow: 0 0 0 4px rgba(8, 169, 217, 0.12);
-    }
-
-    .error {
-      color: var(--danger);
-      font-weight: bold;
-      min-height: 22px;
-      margin-top: 8px;
-    }
-
-    .hidden {
-      display: none !important;
+      line-height: 1.8;
     }
 
     .dashboard-actions {
@@ -451,18 +550,6 @@
       font-size: 26px;
       margin-bottom: 18px;
       letter-spacing: -1px;
-    }
-
-    form {
-      display: grid;
-      gap: 14px;
-    }
-
-    label {
-      font-weight: 900;
-      font-size: 14px;
-      display: grid;
-      gap: 8px;
     }
 
     .two {
@@ -543,7 +630,7 @@
     }
 
     .due {
-      color: #b26b00;
+      color: var(--warning);
       background: #fff5dd;
       padding: 6px 10px;
       border-radius: 999px;
@@ -583,6 +670,14 @@
     }
 
     @media (max-width: 900px) {
+      .login-page,
+      .hero,
+      .features,
+      .summary,
+      .forms {
+        grid-template-columns: 1fr;
+      }
+
       header {
         border-radius: 26px;
         align-items: flex-start;
@@ -595,11 +690,9 @@
         overflow-x: auto;
       }
 
-      .hero,
-      .features,
-      .summary,
-      .forms {
-        grid-template-columns: 1fr;
+      .user-area {
+        width: 100%;
+        justify-content: space-between;
       }
 
       .stats {
@@ -623,304 +716,436 @@
         max-width: none;
       }
 
-      .pin-row {
-        flex-direction: column;
-      }
-
       .btn {
         width: 100%;
+      }
+
+      .two {
+        grid-template-columns: 1fr;
       }
     }
   </style>
 </head>
 
 <body>
-  <header>
-    <div class="brand">
-      <img src="dramagic-logo.png" alt="Dramagic Logo">
-      <div>
-        <h2>Dramagic</h2>
-        <p>English Drama Academy</p>
-      </div>
+  <section id="loginPage" class="login-page">
+    <div class="login-left reveal">
+      <img class="login-logo" src="dramagic-logo.png" alt="Dramagic Logo">
+      <div class="tag">Welcome to Dramagic</div>
+      <h1>Enter the <span>magic</span> your own way.</h1>
+      <p>
+        Login as a student, teacher, or CEO. Guests can enter too, but private areas like finance stay locked.
+      </p>
     </div>
 
-    <nav>
-      <a href="#home" class="active">Home</a>
-      <a href="#financial">Financial</a>
-      <a href="#about">About</a>
-    </nav>
-  </header>
+    <div class="login-card reveal">
+      <div class="tag">Login Portal</div>
+      <h2>Sign in</h2>
+      <p>Use your username and password, or continue as a guest.</p>
 
-  <main>
-    <section id="home" class="section hero">
-      <div class="reveal">
-        <div class="tag">Where language meets stage magic</div>
-        <h1>English, drama, and confidence in one <span>magical</span> place.</h1>
-        <p>
-          Dramagic is a creative English Drama Academy where students learn language,
-          confidence, presentation skills, acting, and teamwork through live performance.
-        </p>
+      <form id="loginForm">
+        <label>
+          Username
+          <input id="usernameInput" type="text" placeholder="Example: omar" autocomplete="username">
+        </label>
 
-        <div class="buttons">
-          <a class="btn primary" href="#financial">Open Financial Dashboard</a>
-          <a class="btn secondary" href="#about">See The Vision</a>
+        <label>
+          Password
+          <input id="passwordInput" type="password" placeholder="Enter password" autocomplete="current-password">
+        </label>
+
+        <div class="login-actions">
+          <button class="btn primary full" type="submit">Login</button>
+          <button class="btn secondary full" type="button" id="guestBtn">Continue as Guest</button>
         </div>
 
-        <div class="stats">
-          <div class="stat">
-            <strong id="homeStudents">0</strong>
-            <span>Students Tracked</span>
-          </div>
-          <div class="stat">
-            <strong id="homeRevenue">EGP 0</strong>
-            <span>Total Revenue</span>
-          </div>
-          <div class="stat">
-            <strong id="homeProfit">EGP 0</strong>
-            <span>Estimated Profit</span>
-          </div>
-        </div>
+        <div id="loginError" class="error"></div>
+      </form>
+
+      <div class="demo-box">
+        <b>Testing accounts:</b><br>
+        Student: student / student123<br>
+        Teacher: teacher / teacher123<br>
+        CEO 1: omar / ceo123<br>
+        CEO 2: founder / ceo456
       </div>
+    </div>
+  </section>
 
-      <div class="hero-card reveal">
+  <div id="app" class="hidden">
+    <header>
+      <div class="brand">
         <img src="dramagic-logo.png" alt="Dramagic Logo">
-        <div class="pill one">Drama</div>
-        <div class="pill two">English</div>
-        <div class="pill three">Confidence</div>
-      </div>
-    </section>
-
-    <section id="about" class="section">
-      <div class="title reveal">
-        <div class="tag">First version</div>
-        <h2>We start with the <span>home page</span> and financial system.</h2>
-        <p>
-          This is the starter version. Later we can add student profiles, attendance,
-          presentation tracking, Wordle points, teacher tools, tickets, and the full platform.
-        </p>
-      </div>
-
-      <div class="features">
-        <div class="card reveal">
-          <div class="icon">✦</div>
-          <h3>Live Design</h3>
-          <p>Soft Dramagic colors, floating animation, glass cards, and a modern academy feeling.</p>
-        </div>
-
-        <div class="card reveal">
-          <div class="icon">₤</div>
-          <h3>Financial Dashboard</h3>
-          <p>Track students, payments, remaining money, expenses, dates, times, and notes.</p>
-        </div>
-
-        <div class="card reveal">
-          <div class="icon">★</div>
-          <h3>Easy Start</h3>
-          <p>This version uses only HTML, CSS, and JavaScript, so you can test it directly on your iPad.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="financial" class="section">
-      <div id="lockScreen" class="lock-screen">
-        <div class="lock-box reveal">
-          <img src="dramagic-logo.png" alt="Dramagic Logo">
-          <div class="tag">Private Area</div>
-          <h2>Financial Dashboard</h2>
-          <p>For Omar and the CEO/founder only.</p>
-
-          <form id="pinForm">
-            <div class="pin-row">
-              <input id="pinInput" type="password" placeholder="Enter PIN">
-              <button class="btn primary" type="submit">Unlock</button>
-            </div>
-          </form>
-
-          <p style="font-size: 13px;">Starter PIN: <b>0000</b></p>
-          <div id="pinError" class="error"></div>
+        <div>
+          <h2>Dramagic</h2>
+          <p>English Drama Academy</p>
         </div>
       </div>
 
-      <div id="dashboard" class="hidden">
-        <div class="title reveal">
-          <div class="tag">Money Control Center</div>
-          <h2>Financial <span>Dashboard</span></h2>
+      <nav>
+        <a href="#home" class="active">Home</a>
+        <a href="#studentArea" id="studentNav">Student</a>
+        <a href="#teacherArea" id="teacherNav">Teacher</a>
+        <a href="#financial" id="financeNav">Financial</a>
+        <a href="#about">About</a>
+      </nav>
+
+      <div class="user-area">
+        <span id="roleBadge" class="role-badge">Guest</span>
+        <button id="logoutBtn" class="logout-btn">Logout</button>
+      </div>
+    </header>
+
+    <main>
+      <section id="home" class="section hero">
+        <div class="reveal">
+          <div class="tag">Where language meets stage magic</div>
+          <h1>English, drama, and confidence in one <span>magical</span> place.</h1>
           <p>
-            Add students, payments, expenses, date, time, and detailed notes.
-            The totals update automatically.
+            Dramagic is a creative English Drama Academy where students learn language,
+            confidence, presentation skills, acting, and teamwork through live performance.
+          </p>
+
+          <div class="buttons">
+            <a class="btn primary" href="#studentArea">Open Portal</a>
+            <a class="btn secondary ceo-only" href="#financial">Open Finance</a>
+          </div>
+
+          <div class="stats">
+            <div class="stat">
+              <strong id="homeStudents">0</strong>
+              <span>Students Tracked</span>
+            </div>
+            <div class="stat">
+              <strong id="homeRevenue">EGP 0</strong>
+              <span>Total Revenue</span>
+            </div>
+            <div class="stat">
+              <strong id="homeProfit">EGP 0</strong>
+              <span>Estimated Profit</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-card reveal">
+          <img src="dramagic-logo.png" alt="Dramagic Logo">
+          <div class="pill one">Drama</div>
+          <div class="pill two">English</div>
+          <div class="pill three">Confidence</div>
+        </div>
+      </section>
+
+      <section id="studentArea" class="section">
+        <div class="title reveal">
+          <div class="tag">Student Portal</div>
+          <h2>Student <span>Area</span></h2>
+          <p>
+            This is where we will later add homework, presentation points, Wordle links,
+            course materials, and student progress.
           </p>
         </div>
 
-        <div class="dashboard-actions reveal">
-          <button id="lockBtn" class="btn secondary">Lock Dashboard</button>
-          <button id="resetBtn" class="btn danger">Reset All Data</button>
-        </div>
+        <div class="features">
+          <div class="card reveal">
+            <div class="icon">📚</div>
+            <h3>Homework</h3>
+            <p>Students will see homework, tasks, and what they need to prepare for the next session.</p>
+          </div>
 
-        <div class="summary reveal">
-          <div class="panel">
-            <span>Total Revenue</span>
-            <strong id="totalRevenue">EGP 0</strong>
+          <div class="card reveal">
+            <div class="icon">🎭</div>
+            <h3>Presentation Skills</h3>
+            <p>Students will track presentation practice, stage confidence, and performance progress.</p>
           </div>
-          <div class="panel">
-            <span>Total Expenses</span>
-            <strong id="totalExpenses">EGP 0</strong>
-          </div>
-          <div class="panel">
-            <span>Remaining Payments</span>
-            <strong id="totalRemaining">EGP 0</strong>
-          </div>
-          <div class="panel profit">
-            <span>Estimated Profit</span>
-            <strong id="totalProfit">EGP 0</strong>
+
+          <div class="card reveal">
+            <div class="icon">⭐</div>
+            <h3>Points</h3>
+            <p>Later we can connect Wordle points, attendance points, and activity rewards.</p>
           </div>
         </div>
+      </section>
 
-        <div class="forms">
-          <div class="panel reveal">
-            <h3>Add Student Payment</h3>
+      <section id="teacherArea" class="section">
+        <div id="teacherAllowed">
+          <div class="title reveal">
+            <div class="tag">Teacher Portal</div>
+            <h2>Teacher <span>Area</span></h2>
+            <p>
+              This is where teachers will later manage attendance, class groups, student lists,
+              and presentation tracking.
+            </p>
+          </div>
 
-            <form id="studentForm">
-              <label>
-                Student Name
-                <input id="studentName" type="text" placeholder="Example: Jana Ahmed" required>
-              </label>
+          <div class="features">
+            <div class="card reveal">
+              <div class="icon">✅</div>
+              <h3>Attendance</h3>
+              <p>Teachers will mark attendance and track who came to each session.</p>
+            </div>
 
-              <label>
-                Course / Group
-                <input id="studentCourse" type="text" placeholder="Example: Summer Course">
-              </label>
+            <div class="card reveal">
+              <div class="icon">🎤</div>
+              <h3>Presenters</h3>
+              <p>Teachers will see who has presented and who still needs a turn.</p>
+            </div>
 
-              <div class="two">
+            <div class="card reveal">
+              <div class="icon">📝</div>
+              <h3>Notes</h3>
+              <p>Teachers will write simple notes about students, classes, and progress.</p>
+            </div>
+          </div>
+        </div>
+
+        <div id="teacherDenied" class="private-message hidden">
+          <h2>Teacher Area Locked</h2>
+          <p>This page is only for teachers and CEOs.</p>
+        </div>
+      </section>
+
+      <section id="about" class="section">
+        <div class="title reveal">
+          <div class="tag">First version</div>
+          <h2>We start with the <span>home page</span>, login, and financial system.</h2>
+          <p>
+            Later we can add student profiles, attendance, presentation tracking,
+            Wordle points, teacher tools, tickets, NFC attendance, and the full Dramagic platform.
+          </p>
+        </div>
+
+        <div class="features">
+          <div class="card reveal">
+            <div class="icon">✦</div>
+            <h3>Live Design</h3>
+            <p>Soft Dramagic colors, floating animation, glass cards, and a modern academy feeling.</p>
+          </div>
+
+          <div class="card reveal">
+            <div class="icon">🔐</div>
+            <h3>Role Login</h3>
+            <p>Different access for guests, students, teachers, and CEOs.</p>
+          </div>
+
+          <div class="card reveal">
+            <div class="icon">₤</div>
+            <h3>Financial Dashboard</h3>
+            <p>Only CEOs can access student payments, expenses, remaining balances, and profit.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="financial" class="section">
+        <div id="financeDenied" class="private-message hidden">
+          <h2>Financial Area Locked</h2>
+          <p>Only CEO accounts can access the financial dashboard.</p>
+        </div>
+
+        <div id="financeDashboard">
+          <div class="title reveal">
+            <div class="tag">CEO Money Control Center</div>
+            <h2>Financial <span>Dashboard</span></h2>
+            <p>
+              Add students, payments, expenses, date, time, and detailed notes.
+              The totals update automatically.
+            </p>
+          </div>
+
+          <div class="dashboard-actions reveal">
+            <button id="resetBtn" class="btn danger">Reset All Data</button>
+          </div>
+
+          <div class="summary reveal">
+            <div class="panel">
+              <span>Total Revenue</span>
+              <strong id="totalRevenue">EGP 0</strong>
+            </div>
+            <div class="panel">
+              <span>Total Expenses</span>
+              <strong id="totalExpenses">EGP 0</strong>
+            </div>
+            <div class="panel">
+              <span>Remaining Payments</span>
+              <strong id="totalRemaining">EGP 0</strong>
+            </div>
+            <div class="panel profit">
+              <span>Estimated Profit</span>
+              <strong id="totalProfit">EGP 0</strong>
+            </div>
+          </div>
+
+          <div class="forms">
+            <div class="panel reveal">
+              <h3>Add Student Payment</h3>
+
+              <form id="studentForm">
                 <label>
-                  Total Fee
-                  <input id="studentFee" type="number" placeholder="3000" min="0" required>
+                  Student Name
+                  <input id="studentName" type="text" placeholder="Example: Jana Ahmed" required>
                 </label>
 
                 <label>
-                  Paid Amount
-                  <input id="studentPaid" type="number" placeholder="1000" min="0" required>
+                  Course / Group
+                  <input id="studentCourse" type="text" placeholder="Example: Summer Course">
                 </label>
+
+                <div class="two">
+                  <label>
+                    Total Fee
+                    <input id="studentFee" type="number" placeholder="3000" min="0" required>
+                  </label>
+
+                  <label>
+                    Paid Amount
+                    <input id="studentPaid" type="number" placeholder="1000" min="0" required>
+                  </label>
+                </div>
+
+                <label>
+                  Payment Date & Time
+                  <input id="studentDate" type="datetime-local" required>
+                </label>
+
+                <label>
+                  Notes
+                  <textarea id="studentNotes" rows="3" placeholder="Example: paid cash, remaining next week"></textarea>
+                </label>
+
+                <button class="btn primary" type="submit">Save Student</button>
+              </form>
+            </div>
+
+            <div class="panel reveal">
+              <h3>Add Expense</h3>
+
+              <form id="expenseForm">
+                <label>
+                  Expense Title
+                  <input id="expenseTitle" type="text" placeholder="Example: Theater rent" required>
+                </label>
+
+                <label>
+                  Category
+                  <select id="expenseCategory">
+                    <option>Venue</option>
+                    <option>Costumes</option>
+                    <option>Marketing</option>
+                    <option>Printing</option>
+                    <option>Transportation</option>
+                    <option>Salaries</option>
+                    <option>Other</option>
+                  </select>
+                </label>
+
+                <label>
+                  Amount
+                  <input id="expenseAmount" type="number" placeholder="35000" min="0" required>
+                </label>
+
+                <label>
+                  Paid Date & Time
+                  <input id="expenseDate" type="datetime-local" required>
+                </label>
+
+                <label>
+                  Detailed Notes
+                  <textarea id="expenseNotes" rows="3" placeholder="Write why this money was paid"></textarea>
+                </label>
+
+                <button class="btn primary" type="submit">Save Expense</button>
+              </form>
+            </div>
+          </div>
+
+          <div class="records">
+            <div class="panel reveal">
+              <div class="table-top">
+                <h3>Student Payments</h3>
+                <input id="studentSearch" type="search" placeholder="Search students...">
               </div>
 
-              <label>
-                Payment Date & Time
-                <input id="studentDate" type="datetime-local" required>
-              </label>
-
-              <label>
-                Notes
-                <textarea id="studentNotes" rows="3" placeholder="Example: paid cash, remaining next week"></textarea>
-              </label>
-
-              <button class="btn primary" type="submit">Save Student</button>
-            </form>
-          </div>
-
-          <div class="panel reveal">
-            <h3>Add Expense</h3>
-
-            <form id="expenseForm">
-              <label>
-                Expense Title
-                <input id="expenseTitle" type="text" placeholder="Example: Theater rent" required>
-              </label>
-
-              <label>
-                Category
-                <select id="expenseCategory">
-                  <option>Venue</option>
-                  <option>Costumes</option>
-                  <option>Marketing</option>
-                  <option>Printing</option>
-                  <option>Transportation</option>
-                  <option>Salaries</option>
-                  <option>Other</option>
-                </select>
-              </label>
-
-              <label>
-                Amount
-                <input id="expenseAmount" type="number" placeholder="35000" min="0" required>
-              </label>
-
-              <label>
-                Paid Date & Time
-                <input id="expenseDate" type="datetime-local" required>
-              </label>
-
-              <label>
-                Detailed Notes
-                <textarea id="expenseNotes" rows="3" placeholder="Write why this money was paid"></textarea>
-              </label>
-
-              <button class="btn primary" type="submit">Save Expense</button>
-            </form>
-          </div>
-        </div>
-
-        <div class="records">
-          <div class="panel reveal">
-            <div class="table-top">
-              <h3>Student Payments</h3>
-              <input id="studentSearch" type="search" placeholder="Search students...">
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Course</th>
+                      <th>Fee</th>
+                      <th>Paid</th>
+                      <th>Remaining</th>
+                      <th>Date</th>
+                      <th>Notes</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody id="studentsTable"></tbody>
+                </table>
+              </div>
             </div>
 
-            <div class="table-wrap">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Course</th>
-                    <th>Fee</th>
-                    <th>Paid</th>
-                    <th>Remaining</th>
-                    <th>Date</th>
-                    <th>Notes</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody id="studentsTable"></tbody>
-              </table>
-            </div>
-          </div>
+            <div class="panel reveal">
+              <div class="table-top">
+                <h3>Expenses</h3>
+                <input id="expenseSearch" type="search" placeholder="Search expenses...">
+              </div>
 
-          <div class="panel reveal">
-            <div class="table-top">
-              <h3>Expenses</h3>
-              <input id="expenseSearch" type="search" placeholder="Search expenses...">
-            </div>
-
-            <div class="table-wrap">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Title</th>
-                    <th>Category</th>
-                    <th>Amount</th>
-                    <th>Date</th>
-                    <th>Notes</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody id="expensesTable"></tbody>
-              </table>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Title</th>
+                      <th>Category</th>
+                      <th>Amount</th>
+                      <th>Date</th>
+                      <th>Notes</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody id="expensesTable"></tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
-  </main>
+      </section>
+    </main>
 
-  <footer>
-    © <span id="year"></span> Dramagic English Drama Academy. Built with magic.
-  </footer>
+    <footer>
+      © <span id="year"></span> Dramagic English Drama Academy. Built with magic.
+    </footer>
+  </div>
 
   <script>
-    const PIN = "0000";
+    const accounts = [
+      {
+        username: "student",
+        password: "student123",
+        role: "student",
+        name: "Student"
+      },
+      {
+        username: "teacher",
+        password: "teacher123",
+        role: "teacher",
+        name: "Teacher"
+      },
+      {
+        username: "omar",
+        password: "ceo123",
+        role: "ceo",
+        name: "Omar"
+      },
+      {
+        username: "founder",
+        password: "ceo456",
+        role: "ceo",
+        name: "Founder"
+      }
+    ];
 
+    let currentUser = JSON.parse(sessionStorage.getItem("dramagic_current_user")) || null;
     let students = JSON.parse(localStorage.getItem("dramagic_students")) || [];
     let expenses = JSON.parse(localStorage.getItem("dramagic_expenses")) || [];
-    let unlocked = sessionStorage.getItem("dramagic_unlocked") === "true";
 
     const money = new Intl.NumberFormat("en-EG", {
       style: "currency",
@@ -928,21 +1153,129 @@
       maximumFractionDigits: 0
     });
 
-    const lockScreen = document.getElementById("lockScreen");
-    const dashboard = document.getElementById("dashboard");
-    const pinForm = document.getElementById("pinForm");
-    const pinInput = document.getElementById("pinInput");
-    const pinError = document.getElementById("pinError");
+    const loginPage = document.getElementById("loginPage");
+    const app = document.getElementById("app");
+    const loginForm = document.getElementById("loginForm");
+    const guestBtn = document.getElementById("guestBtn");
+    const loginError = document.getElementById("loginError");
+    const usernameInput = document.getElementById("usernameInput");
+    const passwordInput = document.getElementById("passwordInput");
+
+    const roleBadge = document.getElementById("roleBadge");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    const financeNav = document.getElementById("financeNav");
+    const teacherNav = document.getElementById("teacherNav");
+    const studentNav = document.getElementById("studentNav");
+
+    const financeDashboard = document.getElementById("financeDashboard");
+    const financeDenied = document.getElementById("financeDenied");
+    const teacherAllowed = document.getElementById("teacherAllowed");
+    const teacherDenied = document.getElementById("teacherDenied");
 
     const studentForm = document.getElementById("studentForm");
     const expenseForm = document.getElementById("expenseForm");
     const studentsTable = document.getElementById("studentsTable");
     const expensesTable = document.getElementById("expensesTable");
-
     const studentSearch = document.getElementById("studentSearch");
     const expenseSearch = document.getElementById("expenseSearch");
 
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    function login(user) {
+      currentUser = user;
+      sessionStorage.setItem("dramagic_current_user", JSON.stringify(currentUser));
+      showApp();
+    }
+
+    function logout() {
+      currentUser = null;
+      sessionStorage.removeItem("dramagic_current_user");
+      loginPage.classList.remove("hidden");
+      app.classList.add("hidden");
+      usernameInput.value = "";
+      passwordInput.value = "";
+      loginError.textContent = "";
+      window.location.hash = "";
+    }
+
+    loginForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const username = usernameInput.value.trim().toLowerCase();
+      const password = passwordInput.value.trim();
+
+      const foundAccount = accounts.find(function(account) {
+        return account.username === username && account.password === password;
+      });
+
+      if (!foundAccount) {
+        loginError.textContent = "Wrong username or password.";
+        return;
+      }
+
+      login(foundAccount);
+    });
+
+    guestBtn.addEventListener("click", function() {
+      login({
+        username: "guest",
+        password: "",
+        role: "guest",
+        name: "Guest"
+      });
+    });
+
+    logoutBtn.addEventListener("click", logout);
+
+    function showApp() {
+      if (!currentUser) {
+        loginPage.classList.remove("hidden");
+        app.classList.add("hidden");
+        return;
+      }
+
+      loginPage.classList.add("hidden");
+      app.classList.remove("hidden");
+
+      roleBadge.textContent = currentUser.name + " • " + currentUser.role.toUpperCase();
+
+      applyRoleAccess();
+      setTodayDate();
+      renderAll();
+      startRevealAnimation();
+    }
+
+    function applyRoleAccess() {
+      const role = currentUser.role;
+
+      financeNav.classList.toggle("hidden", role !== "ceo");
+      document.querySelectorAll(".ceo-only").forEach(function(item) {
+        item.classList.toggle("hidden", role !== "ceo");
+      });
+
+      if (role === "ceo") {
+        financeDashboard.classList.remove("hidden");
+        financeDenied.classList.add("hidden");
+      } else {
+        financeDashboard.classList.add("hidden");
+        financeDenied.classList.remove("hidden");
+      }
+
+      if (role === "teacher" || role === "ceo") {
+        teacherAllowed.classList.remove("hidden");
+        teacherDenied.classList.add("hidden");
+      } else {
+        teacherAllowed.classList.add("hidden");
+        teacherDenied.classList.remove("hidden");
+      }
+
+      if (role === "guest") {
+        studentNav.textContent = "Guest";
+      } else {
+        studentNav.textContent = "Student";
+      }
+    }
 
     function saveData() {
       localStorage.setItem("dramagic_students", JSON.stringify(students));
@@ -959,36 +1292,6 @@
       document.getElementById("expenseDate").value = local;
     }
 
-    function showDashboardState() {
-      if (unlocked) {
-        lockScreen.classList.add("hidden");
-        dashboard.classList.remove("hidden");
-      } else {
-        lockScreen.classList.remove("hidden");
-        dashboard.classList.add("hidden");
-      }
-    }
-
-    pinForm.addEventListener("submit", function(e) {
-      e.preventDefault();
-
-      if (pinInput.value === PIN) {
-        unlocked = true;
-        sessionStorage.setItem("dramagic_unlocked", "true");
-        pinInput.value = "";
-        pinError.textContent = "";
-        showDashboardState();
-      } else {
-        pinError.textContent = "Wrong PIN. Try again.";
-      }
-    });
-
-    document.getElementById("lockBtn").addEventListener("click", function() {
-      unlocked = false;
-      sessionStorage.removeItem("dramagic_unlocked");
-      showDashboardState();
-    });
-
     document.getElementById("resetBtn").addEventListener("click", function() {
       const sure = confirm("Are you sure? This will delete all saved students and expenses on this device.");
 
@@ -1002,6 +1305,11 @@
 
     studentForm.addEventListener("submit", function(e) {
       e.preventDefault();
+
+      if (currentUser.role !== "ceo") {
+        alert("Only CEO accounts can edit finance.");
+        return;
+      }
 
       const student = {
         id: Date.now().toString(),
@@ -1022,6 +1330,11 @@
 
     expenseForm.addEventListener("submit", function(e) {
       e.preventDefault();
+
+      if (currentUser.role !== "ceo") {
+        alert("Only CEO accounts can edit finance.");
+        return;
+      }
 
       const expense = {
         id: Date.now().toString(),
@@ -1068,7 +1381,7 @@
     function renderStudents() {
       const search = studentSearch.value.toLowerCase();
 
-      const filtered = students.filter(s => {
+      const filtered = students.filter(function(s) {
         return `${s.name} ${s.course} ${s.notes}`.toLowerCase().includes(search);
       });
 
@@ -1083,7 +1396,7 @@
         return;
       }
 
-      studentsTable.innerHTML = filtered.map(s => {
+      studentsTable.innerHTML = filtered.map(function(s) {
         const remaining = Math.max(Number(s.fee) - Number(s.paid), 0);
         const remainingHTML = remaining <= 0
           ? `<span class="paid">Paid</span>`
@@ -1107,7 +1420,7 @@
     function renderExpenses() {
       const search = expenseSearch.value.toLowerCase();
 
-      const filtered = expenses.filter(e => {
+      const filtered = expenses.filter(function(e) {
         return `${e.title} ${e.category} ${e.notes}`.toLowerCase().includes(search);
       });
 
@@ -1122,7 +1435,7 @@
         return;
       }
 
-      expensesTable.innerHTML = filtered.map(e => {
+      expensesTable.innerHTML = filtered.map(function(e) {
         return `
           <tr>
             <td><strong>${clean(e.title)}</strong></td>
@@ -1137,19 +1450,35 @@
     }
 
     function deleteStudent(id) {
+      if (!currentUser || currentUser.role !== "ceo") {
+        alert("Only CEO accounts can delete finance records.");
+        return;
+      }
+
       const sure = confirm("Delete this student record?");
       if (!sure) return;
 
-      students = students.filter(s => s.id !== id);
+      students = students.filter(function(s) {
+        return s.id !== id;
+      });
+
       saveData();
       renderAll();
     }
 
     function deleteExpense(id) {
+      if (!currentUser || currentUser.role !== "ceo") {
+        alert("Only CEO accounts can delete finance records.");
+        return;
+      }
+
       const sure = confirm("Delete this expense record?");
       if (!sure) return;
 
-      expenses = expenses.filter(e => e.id !== id);
+      expenses = expenses.filter(function(e) {
+        return e.id !== id;
+      });
+
       saveData();
       renderAll();
     }
@@ -1178,19 +1507,32 @@
       renderExpenses();
     }
 
-    const observer = new IntersectionObserver(function(entries) {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("show");
-        }
+    function startRevealAnimation() {
+      const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("show");
+          }
+        });
+      }, { threshold: 0.12 });
+
+      document.querySelectorAll(".reveal").forEach(function(el) {
+        observer.observe(el);
       });
-    }, { threshold: 0.12 });
+    }
 
-    document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+    document.querySelectorAll("nav a").forEach(function(link) {
+      link.addEventListener("click", function() {
+        document.querySelectorAll("nav a").forEach(function(item) {
+          item.classList.remove("active");
+        });
 
-    setTodayDate();
-    showDashboardState();
-    renderAll();
+        link.classList.add("active");
+      });
+    });
+
+    startRevealAnimation();
+    showApp();
   </script>
 </body>
 </html>

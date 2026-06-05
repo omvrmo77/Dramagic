@@ -10,51 +10,88 @@
 </head>
 
 <body>
-  <!-- LOGIN PAGE -->
-  <section id="loginPage" class="login-page">
-    <div class="login-hero">
-      <img src="dramagic-logo.png" alt="Dramagic Logo" class="login-logo" />
+  <!-- AUTH PAGE -->
+  <section id="authPage" class="auth-page">
+    <div class="auth-hero">
+      <img src="dramagic-logo.png" alt="Dramagic Logo" class="auth-logo" />
 
       <p class="eyebrow">Welcome to Dramagic</p>
 
       <h1>
-        Enter the <span>magic</span> your own way.
+        Create your <span>secure</span> Dramagic account.
       </h1>
 
-      <p class="login-text">
-        Login as a student, teacher, or CEO. Guests can enter too, but private tools only appear for the right role.
+      <p>
+        Sign up using your email, birthday, and Dramagic student ID number.
+        If you already have an account, switch to sign in.
       </p>
     </div>
 
-    <div class="login-card">
-      <p class="eyebrow">Login Portal</p>
-      <h2>Sign in</h2>
-      <p>Use your username and password, or continue as a guest.</p>
+    <div class="auth-card">
+      <div class="auth-tabs">
+        <button id="showSignupBtn" class="tab-btn active" type="button">Sign Up</button>
+        <button id="showSigninBtn" class="tab-btn" type="button">Sign In</button>
+      </div>
 
-      <form id="loginForm">
+      <!-- SIGN UP -->
+      <form id="signupForm" class="auth-form">
+        <h2>Create account</h2>
+        <p>Use the ID number Dramagic gave you.</p>
+
         <label>
-          Username
-          <input id="usernameInput" type="text" placeholder="Example: omar" autocomplete="username" />
+          Full Name
+          <input id="signupFullName" type="text" placeholder="Example: Mohamed Ahmed" required />
+        </label>
+
+        <label>
+          Email
+          <input id="signupEmail" type="email" placeholder="example@email.com" required />
+        </label>
+
+        <label>
+          Birthday
+          <input id="signupBirthday" type="date" required />
+        </label>
+
+        <label>
+          Dramagic ID Number
+          <input id="signupStudentId" type="text" inputmode="numeric" placeholder="Example: 74000757" required />
         </label>
 
         <label>
           Password
-          <input id="passwordInput" type="password" placeholder="Enter password" autocomplete="current-password" />
+          <input id="signupPassword" type="password" placeholder="At least 8 characters" required />
         </label>
 
-        <button class="btn primary-btn" type="submit">Login</button>
-        <button class="btn ghost-btn" type="button" id="guestBtn">Continue as Guest</button>
+        <label>
+          Confirm Password
+          <input id="signupConfirmPassword" type="password" placeholder="Repeat password" required />
+        </label>
 
-        <div id="loginError" class="error-message"></div>
+        <button class="btn primary-btn" type="submit">Create Account</button>
+
+        <div id="signupMessage" class="form-message"></div>
       </form>
 
-      <div class="demo-box">
-        <strong>Testing accounts:</strong><br />
-        Student: student / student123<br />
-        Teacher: teacher / teacher123<br />
-        CEO 1: omar / ceo123<br />
-        CEO 2: founder / ceo456
-      </div>
+      <!-- SIGN IN -->
+      <form id="signinForm" class="auth-form hidden">
+        <h2>Sign in</h2>
+        <p>Already have an account? Enter your email and password.</p>
+
+        <label>
+          Email
+          <input id="signinEmail" type="email" placeholder="example@email.com" required />
+        </label>
+
+        <label>
+          Password
+          <input id="signinPassword" type="password" placeholder="Your password" required />
+        </label>
+
+        <button class="btn primary-btn" type="submit">Sign In</button>
+
+        <div id="signinMessage" class="form-message"></div>
+      </form>
     </div>
   </section>
 
@@ -72,15 +109,15 @@
 
       <nav class="nav">
         <a href="#home" class="nav-link active">Home</a>
-        <a href="#studentArea" class="nav-link">Student</a>
-        <a href="#teacherArea" class="nav-link teacher-link">Teacher</a>
+        <a href="#studentArea" class="nav-link student-link">Student</a>
+        <a href="#teacherArea" class="nav-link teacher-link hidden">Teacher</a>
         <a href="#financial" class="nav-link finance-link hidden">Finance</a>
         <a href="#about" class="nav-link">About</a>
       </nav>
 
       <div class="user-box">
-        <span id="roleBadge">Guest</span>
-        <button id="logoutBtn">Logout</button>
+        <span id="roleBadge">Loading...</span>
+        <button id="logoutBtn" type="button">Logout</button>
       </div>
     </header>
 
@@ -100,24 +137,25 @@
           </p>
 
           <div class="hero-buttons">
-            <a href="#studentArea" class="btn primary-btn">Open Portal</a>
+            <a href="#studentArea" class="btn primary-btn student-link">Open Student Area</a>
+            <a href="#teacherArea" class="btn ghost-btn teacher-link hidden">Open Teacher Area</a>
             <a href="#financial" class="btn ghost-btn finance-link hidden">Open Finance</a>
           </div>
 
-          <div class="stats-grid">
+          <div class="stats-grid ceo-only hidden">
             <div class="stat-card">
               <strong id="homeStudents">0</strong>
               <span>Students Tracked</span>
             </div>
 
-            <div class="stat-card ceo-only hidden">
+            <div class="stat-card">
               <strong id="homeRevenue">EGP 0</strong>
               <span>Total Revenue</span>
             </div>
 
-            <div class="stat-card ceo-only hidden">
+            <div class="stat-card">
               <strong id="homeProfit">EGP 0</strong>
-              <span>Estimated Profit</span>
+              <span>Net Profit</span>
             </div>
           </div>
         </div>
@@ -128,8 +166,20 @@
         </div>
       </section>
 
+      <!-- PENDING -->
+      <section id="pendingArea" class="section hidden">
+        <div class="status-card">
+          <p class="eyebrow">Account Pending</p>
+          <h2>Your account is waiting for approval.</h2>
+          <p>
+            Your Dramagic ID number was not found or was already used.
+            Please contact Dramagic so we can check your account.
+          </p>
+        </div>
+      </section>
+
       <!-- STUDENT -->
-      <section id="studentArea" class="section">
+      <section id="studentArea" class="section student-section">
         <div class="section-title">
           <p class="eyebrow">Student Portal</p>
           <h2>Student <span>Area</span></h2>
@@ -161,7 +211,7 @@
       </section>
 
       <!-- TEACHER -->
-      <section id="teacherArea" class="section teacher-section">
+      <section id="teacherArea" class="section teacher-section hidden">
         <div class="section-title">
           <p class="eyebrow">Teacher Portal</p>
           <h2>Teacher <span>Area</span></h2>
@@ -198,8 +248,9 @@
           <p class="eyebrow">Dramagic System</p>
           <h2>Built step by step, but made to <span>grow</span>.</h2>
           <p>
-            We are starting with login, home, student area, teacher area, and finance.
-            Later we can add tickets, NFC attendance, teacher dashboards, and the full platform.
+            We are starting with signup, secure login, home, student area,
+            teacher area, and finance. Later we can add tickets, NFC attendance,
+            Wordle points, and the full platform.
           </p>
         </div>
       </section>
@@ -247,7 +298,7 @@
           </div>
         </div>
 
-        <button id="resetBtn" class="btn danger-btn">Reset All Data</button>
+        <button id="resetBtn" class="btn danger-btn" type="button">Reset All Finance Data</button>
 
         <div class="forms-grid">
           <section class="panel">
@@ -286,7 +337,7 @@
                 <textarea id="studentNotes" rows="3" placeholder="Example: paid cash, remaining next week"></textarea>
               </label>
 
-              <button class="btn primary-btn" type="submit">Save Student</button>
+              <button class="btn primary-btn" type="submit">Save Student Payment</button>
             </form>
           </section>
 
@@ -357,6 +408,7 @@
     </footer>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="script.js"></script>
 </body>
 </html>

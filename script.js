@@ -1,33 +1,12 @@
-const accounts = [
-  {
-    username: "student",
-    password: "student123",
-    role: "student",
-    name: "Student"
-  },
-  {
-    username: "teacher",
-    password: "teacher123",
-    role: "teacher",
-    name: "Teacher"
-  },
-  {
-    username: "omar",
-    password: "ceo123",
-    role: "ceo",
-    name: "Omar"
-  },
-  {
-    username: "founder",
-    password: "ceo456",
-    role: "ceo",
-    name: "Founder"
-  }
-];
+const SUPABASE_URL = "PASTE_YOUR_SUPABASE_PROJECT_URL_HERE";
+const SUPABASE_ANON_KEY = "PASTE_YOUR_SUPABASE_ANON_PUBLIC_KEY_HERE";
 
-let currentUser = JSON.parse(sessionStorage.getItem("dramagic_current_user")) || null;
-let students = JSON.parse(localStorage.getItem("dramagic_students")) || [];
-let expenses = JSON.parse(localStorage.getItem("dramagic_expenses")) || [];
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+let currentUser = null;
+let currentProfile = null;
+let students = [];
+let expenses = [];
 
 const money = new Intl.NumberFormat("en-EG", {
   style: "currency",
@@ -35,18 +14,24 @@ const money = new Intl.NumberFormat("en-EG", {
   maximumFractionDigits: 0
 });
 
-const loginPage = document.getElementById("loginPage");
+const authPage = document.getElementById("authPage");
 const app = document.getElementById("app");
-const loginForm = document.getElementById("loginForm");
-const guestBtn = document.getElementById("guestBtn");
-const loginError = document.getElementById("loginError");
-const usernameInput = document.getElementById("usernameInput");
-const passwordInput = document.getElementById("passwordInput");
+
+const showSignupBtn = document.getElementById("showSignupBtn");
+const showSigninBtn = document.getElementById("showSigninBtn");
+const signupForm = document.getElementById("signupForm");
+const signinForm = document.getElementById("signinForm");
+
+const signupMessage = document.getElementById("signupMessage");
+const signinMessage = document.getElementById("signinMessage");
+
 const roleBadge = document.getElementById("roleBadge");
 const logoutBtn = document.getElementById("logoutBtn");
 
+const pendingArea = document.getElementById("pendingArea");
+const studentArea = document.getElementById("studentArea");
+const teacherArea = document.getElementById("teacherArea");
 const financeSection = document.getElementById("financial");
-const teacherSection = document.getElementById("teacherArea");
 
 const studentForm = document.getElementById("studentForm");
 const expenseForm = document.getElementById("expenseForm");
@@ -58,102 +43,32 @@ const expensesList = document.getElementById("expensesList");
 
 document.getElementById("year").textContent = new Date().getFullYear();
 
-loginForm.addEventListener("submit", function (event) {
-  event.preventDefault();
+showSignupBtn.addEventListener("click", showSignup);
+showSigninBtn.addEventListener("click", showSignin);
 
-  const username = usernameInput.value.trim().toLowerCase();
-  const password = passwordInput.value.trim();
+signupForm.addEventListener("submit", handleSignup);
+signinForm.addEventListener("submit", handleSignin);
+logoutBtn.addEventListener("click", handleLogout);
 
-  const foundAccount = accounts.find(function (account) {
-    return account.username === username && account.password === password;
-  });
-
-  if (!foundAccount) {
-    loginError.textContent = "Wrong username or password.";
-    return;
-  }
-
-  login(foundAccount);
-});
-
-guestBtn.addEventListener("click", function () {
-  login({
-    username: "guest",
-    password: "",
-    role: "guest",
-    name: "Guest"
-  });
-});
-
-logoutBtn.addEventListener("click", logout);
-
-studentForm.addEventListener("submit", function (event) {
-  event.preventDefault();
-
-  if (!isCEO()) return;
-
-  const student = {
-    id: Date.now().toString(),
-    name: document.getElementById("studentName").value.trim(),
-    course: document.getElementById("studentCourse").value.trim(),
-    fee: Number(document.getElementById("studentFee").value),
-    paid: Number(document.getElementById("studentPaid").value),
-    date: document.getElementById("studentDate").value,
-    notes: document.getElementById("studentNotes").value.trim()
-  };
-
-  students.unshift(student);
-  saveData();
-  renderAll();
-
-  studentForm.reset();
-  setTodayDate();
-});
-
-expenseForm.addEventListener("submit", function (event) {
-  event.preventDefault();
-
-  if (!isCEO()) return;
-
-  const expense = {
-    id: Date.now().toString(),
-    title: document.getElementById("expenseTitle").value.trim(),
-    category: document.getElementById("expenseCategory").value,
-    amount: Number(document.getElementById("expenseAmount").value),
-    date: document.getElementById("expenseDate").value,
-    notes: document.getElementById("expenseNotes").value.trim()
-  };
-
-  expenses.unshift(expense);
-  saveData();
-  renderAll();
-
-  expenseForm.reset();
-  setTodayDate();
-});
+studentForm.addEventListener("submit", handleAddStudentPayment);
+expenseForm.addEventListener("submit", handleAddExpense);
 
 studentSearch.addEventListener("input", renderStudents);
 expenseSearch.addEventListener("input", renderExpenses);
 
-document.getElementById("resetBtn").addEventListener("click", function () {
-  if (!isCEO()) return;
-
-  const sure = confirm("Are you sure? This will delete all saved finance data on this device.");
-
-  if (!sure) return;
-
-  students = [];
-  expenses = [];
-
-  saveData();
-  renderAll();
-});
+document.getElementById("resetBtn").addEventListener("click", handleResetFinance);
 
 document.querySelectorAll(".nav-link").forEach(function (link) {
   link.addEventListener("click", function (event) {
     const href = link.getAttribute("href");
 
     if (href === "#financial" && !isCEO()) {
+      event.preventDefault();
+      window.location.hash = "#home";
+      return;
+    }
+
+    if (href === "#teacherArea" && !canSeeTeacherArea()) {
       event.preventDefault();
       window.location.hash = "#home";
       return;
@@ -167,112 +82,451 @@ document.querySelectorAll(".nav-link").forEach(function (link) {
   });
 });
 
-function login(user) {
-  currentUser = user;
-  sessionStorage.setItem("dramagic_current_user", JSON.stringify(currentUser));
-  showApp();
-  window.location.hash = "#home";
-}
+db.auth.onAuthStateChange(async function (_event, session) {
+  currentUser = session?.user || null;
 
-function logout() {
-  currentUser = null;
-  sessionStorage.removeItem("dramagic_current_user");
+  if (currentUser) {
+    await loadProfileAndApp();
+  } else {
+    showAuthPage();
+  }
+});
 
-  app.classList.add("hidden");
-  loginPage.classList.remove("hidden");
+init();
 
-  document.body.classList.remove("app-mode");
-  document.body.classList.add("login-mode");
+async function init() {
+  const { data, error } = await db.auth.getSession();
 
-  usernameInput.value = "";
-  passwordInput.value = "";
-  loginError.textContent = "";
-  window.location.hash = "";
-}
-
-function showApp() {
-  if (!currentUser) {
-    app.classList.add("hidden");
-    loginPage.classList.remove("hidden");
-
-    document.body.classList.remove("app-mode");
-    document.body.classList.add("login-mode");
+  if (error) {
+    console.error(error);
+    showAuthPage();
     return;
   }
 
-  loginPage.classList.add("hidden");
+  currentUser = data.session?.user || null;
+
+  if (currentUser) {
+    await loadProfileAndApp();
+  } else {
+    showAuthPage();
+  }
+}
+
+function showSignup() {
+  signupForm.classList.remove("hidden");
+  signinForm.classList.add("hidden");
+
+  showSignupBtn.classList.add("active");
+  showSigninBtn.classList.remove("active");
+
+  clearMessages();
+}
+
+function showSignin() {
+  signinForm.classList.remove("hidden");
+  signupForm.classList.add("hidden");
+
+  showSigninBtn.classList.add("active");
+  showSignupBtn.classList.remove("active");
+
+  clearMessages();
+}
+
+function clearMessages() {
+  signupMessage.textContent = "";
+  signupMessage.classList.remove("success");
+  signinMessage.textContent = "";
+  signinMessage.classList.remove("success");
+}
+
+async function handleSignup(event) {
+  event.preventDefault();
+
+  clearMessages();
+
+  const fullName = document.getElementById("signupFullName").value.trim();
+  const email = document.getElementById("signupEmail").value.trim().toLowerCase();
+  const birthday = document.getElementById("signupBirthday").value;
+  const studentIdNumber = document.getElementById("signupStudentId").value.replace(/\D/g, "");
+  const password = document.getElementById("signupPassword").value;
+  const confirmPassword = document.getElementById("signupConfirmPassword").value;
+
+  if (!fullName || !email || !birthday || !studentIdNumber || !password || !confirmPassword) {
+    showMessage(signupMessage, "Please fill all fields.");
+    return;
+  }
+
+  if (studentIdNumber.length < 4) {
+    showMessage(signupMessage, "Please enter a valid Dramagic ID number.");
+    return;
+  }
+
+  if (password.length < 8) {
+    showMessage(signupMessage, "Password must be at least 8 characters.");
+    return;
+  }
+
+  if (password !== confirmPassword) {
+    showMessage(signupMessage, "Passwords do not match.");
+    return;
+  }
+
+  setButtonLoading(signupForm, true);
+
+  const { data, error } = await db.auth.signUp({
+    email,
+    password,
+    options: {
+      data: {
+        full_name: fullName,
+        birthday: birthday,
+        student_id_number: studentIdNumber
+      }
+    }
+  });
+
+  setButtonLoading(signupForm, false);
+
+  if (error) {
+    showMessage(signupMessage, error.message);
+    return;
+  }
+
+  signupForm.reset();
+
+  if (data.session) {
+    currentUser = data.user;
+    await loadProfileAndApp();
+  } else {
+    showMessage(
+      signupMessage,
+      "Account created. Check your email to confirm, then sign in.",
+      true
+    );
+    showSignin();
+  }
+}
+
+async function handleSignin(event) {
+  event.preventDefault();
+
+  clearMessages();
+
+  const email = document.getElementById("signinEmail").value.trim().toLowerCase();
+  const password = document.getElementById("signinPassword").value;
+
+  if (!email || !password) {
+    showMessage(signinMessage, "Please enter your email and password.");
+    return;
+  }
+
+  setButtonLoading(signinForm, true);
+
+  const { data, error } = await db.auth.signInWithPassword({
+    email,
+    password
+  });
+
+  setButtonLoading(signinForm, false);
+
+  if (error) {
+    showMessage(signinMessage, error.message);
+    return;
+  }
+
+  currentUser = data.user;
+  await loadProfileAndApp();
+}
+
+async function handleLogout() {
+  await db.auth.signOut();
+  currentUser = null;
+  currentProfile = null;
+  students = [];
+  expenses = [];
+  showAuthPage();
+}
+
+async function loadProfileAndApp() {
+  const profile = await fetchProfile();
+
+  if (!profile) {
+    showAuthPage();
+    showSignin();
+    showMessage(signinMessage, "Your profile is not ready yet. Try signing in again in a few seconds.");
+    return;
+  }
+
+  currentProfile = profile;
+
+  authPage.classList.add("hidden");
   app.classList.remove("hidden");
 
-  document.body.classList.remove("login-mode");
-  document.body.classList.add("app-mode");
-
-  roleBadge.textContent = `${currentUser.name} • ${currentUser.role.toUpperCase()}`;
+  roleBadge.textContent = `${currentProfile.full_name || "User"} • ${currentProfile.role.toUpperCase()}`;
 
   applyRoleAccess();
   setTodayDate();
-  renderAll();
+
+  if (isCEO()) {
+    await loadFinanceData();
+  } else {
+    renderSummary();
+  }
+
+  window.location.hash = "#home";
+}
+
+async function fetchProfile() {
+  const { data, error } = await db
+    .from("profiles")
+    .select("*")
+    .eq("id", currentUser.id)
+    .single();
+
+  if (error) {
+    console.error(error);
+    return null;
+  }
+
+  return data;
 }
 
 function applyRoleAccess() {
-  const role = currentUser.role;
+  const role = currentProfile.role;
+  const status = currentProfile.account_status;
 
   document.querySelectorAll(".finance-link").forEach(function (item) {
-    item.classList.toggle("hidden", role !== "ceo");
+    item.classList.toggle("hidden", !isCEO());
   });
 
   document.querySelectorAll(".ceo-only").forEach(function (item) {
-    item.classList.toggle("hidden", role !== "ceo");
+    item.classList.toggle("hidden", !isCEO());
   });
 
-  financeSection.classList.toggle("hidden", role !== "ceo");
+  document.querySelectorAll(".teacher-link").forEach(function (item) {
+    item.classList.toggle("hidden", !canSeeTeacherArea());
+  });
 
-  if (role === "guest" || role === "student") {
-    teacherSection.classList.add("hidden");
-    document.querySelectorAll(".teacher-link").forEach(function (item) {
-      item.classList.add("hidden");
-    });
+  financeSection.classList.toggle("hidden", !isCEO());
+  teacherArea.classList.toggle("hidden", !canSeeTeacherArea());
+
+  if (role === "pending" || status === "pending") {
+    pendingArea.classList.remove("hidden");
+    studentArea.classList.add("hidden");
   } else {
-    teacherSection.classList.remove("hidden");
-    document.querySelectorAll(".teacher-link").forEach(function (item) {
-      item.classList.remove("hidden");
-    });
+    pendingArea.classList.add("hidden");
+    studentArea.classList.remove("hidden");
   }
 
-  if (window.location.hash === "#financial" && role !== "ceo") {
+  if (window.location.hash === "#financial" && !isCEO()) {
     window.location.hash = "#home";
   }
 
-  if (window.location.hash === "#teacherArea" && role !== "teacher" && role !== "ceo") {
+  if (window.location.hash === "#teacherArea" && !canSeeTeacherArea()) {
     window.location.hash = "#home";
   }
+}
+
+function showAuthPage() {
+  authPage.classList.remove("hidden");
+  app.classList.add("hidden");
+  window.location.hash = "";
 }
 
 function isCEO() {
-  return currentUser && currentUser.role === "ceo";
+  return currentProfile && currentProfile.role === "ceo" && currentProfile.account_status === "active";
 }
 
-function saveData() {
-  localStorage.setItem("dramagic_students", JSON.stringify(students));
-  localStorage.setItem("dramagic_expenses", JSON.stringify(expenses));
+function canSeeTeacherArea() {
+  return currentProfile &&
+    currentProfile.account_status === "active" &&
+    (currentProfile.role === "teacher" || currentProfile.role === "ceo");
+}
+
+function showMessage(element, message, success = false) {
+  element.textContent = message;
+  element.classList.toggle("success", success);
+}
+
+function setButtonLoading(form, isLoading) {
+  const button = form.querySelector("button[type='submit']");
+  if (!button) return;
+
+  if (isLoading) {
+    button.dataset.originalText = button.textContent;
+    button.textContent = "Please wait...";
+    button.disabled = true;
+  } else {
+    button.textContent = button.dataset.originalText || button.textContent;
+    button.disabled = false;
+  }
 }
 
 function setTodayDate() {
+  const studentDate = document.getElementById("studentDate");
+  const expenseDate = document.getElementById("expenseDate");
+
+  if (!studentDate || !expenseDate) return;
+
   const now = new Date();
   const local = new Date(now.getTime() - now.getTimezoneOffset() * 60000)
     .toISOString()
     .slice(0, 16);
 
-  document.getElementById("studentDate").value = local;
-  document.getElementById("expenseDate").value = local;
+  studentDate.value = local;
+  expenseDate.value = local;
+}
+
+async function loadFinanceData() {
+  if (!isCEO()) return;
+
+  const [studentsResponse, expensesResponse] = await Promise.all([
+    db.from("finance_students").select("*").order("created_at", { ascending: false }),
+    db.from("finance_expenses").select("*").order("created_at", { ascending: false })
+  ]);
+
+  if (studentsResponse.error) {
+    console.error(studentsResponse.error);
+    students = [];
+  } else {
+    students = studentsResponse.data || [];
+  }
+
+  if (expensesResponse.error) {
+    console.error(expensesResponse.error);
+    expenses = [];
+  } else {
+    expenses = expensesResponse.data || [];
+  }
+
+  renderAll();
+}
+
+async function handleAddStudentPayment(event) {
+  event.preventDefault();
+
+  if (!isCEO()) return;
+
+  const newRecord = {
+    student_name: document.getElementById("studentName").value.trim(),
+    course_group: document.getElementById("studentCourse").value.trim(),
+    total_fee: Number(document.getElementById("studentFee").value),
+    paid_amount: Number(document.getElementById("studentPaid").value),
+    payment_at: document.getElementById("studentDate").value,
+    notes: document.getElementById("studentNotes").value.trim()
+  };
+
+  const { error } = await db.from("finance_students").insert(newRecord);
+
+  if (error) {
+    alert(error.message);
+    return;
+  }
+
+  studentForm.reset();
+  setTodayDate();
+  await loadFinanceData();
+}
+
+async function handleAddExpense(event) {
+  event.preventDefault();
+
+  if (!isCEO()) return;
+
+  const newRecord = {
+    title: document.getElementById("expenseTitle").value.trim(),
+    category: document.getElementById("expenseCategory").value,
+    amount: Number(document.getElementById("expenseAmount").value),
+    paid_at: document.getElementById("expenseDate").value,
+    notes: document.getElementById("expenseNotes").value.trim()
+  };
+
+  const { error } = await db.from("finance_expenses").insert(newRecord);
+
+  if (error) {
+    alert(error.message);
+    return;
+  }
+
+  expenseForm.reset();
+  setTodayDate();
+  await loadFinanceData();
+}
+
+async function handleResetFinance() {
+  if (!isCEO()) return;
+
+  const sure = confirm("Are you sure? This will delete all finance data.");
+  if (!sure) return;
+
+  const studentsDelete = await db
+    .from("finance_students")
+    .delete()
+    .not("id", "is", null);
+
+  if (studentsDelete.error) {
+    alert(studentsDelete.error.message);
+    return;
+  }
+
+  const expensesDelete = await db
+    .from("finance_expenses")
+    .delete()
+    .not("id", "is", null);
+
+  if (expensesDelete.error) {
+    alert(expensesDelete.error.message);
+    return;
+  }
+
+  await loadFinanceData();
+}
+
+async function deleteStudent(id) {
+  if (!isCEO()) return;
+
+  const sure = confirm("Delete this student payment record?");
+  if (!sure) return;
+
+  const { error } = await db
+    .from("finance_students")
+    .delete()
+    .eq("id", id);
+
+  if (error) {
+    alert(error.message);
+    return;
+  }
+
+  await loadFinanceData();
+}
+
+async function deleteExpense(id) {
+  if (!isCEO()) return;
+
+  const sure = confirm("Delete this expense record?");
+  if (!sure) return;
+
+  const { error } = await db
+    .from("finance_expenses")
+    .delete()
+    .eq("id", id);
+
+  if (error) {
+    alert(error.message);
+    return;
+  }
+
+  await loadFinanceData();
 }
 
 function totals() {
   const revenue = students.reduce(function (sum, student) {
-    return sum + Number(student.paid || 0);
+    return sum + Number(student.paid_amount || 0);
   }, 0);
 
   const fees = students.reduce(function (sum, student) {
-    return sum + Number(student.fee || 0);
+    return sum + Number(student.total_fee || 0);
   }, 0);
 
   const totalExpenses = expenses.reduce(function (sum, expense) {
@@ -317,7 +571,9 @@ function renderStudents() {
   const search = studentSearch.value.trim().toLowerCase();
 
   const filtered = students.filter(function (student) {
-    return `${student.name} ${student.course} ${student.notes}`.toLowerCase().includes(search);
+    return `${student.student_name} ${student.course_group} ${student.notes}`
+      .toLowerCase()
+      .includes(search);
   });
 
   if (filtered.length === 0) {
@@ -326,7 +582,7 @@ function renderStudents() {
   }
 
   studentsList.innerHTML = filtered.map(function (student) {
-    const remaining = Math.max(Number(student.fee) - Number(student.paid), 0);
+    const remaining = Math.max(Number(student.total_fee) - Number(student.paid_amount), 0);
 
     const remainingHTML = remaining <= 0
       ? `<span class="paid">Paid</span>`
@@ -336,22 +592,22 @@ function renderStudents() {
       <article class="record-card">
         <div class="record-row">
           <span class="record-label">Name</span>
-          <span class="record-value"><strong>${clean(student.name)}</strong></span>
+          <span class="record-value"><strong>${clean(student.student_name)}</strong></span>
         </div>
 
         <div class="record-row">
           <span class="record-label">Course</span>
-          <span class="record-value">${clean(student.course || "-")}</span>
+          <span class="record-value">${clean(student.course_group || "-")}</span>
         </div>
 
         <div class="record-row">
           <span class="record-label">Fee</span>
-          <span class="record-value">${money.format(student.fee)}</span>
+          <span class="record-value">${money.format(student.total_fee)}</span>
         </div>
 
         <div class="record-row">
           <span class="record-label">Paid</span>
-          <span class="record-value">${money.format(student.paid)}</span>
+          <span class="record-value">${money.format(student.paid_amount)}</span>
         </div>
 
         <div class="record-row">
@@ -361,7 +617,7 @@ function renderStudents() {
 
         <div class="record-row">
           <span class="record-label">Date</span>
-          <span class="record-value">${formatDate(student.date)}</span>
+          <span class="record-value">${formatDate(student.payment_at)}</span>
         </div>
 
         <div class="record-row">
@@ -381,7 +637,9 @@ function renderExpenses() {
   const search = expenseSearch.value.trim().toLowerCase();
 
   const filtered = expenses.filter(function (expense) {
-    return `${expense.title} ${expense.category} ${expense.notes}`.toLowerCase().includes(search);
+    return `${expense.title} ${expense.category} ${expense.notes}`
+      .toLowerCase()
+      .includes(search);
   });
 
   if (filtered.length === 0) {
@@ -409,7 +667,7 @@ function renderExpenses() {
 
         <div class="record-row">
           <span class="record-label">Date</span>
-          <span class="record-value">${formatDate(expense.date)}</span>
+          <span class="record-value">${formatDate(expense.paid_at)}</span>
         </div>
 
         <div class="record-row">
@@ -423,32 +681,10 @@ function renderExpenses() {
   }).join("");
 }
 
-function deleteStudent(id) {
-  if (!isCEO()) return;
-
-  const sure = confirm("Delete this student record?");
-  if (!sure) return;
-
-  students = students.filter(function (student) {
-    return student.id !== id;
-  });
-
-  saveData();
-  renderAll();
-}
-
-function deleteExpense(id) {
-  if (!isCEO()) return;
-
-  const sure = confirm("Delete this expense record?");
-  if (!sure) return;
-
-  expenses = expenses.filter(function (expense) {
-    return expense.id !== id;
-  });
-
-  saveData();
-  renderAll();
+function renderAll() {
+  renderSummary();
+  renderStudents();
+  renderExpenses();
 }
 
 function formatDate(value) {
@@ -468,11 +704,3 @@ function clean(value) {
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
 }
-
-function renderAll() {
-  renderSummary();
-  renderStudents();
-  renderExpenses();
-}
-
-showApp();

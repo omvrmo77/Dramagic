@@ -798,3 +798,231 @@ footer {
     width: 210px;
   }
 }
+
+/* ===============================
+   DRAMAGIC MAGIC ANIMATION
+================================ */
+
+.magic-stage {
+  position: relative;
+  isolation: isolate;
+  min-height: 450px;
+  overflow: hidden;
+  border-radius: 46px;
+  background:
+    radial-gradient(circle at 50% 45%, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.72) 42%, rgba(8, 169, 217, 0.11)),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.85), rgba(230, 249, 255, 0.88));
+}
+
+.magic-stage::before {
+  content: "";
+  position: absolute;
+  inset: 28px;
+  border-radius: 42px;
+  background:
+    radial-gradient(circle, transparent 44%, rgba(8, 169, 217, 0.10) 45%, transparent 63%);
+  animation: softPulse 4s ease-in-out infinite;
+  z-index: -1;
+}
+
+.stage-logo {
+  position: relative;
+  z-index: 5;
+  width: 300px;
+  border-radius: 50%;
+  filter: drop-shadow(0 24px 30px rgba(0, 122, 167, 0.20));
+  animation: logoFloat 5s ease-in-out infinite;
+}
+
+.orbit-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid rgba(8, 169, 217, 0.12);
+  z-index: 1;
+}
+
+.orbit-ring-one {
+  width: 360px;
+  height: 360px;
+  animation: spin 20s linear infinite;
+}
+
+.orbit-ring-two {
+  width: 430px;
+  height: 430px;
+  border-style: dashed;
+  animation: spinReverse 28s linear infinite;
+}
+
+.orbit-words {
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  animation: spin 22s linear infinite;
+  z-index: 8;
+}
+
+.orbit-word {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  padding: 9px 13px;
+  border-radius: 999px;
+  color: var(--blue-dark);
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(8, 169, 217, 0.20);
+  box-shadow: 0 12px 24px rgba(0, 122, 167, 0.12);
+  font-size: 13px;
+  font-weight: 900;
+  white-space: nowrap;
+  transform-origin: center;
+  animation: keepTextStraight 22s linear infinite;
+}
+
+.word-1 {
+  transform: rotate(0deg) translateX(185px) rotate(0deg);
+}
+
+.word-2 {
+  transform: rotate(72deg) translateX(185px) rotate(-72deg);
+}
+
+.word-3 {
+  transform: rotate(144deg) translateX(185px) rotate(-144deg);
+}
+
+.word-4 {
+  transform: rotate(216deg) translateX(185px) rotate(-216deg);
+}
+
+.word-5 {
+  transform: rotate(288deg) translateX(185px) rotate(-288deg);
+}
+
+.reveal-motion {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.75s ease, transform 0.75s ease;
+}
+
+.reveal-motion.show-motion {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes logoFloat {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+
+  50% {
+    transform: translateY(-14px) scale(1.03);
+  }
+}
+
+@keyframes softPulse {
+  0%, 100% {
+    opacity: 0.45;
+    transform: scale(0.96);
+  }
+
+  50% {
+    opacity: 0.9;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes spinReverse {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes keepTextStraight {
+  to {
+    rotate: -360deg;
+  }
+}
+
+@media (max-width: 850px) {
+  .magic-stage {
+    min-height: 350px;
+    border-radius: 34px;
+  }
+
+  .stage-logo {
+    width: 220px;
+  }
+
+  .orbit-ring-one {
+    width: 270px;
+    height: 270px;
+  }
+
+  .orbit-ring-two {
+    width: 320px;
+    height: 320px;
+  }
+
+  .orbit-words {
+    width: 315px;
+    height: 315px;
+  }
+
+  .orbit-word {
+    font-size: 11px;
+    padding: 7px 10px;
+  }
+
+  .word-1 {
+    transform: rotate(0deg) translateX(138px) rotate(0deg);
+  }
+
+  .word-2 {
+    transform: rotate(72deg) translateX(138px) rotate(-72deg);
+  }
+
+  .word-3 {
+    transform: rotate(144deg) translateX(138px) rotate(-144deg);
+  }
+
+  .word-4 {
+    transform: rotate(216deg) translateX(138px) rotate(-216deg);
+  }
+
+  .word-5 {
+    transform: rotate(288deg) translateX(138px) rotate(-288deg);
+  }
+}
+
+@media (max-width: 390px) {
+  .stage-logo {
+    width: 195px;
+  }
+
+  .orbit-words {
+    width: 285px;
+    height: 285px;
+  }
+
+  .word-1 {
+    transform: rotate(0deg) translateX(124px) rotate(0deg);
+  }
+
+  .word-2 {
+    transform: rotate(72deg) translateX(124px) rotate(-72deg);
+  }
+
+  .word-3 {
+    transform: rotate(144deg) translateX(124px) rotate(-144deg);
+  }
+
+  .word-4 {
+    transform: rotate(216deg) translateX(124px) rotate(-216deg);
+  }
+
+  .word-5 {
+    transform: rotate(288deg) translateX(124px) rotate(-288deg);
+  }
+}

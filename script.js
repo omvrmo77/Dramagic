@@ -3,6 +3,9 @@ const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 
 const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+const TEMP_CEO_USERNAME = "omar";
+const TEMP_CEO_PASSWORD = "ceo123";
+
 let currentUser = null;
 let currentProfile = null;
 let students = [];
@@ -212,18 +215,52 @@ async function handleSignin(event) {
 
   clearMessages();
 
-  const email = document.getElementById("signinEmail").value.trim().toLowerCase();
+  const emailOrUsername = document.getElementById("signinEmail").value.trim().toLowerCase();
   const password = document.getElementById("signinPassword").value;
 
-  if (!email || !password) {
-    showMessage(signinMessage, "Please enter your email and password.");
+  if (!emailOrUsername || !password) {
+    showMessage(signinMessage, "Please enter your email/username and password.");
+    return;
+  }
+
+  // TEMPORARY CEO LOGIN - FRONTEND TESTING ONLY
+  if (emailOrUsername === TEMP_CEO_USERNAME && password === TEMP_CEO_PASSWORD) {
+    currentUser = {
+      id: "temp-ceo-user",
+      email: "temp-ceo@dramagic.test"
+    };
+
+    currentProfile = {
+      id: "temp-ceo-user",
+      full_name: "Omar",
+      email: "temp-ceo@dramagic.test",
+      birthday: null,
+      student_id_number: null,
+      role: "ceo",
+      account_status: "active"
+    };
+
+    authPage.classList.add("hidden");
+    app.classList.remove("hidden");
+
+    roleBadge.textContent = "Omar • CEO";
+
+    applyRoleAccess();
+    setTodayDate();
+
+    // Demo empty finance data
+    students = [];
+    expenses = [];
+    renderAll();
+
+    window.location.hash = "#home";
     return;
   }
 
   setButtonLoading(signinForm, true);
 
   const { data, error } = await db.auth.signInWithPassword({
-    email,
+    email: emailOrUsername,
     password
   });
 

@@ -741,3 +741,29 @@ function clean(value) {
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
 }
+function startScrollAnimations() {
+  const animatedItems = document.querySelectorAll(
+    ".section, .auth-hero, .auth-card, .info-card, .panel, .summary-card, .stat-card, .logo-stage, .status-card"
+  );
+
+  animatedItems.forEach(function (item) {
+    item.classList.add("reveal-motion");
+  });
+
+  const observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("show-motion");
+      }
+    });
+  }, {
+    threshold: 0.12
+  });
+
+  animatedItems.forEach(function (item) {
+    observer.observe(item);
+  });
+}
+
+startScrollAnimations();
+

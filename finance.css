@@ -1,0 +1,1053 @@
+:root {
+  --blue: #08a9d9;
+  --blue-dark: #007aa7;
+  --blue-soft: #e6f9ff;
+  --white: #ffffff;
+  --ink: #101820;
+  --muted: #657786;
+  --danger: #d62828;
+  --success: #198754;
+  --warning: #b26b00;
+  --paper: #fffdf7;
+  --shadow: 0 18px 55px rgba(0, 122, 167, 0.16);
+  --radius: 28px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background: #f8fdff;
+}
+
+body {
+  min-height: 100svh;
+  overflow-x: hidden;
+  color: var(--ink);
+  font-family: Arial, "Tahoma", sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(8, 169, 217, 0.22), transparent 280px),
+    radial-gradient(circle at bottom right, rgba(8, 169, 217, 0.15), transparent 300px),
+    linear-gradient(180deg, #f8fdff, #e8faff);
+}
+
+.hidden {
+  display: none !important;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+img {
+  max-width: 100%;
+}
+
+.finance-lock {
+  min-height: 100svh;
+  padding: 28px;
+  display: grid;
+  place-items: center;
+}
+
+.lock-card,
+.panel,
+.summary-card,
+.hero-card {
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid rgba(8, 169, 217, 0.18);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(16px);
+}
+
+.lock-card {
+  width: min(480px, 100%);
+  padding: 32px;
+  text-align: center;
+}
+
+.lock-logo {
+  width: 110px;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow);
+}
+
+.eyebrow {
+  margin-bottom: 12px;
+  color: var(--blue-dark);
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.lock-card h1,
+.hero-section h1 {
+  font-size: clamp(42px, 7vw, 82px);
+  line-height: 0.95;
+  letter-spacing: -2px;
+}
+
+.lock-text,
+.hero-section p,
+.hero-card p,
+.panel p {
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+.lock-text {
+  margin: 18px 0;
+}
+
+.password-form,
+form {
+  display: grid;
+  gap: 14px;
+}
+
+label {
+  display: grid;
+  gap: 8px;
+  color: var(--ink);
+  text-align: right;
+  font-weight: 900;
+  font-size: 14px;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid rgba(8, 169, 217, 0.25);
+  border-radius: 16px;
+  outline: none;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.94);
+}
+
+textarea {
+  resize: vertical;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 4px rgba(8, 169, 217, 0.12);
+}
+
+.btn {
+  min-height: 50px;
+  border: 0;
+  border-radius: 999px;
+  padding: 0 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.primary-btn {
+  color: white;
+  background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+  box-shadow: 0 12px 26px rgba(8, 169, 217, 0.25);
+}
+
+.secondary-btn {
+  color: var(--blue-dark);
+  background: var(--blue-soft);
+  border: 1px solid rgba(8, 169, 217, 0.22);
+}
+
+.danger-btn {
+  color: var(--danger);
+  background: #fff0f0;
+  border: 1px solid rgba(214, 40, 40, 0.18);
+}
+
+.form-message {
+  min-height: 22px;
+  color: var(--danger);
+  font-weight: 900;
+  line-height: 1.5;
+}
+
+.back-link {
+  display: inline-flex;
+  margin-top: 18px;
+  color: var(--blue-dark);
+  font-weight: 900;
+}
+
+.finance-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  padding: 12px 18px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 14px;
+  background: rgba(255, 255, 255, 0.9);
+  border-bottom: 1px solid rgba(8, 169, 217, 0.16);
+  backdrop-filter: blur(18px);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand img {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.brand strong {
+  display: block;
+  font-size: 18px;
+}
+
+.brand span {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.finance-nav {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.finance-nav a {
+  padding: 10px 14px;
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.finance-nav a.active,
+.finance-nav a:hover {
+  color: var(--ink);
+  background: var(--blue-soft);
+}
+
+.finance-main {
+  width: min(1120px, calc(100% - 36px));
+  margin: auto;
+  padding: 44px 0 70px;
+}
+
+.hero-section {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 24px;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.hero-section p {
+  margin-top: 20px;
+  font-size: 18px;
+}
+
+.hero-card {
+  padding: 28px;
+}
+
+.hero-card span {
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  margin-bottom: 18px;
+  border-radius: 20px;
+  color: white;
+  background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+  font-size: 26px;
+}
+
+.hero-card h3,
+.panel h2 {
+  margin-bottom: 10px;
+  font-size: 26px;
+}
+
+.summary-grid,
+.forms-grid,
+.two-cols,
+.receipt-layout {
+  display: grid;
+  gap: 16px;
+}
+
+.summary-grid {
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  margin-bottom: 18px;
+}
+
+.summary-card {
+  padding: 20px;
+}
+
+.summary-card span {
+  display: block;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.summary-card strong {
+  display: block;
+  margin-top: 8px;
+  font-size: 24px;
+}
+
+.profit-card {
+  color: white;
+  background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+}
+
+.profit-card span {
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.forms-grid,
+.receipt-layout {
+  grid-template-columns: 1fr 1fr;
+  margin-top: 18px;
+}
+
+.two-cols {
+  grid-template-columns: 1fr 1fr;
+}
+
+.panel {
+  padding: 24px;
+  margin-top: 18px;
+}
+
+.panel-heading,
+.records-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.receipt-paper {
+  position: relative;
+  overflow: hidden;
+  min-height: 640px;
+  padding: 28px;
+  border: 1px solid rgba(16, 24, 32, 0.14);
+  border-radius: 20px;
+  background: var(--paper);
+  box-shadow: 0 16px 40px rgba(16, 24, 32, 0.08);
+}
+
+.receipt-watermark {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  transform: rotate(-25deg);
+  color: rgba(8, 169, 217, 0.06);
+  font-size: 92px;
+  font-weight: 900;
+  pointer-events: none;
+}
+
+.receipt-top {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-bottom: 18px;
+  border-bottom: 2px solid rgba(8, 169, 217, 0.2);
+}
+
+.receipt-top img {
+  width: 74px;
+  height: 74px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.receipt-top h2 {
+  font-size: 34px;
+}
+
+.receipt-top p,
+.receipt-meta,
+.receipt-lines span,
+.receipt-signatures span {
+  color: var(--muted);
+  font-weight: 900;
+}
+
+.receipt-meta {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 18px 0;
+}
+
+.receipt-body {
+  position: relative;
+  z-index: 1;
+}
+
+#paperMainText {
+  margin: 18px 0;
+  color: var(--ink);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.9;
+}
+
+.receipt-lines {
+  display: grid;
+  gap: 10px;
+}
+
+.receipt-lines div {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px dashed rgba(16, 24, 32, 0.16);
+}
+
+.receipt-lines strong {
+  overflow-wrap: anywhere;
+}
+
+.receipt-signatures {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-top: 36px;
+}
+
+.receipt-signatures div {
+  min-height: 82px;
+  padding: 16px;
+  border-radius: 16px;
+  background: rgba(8, 169, 217, 0.06);
+}
+
+.receipt-signatures strong {
+  display: block;
+  margin-top: 18px;
+}
+
+.records-list {
+  display: grid;
+  gap: 12px;
+}
+
+.record-card {
+  padding: 16px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(8, 169, 217, 0.16);
+}
+
+.record-title-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.record-title-row h3 {
+  font-size: 21px;
+}
+
+.record-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.small-btn {
+  border: 0;
+  padding: 9px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 900;
+}
+
+.print-btn {
+  color: var(--blue-dark);
+  background: var(--blue-soft);
+}
+
+.delete-btn {
+  color: var(--danger);
+  background: #fff0f0;
+}
+
+.record-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.record-grid div {
+  padding: 12px;
+  border-radius: 16px;
+  background: rgba(8, 169, 217, 0.06);
+}
+
+.record-grid span {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.record-grid strong {
+  display: block;
+  margin-top: 6px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.paid,
+.due {
+  display: inline-flex;
+  width: fit-content;
+  padding: 7px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.paid {
+  color: var(--success);
+  background: #eafff2;
+}
+
+.due {
+  color: var(--warning);
+  background: #fff5dd;
+}
+
+.empty-message {
+  padding: 18px;
+  text-align: center;
+  color: var(--muted);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid rgba(8, 169, 217, 0.14);
+}
+
+.bottom-reset {
+  margin-top: 22px;
+}
+
+@media (max-width: 900px) {
+  .finance-header,
+  .hero-section,
+  .forms-grid,
+  .receipt-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .finance-nav {
+    justify-content: flex-start;
+  }
+
+  .panel-heading,
+  .records-top,
+  .record-title-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .record-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 620px) {
+  .finance-main {
+    width: min(100% - 22px, 1120px);
+  }
+
+  .two-cols,
+  .record-grid,
+  .receipt-signatures {
+    grid-template-columns: 1fr;
+  }
+
+  .receipt-lines div {
+    grid-template-columns: 1fr;
+  }
+
+  .finance-header {
+    padding: 10px;
+  }
+}
+
+/* ===============================
+   FINAL FINANCIAL REPORT
+================================ */
+.report-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.report-layout {
+  display: grid;
+  grid-template-columns: 0.78fr 1.22fr;
+  gap: 18px;
+  align-items: start;
+  margin-top: 18px;
+}
+
+.report-form {
+  position: sticky;
+  top: 92px;
+}
+
+.financial-report-paper {
+  position: relative;
+  overflow: hidden;
+  padding: 28px;
+  border: 1px solid rgba(16, 24, 32, 0.14);
+  border-radius: 20px;
+  background: var(--paper);
+  box-shadow: 0 16px 40px rgba(16, 24, 32, 0.08);
+}
+
+.report-top {
+  margin-bottom: 18px;
+}
+
+.report-meta-grid,
+.report-summary-box,
+.share-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 10px;
+}
+
+.report-meta-grid {
+  grid-template-columns: repeat(3, 1fr);
+  margin-bottom: 18px;
+}
+
+.report-meta-grid div,
+.report-summary-box div,
+.share-grid div {
+  padding: 12px;
+  border-radius: 16px;
+  background: rgba(8, 169, 217, 0.06);
+  border: 1px solid rgba(8, 169, 217, 0.08);
+}
+
+.report-meta-grid span,
+.report-summary-box span,
+.share-grid span {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.report-meta-grid strong,
+.report-summary-box strong,
+.share-grid strong {
+  display: block;
+  margin-top: 6px;
+  color: var(--ink);
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.report-summary-box {
+  grid-template-columns: repeat(3, 1fr);
+  margin: 18px 0;
+}
+
+.report-summary-box strong,
+.share-grid strong {
+  font-size: 19px;
+}
+
+.report-share-box,
+.report-table-section,
+.report-notes-box {
+  position: relative;
+  z-index: 1;
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 2px solid rgba(8, 169, 217, 0.14);
+}
+
+.report-share-box h3,
+.report-table-section h3,
+.report-notes-box h3 {
+  margin-bottom: 12px;
+  font-size: 22px;
+}
+
+.share-grid {
+  grid-template-columns: 1fr 1fr;
+}
+
+#reportShareNote,
+#paperFinalNotes {
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.report-table-wrap {
+  overflow-x: auto;
+}
+
+.report-table {
+  width: 100%;
+  min-width: 720px;
+  border-collapse: collapse;
+  font-size: 13px;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.report-table th,
+.report-table td {
+  padding: 10px;
+  text-align: right;
+  border-bottom: 1px solid rgba(8, 169, 217, 0.14);
+  vertical-align: top;
+}
+
+.report-table th {
+  color: var(--blue-dark);
+  background: var(--blue-soft);
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.report-table td {
+  line-height: 1.55;
+}
+
+.report-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.report-signatures {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media (max-width: 900px) {
+  .report-layout,
+  .report-meta-grid,
+  .report-summary-box,
+  .share-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .report-form {
+    position: static;
+  }
+}
+
+@media (max-width: 620px) {
+  .report-signatures {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===============================
+   CLEAN PRINT MODE
+   This removes non-print sections from layout, so no blank pages.
+================================ */
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 8mm;
+  }
+
+  html,
+  body {
+    width: auto !important;
+    min-height: 0 !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* ---------- PRINT FINAL REPORT ONLY ---------- */
+  body.printing-report #financeLock,
+  body.printing-report .finance-header,
+  body.printing-report .finance-main > .hero-section,
+  body.printing-report .finance-main > .summary-grid,
+  body.printing-report .finance-main > .forms-grid,
+  body.printing-report .finance-main > .receipt-builder,
+  body.printing-report .finance-main > .records-panel,
+  body.printing-report .finance-main > .bottom-reset,
+  body.printing-report .closing-report-builder > .panel-heading,
+  body.printing-report .report-form {
+    display: none !important;
+  }
+
+  body.printing-report #financeApp,
+  body.printing-report .finance-main,
+  body.printing-report .closing-report-builder,
+  body.printing-report .report-layout {
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    background: #ffffff !important;
+  }
+
+  body.printing-report #financialReportPaper {
+    position: static !important;
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    min-height: 0 !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    overflow: visible !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+    direction: rtl !important;
+    font-size: 9.5px !important;
+    line-height: 1.25 !important;
+  }
+
+  body.printing-report #financialReportPaper .receipt-watermark {
+    display: none !important;
+  }
+
+  body.printing-report #financialReportPaper .receipt-top {
+    display: flex !important;
+    align-items: center !important;
+    gap: 7px !important;
+    padding: 0 0 4px !important;
+    margin: 0 0 5px !important;
+    border-bottom: 1px solid #111 !important;
+  }
+
+  body.printing-report #financialReportPaper .receipt-top img {
+    width: 34px !important;
+    height: 34px !important;
+    object-fit: cover !important;
+    border-radius: 50% !important;
+  }
+
+  body.printing-report #financialReportPaper h2 {
+    font-size: 15px !important;
+    margin: 0 !important;
+    line-height: 1.15 !important;
+  }
+
+  body.printing-report #financialReportPaper h3 {
+    font-size: 11px !important;
+    margin: 0 0 4px !important;
+    line-height: 1.2 !important;
+  }
+
+  body.printing-report #financialReportPaper p,
+  body.printing-report #financialReportPaper span,
+  body.printing-report #financialReportPaper strong {
+    font-size: 9.5px !important;
+    line-height: 1.25 !important;
+  }
+
+  body.printing-report .report-meta-grid,
+  body.printing-report .report-summary-box,
+  body.printing-report .share-grid {
+    display: grid !important;
+    gap: 3px !important;
+    margin: 0 0 5px !important;
+  }
+
+  body.printing-report .report-meta-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+
+  body.printing-report .report-summary-box {
+    grid-template-columns: repeat(6, 1fr) !important;
+  }
+
+  body.printing-report .share-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  body.printing-report .report-meta-grid div,
+  body.printing-report .report-summary-box div,
+  body.printing-report .share-grid div,
+  body.printing-report .receipt-signatures div {
+    padding: 3px 4px !important;
+    border: 1px solid #222 !important;
+    border-radius: 0 !important;
+    background: #ffffff !important;
+    min-height: 0 !important;
+  }
+
+  body.printing-report .report-share-box,
+  body.printing-report .report-table-section,
+  body.printing-report .report-notes-box {
+    margin-top: 5px !important;
+    padding-top: 5px !important;
+    border-top: 1px solid #222 !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  body.printing-report .report-table-wrap {
+    overflow: visible !important;
+  }
+
+  body.printing-report .report-table {
+    width: 100% !important;
+    min-width: 0 !important;
+    table-layout: fixed !important;
+    border-collapse: collapse !important;
+    border-radius: 0 !important;
+    overflow: visible !important;
+    font-size: 8px !important;
+    background: #ffffff !important;
+  }
+
+  body.printing-report .report-table th,
+  body.printing-report .report-table td {
+    padding: 2px 3px !important;
+    border: 1px solid #222 !important;
+    line-height: 1.18 !important;
+    vertical-align: top !important;
+    text-align: right !important;
+    white-space: normal !important;
+    word-break: break-word !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  body.printing-report .report-table th {
+    color: #000000 !important;
+    background: #eeeeee !important;
+    font-weight: 900 !important;
+  }
+
+  body.printing-report .report-signatures {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 5px !important;
+    margin-top: 6px !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  body.printing-report .receipt-signatures strong {
+    margin-top: 5px !important;
+  }
+
+  /* ---------- PRINT INDIVIDUAL RECEIPT ONLY ---------- */
+  body.printing-receipt #financeLock,
+  body.printing-receipt .finance-header,
+  body.printing-receipt .finance-main > .hero-section,
+  body.printing-receipt .finance-main > .summary-grid,
+  body.printing-receipt .finance-main > .closing-report-builder,
+  body.printing-receipt .finance-main > .forms-grid,
+  body.printing-receipt .finance-main > .records-panel,
+  body.printing-receipt .finance-main > .bottom-reset,
+  body.printing-receipt .receipt-builder > .panel-heading,
+  body.printing-receipt .receipt-form {
+    display: none !important;
+  }
+
+  body.printing-receipt #financeApp,
+  body.printing-receipt .finance-main,
+  body.printing-receipt .receipt-builder,
+  body.printing-receipt .receipt-layout {
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    background: #ffffff !important;
+  }
+
+  body.printing-receipt #receiptPaper {
+    position: static !important;
+    display: block !important;
+    width: 100% !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    overflow: visible !important;
+    background: #ffffff !important;
+  }
+}
+
+.installment-btn {
+  color: #8a5d11;
+  background: #fff5dd;
+}

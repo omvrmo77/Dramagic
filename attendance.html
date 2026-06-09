@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#635bff" />
+  <title>Dramagic Attendance</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="attendance.css" />
+</head>
+<body>
+  <main class="attendance-app">
+    <nav class="attendance-nav" aria-label="Attendance navigation">
+      <button id="homeTopBtn" class="dashboard-back-link nav-home-button" type="button">← Home</button>
+      <a class="dashboard-back-link secondary" href="qr-cards.html">▦ QR Cards</a>
+    </nav>
+
+    <header class="hero-card">
+      <div class="hero-top">
+        <div class="brand-mark">D</div>
+        <div>
+          <p class="eyebrow">Dramagic Offline PWA</p>
+          <h1>QR Attendance</h1>
+          <p class="hero-subtitle">Prepare before class, scan without internet, sync later.</p>
+        </div>
+      </div>
+
+      <div class="status-row">
+        <span id="connectionPill" class="status-pill">Checking...</span>
+        <span id="offlineReadyPill" class="status-pill muted">Offline list not prepared</span>
+        <span id="syncPill" class="status-pill muted">0 unsynced</span>
+      </div>
+    </header>
+
+    <section class="control-card">
+      <div class="field-grid">
+        <label>
+          <span>Class</span>
+          <select id="classSelect">
+            <option value="A">Class A</option>
+            <option value="B">Class B</option>
+            <option value="C">Class C</option>
+            <option value="D">Class D</option>
+          </select>
+        </label>
+
+        <label>
+          <span>Session</span>
+          <input id="sessionInput" type="number" min="1" value="1" />
+        </label>
+
+        <label>
+          <span>Starts at</span>
+          <input id="startTimeInput" type="time" value="17:00" />
+        </label>
+
+        <label>
+          <span>Late after</span>
+          <select id="lateAfterSelect">
+            <option value="5">5 min</option>
+            <option value="10">10 min</option>
+            <option value="15" selected>15 min</option>
+            <option value="20">20 min</option>
+            <option value="30">30 min</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="button-row">
+        <button id="prepareBtn" class="primary-btn" type="button">Prepare Offline Attendance</button>
+        <button id="startSessionBtn" class="soft-btn" type="button">Start / Open Session</button>
+        <button id="syncBtn" class="soft-btn" type="button">Sync Demo</button>
+        <button id="resetSessionBtn" class="danger-btn" type="button">Reset Session</button>
+      </div>
+    </section>
+
+    <section class="tabs" aria-label="Attendance tabs">
+      <button class="tab active" data-tab="scan" type="button">Scan</button>
+      <button class="tab" data-tab="students" type="button">Class List</button>
+      <button class="tab" data-tab="queue" type="button">Sync Queue</button>
+      <a class="tab link-tab" href="qr-cards.html">QR Cards</a>
+    </section>
+
+    <section id="scanPanel" class="panel active-panel">
+      <div class="scan-card">
+        <div class="scan-header">
+          <div>
+            <p class="eyebrow">Camera scanner</p>
+            <h2>Scan student QR</h2>
+          </div>
+          <div class="scan-actions">
+            <button id="scanBtn" class="primary-btn" type="button">Open Camera</button>
+            <button id="stopScanBtn" class="danger-btn hidden" type="button">Stop</button>
+          </div>
+        </div>
+
+        <div class="video-frame">
+          <video id="scannerVideo" playsinline muted></video>
+          <div id="scanOverlay" class="scan-overlay">
+            <strong>Camera preview</strong>
+            <span>Camera works on HTTPS/localhost. Manual demo works anywhere.</span>
+          </div>
+        </div>
+
+        <p id="scannerMessage" class="scanner-message">Tap “Open Camera” or use the manual demo below.</p>
+      </div>
+
+      <div class="manual-card">
+        <label>
+          <span>Manual QR code / demo scan</span>
+          <div class="manual-row">
+            <input id="manualCodeInput" type="text" placeholder="Example: DRG-A-001-X9K2" />
+            <button id="manualScanBtn" class="primary-btn" type="button">Mark</button>
+          </div>
+        </label>
+
+        <div class="sample-row" id="sampleButtons"></div>
+      </div>
+
+      <div id="lastScanCard" class="last-scan-card hidden"></div>
+    </section>
+
+    <section id="studentsPanel" class="panel">
+      <div class="summary-grid">
+        <article>
+          <strong id="presentCount">0</strong>
+          <span>Present</span>
+        </article>
+        <article>
+          <strong id="lateCount">0</strong>
+          <span>Late</span>
+        </article>
+        <article>
+          <strong id="absentCount">0</strong>
+          <span>Absent</span>
+        </article>
+        <article>
+          <strong id="totalCount">0</strong>
+          <span>Total</span>
+        </article>
+      </div>
+
+      <div class="list-tools">
+        <label class="search-box">
+          <span>⌕</span>
+          <input id="studentSearchInput" type="search" placeholder="Search students..." />
+        </label>
+        <button id="exportCsvBtn" class="soft-btn" type="button">Export CSV Backup</button>
+      </div>
+
+      <div id="attendanceList" class="attendance-list"></div>
+    </section>
+
+    <section id="queuePanel" class="panel">
+      <div class="queue-card">
+        <h2>Offline Sync Queue</h2>
+        <p>This demo marks records as synced locally. Later this button will upload to Supabase.</p>
+        <div id="queueList" class="queue-list"></div>
+      </div>
+    </section>
+
+    <footer class="page-footer-nav">
+      <button id="homeBottomBtn" class="dashboard-back-link nav-home-button" type="button">← Back to Dashboard</button>
+      <a class="dashboard-back-link secondary" href="qr-cards.html">▦ QR Cards</a>
+    </footer>
+  </main>
+
+  <button id="homeFloatBtn" class="floating-home-link nav-home-button" type="button" aria-label="Back to dashboard">🏠 Home</button>
+
+  <script>
+    /*
+      HOME FIX ONLY:
+      This does NOT touch index.html or any old Dramagic file.
+      It only makes the Attendance Home buttons return to the page that opened Attendance.
+    */
+    function getSafeHomeTarget() {
+      const params = new URLSearchParams(window.location.search);
+      const backParam = params.get('back');
+
+      if (backParam && !backParam.includes('://') && !backParam.startsWith('//')) {
+        return backParam;
+      }
+
+      try {
+        if (document.referrer) {
+          const referrerUrl = new URL(document.referrer);
+          const currentUrl = new URL(window.location.href);
+          const referrerFile = referrerUrl.pathname.split('/').pop() || '';
+
+          const cameFromSameFolder =
+            referrerUrl.origin === currentUrl.origin &&
+            referrerUrl.pathname.replace(/[^/]*$/, '') === currentUrl.pathname.replace(/[^/]*$/, '');
+
+          const referrerIsNotAttendancePage =
+            !/^(attendance|qr-cards)(\.html)?$/i.test(referrerFile);
+
+          if (cameFromSameFolder && referrerIsNotAttendancePage) {
+            return referrerUrl.href;
+          }
+        }
+      } catch {
+        // If the browser blocks referrer parsing, use the normal homepage fallback below.
+      }
+
+      return './index.html';
+    }
+
+    function goToDramagicHome() {
+      window.location.href = getSafeHomeTarget();
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('.nav-home-button').forEach(function (button) {
+        button.addEventListener('click', goToDramagicHome);
+      });
+    });
+
+    /*
+      The old offline demo may have registered a service worker that cached
+      the fake demo index.html. Since you asked to keep Attendance as a
+      separate tab and not replace the homepage, this page unregisters that
+      demo cache from here only.
+    */
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(function (registrations) {
+        registrations.forEach(function (registration) {
+          const scriptUrl = registration.active?.scriptURL || registration.installing?.scriptURL || registration.waiting?.scriptURL || '';
+
+          if (scriptUrl.includes('service-worker.js')) {
+            registration.unregister();
+          }
+        });
+      }).catch(function () {
+        // Keep attendance working even if the browser refuses service worker access.
+      });
+    }
+  </script>
+  <script src="attendance.js" defer></script>
+</body>
+</html>

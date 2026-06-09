@@ -1,0 +1,152 @@
+/* Dramagic global settings CSS
+   Add this to EVERY page inside <head>:
+   <link rel="stylesheet" href="dramagic-global-settings.css" />
+*/
+:root {
+  --dramagic-accent: #08a9d9;
+  --dramagic-accent-dark: #007aa7;
+  --dramagic-page-bg: #f8fdff;
+  --dramagic-card-bg: rgba(255, 255, 255, 0.86);
+  --dramagic-text: #101820;
+  --dramagic-muted: #657786;
+  --dramagic-border: rgba(8, 169, 217, 0.18);
+}
+
+html.accent-blue, body.accent-blue {
+  --dramagic-accent: #08a9d9;
+  --dramagic-accent-dark: #007aa7;
+}
+
+html.accent-purple, body.accent-purple {
+  --dramagic-accent: #8b5cf6;
+  --dramagic-accent-dark: #6d28d9;
+}
+
+html.accent-pink, body.accent-pink {
+  --dramagic-accent: #ec4899;
+  --dramagic-accent-dark: #be185d;
+}
+
+html.accent-green, body.accent-green {
+  --dramagic-accent: #10b981;
+  --dramagic-accent-dark: #047857;
+}
+
+html.accent-gold, body.accent-gold {
+  --dramagic-accent: #f59e0b;
+  --dramagic-accent-dark: #b45309;
+}
+
+body.dark-mode {
+  --dramagic-page-bg: #07131b;
+  --dramagic-card-bg: rgba(11, 29, 41, 0.9);
+  --dramagic-text: #f4fbff;
+  --dramagic-muted: #b7c9d4;
+  --dramagic-border: rgba(255, 255, 255, 0.12);
+  background: radial-gradient(circle at 15% 8%, color-mix(in srgb, var(--dramagic-accent) 24%, transparent), transparent 260px), linear-gradient(180deg, #07131b, #0b1d28) !important;
+  color: var(--dramagic-text) !important;
+}
+
+body.dark-mode header,
+body.dark-mode nav,
+body.dark-mode section,
+body.dark-mode article,
+body.dark-mode .card,
+body.dark-mode .dashboard-card,
+body.dark-mode .panel,
+body.dark-mode .modal,
+body.dark-mode .box,
+body.dark-mode .container,
+body.dark-mode .profile-card,
+body.dark-mode .settings-card {
+  border-color: var(--dramagic-border);
+}
+
+body.dark-mode .card,
+body.dark-mode .dashboard-card,
+body.dark-mode .panel,
+body.dark-mode .modal,
+body.dark-mode .box,
+body.dark-mode .profile-card,
+body.dark-mode .settings-card {
+  background: var(--dramagic-card-bg) !important;
+  color: var(--dramagic-text) !important;
+}
+
+body.dark-mode input,
+body.dark-mode select,
+body.dark-mode textarea {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: var(--dramagic-text) !important;
+  border-color: var(--dramagic-border) !important;
+}
+
+body.dark-mode input::placeholder,
+body.dark-mode textarea::placeholder {
+  color: rgba(244, 251, 255, 0.58) !important;
+}
+
+body.dark-mode a,
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode p,
+body.dark-mode span,
+body.dark-mode label,
+body.dark-mode strong,
+body.dark-mode small {
+  color: inherit;
+}
+
+body.accent-blue .btn,
+body.accent-purple .btn,
+body.accent-pink .btn,
+body.accent-green .btn,
+body.accent-gold .btn,
+body.accent-blue button.primary-btn,
+body.accent-purple button.primary-btn,
+body.accent-pink button.primary-btn,
+body.accent-green button.primary-btn,
+body.accent-gold button.primary-btn {
+  background: linear-gradient(135deg, var(--dramagic-accent), var(--dramagic-accent-dark));
+}
+
+body.compact-mode .card,
+body.compact-mode .dashboard-card,
+body.compact-mode .settings-card,
+body.compact-mode .profile-card,
+body.compact-mode section,
+body.compact-mode article {
+  padding: 16px !important;
+  border-radius: 22px !important;
+}
+
+html.reduce-motion *,
+body.reduce-motion * {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}
+
+/* ===== Dramagic dropdown readability fix =====
+   Native dropdown menus can inherit white text in dark mode.
+   Keep the opened option list readable on every browser. */
+select option,
+select optgroup {
+  color: #101820 !important;
+  background: #ffffff !important;
+}
+
+select:disabled,
+select option:disabled {
+  color: #7a8790 !important;
+}
+
+body.dark-mode select option,
+body.dark-mode select optgroup,
+html.dark-mode select option,
+html.dark-mode select optgroup {
+  color: #101820 !important;
+  background: #ffffff !important;
+}
+

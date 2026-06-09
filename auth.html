@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Dramagic | Sign In</title>
+
+  <script>
+    (function () {
+      let theme = "light";
+
+      try {
+        const settings = JSON.parse(localStorage.getItem("dramagic_settings")) || {};
+        theme = settings.theme || localStorage.getItem("dramagic_theme") || "light";
+      } catch {
+        theme = localStorage.getItem("dramagic_theme") || "light";
+      }
+
+      const systemDark =
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+      const useDark = theme === "dark" || (theme === "system" && systemDark);
+
+      document.documentElement.classList.toggle("dark-mode", useDark);
+      document.documentElement.classList.toggle("light-mode", !useDark);
+    })();
+  </script>
+
+  <link rel="stylesheet" href="dramagic-global-settings.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <!-- AUTH PAGE -->
+  <section id="authPage" class="auth-page">
+    <div class="auth-hero">
+      <img src="dramagic-logo.png" alt="Dramagic Logo" class="auth-logo" />
+
+      <p class="eyebrow">Welcome to Dramagic</p>
+
+      <h1>
+        Enter your <span>Dramagic</span> world.
+      </h1>
+
+      <p>
+        Sign in or create your account after exploring the Dramagic story. Dramagicians use their Dramagic ID, and parents use the child ID plus the private parent code.
+      </p>
+    </div>
+
+    <div class="auth-card">
+      <div class="auth-tabs">
+        <button id="showSignupBtn" class="tab-btn active" type="button">Sign Up</button>
+        <button id="showSigninBtn" class="tab-btn" type="button">Sign In</button>
+      </div>
+
+      <!-- SIGN UP -->
+      <form id="signupForm" class="auth-form">
+        <h2>Create account</h2>
+        <p>Choose your role. Parents need the child ID and the private parent code from Dramagic.</p>
+
+        <label>
+          I am signing up as
+          <select id="signupRole" required>
+            <option value="student">Student</option>
+            <option value="parent">Parent</option>
+          </select>
+        </label>
+
+        <label>
+          Full Name
+          <input id="signupFullName" type="text" placeholder="Example: Mohamed Ahmed" required />
+        </label>
+
+        <label>
+          Email
+          <input id="signupEmail" type="email" placeholder="example@email.com" required />
+        </label>
+
+        <label id="signupPhoneWrap" class="hidden">
+          Parent Phone
+          <input id="signupParentPhone" type="tel" placeholder="Example: 01012345678" />
+        </label>
+
+        <label id="signupBirthdayWrap">
+          Birthday
+          <input id="signupBirthday" type="date" />
+        </label>
+
+        <label>
+          <span id="signupStudentIdLabel">Dramagic Student ID Number</span>
+          <input id="signupStudentId" type="text" placeholder="Example: DRG-A-001" required />
+        </label>
+
+        <label id="signupParentCodeWrap" class="hidden">
+          Parent Code
+          <input id="signupParentCode" type="text" placeholder="Example: 8472" />
+        </label>
+
+        <div id="parentSignupHint" class="parent-code-hint hidden">
+          <strong>Demo parent access:</strong>
+          <span>Child ID: <b>DRG-A-001</b> • Parent Code: <b>8472</b></span>
+        </div>
+
+        <label>
+          Password
+          <input id="signupPassword" type="password" placeholder="At least 8 characters" required />
+        </label>
+
+        <label>
+          Confirm Password
+          <input id="signupConfirmPassword" type="password" placeholder="Repeat password" required />
+        </label>
+
+        <button class="btn primary-btn" type="submit">Create Account</button>
+
+        <div id="signupMessage" class="form-message"></div>
+      </form>
+
+      <!-- SIGN IN -->
+      <form id="signinForm" class="auth-form hidden">
+        <h2>Sign in</h2>
+        <p>Already have an account? Enter your email and password.</p>
+
+        <label>
+          Email
+          <input id="signinEmail" type="text" placeholder="Email or demo username" required />
+        </label>
+
+        <label>
+          Password
+          <input id="signinPassword" type="password" placeholder="Your password" required />
+        </label>
+
+        <button class="btn primary-btn" type="submit">Sign In</button>
+
+        <div id="signinMessage" class="form-message"></div>
+      </form>
+
+      <div class="guest-access">
+        <a id="guestBtn" href="index.html" class="btn guest-btn">
+          Back to Dramagic Story
+        </a>
+
+        <p>
+          Return to the public Dramagic story, timeline, updates, memories, and contact page.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- APP -->
+  <div id="app" class="app hidden">
+    <header class="site-header">
+      <div class="brand">
+        <img src="dramagic-logo.png" alt="Dramagic Logo" />
+
+        <div>
+          <strong>Dramagic</strong>
+          <span>English Drama Academy</span>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a href="#home" class="nav-link active">Home</a>
+        <a href="#studentArea" class="nav-link student-link">Student</a>
+        <a href="#parentArea" class="nav-link parent-link hidden">Parent</a>
+        <a href="#teacherArea" class="nav-link teacher-link hidden">Teacher</a>
+        <a href="attendance.html" class="nav-link teacher-link hidden">Attendance</a>
+        <a href="finance.html" class="nav-link finance-link hidden">Finance</a>
+        <a href="presentacy.html" class="nav-link">Presentacy</a>
+        <a href="media.html" class="nav-link memories-link">Dramagic Memories</a>
+        <a href="#about" class="nav-link">About</a>
+      </nav>
+
+      <div class="user-menu">
+        <button id="userMenuBtn" class="user-menu-btn" type="button">
+          <img id="navProfilePic" src="" alt="Profile" class="nav-profile-pic" />
+          <span>
+            <strong id="navUserName">Loading...</strong>
+            <small id="roleBadge">Loading...</small>
+          </span>
+          <b>⌄</b>
+        </button>
+
+        <div id="userDropdown" class="user-dropdown hidden">
+          <a href="profile.html">My Profile</a>
+          <a href="settings.html">Settings</a>
+          <button id="logoutBtn" type="button">Logout</button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- HOME -->
+      <section id="home" class="section hero-section">
+        <div class="hero-content">
+          <p class="eyebrow">Where language meets stage magic</p>
+
+          <h1>
+            English, drama, and confidence in one <span>magical</span> place.
+          </h1>
+
+          <p>
+            Dramagic is a creative English Drama Academy where students learn language,
+            confidence, presentation skills, acting, and teamwork through performance.
+          </p>
+
+          <div class="hero-buttons">
+            <a href="#studentArea" class="btn primary-btn student-link">Open Student Area</a>
+            <a href="#parentArea" class="btn ghost-btn parent-link hidden">Open Parent Area</a>
+            <a href="#teacherArea" class="btn ghost-btn teacher-link hidden">Open Teacher Area</a>
+            <a href="attendance.html" class="btn ghost-btn teacher-link hidden">Open Attendance</a>
+            <a href="finance.html" class="btn ghost-btn finance-link hidden">Open Finance</a>
+          </div>
+
+          <div class="personal-card">
+            <div>
+              <p class="eyebrow">Your Dramagic Today</p>
+              <h3 id="personalGreeting">Welcome back ✨</h3>
+              <p id="personalMessage">
+                Your Dramagic journey is ready.
+              </p>
+            </div>
+
+            <div class="personal-avatar-wrap">
+              <img id="homeProfilePic" src="" alt="Profile" />
+            </div>
+          </div>
+        </div>
+
+        <div class="logo-stage magic-stage">
+          <div class="orbit-ring orbit-ring-one"></div>
+          <div class="orbit-ring orbit-ring-two"></div>
+
+          <div class="orbit-words">
+            <span class="orbit-word word-1">English</span>
+            <span class="orbit-word word-2">Drama</span>
+            <span class="orbit-word word-3">Confidence</span>
+            <span class="orbit-word word-4">Presentation</span>
+            <span class="orbit-word word-5">Improvisation</span>
+          </div>
+
+          <img class="stage-logo" src="dramagic-logo.png" alt="Dramagic Logo" />
+        </div>
+      </section>
+
+      <!-- PENDING -->
+      <section id="pendingArea" class="section hidden">
+        <div class="status-card">
+          <p class="eyebrow">Account Pending</p>
+          <h2>Your account is waiting for approval.</h2>
+          <p>
+            Your Dramagic ID number was not found or was already used.
+            Please contact Dramagic so we can check your account.
+          </p>
+        </div>
+      </section>
+
+      <!-- STUDENT -->
+      <section id="studentArea" class="section student-section">
+        <div class="section-title">
+          <p class="eyebrow">Student Portal</p>
+          <h2>Student <span>Area</span></h2>
+          <p>
+            Homework, class materials, voice acting practice, points, and student progress.
+          </p>
+        </div>
+
+        <section id="studentHomeLeaderboard" class="student-home-leaderboard hidden" aria-label="Student leaderboard preview">
+          <div class="leaderboard-hero-card">
+            <div>
+              <p class="eyebrow">Class leaderboard</p>
+              <h3 id="homeLeaderboardTitle">Your class race is loading...</h3>
+              <p id="homeLeaderboardSubtitle">See the top speakers and your next goal.</p>
+            </div>
+
+            <div class="leaderboard-rank-bubble">
+              <span id="homeMyRank">#-</span>
+              <small>Your Rank</small>
+            </div>
+          </div>
+
+          <div class="leaderboard-mini-grid">
+            <article class="leaderboard-mini-card">
+              <span>Points</span>
+              <strong id="homeMyPoints">0</strong>
+              <small id="homeNextGoal">Keep practicing to climb higher.</small>
+            </article>
+
+            <article class="leaderboard-mini-card leaderboard-top-card">
+              <span>Top 3</span>
+              <div id="homeTopStudents" class="home-top-students"></div>
+            </article>
+          </div>
+
+          <div class="leaderboard-actions-row">
+            <a href="presentacy.html#leaderboard" class="btn primary-btn">View Full Leaderboard</a>
+            <a href="presentacy.html#topic" class="btn ghost-btn">Practice Topic</a>
+          </div>
+        </section>
+
+        <div class="cards-grid">
+          <article id="studentHomeworkCard" class="info-card clickable-card">
+            <div class="icon">📚</div>
+            <h3>Homework</h3>
+            <p>Open your class homework chat, send messages, emojis, and voice notes.</p>
+          </article>
+
+          <article class="info-card">
+            <div class="icon">🎭</div>
+            <h3>Drama Practice</h3>
+            <p>Follow acting, confidence, pronunciation, and stage exercises.</p>
+          </article>
+
+          <article class="info-card">
+            <div class="icon">⭐</div>
+            <h3>Points</h3>
+            <p>Later we can connect Wordle points, attendance points, and rewards.</p>
+          </article>
+
+          <a href="profile.html" class="info-card clickable-card">
+            <div class="icon">👤</div>
+            <h3>My Profile</h3>
+            <p>Change your avatar, profile picture, goal, and favorite Dramagic skill.</p>
+          </a>
+
+          <a href="media.html" class="info-card clickable-card">
+            <div class="icon">🖼️</div>
+            <h3>Dramagic Memories</h3>
+            <p>View photos, videos, and class memories uploaded by Dramagic.</p>
+          </a>
+
+          <a href="presentacy.html" class="info-card clickable-card">
+            <div class="icon">🎤</div>
+            <h3>Presentacy</h3>
+            <p>Practice presentation skills, confidence, and speaking topics.</p>
+          </a>
+        </div>
+      </section>
+
+
+      <!-- PARENT -->
+      <section id="parentArea" class="section parent-section hidden">
+        <div class="section-title">
+          <p class="eyebrow">Parent Portal</p>
+          <h2>Parent <span>Dashboard</span></h2>
+          <p>
+            A simple view for parents to follow their child’s progress, attendance,
+            leaderboard position, announcements, and Dramagic memories.
+          </p>
+        </div>
+
+        <section id="parentChildrenList" class="parent-children-list"></section>
+
+        <section id="parentChildDashboard" class="parent-child-dashboard hidden">
+          <div class="parent-child-hero">
+            <div>
+              <p class="eyebrow">Selected child</p>
+              <h3 id="parentChildName">Child Name</h3>
+              <p id="parentChildMeta">Class details will appear here.</p>
+            </div>
+            <div class="parent-rank-badge">
+              <span id="parentChildRank">#-</span>
+              <small>Class Rank</small>
+            </div>
+          </div>
+
+          <div class="parent-progress-grid">
+            <article class="parent-progress-card">
+              <span>Points</span>
+              <strong id="parentChildPoints">0</strong>
+              <small>From Presentacy and class progress</small>
+            </article>
+
+            <article class="parent-progress-card">
+              <span>Attendance</span>
+              <strong id="parentChildAttendance">Demo</strong>
+              <small id="parentChildAttendanceNote">Attendance sync will connect later.</small>
+            </article>
+
+            <article class="parent-progress-card">
+              <span>Latest Badge</span>
+              <strong id="parentChildBadge">🎤</strong>
+              <small id="parentChildBadgeText">Confident Speaker</small>
+            </article>
+          </div>
+
+          <div class="parent-action-grid">
+            <a href="media.html" class="info-card clickable-card">
+              <div class="icon">🖼️</div>
+              <h3>Class Memories</h3>
+              <p>View photos and videos shared for your child’s class.</p>
+            </a>
+
+            <a href="presentacy.html#leaderboard" class="info-card clickable-card">
+              <div class="icon">🏆</div>
+              <h3>Leaderboard</h3>
+              <p>See class ranking and progress in Presentacy.</p>
+            </a>
+
+            <article class="info-card">
+              <div class="icon">📢</div>
+              <h3>Announcements</h3>
+              <p id="parentAnnouncementText">No special announcements yet. Dramagic updates will appear here.</p>
+            </article>
+          </div>
+        </section>
+      </section>
+
+      <!-- TEACHER -->
+      <section id="teacherArea" class="section teacher-section hidden">
+        <div class="section-title">
+          <p class="eyebrow">Teacher Portal</p>
+          <h2>Teacher <span>Area</span></h2>
+          <p>
+            Teachers and CEOs can manage class groups, homework rooms, attendance,
+            presentation tracking, and student notes.
+          </p>
+        </div>
+
+        <div class="cards-grid">
+          <a href="attendance.html" class="info-card clickable-card">
+            <div class="icon">✅</div>
+            <h3>Attendance</h3>
+            <p>Open the separate attendance tab. Scan QR codes and track present, late, and absent students.</p>
+          </a>
+
+          <article class="info-card">
+            <div class="icon">🎤</div>
+            <h3>Presenters</h3>
+            <p>Teachers will see who already presented and who still needs a turn.</p>
+          </article>
+
+          <article class="info-card">
+            <div class="icon">📝</div>
+            <h3>Notes</h3>
+            <p>Teachers will write notes about students, classes, and progress.</p>
+          </article>
+
+          <a href="finance.html" class="info-card clickable-card finance-link hidden">
+            <div class="icon">💰</div>
+            <h3>Finance</h3>
+            <p>Open the finance dashboard for payments, expenses, receipts, and reports.</p>
+          </a>
+
+          <a href="media.html" class="info-card clickable-card">
+            <div class="icon">📸</div>
+            <h3>Media Hub</h3>
+            <p>Upload or view Dramagic photos, videos, and class memories.</p>
+          </a>
+
+          <a href="presentacy.html" class="info-card clickable-card">
+            <div class="icon">🎙️</div>
+            <h3>Presentacy</h3>
+            <p>Open presentation practice, topic generator, and scoring tools.</p>
+          </a>
+        </div>
+
+        <section class="panel homework-chat-launch-panel">
+          <div class="chat-launch-content">
+            <div>
+              <p class="eyebrow">Teacher Class Chat</p>
+              <h3>Homework Chat Rooms</h3>
+              <p>
+                Choose a class, open its homework chat, post tasks, listen to voice notes,
+                and manage student submissions.
+              </p>
+            </div>
+
+            <div class="chat-launch-actions">
+              <select id="teacherClassSelect" class="class-select">
+                <option value="A">Class A</option>
+                <option value="B">Class B</option>
+                <option value="C">Class C</option>
+                <option value="D">Class D</option>
+              </select>
+
+              <button id="openTeacherChatBtn" class="btn primary-btn" type="button">
+                Open Class Chat
+              </button>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- ABOUT -->
+      <section id="about" class="section">
+        <div class="section-title">
+          <p class="eyebrow">Dramagic System</p>
+          <h2>Built step by step, but made to <span>grow</span>.</h2>
+          <p>
+            We are building the frontend first with demo data. Later we can connect
+            signup, student classes, teachers, homework chats, finance, media, attendance,
+            and reports to Supabase.
+          </p>
+        </div>
+      </section>
+
+      <!-- HOMEWORK CHAT MODAL - kept for compatibility with older script.js versions -->
+      <div id="homeworkChatModal" class="chat-modal hidden" aria-hidden="true">
+        <div class="chat-phone" role="dialog" aria-modal="true" aria-labelledby="chatTitle">
+          <header class="chat-topbar">
+            <button id="closeChatBtn" class="chat-icon-btn" type="button" aria-label="Close chat">←</button>
+
+            <div class="chat-avatar">🎭</div>
+
+            <div class="chat-title-box">
+              <strong id="chatTitle">Class A Homework</strong>
+              <span id="chatSubtitle">Voice acting homework room</span>
+            </div>
+
+            <select id="chatClassSelect" class="chat-class-select hidden" aria-label="Choose class">
+              <option value="A">Class A</option>
+              <option value="B">Class B</option>
+              <option value="C">Class C</option>
+              <option value="D">Class D</option>
+            </select>
+          </header>
+
+          <section class="chat-homework-card">
+            <div>
+              <span class="chat-task-label">Current homework</span>
+              <h3 id="chatHomeworkTitle">Voice Acting Task</h3>
+              <p id="chatHomeworkText">Loading task...</p>
+            </div>
+
+            <a id="chatHomeworkVideo" class="chat-video-link" href="#" target="_blank" rel="noopener">
+              Watch clip
+            </a>
+          </section>
+
+          <main id="chatMessages" class="chat-messages" aria-live="polite"></main>
+
+          <section id="emojiPicker" class="emoji-picker hidden" aria-label="Emoji picker">
+            <button type="button">😀</button>
+            <button type="button">😂</button>
+            <button type="button">👏</button>
+            <button type="button">🎭</button>
+            <button type="button">⭐</button>
+            <button type="button">🔥</button>
+            <button type="button">💙</button>
+            <button type="button">✅</button>
+            <button type="button">🙌</button>
+            <button type="button">🎤</button>
+          </section>
+
+          <div id="recordingBar" class="recording-bar hidden">
+            <span class="recording-dot"></span>
+            <strong>Recording voice note...</strong>
+            <span id="recordingTimer">0:00</span>
+          </div>
+
+          <footer class="chat-composer">
+            <button id="emojiBtn" class="chat-tool-btn" type="button" aria-label="Open emojis">😊</button>
+
+            <textarea
+              id="chatInput"
+              rows="1"
+              placeholder="Message the class..."
+              aria-label="Message the class"
+            ></textarea>
+
+            <button id="recordVoiceBtn" class="chat-tool-btn mic-btn" type="button" aria-label="Record voice note">🎙️</button>
+            <button id="stopVoiceBtn" class="chat-tool-btn stop-btn hidden" type="button" aria-label="Stop recording">■</button>
+            <button id="sendChatBtn" class="chat-send-btn" type="button" aria-label="Send message">➤</button>
+          </footer>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      © <span id="year"></span> Dramagic English Drama Academy. Built with magic.
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="script.js"></script>
+  <script src="dramagic-settings-loader.js" defer></script>
+</body>
+</html>

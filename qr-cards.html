@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#635bff" />
+  <title>Dramagic QR Cards</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="qr-cards.css" />
+</head>
+<body>
+  <header class="print-header">
+    <div>
+      <p>Dramagic Attendance</p>
+      <h1>Printable QR ID Cards</h1>
+      <span>Demo cards generated for free from the student list.</span>
+    </div>
+    <div class="actions">
+      <a href="./index.html">← Dashboard</a><a href="./attendance.html">Attendance</a>
+      <button type="button" onclick="window.print()">Print Cards</button>
+    </div>
+  </header>
+
+  <main id="cardsGrid" class="cards-grid"></main>
+
+  <script src="qr-cards.js"></script>
+</body>
+</html>

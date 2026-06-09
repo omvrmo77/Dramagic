@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#635bff" />
+  <title>Dramagic Chat / Missions</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="index.css" />
+</head>
+<body>
+  <main class="dashboard-app">
+    <section class="dashboard-hero">
+      <div class="brand-badge">💬</div>
+      <p class="eyebrow">Dramagic Demo</p>
+      <h1>Chat / Missions</h1>
+      <p class="hero-text">This page is only a safe placeholder so the demo never gets stuck. When we merge this folder with your full Dramagic website, this card will link to your real chat page.</p>
+      <div class="hero-status">
+        <a class="demo-pill-link" href="./index.html">← Home</a>
+        <a class="demo-pill-link" href="./attendance.html">Attendance</a>
+      </div>
+    </section>
+
+    <section class="setup-card">
+      <h2>What this means</h2>
+      <p class="plain-copy">The attendance system is ready as a separate offline module. The Chat / Missions system should stay in your main Dramagic files, then we connect the dashboard button to it later.</p>
+    </section>
+  </main>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js').catch(console.warn);
+      });
+    }
+  </script>
+</body>
+</html>

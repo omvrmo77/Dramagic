@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dramagic Cache Fix</title>
+  <style>
+    :root {
+      --blue: #08a9d9;
+      --purple: #635bff;
+      --ink: #101820;
+      --muted: #657786;
+      --border: rgba(8, 169, 217, 0.22);
+      --bg: #eefaff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(99, 91, 255, 0.16), transparent 340px),
+        radial-gradient(circle at bottom right, rgba(8, 169, 217, 0.14), transparent 360px),
+        var(--bg);
+    }
+
+    .card {
+      width: min(560px, 100%);
+      padding: 28px;
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      background: rgba(255,255,255,0.94);
+      box-shadow: 0 22px 60px rgba(0, 122, 167, 0.12);
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(28px, 7vw, 44px);
+      letter-spacing: -1px;
+    }
+
+    p {
+      margin: 0 0 18px;
+      color: var(--muted);
+      line-height: 1.6;
+      font-weight: 700;
+    }
+
+    .status {
+      padding: 14px 16px;
+      margin: 16px 0;
+      border-radius: 18px;
+      background: rgba(99, 91, 255, 0.1);
+      color: #463cc7;
+      font-weight: 900;
+    }
+
+    a, button {
+      appearance: none;
+      border: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 18px;
+      border-radius: 999px;
+      color: white;
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      font-weight: 900;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    button.secondary {
+      color: #463cc7;
+      background: rgba(99, 91, 255, 0.12);
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <h1>Dramagic Cache Fix</h1>
+    <p>
+      This page removes the old offline demo cache that was forcing the wrong
+      dashboard to appear as index.html.
+    </p>
+
+    <div id="status" class="status">Cleaning old service worker and cache...</div>
+
+    <div class="row">
+      <a href="./index.html">Open Dramagic Home</a>
+      <button class="secondary" type="button" onclick="runFix()">Run Fix Again</button>
+    </div>
+  </main>
+
+  <script>
+    async function runFix() {
+      const status = document.getElementById("status");
+
+      try {
+        status.textContent = "Removing old service workers...";
+
+        if ("serviceWorker" in navigator) {
+          const registrations = await navigator.serviceWorker.getRegistrations();
+          await Promise.all(registrations.map(function (registration) {
+            return registration.unregister();
+          }));
+        }
+
+        status.textContent = "Clearing old cached pages...";
+
+        if ("caches" in window) {
+          const names = await caches.keys();
+          await Promise.all(names.map(function (name) {
+            return caches.delete(name);
+          }));
+        }
+
+        status.textContent = "Done. Opening your real Dramagic homepage...";
+        setTimeout(function () {
+          window.location.replace("./index.html?cacheFixed=" + Date.now());
+        }, 900);
+      } catch (error) {
+        status.textContent = "I could not clear everything automatically. Use browser DevTools → Application → Clear storage, then reload.";
+      }
+    }
+
+    runFix();
+  </script>
+</body>
+</html>

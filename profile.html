@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dramagic | Profile</title>
+  <link rel="stylesheet" href="profile.css" />
+  <script src="profile.js" defer></script>
+</head>
+<body>
+  <main class="profile-page">
+    <header class="profile-topbar">
+      <button class="back-btn" id="backBtn" type="button" aria-label="Go back">
+        <span>←</span>
+        Back
+      </button>
+
+      <a class="mini-brand" href="index.html" aria-label="Go to Dramagic home">
+        <span class="brand-mark">🎭</span>
+        <span>
+          <strong>Dramagic</strong>
+          <small>Profile Space</small>
+        </span>
+      </a>
+
+      <a class="settings-link" href="settings.html">Settings ⚙️</a>
+    </header>
+
+    <section class="profile-layout">
+      <article class="profile-preview-card">
+        <div class="snap-top-glow"></div>
+
+        <div class="profile-avatar-stage">
+          <img id="profilePreview" src="" alt="Profile avatar" />
+          <span class="avatar-ring"></span>
+        </div>
+
+        <p class="profile-mini-label">Your Dramagic identity</p>
+        <h1 id="profileNamePreview">Your Name</h1>
+        <p id="profileBioPreview" class="profile-bio-preview">
+          Make your profile feel like you. Add an avatar, your goal, and what you love practicing.
+        </p>
+
+        <div class="profile-chips">
+          <span id="skillPreview">🎤 Confidence</span>
+          <span id="goalPreview">✨ Ready to grow</span>
+        </div>
+      </article>
+
+      <article class="profile-editor-card">
+        <p class="eyebrow">Customize</p>
+        <h2>Make it feel yours</h2>
+        <p class="card-note">Choose an avatar, upload a photo, and write what you want Dramagic to remember on your profile.</p>
+
+        <form id="profileForm" class="profile-form">
+          <label>
+            Display name
+            <input id="displayNameInput" type="text" placeholder="Example: Omar" maxlength="40" />
+          </label>
+
+          <label>
+            Short bio
+            <textarea id="bioInput" placeholder="Example: I love acting and I want to speak with confidence..." maxlength="180"></textarea>
+          </label>
+
+          <label>
+            My current goal
+            <input id="goalInput" type="text" placeholder="Example: I want to speak with confidence" maxlength="80" />
+          </label>
+
+          <label>
+            Favorite skill
+            <select id="favoriteSkillInput">
+              <option value="Confidence">Confidence</option>
+              <option value="Pronunciation">Pronunciation</option>
+              <option value="Acting">Acting</option>
+              <option value="Presentation">Presentation</option>
+              <option value="Improvisation">Improvisation</option>
+              <option value="Storytelling">Storytelling</option>
+              <option value="Body Language">Body Language</option>
+            </select>
+          </label>
+
+          <section class="avatar-section" aria-labelledby="avatarTitle">
+            <div class="section-title-row">
+              <div>
+                <p class="eyebrow small">Avatars</p>
+                <h3 id="avatarTitle">Pick your character</h3>
+              </div>
+              <button id="randomAvatarBtn" class="small-action" type="button">Random ✨</button>
+            </div>
+
+            <div class="avatar-options" id="avatarOptions">
+              <button type="button" data-avatar="🎭" data-label="Drama Star">🎭<small>Drama</small></button>
+              <button type="button" data-avatar="🎤" data-label="Speaker">🎤<small>Speaker</small></button>
+              <button type="button" data-avatar="🌟" data-label="Star Student">🌟<small>Star</small></button>
+              <button type="button" data-avatar="📚" data-label="Story Maker">📚<small>Story</small></button>
+              <button type="button" data-avatar="🪄" data-label="Magic Maker">🪄<small>Magic</small></button>
+              <button type="button" data-avatar="🎬" data-label="Actor">🎬<small>Actor</small></button>
+              <button type="button" data-avatar="🦁" data-label="Brave Lion">🦁<small>Brave</small></button>
+              <button type="button" data-avatar="🦋" data-label="Creative Soul">🦋<small>Creative</small></button>
+              <button type="button" data-avatar="🚀" data-label="Dream Chaser">🚀<small>Dream</small></button>
+              <button type="button" data-avatar="💎" data-label="Shining Voice">💎<small>Voice</small></button>
+            </div>
+          </section>
+
+          <label class="upload-card" for="profilePicInput">
+            <input id="profilePicInput" type="file" accept="image/*" />
+            <span class="upload-icon">📸</span>
+            <strong>Upload your own picture</strong>
+            <small>PNG, JPG, or JPEG. It saves only on this device.</small>
+          </label>
+
+          <div class="form-actions">
+            <button id="saveProfileBtn" class="btn primary-btn" type="submit">Save Profile ✨</button>
+            <button id="clearPhotoBtn" class="btn soft-btn" type="button">Use Avatar Instead</button>
+          </div>
+
+          <p id="profileStatus" class="status-message" aria-live="polite"></p>
+        </form>
+      </article>
+    </section>
+
+    <section class="profile-extra-grid">
+      <article class="mini-card">
+        <span class="mini-icon">🏆</span>
+        <h3>Profile badges</h3>
+        <div class="badge-row">
+          <span>Brave Speaker</span>
+          <span>Magic Voice</span>
+          <span>Stage Ready</span>
+        </div>
+      </article>
+
+      <article class="mini-card">
+        <span class="mini-icon">💬</span>
+        <h3>Profile message</h3>
+        <p id="personalMessage">Welcome back! Your Dramagic space is ready.</p>
+      </article>
+    </section>
+  </main>
+</body>
+</html>

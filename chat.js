@@ -2079,7 +2079,7 @@ function initChatPage() {
   currentProfile = currentUser;
 
   if (!currentUser) {
-    window.location.href = "index.html";
+    window.location.href = "auth.html#signin";
     return;
   }
 
@@ -4198,11 +4198,11 @@ function goBackToDashboard() {
   stopRecordingCleanup();
 
   if (currentProfile && (currentProfile.role === "teacher" || currentProfile.role === "ceo")) {
-    window.location.href = "index.html#teacherArea";
+    window.location.href = "auth.html#teacherArea";
     return;
   }
 
-  window.location.href = "index.html#studentArea";
+  window.location.href = "auth.html#studentArea";
 }
 
 /* =====================================================

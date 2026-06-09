@@ -30,6 +30,8 @@ const reportSettingsForm = document.getElementById("reportSettingsForm");
 const resetBtn = document.getElementById("resetBtn");
 const printReceiptBtn = document.getElementById("printReceiptBtn");
 const printReportBtn = document.getElementById("printReportBtn");
+const downloadReceiptPdfBtn = document.getElementById("downloadReceiptPdfBtn");
+const downloadReportPdfBtn = document.getElementById("downloadReportPdfBtn");
 const updateReportBtn = document.getElementById("updateReportBtn");
 
 const studentSearch = document.getElementById("studentSearch");
@@ -54,8 +56,11 @@ function init() {
   if (receiptForm) receiptForm.addEventListener("submit", handleReceiptPreview);
   if (reportSettingsForm) reportSettingsForm.addEventListener("input", renderClosingReport);
   setupSharePercentSync();
+  setupFinanceTabs();
   if (printReceiptBtn) printReceiptBtn.addEventListener("click", printReceipt);
   if (printReportBtn) printReportBtn.addEventListener("click", printClosingReport);
+  if (downloadReceiptPdfBtn) downloadReceiptPdfBtn.addEventListener("click", downloadReceiptPdf);
+  if (downloadReportPdfBtn) downloadReportPdfBtn.addEventListener("click", downloadClosingReportPdf);
   if (updateReportBtn) updateReportBtn.addEventListener("click", renderClosingReport);
   if (resetBtn) resetBtn.addEventListener("click", handleResetFinance);
 
@@ -334,6 +339,8 @@ function startInstallmentPayment(id) {
   const submitBtn = studentForm ? studentForm.querySelector("button[type='submit']") : null;
   if (submitBtn) submitBtn.textContent = "حفظ القسط الجديد";
 
+  switchFinanceTab("payments");
+
   const paidInput = document.getElementById("studentPaid");
   if (paidInput) paidInput.focus();
 
@@ -362,6 +369,7 @@ function buildReceiptFromStudentPayment(student, payment) {
 
   fillReceiptForm(receipt);
   renderReceipt(receipt);
+  switchFinanceTab("receipts", false);
 }
 
 function handleAddExpense(event) {
@@ -599,6 +607,7 @@ function buildReceiptFromStudent(student) {
 
   fillReceiptForm(receipt);
   renderReceipt(receipt);
+  switchFinanceTab("receipts", false);
 }
 
 function buildVoucherFromExpense(expense) {
@@ -618,6 +627,7 @@ function buildVoucherFromExpense(expense) {
 
   fillReceiptForm(receipt);
   renderReceipt(receipt);
+  switchFinanceTab("receipts", false);
 }
 
 function fillReceiptForm(receipt) {
@@ -666,12 +676,108 @@ function printClosingReport() {
   printSection("printing-report");
 }
 
+async function downloadReceiptPdf() {
+  await downloadFinancePdf({
+    elementId: "receiptPaper",
+    fileName: `Dramagic-${getValue("receiptNumber") || "receipt"}.pdf`,
+    orientation: "portrait",
+    pdfClass: "pdf-receipt-portrait",
+    margin: 8,
+    beforeDownload: function () {
+      const receipt = {
+        type: getValue("receiptType"),
+        number: getValue("receiptNumber"),
+        date: getValue("receiptDate"),
+        method: getValue("receiptMethod"),
+        person: getValue("receiptPerson"),
+        student: getValue("receiptStudent"),
+        group: getValue("receiptGroup"),
+        amount: Number(getValue("receiptAmount")),
+        reason: getValue("receiptReason"),
+        receiver: getValue("receiptReceiver"),
+        notes: getValue("receiptNotes")
+      };
+      renderReceipt(receipt);
+    },
+    fallbackPrintClass: "printing-receipt"
+  });
+}
+
+async function downloadClosingReportPdf() {
+  renderClosingReport();
+  const reportNumber = getValue("reportNumber") || "final-report";
+  await downloadFinancePdf({
+    elementId: "financialReportPaper",
+    fileName: `Dramagic-Financial-Report-${reportNumber}.pdf`,
+    orientation: "landscape",
+    pdfClass: "pdf-report-landscape",
+    margin: 6,
+    fallbackPrintClass: "printing-report"
+  });
+}
+
+async function downloadFinancePdf({ elementId, fileName, beforeDownload, fallbackPrintClass, orientation = "portrait", pdfClass = "", margin = 8 }) {
+  const element = document.getElementById(elementId);
+  if (!element) return;
+
+  if (typeof beforeDownload === "function") beforeDownload();
+
+  const safeFileName = sanitizeFileName(fileName || "Dramagic-finance.pdf");
+
+  if (!window.html2pdf) {
+    alert("تحميل PDF المباشر يحتاج اتصال بالإنترنت لتحميل مكتبة PDF المجانية. سيتم فتح الطباعة بدلًا من ذلك، ويمكنك اختيار Save as PDF من المتصفح.");
+    printSection(fallbackPrintClass || "printing-report");
+    return;
+  }
+
+  document.body.classList.add("downloading-pdf");
+  if (pdfClass) document.body.classList.add(pdfClass);
+
+  try {
+    await html2pdf()
+      .set({
+        margin: margin,
+        filename: safeFileName,
+        image: { type: "jpeg", quality: 0.98 },
+        html2canvas: {
+          scale: Math.min(window.devicePixelRatio || 2, 2.5),
+          useCORS: true,
+          backgroundColor: "#ffffff",
+          scrollY: 0
+        },
+        jsPDF: { unit: "mm", format: "a4", orientation: orientation },
+        pagebreak: { mode: ["css", "legacy"] }
+      })
+      .from(element)
+      .save();
+  } catch (error) {
+    console.error(error);
+    alert("حدثت مشكلة أثناء تحميل PDF. سيتم فتح الطباعة بدلًا من ذلك.");
+    printSection(fallbackPrintClass || "printing-report");
+  } finally {
+    document.body.classList.remove("downloading-pdf");
+    if (pdfClass) document.body.classList.remove(pdfClass);
+  }
+}
+
+function sanitizeFileName(value) {
+  return String(value || "Dramagic-finance.pdf")
+    .replace(/[\\/:*?"<>|]+/g, "-")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-")
+    .trim();
+}
+
 function printSection(className) {
   document.body.classList.remove("printing-receipt", "printing-report");
   document.body.classList.add(className);
 
+  const orientation = className === "printing-report" ? "landscape" : "portrait";
+  setDynamicPrintOrientation(orientation);
+
   const cleanPrintClass = function () {
     document.body.classList.remove(className);
+    removeDynamicPrintOrientation();
     window.removeEventListener("afterprint", cleanPrintClass);
   };
 
@@ -680,6 +786,20 @@ function printSection(className) {
   setTimeout(function () {
     window.print();
   }, 100);
+}
+
+function setDynamicPrintOrientation(orientation) {
+  removeDynamicPrintOrientation();
+
+  const style = document.createElement("style");
+  style.id = "financePrintOrientationStyle";
+  style.textContent = `@media print { @page { size: A4 ${orientation}; margin: ${orientation === "landscape" ? "7mm" : "8mm"}; } }`;
+  document.head.appendChild(style);
+}
+
+function removeDynamicPrintOrientation() {
+  const existing = document.getElementById("financePrintOrientationStyle");
+  if (existing) existing.remove();
 }
 
 
@@ -838,6 +958,48 @@ function buildExpensesReportTable() {
       <tbody>${rows}</tbody>
     </table>
   `;
+}
+
+
+function setupFinanceTabs() {
+  const tabButtons = Array.from(document.querySelectorAll("[data-finance-tab]"));
+  const jumpButtons = Array.from(document.querySelectorAll("[data-finance-tab-jump]"));
+
+  tabButtons.forEach((button) => {
+    button.addEventListener("click", () => switchFinanceTab(button.dataset.financeTab));
+  });
+
+  jumpButtons.forEach((button) => {
+    button.addEventListener("click", () => switchFinanceTab(button.dataset.financeTabJump));
+  });
+
+  const saved = localStorage.getItem("dramagic_finance_active_tab") || "overview";
+  switchFinanceTab(saved, false);
+}
+
+function switchFinanceTab(tabName, save = true) {
+  const target = tabName || "overview";
+  const tabButtons = Array.from(document.querySelectorAll("[data-finance-tab]"));
+  const panels = Array.from(document.querySelectorAll("[data-finance-panel]"));
+
+  if (!panels.length) return;
+
+  const exists = panels.some((panel) => panel.dataset.financePanel === target);
+  const activeTab = exists ? target : "overview";
+
+  tabButtons.forEach((button) => {
+    button.classList.toggle("active", button.dataset.financeTab === activeTab);
+  });
+
+  panels.forEach((panel) => {
+    panel.classList.toggle("active", panel.dataset.financePanel === activeTab);
+  });
+
+  if (save) {
+    localStorage.setItem("dramagic_finance_active_tab", activeTab);
+    const tabs = document.querySelector(".finance-tabs");
+    if (tabs) tabs.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
 }
 
 function countUniqueStudents(list) {

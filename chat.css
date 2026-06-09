@@ -1135,3 +1135,59 @@ html.dark-mode .mission-status.waiting-review, body.dark-mode .mission-status.wa
     min-height: auto;
   }
 }
+
+/* ============================================================
+   MOBILE POLISH FIX — Sidebar-only Home button for chat
+   The Home button stays hidden while a conversation is open.
+   It appears only when the mobile chat drawer/sidebar is opened.
+============================================================ */
+.chat-floating-home {
+  display: none;
+}
+
+@media (max-width: 920px) {
+  .chat-floating-home {
+    position: fixed;
+    left: 14px;
+    bottom: calc(16px + var(--safe-bottom));
+    z-index: 95;
+    min-height: 44px;
+    width: min(150px, calc(88vw - 28px));
+    padding: 0 16px;
+    border-radius: 999px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: #fff;
+    background: linear-gradient(135deg, var(--teams-purple), var(--dm-accent));
+    border: 1px solid rgba(255,255,255,.22);
+    box-shadow: 0 12px 28px rgba(0,0,0,.18);
+    font-size: 14px;
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+  .chat-app.sidebar-open .chat-floating-home {
+    display: inline-flex;
+  }
+
+  .chat-floating-home span {
+    font-size: 18px;
+    line-height: 1;
+  }
+
+  .chat-floating-home:active {
+    transform: scale(.98);
+  }
+
+  body.chat-writing-mode .chat-floating-home {
+    display: none !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .chat-floating-home {
+    width: min(150px, calc(91vw - 28px));
+  }
+}

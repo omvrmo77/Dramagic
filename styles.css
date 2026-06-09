@@ -2669,3 +2669,127 @@ body.dark-mode .guest-timeline-year::after {
     font-size: 24px;
   }
 }
+
+/* =====================================================
+   MOBILE POLISH FIXES — Dramagic logo stage + profile avatar
+   Fixes: guest story quote covering logo, home avatar stretching.
+===================================================== */
+
+.personal-avatar-wrap {
+  width: 76px;
+  height: 76px;
+  flex: 0 0 76px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+
+.personal-avatar-wrap img,
+#homeProfilePic,
+#navProfilePic {
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50% !important;
+  flex: 0 0 auto;
+}
+
+.personal-avatar-wrap img,
+#homeProfilePic {
+  width: 76px !important;
+  height: 76px !important;
+  min-width: 76px;
+  min-height: 76px;
+  max-width: 76px;
+  max-height: 76px;
+}
+
+#navProfilePic {
+  width: 42px !important;
+  height: 42px !important;
+  min-width: 42px;
+  min-height: 42px;
+  max-width: 42px;
+  max-height: 42px;
+}
+
+@media (max-width: 760px) {
+  .guest-stage-card {
+    min-height: auto;
+    padding: 26px 14px 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 14px;
+  }
+
+  .guest-stage-card img {
+    width: min(205px, 58vw);
+    margin: 20px auto 0;
+    z-index: 2;
+  }
+
+  .guest-stage-card::before {
+    width: 265px;
+    height: 265px;
+    top: 44px;
+  }
+
+  .guest-stage-card::after {
+    width: 325px;
+    height: 325px;
+    top: 16px;
+  }
+
+  .guest-stage-orbit {
+    inset: 28px 18px auto;
+    height: 260px;
+  }
+
+  .guest-stage-orbit span:nth-child(3) {
+    bottom: 14%;
+    left: 0;
+  }
+
+  .guest-stage-orbit span:nth-child(4) {
+    bottom: 4%;
+    right: 7%;
+  }
+
+  .guest-stage-quote {
+    position: relative;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    z-index: 4;
+    width: calc(100% - 26px);
+    margin: 10px auto 0;
+    padding: 14px 12px;
+    border-radius: 20px;
+  }
+
+  .guest-stage-quote strong {
+    font-size: 18px;
+    line-height: 1.2;
+  }
+
+  .guest-stage-quote p {
+    font-size: 13px;
+    line-height: 1.45;
+  }
+
+  .personal-card {
+    align-items: center;
+  }
+}
+
+@media (max-width: 390px) {
+  .guest-stage-card img {
+    width: min(190px, 56vw);
+  }
+
+  .guest-stage-orbit {
+    height: 245px;
+  }
+}

@@ -1,574 +1,516 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+
+<html dir="rtl" lang="ar">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>المالية | Dramagic</title>
-  <link rel="stylesheet" href="finance.css" />
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>المالية | Dramagic</title>
+<link href="finance.css" rel="stylesheet"/><link href="dramagic-nav.css" rel="stylesheet"/>
+<!-- Dramagic PWA -->
+<link rel="manifest" href="manifest.json" />
+<link rel="icon" href="favicon.ico" />
+<link rel="apple-touch-icon" href="assets/icons/icon-180.png" />
+<meta name="theme-color" content="#08a9d9" />
+<meta name="application-name" content="Dramagic" />
+<meta name="apple-mobile-web-app-title" content="Dramagic" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
 </head>
 <body>
-  <section id="financeLock" class="finance-lock">
-    <div class="lock-card">
-      <img src="dramagic-logo.png" alt="Dramagic Logo" class="lock-logo" />
-      <p class="eyebrow">قسم خاص</p>
-      <h1>الدخول إلى المالية</h1>
-      <p class="lock-text">هذا القسم خاص بالإدارة فقط. أدخل كلمة المرور لفتح لوحة المالية العربية.</p>
-
-      <form id="passwordForm" class="password-form">
-        <label>
+<section class="finance-lock" id="financeLock">
+<div class="lock-card">
+<img alt="Dramagic Logo" class="lock-logo" src="dramagic-logo.png"/>
+<p class="eyebrow">قسم خاص</p>
+<h1>الدخول إلى المالية</h1>
+<p class="lock-text">هذا القسم خاص بالإدارة فقط. أدخل كلمة المرور لفتح لوحة المالية العربية.</p>
+<form class="password-form" id="passwordForm">
+<label>
           كلمة المرور
-          <input id="financePassword" type="password" autocomplete="current-password" placeholder="اكتب كلمة المرور" required />
-        </label>
-        <button class="btn primary-btn" type="submit">دخول</button>
-        <div id="passwordMessage" class="form-message"></div>
-      </form>
-
-      <a href="auth.html#home" class="back-link">العودة إلى اللوحة</a>
-    </div>
-  </section>
-
-  <div id="financeApp" class="finance-app hidden">
-    <header class="finance-header">
-      <a href="auth.html#home" class="brand">
-        <img src="dramagic-logo.png" alt="Dramagic Logo" />
-        <div>
-          <strong>Dramagic</strong>
-          <span>لوحة المالية</span>
-        </div>
-      </a>
-
-      <nav class="finance-nav">
-        <a href="auth.html#home">الرئيسية</a>
-        <a href="finance.html" class="active">المالية</a>
-      </nav>
-
-      <button id="lockFinanceBtn" class="btn danger-btn" type="button">قفل المالية</button>
-    </header>
-
-    <main class="finance-main">
-      <section class="finance-mobile-hero">
-        <div>
-          <p class="eyebrow">لوحة الإدارة المالية</p>
-          <h1>المالية</h1>
-          <p>سجّل الدفعات والمصروفات، اطبع الإيصالات، وحمّل التقرير النهائي PDF من مكان واحد.</p>
-        </div>
-      </section>
-
-      <nav class="finance-tabs" aria-label="تبويبات المالية">
-        <button class="finance-tab-btn active" type="button" data-finance-tab="overview">الملخص</button>
-        <button class="finance-tab-btn" type="button" data-finance-tab="payments">دفعات الطلاب</button>
-        <button class="finance-tab-btn" type="button" data-finance-tab="expenses">المصروفات</button>
-        <button class="finance-tab-btn" type="button" data-finance-tab="receipts">إيصال / سند</button>
-        <button class="finance-tab-btn" type="button" data-finance-tab="report">التقرير النهائي</button>
-        <button class="finance-tab-btn" type="button" data-finance-tab="records">السجلات</button>
-      </nav>
-
-      <section class="finance-tab-panel active" data-finance-panel="overview">
-        <section class="summary-grid">
-          <article class="summary-card">
-            <span>إجمالي الإيرادات</span>
-            <strong id="totalRevenue">٠ ج.م</strong>
-          </article>
-          <article class="summary-card">
-            <span>إجمالي المصروفات</span>
-            <strong id="totalExpenses">٠ ج.م</strong>
-          </article>
-          <article class="summary-card">
-            <span>المبالغ المتبقية</span>
-            <strong id="totalRemaining">٠ ج.م</strong>
-          </article>
-          <article class="summary-card profit-card">
-            <span>صافي الربح</span>
-            <strong id="totalProfit">٠ ج.م</strong>
-          </article>
-          <article class="summary-card">
-            <span>نصيب الشريك ٣٠٪</span>
-            <strong id="partnerShare">٠ ج.م</strong>
-          </article>
-          <article class="summary-card">
-            <span>نصيب Dramagic ٧٠٪</span>
-            <strong id="ourShare">٠ ج.م</strong>
-          </article>
-        </section>
-
-        <section class="finance-quick-grid">
-          <article class="hero-card finance-action-card">
-            <span>👥</span>
-            <h3>دفعة طالب</h3>
-            <p>أضف طالب جديد أو قسط جديد لطالب موجود.</p>
-            <button class="btn primary-btn" type="button" data-finance-tab-jump="payments">إضافة دفعة</button>
-          </article>
-          <article class="hero-card finance-action-card">
-            <span>💸</span>
-            <h3>مصروف</h3>
-            <p>سجل أي مصروف للدورة مع التاريخ والتفاصيل.</p>
-            <button class="btn secondary-btn" type="button" data-finance-tab-jump="expenses">إضافة مصروف</button>
-          </article>
-          <article class="hero-card finance-action-card">
-            <span>🧾</span>
-            <h3>إيصال / سند</h3>
-            <p>أنشئ إيصال قبض أو سند صرف وحمّله PDF.</p>
-            <button class="btn secondary-btn" type="button" data-finance-tab-jump="receipts">فتح الإيصالات</button>
-          </article>
-          <article class="hero-card finance-action-card">
-            <span>📄</span>
-            <h3>التقرير النهائي</h3>
-            <p>جهّز التقرير النهائي للدورة وحمّله PDF.</p>
-            <button class="btn secondary-btn" type="button" data-finance-tab-jump="report">فتح التقرير</button>
-          </article>
-        </section>
-      </section>
-
-      <section class="finance-tab-panel" data-finance-panel="payments">
-        <article class="panel finance-form-card">
-          <div class="panel-heading">
-            <div>
-              <p class="eyebrow">إيرادات الطلاب</p>
-              <h2>إضافة دفعة طالب</h2>
-              <p>أضف دفعة جديدة، أو من السجلات اضغط “إضافة قسط” لإكمال باقي المبلغ لنفس الطالب.</p>
-            </div>
-          </div>
-
-          <form id="studentForm">
-            <label>
+          <input autocomplete="current-password" id="financePassword" placeholder="اكتب كلمة المرور" required="" type="password"/>
+</label>
+<button class="btn primary-btn" type="submit">دخول</button>
+<div class="form-message" id="passwordMessage"></div>
+</form>
+<a class="back-link" href="auth.html#home">العودة إلى اللوحة</a>
+</div>
+</section>
+<div class="finance-app hidden" id="financeApp"><div id="dramagicGlobalNav"></div>
+<header class="finance-header">
+<a class="brand" href="auth.html#home">
+<img alt="Dramagic Logo" src="dramagic-logo.png"/>
+<div>
+<strong>Dramagic</strong>
+<span>لوحة المالية</span>
+</div>
+</a>
+<nav aria-hidden="true" class="finance-nav" style="display:none !important;">
+<a href="auth.html#home">الرئيسية</a>
+<a class="active" href="finance.html">المالية</a>
+</nav>
+<button class="btn danger-btn" id="lockFinanceBtn" type="button">قفل المالية</button>
+</header>
+<main class="finance-main">
+<section class="finance-mobile-hero">
+<div>
+<p class="eyebrow">لوحة الإدارة المالية</p>
+<h1>المالية</h1>
+<p>سجّل الدفعات والمصروفات، اطبع الإيصالات، وحمّل التقرير النهائي PDF من مكان واحد.</p>
+</div>
+</section>
+<nav aria-label="تبويبات المالية" class="finance-tabs">
+<button class="finance-tab-btn active" data-finance-tab="overview" type="button">الملخص</button>
+<button class="finance-tab-btn" data-finance-tab="payments" type="button">دفعات الطلاب</button>
+<button class="finance-tab-btn" data-finance-tab="expenses" type="button">المصروفات</button>
+<button class="finance-tab-btn" data-finance-tab="receipts" type="button">إيصال / سند</button>
+<button class="finance-tab-btn" data-finance-tab="report" type="button">التقرير النهائي</button>
+<button class="finance-tab-btn" data-finance-tab="records" type="button">السجلات</button>
+</nav>
+<section class="finance-tab-panel active" data-finance-panel="overview">
+<section class="summary-grid">
+<article class="summary-card">
+<span>إجمالي الإيرادات</span>
+<strong id="totalRevenue">٠ ج.م</strong>
+</article>
+<article class="summary-card">
+<span>إجمالي المصروفات</span>
+<strong id="totalExpenses">٠ ج.م</strong>
+</article>
+<article class="summary-card">
+<span>المبالغ المتبقية</span>
+<strong id="totalRemaining">٠ ج.م</strong>
+</article>
+<article class="summary-card profit-card">
+<span>صافي الربح</span>
+<strong id="totalProfit">٠ ج.م</strong>
+</article>
+<article class="summary-card">
+<span>نصيب الشريك ٣٠٪</span>
+<strong id="partnerShare">٠ ج.م</strong>
+</article>
+<article class="summary-card">
+<span>نصيب Dramagic ٧٠٪</span>
+<strong id="ourShare">٠ ج.م</strong>
+</article>
+</section>
+<section class="finance-quick-grid">
+<article class="hero-card finance-action-card">
+<span>👥</span>
+<h3>دفعة طالب</h3>
+<p>أضف طالب جديد أو قسط جديد لطالب موجود.</p>
+<button class="btn primary-btn" data-finance-tab-jump="payments" type="button">إضافة دفعة</button>
+</article>
+<article class="hero-card finance-action-card">
+<span>💸</span>
+<h3>مصروف</h3>
+<p>سجل أي مصروف للدورة مع التاريخ والتفاصيل.</p>
+<button class="btn secondary-btn" data-finance-tab-jump="expenses" type="button">إضافة مصروف</button>
+</article>
+<article class="hero-card finance-action-card">
+<span>🧾</span>
+<h3>إيصال / سند</h3>
+<p>أنشئ إيصال قبض أو سند صرف وحمّله PDF.</p>
+<button class="btn secondary-btn" data-finance-tab-jump="receipts" type="button">فتح الإيصالات</button>
+</article>
+<article class="hero-card finance-action-card">
+<span>📄</span>
+<h3>التقرير النهائي</h3>
+<p>جهّز التقرير النهائي للدورة وحمّله PDF.</p>
+<button class="btn secondary-btn" data-finance-tab-jump="report" type="button">فتح التقرير</button>
+</article>
+</section>
+</section>
+<section class="finance-tab-panel" data-finance-panel="payments">
+<article class="panel finance-form-card">
+<div class="panel-heading">
+<div>
+<p class="eyebrow">إيرادات الطلاب</p>
+<h2>إضافة دفعة طالب</h2>
+<p>أضف دفعة جديدة، أو من السجلات اضغط “إضافة قسط” لإكمال باقي المبلغ لنفس الطالب.</p>
+</div>
+</div>
+<form id="studentForm">
+<label>
               اسم الطالب
-              <input id="studentName" type="text" placeholder="مثال: جنا أحمد" required />
-            </label>
-
-            <label>
+              <input id="studentName" placeholder="مثال: جنا أحمد" required="" type="text"/>
+</label>
+<label>
               اسم ولي الأمر
-              <input id="parentName" type="text" placeholder="مثال: أحمد محمد" />
-            </label>
-
-            <label>
+              <input id="parentName" placeholder="مثال: أحمد محمد" type="text"/>
+</label>
+<label>
               الكورس / المجموعة
-              <input id="studentCourse" type="text" placeholder="مثال: كورس الصيف" />
-            </label>
-
-            <div class="two-cols">
-              <label>
+              <input id="studentCourse" placeholder="مثال: كورس الصيف" type="text"/>
+</label>
+<div class="two-cols">
+<label>
                 إجمالي المصروفات
-                <input id="studentFee" type="number" placeholder="3000" min="0" required />
-              </label>
-
-              <label>
+                <input id="studentFee" min="0" placeholder="3000" required="" type="number"/>
+</label>
+<label>
                 المبلغ المدفوع
-                <input id="studentPaid" type="number" placeholder="1000" min="0" required />
-              </label>
-            </div>
-
-            <div class="two-cols">
-              <label>
+                <input id="studentPaid" min="0" placeholder="1000" required="" type="number"/>
+</label>
+</div>
+<div class="two-cols">
+<label>
                 تاريخ ووقت الدفع
-                <input id="studentDate" type="datetime-local" required />
-              </label>
-
-              <label>
+                <input id="studentDate" required="" type="datetime-local"/>
+</label>
+<label>
                 طريقة الدفع
                 <select id="studentPaymentMethod">
-                  <option>كاش</option>
-                  <option>فودافون كاش</option>
-                  <option>تحويل بنكي</option>
-                  <option>إنستاباي</option>
-                  <option>أخرى</option>
-                </select>
-              </label>
-            </div>
-
-            <label>
+<option>كاش</option>
+<option>فودافون كاش</option>
+<option>تحويل بنكي</option>
+<option>إنستاباي</option>
+<option>أخرى</option>
+</select>
+</label>
+</div>
+<label>
               البيان / سبب الدفع
-              <input id="studentPaymentFor" type="text" placeholder="مثال: دفعة كورس / اشتراك / باقي مصاريف" />
-            </label>
-
-            <label>
+              <input id="studentPaymentFor" placeholder="مثال: دفعة كورس / اشتراك / باقي مصاريف" type="text"/>
+</label>
+<label>
               ملاحظات
-              <textarea id="studentNotes" rows="3" placeholder="مثال: دفع كاش والمتبقي الأسبوع القادم"></textarea>
-            </label>
-
-            <button class="btn primary-btn full-mobile-btn" type="submit">حفظ دفعة الطالب</button>
-          </form>
-        </article>
-      </section>
-
-      <section class="finance-tab-panel" data-finance-panel="expenses">
-        <article class="panel finance-form-card">
-          <div class="panel-heading">
-            <div>
-              <p class="eyebrow">المصروفات</p>
-              <h2>إضافة مصروف</h2>
-              <p>سجل كل ما تم دفعه للدورة: مكان، دعاية، طباعة، مواصلات، مرتبات، أو أي بند آخر.</p>
-            </div>
-          </div>
-
-          <form id="expenseForm">
-            <label>
+              <textarea id="studentNotes" placeholder="مثال: دفع كاش والمتبقي الأسبوع القادم" rows="3"></textarea>
+</label>
+<button class="btn primary-btn full-mobile-btn" type="submit">حفظ دفعة الطالب</button>
+</form>
+</article>
+</section>
+<section class="finance-tab-panel" data-finance-panel="expenses">
+<article class="panel finance-form-card">
+<div class="panel-heading">
+<div>
+<p class="eyebrow">المصروفات</p>
+<h2>إضافة مصروف</h2>
+<p>سجل كل ما تم دفعه للدورة: مكان، دعاية، طباعة، مواصلات، مرتبات، أو أي بند آخر.</p>
+</div>
+</div>
+<form id="expenseForm">
+<label>
               عنوان المصروف
-              <input id="expenseTitle" type="text" placeholder="مثال: إيجار المسرح" required />
-            </label>
-
-            <label>
+              <input id="expenseTitle" placeholder="مثال: إيجار المسرح" required="" type="text"/>
+</label>
+<label>
               التصنيف
               <select id="expenseCategory">
-                <option>المكان / المسرح</option>
-                <option>ملابس</option>
-                <option>دعاية</option>
-                <option>طباعة</option>
-                <option>مواصلات</option>
-                <option>مرتبات</option>
-                <option>أخرى</option>
-              </select>
-            </label>
-
-            <label>
+<option>المكان / المسرح</option>
+<option>ملابس</option>
+<option>دعاية</option>
+<option>طباعة</option>
+<option>مواصلات</option>
+<option>مرتبات</option>
+<option>أخرى</option>
+</select>
+</label>
+<label>
               المبلغ
-              <input id="expenseAmount" type="number" placeholder="35000" min="0" required />
-            </label>
-
-            <div class="two-cols">
-              <label>
+              <input id="expenseAmount" min="0" placeholder="35000" required="" type="number"/>
+</label>
+<div class="two-cols">
+<label>
                 تاريخ ووقت الدفع
-                <input id="expenseDate" type="datetime-local" required />
-              </label>
-
-              <label>
+                <input id="expenseDate" required="" type="datetime-local"/>
+</label>
+<label>
                 طريقة الدفع
                 <select id="expensePaymentMethod">
-                  <option>كاش</option>
-                  <option>فودافون كاش</option>
-                  <option>تحويل بنكي</option>
-                  <option>إنستاباي</option>
-                  <option>أخرى</option>
-                </select>
-              </label>
-            </div>
-
-            <label>
+<option>كاش</option>
+<option>فودافون كاش</option>
+<option>تحويل بنكي</option>
+<option>إنستاباي</option>
+<option>أخرى</option>
+</select>
+</label>
+</div>
+<label>
               تفاصيل المصروف
-              <textarea id="expenseNotes" rows="3" placeholder="اكتب تفاصيل سبب دفع هذا المبلغ"></textarea>
-            </label>
-
-            <button class="btn primary-btn full-mobile-btn" type="submit">حفظ المصروف</button>
-          </form>
-        </article>
-      </section>
-
-      <section class="finance-tab-panel" data-finance-panel="receipts">
-        <section class="panel receipt-builder">
-          <div class="panel-heading">
-            <div>
-              <p class="eyebrow">طباعة / PDF</p>
-              <h2>إنشاء إيصال أو سند</h2>
-              <p>بعد إضافة دفعة أو مصروف، سيتم تجهيز الإيصال تلقائيًا هنا. ويمكنك تعديله يدويًا.</p>
-            </div>
-            <div class="report-actions">
-              <button id="downloadReceiptPdfBtn" class="btn primary-btn" type="button">تحميل PDF</button>
-              <button id="printReceiptBtn" class="btn secondary-btn" type="button">طباعة</button>
-            </div>
-          </div>
-
-          <div class="receipt-layout">
-            <form id="receiptForm" class="receipt-form">
-              <div class="two-cols">
-                <label>
+              <textarea id="expenseNotes" placeholder="اكتب تفاصيل سبب دفع هذا المبلغ" rows="3"></textarea>
+</label>
+<button class="btn primary-btn full-mobile-btn" type="submit">حفظ المصروف</button>
+</form>
+</article>
+</section>
+<section class="finance-tab-panel" data-finance-panel="receipts">
+<section class="panel receipt-builder">
+<div class="panel-heading">
+<div>
+<p class="eyebrow">طباعة / PDF</p>
+<h2>إنشاء إيصال أو سند</h2>
+<p>بعد إضافة دفعة أو مصروف، سيتم تجهيز الإيصال تلقائيًا هنا. ويمكنك تعديله يدويًا.</p>
+</div>
+<div class="report-actions">
+<button class="btn primary-btn" id="downloadReceiptPdfBtn" type="button">تحميل PDF</button>
+<button class="btn secondary-btn" id="printReceiptBtn" type="button">طباعة</button>
+</div>
+</div>
+<div class="receipt-layout">
+<form class="receipt-form" id="receiptForm">
+<div class="two-cols">
+<label>
                   نوع المستند
                   <select id="receiptType">
-                    <option value="receipt">إيصال قبض</option>
-                    <option value="voucher">سند صرف</option>
-                  </select>
-                </label>
-
-                <label>
+<option value="receipt">إيصال قبض</option>
+<option value="voucher">سند صرف</option>
+</select>
+</label>
+<label>
                   رقم المستند
-                  <input id="receiptNumber" type="text" required />
-                </label>
-              </div>
-
-              <div class="two-cols">
-                <label>
+                  <input id="receiptNumber" required="" type="text"/>
+</label>
+</div>
+<div class="two-cols">
+<label>
                   التاريخ
-                  <input id="receiptDate" type="datetime-local" required />
-                </label>
-
-                <label>
+                  <input id="receiptDate" required="" type="datetime-local"/>
+</label>
+<label>
                   طريقة الدفع
                   <select id="receiptMethod">
-                    <option>كاش</option>
-                    <option>فودافون كاش</option>
-                    <option>تحويل بنكي</option>
-                    <option>إنستاباي</option>
-                    <option>أخرى</option>
-                  </select>
-                </label>
-              </div>
-
-              <label>
+<option>كاش</option>
+<option>فودافون كاش</option>
+<option>تحويل بنكي</option>
+<option>إنستاباي</option>
+<option>أخرى</option>
+</select>
+</label>
+</div>
+<label>
                 الاسم / الجهة
-                <input id="receiptPerson" type="text" placeholder="اسم ولي الأمر أو الجهة المستلمة" required />
-              </label>
-
-              <label>
+                <input id="receiptPerson" placeholder="اسم ولي الأمر أو الجهة المستلمة" required="" type="text"/>
+</label>
+<label>
                 اسم الطالب / المشروع
-                <input id="receiptStudent" type="text" placeholder="اسم الطالب أو اسم البند" />
-              </label>
-
-              <label>
+                <input id="receiptStudent" placeholder="اسم الطالب أو اسم البند" type="text"/>
+</label>
+<label>
                 المجموعة / التصنيف
-                <input id="receiptGroup" type="text" placeholder="المجموعة أو التصنيف" />
-              </label>
-
-              <label>
+                <input id="receiptGroup" placeholder="المجموعة أو التصنيف" type="text"/>
+</label>
+<label>
                 المبلغ
-                <input id="receiptAmount" type="number" min="0" placeholder="1000" required />
-              </label>
-
-              <label>
+                <input id="receiptAmount" min="0" placeholder="1000" required="" type="number"/>
+</label>
+<label>
                 البيان
-                <textarea id="receiptReason" rows="3" placeholder="وذلك عن..."></textarea>
-              </label>
-
-              <label>
+                <textarea id="receiptReason" placeholder="وذلك عن..." rows="3"></textarea>
+</label>
+<label>
                 المستلم / المسؤول
-                <input id="receiptReceiver" type="text" placeholder="اسم المستلم" />
-              </label>
-
-              <label>
+                <input id="receiptReceiver" placeholder="اسم المستلم" type="text"/>
+</label>
+<label>
                 ملاحظات
-                <textarea id="receiptNotes" rows="2" placeholder="أي ملاحظات إضافية"></textarea>
-              </label>
-
-              <button class="btn secondary-btn full-mobile-btn" type="submit">معاينة المستند</button>
-            </form>
-
-            <article id="receiptPaper" class="receipt-paper">
-              <div class="receipt-watermark">Dramagic</div>
-              <header class="receipt-top">
-                <img src="dramagic-logo.png" alt="Dramagic Logo" />
-                <div>
-                  <h2 id="paperTitle">إيصال قبض</h2>
-                  <p>Dramagic English Drama Academy</p>
-                </div>
-              </header>
-
-              <div class="receipt-meta">
-                <span>رقم: <strong id="paperNumber">---</strong></span>
-                <span>التاريخ: <strong id="paperDate">---</strong></span>
-              </div>
-
-              <div class="receipt-body">
-                <p id="paperMainText">استلمت أكاديمية Dramagic مبلغًا وقدره...</p>
-
-                <div class="receipt-lines">
-                  <div><span>الاسم / الجهة</span><strong id="paperPerson">---</strong></div>
-                  <div><span>الطالب / البند</span><strong id="paperStudent">---</strong></div>
-                  <div><span>المجموعة / التصنيف</span><strong id="paperGroup">---</strong></div>
-                  <div><span>المبلغ</span><strong id="paperAmount">---</strong></div>
-                  <div><span>طريقة الدفع</span><strong id="paperMethod">---</strong></div>
-                  <div><span>البيان</span><strong id="paperReason">---</strong></div>
-                  <div><span>ملاحظات</span><strong id="paperNotes">---</strong></div>
-                </div>
-              </div>
-
-              <footer class="receipt-signatures">
-                <div>
-                  <span>المستلم</span>
-                  <strong id="paperReceiver">---</strong>
-                </div>
-                <div>
-                  <span>التوقيع</span>
-                  <strong>________________</strong>
-                </div>
-              </footer>
-            </article>
-          </div>
-        </section>
-      </section>
-
-      <section class="finance-tab-panel" data-finance-panel="report">
-        <section class="panel closing-report-builder">
-          <div class="panel-heading">
-            <div>
-              <p class="eyebrow">تصفية مالية / PDF</p>
-              <h2>التقرير المالي النهائي للدورة</h2>
-              <p>تقرير شامل يوضح الإيرادات، عدد الطلاب، المدربين، المصروفات بالتفصيل، صافي الربح، وتقسيم الشراكة.</p>
-            </div>
-            <div class="report-actions">
-              <button id="updateReportBtn" class="btn secondary-btn" type="button">تحديث التقرير</button>
-              <button id="downloadReportPdfBtn" class="btn primary-btn" type="button">تحميل PDF</button>
-              <button id="printReportBtn" class="btn secondary-btn" type="button">طباعة</button>
-            </div>
-          </div>
-
-          <div class="report-layout">
-            <form id="reportSettingsForm" class="report-form">
-              <div class="two-cols">
-                <label>
+                <textarea id="receiptNotes" placeholder="أي ملاحظات إضافية" rows="2"></textarea>
+</label>
+<button class="btn secondary-btn full-mobile-btn" type="submit">معاينة المستند</button>
+</form>
+<article class="receipt-paper" id="receiptPaper">
+<div class="receipt-watermark">Dramagic</div>
+<header class="receipt-top">
+<img alt="Dramagic Logo" src="dramagic-logo.png"/>
+<div>
+<h2 id="paperTitle">إيصال قبض</h2>
+<p>Dramagic English Drama Academy</p>
+</div>
+</header>
+<div class="receipt-meta">
+<span>رقم: <strong id="paperNumber">---</strong></span>
+<span>التاريخ: <strong id="paperDate">---</strong></span>
+</div>
+<div class="receipt-body">
+<p id="paperMainText">استلمت أكاديمية Dramagic مبلغًا وقدره...</p>
+<div class="receipt-lines">
+<div><span>الاسم / الجهة</span><strong id="paperPerson">---</strong></div>
+<div><span>الطالب / البند</span><strong id="paperStudent">---</strong></div>
+<div><span>المجموعة / التصنيف</span><strong id="paperGroup">---</strong></div>
+<div><span>المبلغ</span><strong id="paperAmount">---</strong></div>
+<div><span>طريقة الدفع</span><strong id="paperMethod">---</strong></div>
+<div><span>البيان</span><strong id="paperReason">---</strong></div>
+<div><span>ملاحظات</span><strong id="paperNotes">---</strong></div>
+</div>
+</div>
+<footer class="receipt-signatures">
+<div>
+<span>المستلم</span>
+<strong id="paperReceiver">---</strong>
+</div>
+<div>
+<span>التوقيع</span>
+<strong>________________</strong>
+</div>
+</footer>
+</article>
+</div>
+</section>
+</section>
+<section class="finance-tab-panel" data-finance-panel="report">
+<section class="panel closing-report-builder">
+<div class="panel-heading">
+<div>
+<p class="eyebrow">تصفية مالية / PDF</p>
+<h2>التقرير المالي النهائي للدورة</h2>
+<p>تقرير شامل يوضح الإيرادات، عدد الطلاب، المدربين، المصروفات بالتفصيل، صافي الربح، وتقسيم الشراكة.</p>
+</div>
+<div class="report-actions">
+<button class="btn secondary-btn" id="updateReportBtn" type="button">تحديث التقرير</button>
+<button class="btn primary-btn" id="downloadReportPdfBtn" type="button">تحميل PDF</button>
+<button class="btn secondary-btn" id="printReportBtn" type="button">طباعة</button>
+</div>
+</div>
+<div class="report-layout">
+<form class="report-form" id="reportSettingsForm">
+<div class="two-cols">
+<label>
                   اسم الدورة / المشروع
-                  <input id="reportCourseName" type="text" placeholder="مثال: Dramagic Summer Course" value="Dramagic Course" />
-                </label>
-
-                <label>
+                  <input id="reportCourseName" placeholder="مثال: Dramagic Summer Course" type="text" value="Dramagic Course"/>
+</label>
+<label>
                   رقم التقرير
-                  <input id="reportNumber" type="text" value="FR-0001" />
-                </label>
-              </div>
-
-              <div class="two-cols">
-                <label>
+                  <input id="reportNumber" type="text" value="FR-0001"/>
+</label>
+</div>
+<div class="two-cols">
+<label>
                   من تاريخ
-                  <input id="reportFromDate" type="date" />
-                </label>
-
-                <label>
+                  <input id="reportFromDate" type="date"/>
+</label>
+<label>
                   إلى تاريخ
-                  <input id="reportToDate" type="date" />
-                </label>
-              </div>
-
-              <div class="two-cols">
-                <label>
+                  <input id="reportToDate" type="date"/>
+</label>
+</div>
+<div class="two-cols">
+<label>
                   المدرب الأساسي
-                  <input id="reportMainTrainer" type="text" placeholder="اسم المدرب الأساسي" />
-                </label>
-
-                <label>
+                  <input id="reportMainTrainer" placeholder="اسم المدرب الأساسي" type="text"/>
+</label>
+<label>
                   مدرب مساعد / ملاحظات المدربين
-                  <input id="reportAssistantTrainer" type="text" placeholder="اسم المدرب المساعد أو ملاحظات" />
-                </label>
-              </div>
-
-              <div class="two-cols">
-                <label>
+                  <input id="reportAssistantTrainer" placeholder="اسم المدرب المساعد أو ملاحظات" type="text"/>
+</label>
+</div>
+<div class="two-cols">
+<label>
                   اسم الشريك
-                  <input id="reportPartnerName" type="text" placeholder="اسم المدرسة / المسرح / الشريك" value="الشريك" />
-                </label>
-
-                <label>
+                  <input id="reportPartnerName" placeholder="اسم المدرسة / المسرح / الشريك" type="text" value="الشريك"/>
+</label>
+<label>
                   المسؤول المالي
-                  <input id="reportPreparedBy" type="text" placeholder="اسم المسؤول عن التقرير" value="إدارة Dramagic" />
-                </label>
-              </div>
-
-              <div class="two-cols">
-                <label>
+                  <input id="reportPreparedBy" placeholder="اسم المسؤول عن التقرير" type="text" value="إدارة Dramagic"/>
+</label>
+</div>
+<div class="two-cols">
+<label>
                   نسبة الشريك %
-                  <input id="reportPartnerPercent" type="number" min="0" max="100" value="30" />
-                </label>
-
-                <label>
+                  <input id="reportPartnerPercent" max="100" min="0" type="number" value="30"/>
+</label>
+<label>
                   نسبة Dramagic %
-                  <input id="reportOurPercent" type="number" min="0" max="100" value="70" />
-                </label>
-              </div>
-
-              <label>
+                  <input id="reportOurPercent" max="100" min="0" type="number" value="70"/>
+</label>
+</div>
+<label>
                 ملاحظات ختامية
-                <textarea id="reportFinalNotes" rows="3" placeholder="أي ملاحظات على التصفية أو اتفاق الشراكة"></textarea>
-              </label>
-            </form>
-
-            <article id="financialReportPaper" class="financial-report-paper">
-              <div class="receipt-watermark">Dramagic</div>
-
-              <header class="receipt-top report-top">
-                <img src="dramagic-logo.png" alt="Dramagic Logo" />
-                <div>
-                  <h2>التقرير المالي النهائي</h2>
-                  <p>Dramagic English Drama Academy</p>
-                </div>
-              </header>
-
-              <div class="report-meta-grid">
-                <div><span>رقم التقرير</span><strong id="paperReportNumber">FR-0001</strong></div>
-                <div><span>اسم الدورة</span><strong id="paperReportCourse">Dramagic Course</strong></div>
-                <div><span>الفترة</span><strong id="paperReportPeriod">---</strong></div>
-                <div><span>تاريخ الإصدار</span><strong id="paperReportDate">---</strong></div>
-                <div><span>المدرب الأساسي</span><strong id="paperMainTrainer">---</strong></div>
-                <div><span>مدرب مساعد / ملاحظات</span><strong id="paperAssistantTrainer">---</strong></div>
-              </div>
-
-              <section class="report-summary-box">
-                <div><span>عدد الطلاب</span><strong id="reportStudentCount">٠</strong></div>
-                <div><span>عدد سجلات الدفع</span><strong id="reportPaymentCount">٠</strong></div>
-                <div><span>إجمالي الإيرادات</span><strong id="reportRevenueTotal">٠ ج.م</strong></div>
-                <div><span>إجمالي المصروفات</span><strong id="reportExpenseTotal">٠ ج.م</strong></div>
-                <div><span>المبالغ المتبقية</span><strong id="reportRemainingTotal">٠ ج.م</strong></div>
-                <div><span>صافي الربح بعد المصروفات</span><strong id="reportNetProfit">٠ ج.م</strong></div>
-              </section>
-
-              <section class="report-share-box">
-                <h3>تقسيم صافي الربح بعد خصم المصروفات</h3>
-                <div class="share-grid">
-                  <div>
-                    <span id="paperPartnerLabel">نصيب الشريك</span>
-                    <strong id="reportPartnerShare">٠ ج.م</strong>
-                  </div>
-                  <div>
-                    <span>نصيب Dramagic</span>
-                    <strong id="reportOurShare">٠ ج.م</strong>
-                  </div>
-                </div>
-                <p id="reportShareNote">يتم احتساب النسب من صافي الربح بعد خصم المصروفات.</p>
-              </section>
-
-              <section class="report-table-section">
-                <h3>تفاصيل الطلاب والمدفوعات</h3>
-                <div id="reportStudentsTable" class="report-table-wrap"></div>
-              </section>
-
-              <section class="report-table-section">
-                <h3>تفاصيل المصروفات</h3>
-                <div id="reportExpensesTable" class="report-table-wrap"></div>
-              </section>
-
-              <section class="report-notes-box">
-                <h3>ملاحظات نهائية</h3>
-                <p id="paperFinalNotes">---</p>
-              </section>
-
-              <footer class="receipt-signatures report-signatures">
-                <div>
-                  <span>المسؤول المالي</span>
-                  <strong id="paperPreparedBy">إدارة Dramagic</strong>
-                </div>
-                <div>
-                  <span>توقيع الشريك</span>
-                  <strong>________________</strong>
-                </div>
-                <div>
-                  <span>توقيع Dramagic</span>
-                  <strong>________________</strong>
-                </div>
-              </footer>
-            </article>
-          </div>
-        </section>
-      </section>
-
-      <section class="finance-tab-panel" data-finance-panel="records">
-        <section class="finance-records-layout">
-          <section class="panel records-panel">
-            <div class="records-top">
-              <h2>مدفوعات الطلاب</h2>
-              <input id="studentSearch" type="search" placeholder="بحث باسم الطالب أو المجموعة..." />
-            </div>
-            <div id="studentsList" class="records-list"></div>
-          </section>
-
-          <section class="panel records-panel">
-            <div class="records-top">
-              <h2>المصروفات</h2>
-              <input id="expenseSearch" type="search" placeholder="بحث بعنوان المصروف أو التصنيف..." />
-            </div>
-            <div id="expensesList" class="records-list"></div>
-          </section>
-        </section>
-
-        <button id="resetBtn" class="btn danger-btn bottom-reset" type="button">مسح كل بيانات المالية التجريبية</button>
-      </section>
-    </main>
-  </div>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" defer></script>
-  <script src="finance.js" defer></script>
+                <textarea id="reportFinalNotes" placeholder="أي ملاحظات على التصفية أو اتفاق الشراكة" rows="3"></textarea>
+</label>
+</form>
+<article class="financial-report-paper" id="financialReportPaper">
+<div class="receipt-watermark">Dramagic</div>
+<header class="receipt-top report-top">
+<img alt="Dramagic Logo" src="dramagic-logo.png"/>
+<div>
+<h2>التقرير المالي النهائي</h2>
+<p>Dramagic English Drama Academy</p>
+</div>
+</header>
+<div class="report-meta-grid">
+<div><span>رقم التقرير</span><strong id="paperReportNumber">FR-0001</strong></div>
+<div><span>اسم الدورة</span><strong id="paperReportCourse">Dramagic Course</strong></div>
+<div><span>الفترة</span><strong id="paperReportPeriod">---</strong></div>
+<div><span>تاريخ الإصدار</span><strong id="paperReportDate">---</strong></div>
+<div><span>المدرب الأساسي</span><strong id="paperMainTrainer">---</strong></div>
+<div><span>مدرب مساعد / ملاحظات</span><strong id="paperAssistantTrainer">---</strong></div>
+</div>
+<section class="report-summary-box">
+<div><span>عدد الطلاب</span><strong id="reportStudentCount">٠</strong></div>
+<div><span>عدد سجلات الدفع</span><strong id="reportPaymentCount">٠</strong></div>
+<div><span>إجمالي الإيرادات</span><strong id="reportRevenueTotal">٠ ج.م</strong></div>
+<div><span>إجمالي المصروفات</span><strong id="reportExpenseTotal">٠ ج.م</strong></div>
+<div><span>المبالغ المتبقية</span><strong id="reportRemainingTotal">٠ ج.م</strong></div>
+<div><span>صافي الربح بعد المصروفات</span><strong id="reportNetProfit">٠ ج.م</strong></div>
+</section>
+<section class="report-share-box">
+<h3>تقسيم صافي الربح بعد خصم المصروفات</h3>
+<div class="share-grid">
+<div>
+<span id="paperPartnerLabel">نصيب الشريك</span>
+<strong id="reportPartnerShare">٠ ج.م</strong>
+</div>
+<div>
+<span>نصيب Dramagic</span>
+<strong id="reportOurShare">٠ ج.م</strong>
+</div>
+</div>
+<p id="reportShareNote">يتم احتساب النسب من صافي الربح بعد خصم المصروفات.</p>
+</section>
+<section class="report-table-section">
+<h3>تفاصيل الطلاب والمدفوعات</h3>
+<div class="report-table-wrap" id="reportStudentsTable"></div>
+</section>
+<section class="report-table-section">
+<h3>تفاصيل المصروفات</h3>
+<div class="report-table-wrap" id="reportExpensesTable"></div>
+</section>
+<section class="report-notes-box">
+<h3>ملاحظات نهائية</h3>
+<p id="paperFinalNotes">---</p>
+</section>
+<footer class="receipt-signatures report-signatures">
+<div>
+<span>المسؤول المالي</span>
+<strong id="paperPreparedBy">إدارة Dramagic</strong>
+</div>
+<div>
+<span>توقيع الشريك</span>
+<strong>________________</strong>
+</div>
+<div>
+<span>توقيع Dramagic</span>
+<strong>________________</strong>
+</div>
+</footer>
+</article>
+</div>
+</section>
+</section>
+<section class="finance-tab-panel" data-finance-panel="records">
+<section class="finance-records-layout">
+<section class="panel records-panel">
+<div class="records-top">
+<h2>مدفوعات الطلاب</h2>
+<input id="studentSearch" placeholder="بحث باسم الطالب أو المجموعة..." type="search"/>
+</div>
+<div class="records-list" id="studentsList"></div>
+</section>
+<section class="panel records-panel">
+<div class="records-top">
+<h2>المصروفات</h2>
+<input id="expenseSearch" placeholder="بحث بعنوان المصروف أو التصنيف..." type="search"/>
+</div>
+<div class="records-list" id="expensesList"></div>
+</section>
+</section>
+<button class="btn danger-btn bottom-reset" id="resetBtn" type="button">مسح كل بيانات المالية التجريبية</button>
+</section>
+</main>
+</div>
+<script defer="" src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script defer="" src="finance.js"></script>
+<script defer="True" src="dramagic-nav.js"></script>
+<script defer src="pwa-register.js"></script>
 </body>
 </html>

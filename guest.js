@@ -59,7 +59,7 @@ const defaultGuestContent = {
       tag: "New Chapter",
       title: "A smarter Dramagic for today",
       story:
-        "Now we are building a more modern Dramagic with new tools, a stronger platform, Presentacy, chat, attendance, memories, and better systems — staying up to date while keeping the same soul.",
+        "Now we are building a more modern Dramagic with new tools, a stronger platform, Presentacy, attendance, memories, and better systems — staying up to date while keeping the same soul.",
       media: "",
       mediaType: "image",
       icon: "✨"
@@ -71,7 +71,7 @@ const defaultGuestContent = {
       tag: "New Chapter",
       title: "The new Dramagic platform is growing",
       text:
-        "We are building a more connected Dramagic experience with Presentacy, class chats, media memories, attendance, and future tools for learners, parents, and teachers.",
+        "We are building a more connected Dramagic experience with Presentacy, media memories, attendance, and future tools for learners, parents, and teachers.",
       media: "",
       mediaType: "image",
       icon: "💻"

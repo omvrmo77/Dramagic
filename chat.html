@@ -1,13 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#f3f2f1" />
-
-  <title>Dramagic | Chat</title>
-
-  <script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>Dramagic | Chat</title>
+<script>
     (function () {
       let theme = "light";
 
@@ -28,185 +26,135 @@
       document.documentElement.classList.toggle("light-mode", !useDark);
     })();
   </script>
-
-  <link rel="stylesheet" href="dramagic-global-settings.css" />
-  <link rel="stylesheet" href="chat.css" />
+<link href="dramagic-global-settings.css" rel="stylesheet"/>
+<link href="chat.css" rel="stylesheet"/><link href="dramagic-nav.css" rel="stylesheet"/>
+<!-- Dramagic PWA -->
+<link rel="manifest" href="manifest.json" />
+<link rel="icon" href="favicon.ico" />
+<link rel="apple-touch-icon" href="assets/icons/icon-180.png" />
+<meta name="theme-color" content="#08a9d9" />
+<meta name="application-name" content="Dramagic" />
+<meta name="apple-mobile-web-app-title" content="Dramagic" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
 </head>
+<body class="chat-page"><div id="dramagicGlobalNav"></div>
+<main aria-label="Dramagic professional chat workspace" class="chat-app">
 
-<body class="chat-page">
-  <main class="chat-app" aria-label="Dramagic professional chat workspace">
-    <nav class="teams-rail" aria-label="Main navigation">
-      <button id="backBtn" class="rail-icon rail-back" type="button" aria-label="Back to dashboard">
-        <span>←</span>
-      </button>
-
-      <a class="rail-icon active" href="chat.html" aria-label="Chat">
-        <span>☷</span>
-        <small>Chat</small>
-      </a>
-
-      <a class="rail-icon" href="index.html#studentArea" aria-label="Classes">
-        <span>▦</span>
-        <small>Home</small>
-      </a>
-
-
-      <a class="rail-icon rail-bottom" href="settings.html" aria-label="Settings">
-        <span>⚙</span>
-        <small>Settings</small>
-      </a>
-    </nav>
-
-    <aside class="chat-sidebar" aria-label="Chats sidebar">
-      <header class="sidebar-header">
-        <div class="sidebar-brand">
-          <img src="dramagic-logo.png" alt="Dramagic" />
-
-          <div>
-            <strong>Chat</strong>
-            <span id="sidebarRoleText">Channels & private messages</span>
-          </div>
-        </div>
-
-        <button id="sidebarDismissBtn" class="sidebar-dismiss-btn" type="button" aria-label="Close chats panel">
+<aside aria-label="Chats sidebar" class="chat-sidebar">
+<header class="sidebar-header">
+<div class="sidebar-brand">
+<img alt="Dramagic" src="dramagic-logo.png"/>
+<div>
+<strong>Chat</strong>
+<span id="sidebarRoleText">Channels &amp; private messages</span>
+</div>
+</div>
+<button aria-label="Close chats panel" class="sidebar-dismiss-btn" id="sidebarDismissBtn" type="button">
           ×
         </button>
-      </header>
-
-      <section class="sidebar-user-card" aria-label="Signed in profile">
-        <img id="sidebarUserAvatar" src="" alt="Profile picture" />
-
-        <div>
-          <strong id="sidebarUserName">Loading...</strong>
-          <span id="sidebarUserRole">Loading...</span>
-        </div>
-      </section>
-
-      <section class="sidebar-controls" aria-label="Chat controls">
-        <label class="chat-search-box" aria-label="Search chats">
-          <span>⌕</span>
-          <input id="classSearchInput" type="search" placeholder="Search" />
-        </label>
-
-        <button id="newPrivateChatBtn" class="new-chat-btn" type="button">
+</header>
+<section aria-label="Signed in profile" class="sidebar-user-card">
+<img alt="Profile picture" id="sidebarUserAvatar" src=""/>
+<div>
+<strong id="sidebarUserName">Loading...</strong>
+<span id="sidebarUserRole">Loading...</span>
+</div>
+</section>
+<section aria-label="Chat controls" class="sidebar-controls">
+<label aria-label="Search chats" class="chat-search-box">
+<span>⌕</span>
+<input id="classSearchInput" placeholder="Search" type="search"/>
+</label>
+<button class="new-chat-btn" id="newPrivateChatBtn" type="button">
           New chat
         </button>
-      </section>
-
-      <div class="chat-tabs-row" aria-label="Chat filters">
-        <button class="mini-tab active" type="button" data-chat-filter="channels">Channels</button>
-        <button class="mini-tab" type="button" data-chat-filter="private">Chats</button>
-        <button class="mini-tab" type="button" data-chat-filter="homework-templates">Missions</button>
-      </div>
-
-      <section id="studentPickerPanel" class="student-picker-panel hidden" aria-label="Choose a Dramagician for private chat">
-        <header>
-          <div>
-            <strong>Start a private chat</strong>
-            <span>Choose a Dramagician</span>
-          </div>
-
-          <button id="closeStudentPickerBtn" type="button" aria-label="Close private chat picker">×</button>
-        </header>
-
-        <label class="student-picker-search" aria-label="Search Dramagicians">
-          <span>⌕</span>
-          <input id="studentSearchInput" type="search" placeholder="Name or class" />
-        </label>
-
-        <div id="studentPickerList" class="student-picker-list"></div>
-      </section>
-
-      <nav id="classList" class="class-list" aria-label="Choose chat"></nav>
-    </aside>
-
-    <button id="mobileSidebarOverlay" class="mobile-sidebar-overlay" type="button" aria-label="Close chats panel"></button>
-
-    <section class="chat-room" aria-label="Opened chat">
-      <header class="chat-room-header">
-        <button id="mobileSidebarBtn" class="mobile-sidebar-btn" type="button" aria-label="Open chats panel">
+</section>
+<div aria-label="Chat filters" class="chat-tabs-row">
+<button class="mini-tab active" data-chat-filter="channels" type="button">Channels</button>
+<button class="mini-tab" data-chat-filter="private" type="button">Chats</button>
+<button class="mini-tab" data-chat-filter="homework-templates" type="button">Missions</button>
+</div>
+<section aria-label="Choose a Dramagician for private chat" class="student-picker-panel hidden" id="studentPickerPanel">
+<header>
+<div>
+<strong>Start a private chat</strong>
+<span>Choose a Dramagician</span>
+</div>
+<button aria-label="Close private chat picker" id="closeStudentPickerBtn" type="button">×</button>
+</header>
+<label aria-label="Search Dramagicians" class="student-picker-search">
+<span>⌕</span>
+<input id="studentSearchInput" placeholder="Name or class" type="search"/>
+</label>
+<div class="student-picker-list" id="studentPickerList"></div>
+</section>
+<nav aria-label="Choose chat" class="class-list" id="classList"></nav>
+</aside>
+<button aria-label="Close chats panel" class="mobile-sidebar-overlay" id="mobileSidebarOverlay" type="button"></button>
+<section aria-label="Opened chat" class="chat-room">
+<header class="chat-room-header">
+<button aria-label="Open chats panel" class="mobile-sidebar-btn" id="mobileSidebarBtn" type="button">
           ☰
         </button>
-
-        <div class="active-class-avatar" id="activeClassIcon">A</div>
-
-        <div class="chat-title-box">
-          <strong id="chatTitle">Class A Channel</strong>
-          <span id="chatSubtitle">Teacher/CEO view • class group channel</span>
-        </div>
-
-        <div class="chat-header-actions">
-          <span id="chatModePill" class="chat-mode-pill">Channel</span>
-
-          <a id="chatHomeworkVideo" class="chat-video-link" href="#" target="_blank" rel="noopener">
+<div class="active-class-avatar" id="activeClassIcon">A</div>
+<div class="chat-title-box">
+<strong id="chatTitle">Class A Channel</strong>
+<span id="chatSubtitle">Teacher/CEO view • class group channel</span>
+</div>
+<div class="chat-header-actions">
+<span class="chat-mode-pill" id="chatModePill">Channel</span>
+<a class="chat-video-link" href="#" id="chatHomeworkVideo" rel="noopener" target="_blank">
             Watch clip
           </a>
-        </div>
-      </header>
-
-      <section id="chatHomeworkCard" class="chat-homework-card">
-        <div>
-          <span class="chat-task-label">Pinned assignment</span>
-          <h3 id="chatHomeworkTitle">Voice Acting Task</h3>
-          <p id="chatHomeworkText">Loading task...</p>
-        </div>
-      </section>
-
-      <main id="chatMessages" class="chat-messages" aria-live="polite"></main>
-
-      <section id="emojiPicker" class="emoji-picker hidden" aria-label="Emoji picker">
-        <button type="button">😀</button>
-        <button type="button">😂</button>
-        <button type="button">👏</button>
-        <button type="button">🎭</button>
-        <button type="button">⭐</button>
-        <button type="button">🔥</button>
-        <button type="button">💙</button>
-        <button type="button">✅</button>
-        <button type="button">🙌</button>
-        <button type="button">🎤</button>
-      </section>
-
-      <div id="recordingBar" class="recording-bar hidden">
-        <span class="recording-dot"></span>
-        <strong>Recording voice note...</strong>
-        <span id="recordingTimer">0:00</span>
-      </div>
-
-      <footer class="chat-composer">
-        <button id="emojiBtn" class="chat-tool-btn" type="button" aria-label="Open emojis">
+</div>
+</header>
+<section class="chat-homework-card" id="chatHomeworkCard">
+<div>
+<span class="chat-task-label">Pinned assignment</span>
+<h3 id="chatHomeworkTitle">Voice Acting Task</h3>
+<p id="chatHomeworkText">Loading task...</p>
+</div>
+</section>
+<main aria-live="polite" class="chat-messages" id="chatMessages"></main>
+<section aria-label="Emoji picker" class="emoji-picker hidden" id="emojiPicker">
+<button type="button">😀</button>
+<button type="button">😂</button>
+<button type="button">👏</button>
+<button type="button">🎭</button>
+<button type="button">⭐</button>
+<button type="button">🔥</button>
+<button type="button">💙</button>
+<button type="button">✅</button>
+<button type="button">🙌</button>
+<button type="button">🎤</button>
+</section>
+<div class="recording-bar hidden" id="recordingBar">
+<span class="recording-dot"></span>
+<strong>Recording voice note...</strong>
+<span id="recordingTimer">0:00</span>
+</div>
+<footer class="chat-composer">
+<button aria-label="Open emojis" class="chat-tool-btn" id="emojiBtn" type="button">
           😊
         </button>
-
-        <textarea
-          id="chatInput"
-          rows="1"
-          placeholder="Type a message"
-          aria-label="Write a message"
-        ></textarea>
-
-        <button id="recordVoiceBtn" class="chat-tool-btn mic-btn" type="button" aria-label="Record voice note">
+<textarea aria-label="Write a message" id="chatInput" placeholder="Type a message" rows="1"></textarea>
+<button aria-label="Record voice note" class="chat-tool-btn mic-btn" id="recordVoiceBtn" type="button">
           🎙️
         </button>
-
-        <button id="stopVoiceBtn" class="chat-tool-btn stop-btn hidden" type="button" aria-label="Stop recording">
+<button aria-label="Stop recording" class="chat-tool-btn stop-btn hidden" id="stopVoiceBtn" type="button">
           ■
         </button>
-
-        <button id="sendChatBtn" class="chat-send-btn" type="button" aria-label="Send message">
+<button aria-label="Send message" class="chat-send-btn" id="sendChatBtn" type="button">
           ➤
         </button>
-      </footer>
-    </section>
+</footer>
+</section>
 
-    <a id="chatFloatingHomeBtn" class="chat-floating-home" href="auth.html#home" aria-label="Back to home">
-      <span>🏠</span>
-      <strong>Home</strong>
-    </a>
-
-  </main>
-
-  <script src="dramagic-settings-loader.js" defer></script>
-  <script src="chat.js" defer></script>
+</main>
+<script defer="" src="dramagic-settings-loader.js"></script>
+<script defer="True" src="dramagic-nav.js"></script><script defer="" src="chat.js"></script>
+<script defer src="pwa-register.js"></script>
 </body>
 </html>

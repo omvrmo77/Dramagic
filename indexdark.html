@@ -4,6 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Opening Dramagic in Dark Mode...</title>
+<!-- Dramagic PWA -->
+<link rel="manifest" href="manifest.json" />
+<link rel="icon" href="favicon.ico" />
+<link rel="apple-touch-icon" href="assets/icons/icon-180.png" />
+<meta name="theme-color" content="#08a9d9" />
+<meta name="application-name" content="Dramagic" />
+<meta name="apple-mobile-web-app-title" content="Dramagic" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
 </head>
 <body>
   <script>
@@ -13,5 +23,6 @@
     localStorage.setItem("dramagic_theme", "dark");
     window.location.href = "index.html";
   </script>
+<script defer src="pwa-register.js"></script>
 </body>
 </html>

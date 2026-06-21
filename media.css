@@ -670,3 +670,347 @@ textarea:focus {
   flex-shrink: 0;
   display: block;
 }
+
+/* =====================================================
+   DRAMAGIC MEMORIES — COHESIVE DARK MODE FIX
+   Keeps Memories creative, but makes it match the main Dramagic system.
+===================================================== */
+
+html {
+  min-height: 100%;
+  background: var(--bg);
+}
+
+body {
+  min-height: 100svh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+
+.brand img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  flex-shrink: 0;
+  display: block;
+}
+
+.brand span,
+.brand small {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 2px;
+  font-weight: 700;
+}
+
+.top-nav,
+.role-panel,
+.admin-panel,
+.gallery-section,
+.memory-card,
+.modal-content {
+  transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
+}
+
+body.dark-mode,
+html.dark-mode body {
+  color-scheme: dark;
+  --bg: #07131b;
+  --bg-soft: #0b1d28;
+  --text: #f4fbff;
+  --muted: #b8c9d6;
+  --purple: #08a9d9;
+  --purple-dark: #e4f7ff;
+  --pink: #d31f73;
+  --gold: #6fdfff;
+  --border: rgba(255, 255, 255, 0.10);
+  --shadow: 0 28px 80px rgba(0, 0, 0, 0.34);
+  background:
+    radial-gradient(circle at 12% 0%, rgba(8, 169, 217, 0.16), transparent 340px),
+    radial-gradient(circle at 86% 10%, rgba(211, 31, 115, 0.12), transparent 360px),
+    linear-gradient(180deg, #07131b 0%, #0b1d28 55%, #07131b 100%) !important;
+  color: var(--text) !important;
+}
+
+html.dark-mode {
+  background: #07131b !important;
+}
+
+body.dark-mode .page-shell,
+html.dark-mode .page-shell {
+  background: transparent !important;
+}
+
+body.dark-mode .top-nav,
+html.dark-mode .top-nav,
+body.dark-mode .role-panel,
+html.dark-mode .role-panel,
+body.dark-mode .admin-panel,
+html.dark-mode .admin-panel,
+body.dark-mode .gallery-section,
+html.dark-mode .gallery-section {
+  background: rgba(12, 29, 40, 0.88) !important;
+  border-color: rgba(111, 223, 255, 0.15) !important;
+  box-shadow: 0 22px 65px rgba(0, 0, 0, 0.28) !important;
+  backdrop-filter: blur(18px) saturate(1.15);
+}
+
+body.dark-mode .top-nav,
+html.dark-mode .top-nav {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+body.dark-mode .brand strong,
+html.dark-mode .brand strong,
+body.dark-mode .role-panel h2,
+html.dark-mode .role-panel h2,
+body.dark-mode .section-heading h2,
+html.dark-mode .section-heading h2,
+body.dark-mode .memory-body h3,
+html.dark-mode .memory-body h3,
+body.dark-mode .empty-state h3,
+html.dark-mode .empty-state h3,
+body.dark-mode .modal-info h2,
+html.dark-mode .modal-info h2,
+body.dark-mode label,
+html.dark-mode label {
+  color: var(--text) !important;
+}
+
+body.dark-mode .brand span,
+html.dark-mode .brand span,
+body.dark-mode .brand small,
+html.dark-mode .brand small,
+body.dark-mode .role-panel p,
+html.dark-mode .role-panel p,
+body.dark-mode .memory-body p,
+html.dark-mode .memory-body p,
+body.dark-mode .modal-info p,
+html.dark-mode .modal-info p,
+body.dark-mode .demo-note,
+html.dark-mode .demo-note,
+body.dark-mode .empty-state,
+html.dark-mode .empty-state {
+  color: var(--muted) !important;
+}
+
+body.dark-mode .nav-links a,
+html.dark-mode .nav-links a {
+  color: rgba(244, 251, 255, 0.84) !important;
+}
+
+body.dark-mode .nav-links a.active,
+body.dark-mode .nav-links a:hover,
+html.dark-mode .nav-links a.active,
+html.dark-mode .nav-links a:hover {
+  color: #ffffff !important;
+  background: linear-gradient(135deg, #08a9d9, #007aa7) !important;
+  box-shadow: 0 12px 26px rgba(8, 169, 217, 0.24) !important;
+}
+
+body.dark-mode .hero,
+html.dark-mode .hero {
+  background:
+    radial-gradient(circle at 88% 8%, rgba(111, 223, 255, 0.20), transparent 260px),
+    radial-gradient(circle at 18% 18%, rgba(255, 255, 255, 0.12), transparent 210px),
+    linear-gradient(135deg, #082635 0%, #2d2a78 46%, #d31f73 130%) !important;
+  border: 1px solid rgba(111, 223, 255, 0.14) !important;
+  box-shadow: 0 34px 90px rgba(0, 0, 0, 0.36) !important;
+}
+
+body.dark-mode .hero h1,
+html.dark-mode .hero h1,
+body.dark-mode .hero-card h3,
+html.dark-mode .hero-card h3 {
+  color: #ffffff !important;
+}
+
+body.dark-mode .hero-text,
+body.dark-mode .hero-card p,
+html.dark-mode .hero-text,
+html.dark-mode .hero-card p {
+  color: rgba(255, 255, 255, 0.86) !important;
+}
+
+body.dark-mode .hero-card,
+html.dark-mode .hero-card {
+  background: rgba(255, 255, 255, 0.11) !important;
+  border-color: rgba(255, 255, 255, 0.20) !important;
+}
+
+body.dark-mode input,
+body.dark-mode select,
+body.dark-mode textarea,
+html.dark-mode input,
+html.dark-mode select,
+html.dark-mode textarea {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  color: var(--text) !important;
+}
+
+body.dark-mode input::placeholder,
+body.dark-mode textarea::placeholder,
+html.dark-mode input::placeholder,
+html.dark-mode textarea::placeholder {
+  color: rgba(184, 201, 214, 0.72) !important;
+}
+
+body.dark-mode input:focus,
+body.dark-mode select:focus,
+body.dark-mode textarea:focus,
+html.dark-mode input:focus,
+html.dark-mode select:focus,
+html.dark-mode textarea:focus {
+  border-color: #08a9d9 !important;
+  box-shadow: 0 0 0 4px rgba(8, 169, 217, 0.14) !important;
+}
+
+body.dark-mode .primary-btn,
+html.dark-mode .primary-btn {
+  background: linear-gradient(135deg, #08a9d9, #007aa7) !important;
+  color: #ffffff !important;
+  box-shadow: 0 12px 26px rgba(8, 169, 217, 0.24) !important;
+}
+
+body.dark-mode .secondary-btn,
+html.dark-mode .secondary-btn,
+body.dark-mode .filter-btn,
+html.dark-mode .filter-btn {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  color: var(--text) !important;
+}
+
+body.dark-mode .filter-btn.active,
+body.dark-mode .filter-btn:hover,
+html.dark-mode .filter-btn.active,
+html.dark-mode .filter-btn:hover {
+  background: linear-gradient(135deg, #08a9d9, #007aa7) !important;
+  color: #ffffff !important;
+  border-color: transparent !important;
+}
+
+body.dark-mode .pill,
+body.dark-mode .gallery-stats span,
+html.dark-mode .pill,
+html.dark-mode .gallery-stats span {
+  background: rgba(8, 169, 217, 0.18) !important;
+  color: #6fdfff !important;
+}
+
+body.dark-mode .memory-card,
+html.dark-mode .memory-card {
+  background: rgba(16, 42, 56, 0.88) !important;
+  border-color: rgba(255, 255, 255, 0.10) !important;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.24) !important;
+}
+
+body.dark-mode .memory-card:hover,
+html.dark-mode .memory-card:hover {
+  box-shadow: 0 24px 66px rgba(0, 0, 0, 0.34) !important;
+}
+
+body.dark-mode .memory-thumb,
+html.dark-mode .memory-thumb,
+body.dark-mode .modal-media,
+html.dark-mode .modal-media {
+  background:
+    radial-gradient(circle at 20% 18%, rgba(8, 169, 217, 0.16), transparent 180px),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(8, 169, 217, 0.08)) !important;
+}
+
+body.dark-mode .file-preview,
+body.dark-mode .video-placeholder,
+html.dark-mode .file-preview,
+html.dark-mode .video-placeholder {
+  color: var(--text) !important;
+}
+
+body.dark-mode .big-icon,
+body.dark-mode .file-icon,
+html.dark-mode .big-icon,
+html.dark-mode .file-icon {
+  background: rgba(255, 255, 255, 0.10) !important;
+  color: #6fdfff !important;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18) !important;
+}
+
+body.dark-mode .type-badge,
+html.dark-mode .type-badge,
+body.dark-mode .memory-meta span,
+html.dark-mode .memory-meta span,
+body.dark-mode .modal-meta span,
+html.dark-mode .modal-meta span {
+  background: rgba(8, 169, 217, 0.16) !important;
+  color: #6fdfff !important;
+}
+
+body.dark-mode .file-drop,
+html.dark-mode .file-drop {
+  background: rgba(8, 169, 217, 0.07) !important;
+  border-color: rgba(111, 223, 255, 0.18) !important;
+  color: var(--text) !important;
+}
+
+body.dark-mode .modal-backdrop,
+html.dark-mode .modal-backdrop {
+  background: rgba(0, 0, 0, 0.72) !important;
+}
+
+body.dark-mode .modal-content,
+html.dark-mode .modal-content {
+  background: rgba(12, 29, 40, 0.98) !important;
+  border: 1px solid rgba(255, 255, 255, 0.10) !important;
+  box-shadow: 0 34px 100px rgba(0, 0, 0, 0.45) !important;
+}
+
+body.dark-mode .modal-close,
+html.dark-mode .modal-close {
+  background: rgba(255, 255, 255, 0.10) !important;
+  color: #ffffff !important;
+}
+
+body.dark-mode .empty-state div,
+html.dark-mode .empty-state div {
+  color: #6fdfff !important;
+}
+
+@media (max-width: 620px) {
+  .memories-header {
+    padding: 12px;
+  }
+
+  .content {
+    padding: 0 12px 46px;
+  }
+
+  .top-nav {
+    border-radius: 22px;
+  }
+
+  .brand img {
+    width: 42px;
+    height: 42px;
+  }
+
+  .brand strong {
+    font-size: 16px;
+  }
+
+  .brand span,
+  .brand small {
+    font-size: 10px;
+  }
+
+  .nav-links a {
+    width: auto;
+    min-height: 42px;
+    padding: 0 14px;
+    display: inline-flex;
+    align-items: center;
+  }
+}

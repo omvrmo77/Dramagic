@@ -1,218 +1,222 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dramagic Memories</title>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>Dramagic Memories</title>
+<script>
+    (function () {
+      let theme = "light";
 
-  <link rel="stylesheet" href="media.css" />
-  <link rel="stylesheet" href="dramagic-global-settings.css" />
+      try {
+        const settings = JSON.parse(localStorage.getItem("dramagic_settings")) || {};
+        theme = settings.theme || localStorage.getItem("dramagic_theme") || "light";
+      } catch {
+        theme = localStorage.getItem("dramagic_theme") || "light";
+      }
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+      const systemDark =
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+      const useDark = theme === "dark" || (theme === "system" && systemDark);
+
+      document.documentElement.classList.toggle("dark-mode", useDark);
+      document.documentElement.classList.toggle("light-mode", !useDark);
+    })();
+  </script>
+<link href="dramagic-global-settings.css" rel="stylesheet"/>
+<link href="media.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Playfair+Display:wght@700;800&amp;display=swap" rel="stylesheet"/><link href="dramagic-nav.css" rel="stylesheet"/>
+<!-- Dramagic PWA -->
+<link rel="manifest" href="manifest.json" />
+<link rel="icon" href="favicon.ico" />
+<link rel="apple-touch-icon" href="assets/icons/icon-180.png" />
+<meta name="theme-color" content="#08a9d9" />
+<meta name="application-name" content="Dramagic" />
+<meta name="apple-mobile-web-app-title" content="Dramagic" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
 </head>
-<body>
-  <div class="page-shell">
-    <header class="memories-header">
-      <nav class="top-nav">
-        <a href="index.html" class="brand">
-          <div class="brand">
-        <img src="dramagic-logo.png" alt="Dramagic Logo" />
-
-        <div>
-          <strong>Dramagic</strong>
-          <span>English Drama Academy</span>
-        </div>
-      </div>
-        </a>
-
-        <div class="nav-links">
-          <a href="index.html">Home</a>
-          <a href="media.html" class="nav-link memories-link active">Dramagic Memories</a>
-        </div>
-      </nav>
-
-      <section class="hero">
-        <div>
-          <p class="eyebrow">Private class gallery</p>
-          <h1>Dramagic Memories</h1>
-          <p class="hero-text">
+<body><div id="dramagicGlobalNav"></div>
+<div class="page-shell">
+<header class="memories-header">
+<nav aria-hidden="true" class="top-nav" style="display:none !important;">
+<a class="brand" href="auth.html">
+<img alt="Dramagic Logo" src="dramagic-logo.png"/>
+<div>
+<strong>Dramagic</strong>
+<span>English Drama Academy</span>
+</div>
+</a>
+<div class="nav-links">
+<a href="auth.html">Home</a>
+<a class="nav-link memories-link active" href="media.html">Dramagic Memories</a>
+</div>
+</nav>
+<section class="hero">
+<div>
+<p class="eyebrow">Private class gallery</p>
+<h1>Dramagic Memories</h1>
+<p class="hero-text">
             A special place for class moments, student activities, final party memories,
             photos, videos, and important files.
           </p>
-        </div>
-
-        <div class="hero-card">
-          <span class="sparkle">✦</span>
-          <h3>For Parents</h3>
-          <p>See the beautiful moments we upload from class and events.</p>
-        </div>
-      </section>
-    </header>
-
-    <main class="content">
-      <section class="role-panel">
-        <div>
-          <h2>Viewing Mode</h2>
-          <p>
+</div>
+<div class="hero-card">
+<span class="sparkle">✦</span>
+<h3>For Parents</h3>
+<p>See the beautiful moments we upload from class and events.</p>
+</div>
+</section>
+</header>
+<main class="content">
+<section class="role-panel">
+<div>
+<h2>Viewing Mode</h2>
+<p>
             This is temporary until we connect login roles. Later the website will know
             automatically if the user is a teacher, CEO, parent, student, or guest.
           </p>
-        </div>
-
-        <div class="role-controls">
-          <label>
+</div>
+<div class="role-controls">
+<label>
             Role
             <select id="roleSelect">
-              <option value="parent">Parent</option>
-              <option value="student">Student</option>
-              <option value="teacher">Teacher</option>
-              <option value="ceo">CEO</option>
-              <option value="guest">Guest</option>
-            </select>
-          </label>
-
-          <label>
+<option value="parent">Parent</option>
+<option value="student">Student</option>
+<option value="teacher">Teacher</option>
+<option value="ceo">CEO</option>
+<option value="guest">Guest</option>
+</select>
+</label>
+<label>
             Class
             <select id="classSelect">
-              <option value="all">All Allowed</option>
-              <option value="kids-a">Kids A</option>
-              <option value="kids-b">Kids B</option>
-              <option value="teens">Teens</option>
-              <option value="adults">Adults</option>
-            </select>
-          </label>
-        </div>
-      </section>
-
-      <section id="adminPanel" class="admin-panel hidden">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">Teacher / CEO area</p>
-            <h2>Add New Memory</h2>
-          </div>
-          <span class="pill">Private Upload Panel</span>
-        </div>
-
-        <form id="uploadForm" class="upload-card">
-          <div class="form-grid">
-            <label>
+<option value="all">All Allowed</option>
+<option value="kids-a">Kids A</option>
+<option value="kids-b">Kids B</option>
+<option value="teens">Teens</option>
+<option value="adults">Adults</option>
+</select>
+</label>
+</div>
+</section>
+<section class="admin-panel hidden" id="adminPanel">
+<div class="section-heading">
+<div>
+<p class="eyebrow">Teacher / CEO area</p>
+<h2>Add New Memory</h2>
+</div>
+<span class="pill">Private Upload Panel</span>
+</div>
+<form class="upload-card" id="uploadForm">
+<div class="form-grid">
+<label>
               Memory Title
-              <input id="mediaTitle" type="text" placeholder="Example: Final party rehearsal" required />
-            </label>
-
-            <label>
+              <input id="mediaTitle" placeholder="Example: Final party rehearsal" required="" type="text"/>
+</label>
+<label>
               Album
-              <select id="albumInput" required>
-                <option value="Class Moments">Class Moments</option>
-                <option value="Final Party">Final Party</option>
-                <option value="Student Performances">Student Performances</option>
-                <option value="Behind The Scenes">Behind The Scenes</option>
-                <option value="Important Files">Important Files</option>
-              </select>
-            </label>
-
-            <label>
+              <select id="albumInput" required="">
+<option value="Class Moments">Class Moments</option>
+<option value="Final Party">Final Party</option>
+<option value="Student Performances">Student Performances</option>
+<option value="Behind The Scenes">Behind The Scenes</option>
+<option value="Important Files">Important Files</option>
+</select>
+</label>
+<label>
               Class
-              <select id="uploadClassInput" required>
-                <option value="kids-a">Kids A</option>
-                <option value="kids-b">Kids B</option>
-                <option value="teens">Teens</option>
-                <option value="adults">Adults</option>
-                <option value="all">All Classes</option>
-              </select>
-            </label>
-
-            <label>
+              <select id="uploadClassInput" required="">
+<option value="kids-a">Kids A</option>
+<option value="kids-b">Kids B</option>
+<option value="teens">Teens</option>
+<option value="adults">Adults</option>
+<option value="all">All Classes</option>
+</select>
+</label>
+<label>
               Visibility
-              <select id="visibilityInput" required>
-                <option value="class">Class Only</option>
-                <option value="parents">Parents Only</option>
-                <option value="guests">Guests / Final Party</option>
-                <option value="public">Everyone Logged In</option>
-              </select>
-            </label>
-          </div>
-
-          <label>
+              <select id="visibilityInput" required="">
+<option value="class">Class Only</option>
+<option value="parents">Parents Only</option>
+<option value="guests">Guest Gallery / Final Party Public</option>
+<option value="public">Logged-in Users Only</option>
+</select>
+</label>
+</div>
+<label>
             Description
             <textarea id="descriptionInput" placeholder="Write a small note about this memory..."></textarea>
-          </label>
-
-          <label class="file-drop">
-            <input id="fileInput" type="file" accept="image/*,video/*,.pdf,.doc,.docx,.ppt,.pptx" required />
-            <span class="file-icon">☁</span>
-            <strong>Choose picture, video, or file</strong>
-            <small id="fileName">No file selected yet</small>
-          </label>
-
-          <div class="form-actions">
-            <button type="submit" class="primary-btn">Publish Memory</button>
-            <button type="button" id="clearDemoUploads" class="secondary-btn">Clear Demo Uploads</button>
-          </div>
-
-          <p class="demo-note">
+</label>
+<label class="file-drop">
+<input accept="image/*,video/*,.pdf,.doc,.docx,.ppt,.pptx" id="fileInput" required="" type="file"/>
+<span class="file-icon">☁</span>
+<strong>Choose picture, video, or file</strong>
+<small id="fileName">No file selected yet</small>
+</label>
+<div class="form-actions">
+<button class="primary-btn" type="submit">Publish Memory</button>
+<button class="secondary-btn" id="clearDemoUploads" type="button">Clear Demo Uploads</button>
+</div>
+<p class="demo-note">
             Note: before Supabase, uploaded files are only previewed in this browser session.
             Later, files will be saved in Supabase Storage.
           </p>
-        </form>
-      </section>
-
-      <section class="gallery-section">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">Parent / Student area</p>
-            <h2>Memory Gallery</h2>
-          </div>
-
-          <div class="gallery-stats">
-            <span id="visibleCount">0 items</span>
-          </div>
-        </div>
-
-        <div class="filters">
-          <button class="filter-btn active" data-filter="all">All</button>
-          <button class="filter-btn" data-filter="image">Photos</button>
-          <button class="filter-btn" data-filter="video">Videos</button>
-          <button class="filter-btn" data-filter="file">Files</button>
-          <button class="filter-btn" data-album="Final Party">Final Party</button>
-          <button class="filter-btn" data-album="Class Moments">Class Moments</button>
-        </div>
-
-        <div id="galleryGrid" class="gallery-grid"></div>
-
-        <div id="emptyState" class="empty-state hidden">
-          <div>♡</div>
-          <h3>No memories available here yet</h3>
-          <p>When teachers or the CEO upload media for this class, it will appear here.</p>
-        </div>
-      </section>
-    </main>
-  </div>
-
-  <div id="previewModal" class="modal hidden">
-    <div class="modal-backdrop" data-close-modal></div>
-
-    <article class="modal-content">
-      <button class="modal-close" data-close-modal>×</button>
-
-      <div id="modalMedia" class="modal-media"></div>
-
-      <div class="modal-info">
-        <p id="modalAlbum" class="eyebrow"></p>
-        <h2 id="modalTitle"></h2>
-        <p id="modalDescription"></p>
-        <div class="modal-meta">
-          <span id="modalClass"></span>
-          <span id="modalType"></span>
-          <span id="modalDate"></span>
-        </div>
-      </div>
-    </article>
-  </div>
-
-  <script src="dramagic-settings-loader.js" defer></script>
-  <script src="media.js"></script>
+</form>
+</section>
+<section class="gallery-section">
+<div class="section-heading">
+<div>
+<p class="eyebrow">Parent / Student area</p>
+<h2>Memory Gallery</h2>
+</div>
+<div class="gallery-stats">
+<span id="visibleCount">0 items</span>
+</div>
+</div>
+<div class="filters">
+<button class="filter-btn active" data-filter="all">All</button>
+<button class="filter-btn" data-filter="image">Photos</button>
+<button class="filter-btn" data-filter="video">Videos</button>
+<button class="filter-btn" data-filter="file">Files</button>
+<button class="filter-btn" data-album="Final Party">Final Party</button>
+<button class="filter-btn" data-album="Class Moments">Class Moments</button>
+</div>
+<div class="gallery-grid" id="galleryGrid"></div>
+<div class="empty-state hidden" id="emptyState">
+<div>♡</div>
+<h3>No memories available here yet</h3>
+<p>When teachers or the CEO upload media for this class, it will appear here.</p>
+</div>
+</section>
+</main>
+</div>
+<div class="modal hidden" id="previewModal">
+<div class="modal-backdrop" data-close-modal=""></div>
+<article class="modal-content">
+<button class="modal-close" data-close-modal="">×</button>
+<div class="modal-media" id="modalMedia"></div>
+<div class="modal-info">
+<p class="eyebrow" id="modalAlbum"></p>
+<h2 id="modalTitle"></h2>
+<p id="modalDescription"></p>
+<div class="modal-meta">
+<span id="modalClass"></span>
+<span id="modalType"></span>
+<span id="modalDate"></span>
+</div>
+</div>
+</article>
+</div>
+<script defer="" src="dramagic-settings-loader.js"></script>
+<script src="media.js"></script>
+<script defer="True" src="dramagic-nav.js"></script>
+<script defer src="pwa-register.js"></script>
 </body>
 </html>

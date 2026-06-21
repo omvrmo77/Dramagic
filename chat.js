@@ -24,43 +24,33 @@ const DEMO_STUDENTS = [
 
 const HOMEWORK_TEMPLATES = [
   {
-    id: "template-emotion",
-    title: "Emotion Imitation",
-    icon: "🎭",
-    preview: "Students copy the actor’s tone, emotion, pauses, and pronunciation.",
-    homeworkTitle: "Imitate the Actor’s Emotion",
+    id: "template-voice-imitation",
+    title: "Voice Imitation",
+    icon: "🎙️",
+    preview: "Dramagicians copy the speaker’s voice, emotion, pauses, and pronunciation.",
+    homeworkTitle: "Voice Imitation Practice",
     instructions:
-      "Watch the short scene. Imitate the actor’s voice, tone, emotion, facial expression, and pronunciation. Send your best voice note here.",
+      "Listen to the line or short clip. Copy the voice, emotion, pronunciation, pauses, and tone. Send your best voice note here.",
     videoUrl: "https://www.youtube.com/"
   },
   {
-    id: "template-disney",
-    title: "Character Voice",
+    id: "template-dubbing-studio",
+    title: "Dubbing Studio",
     icon: "🎬",
-    preview: "Students choose a character and perform the line with feeling.",
-    homeworkTitle: "Disney Voice Challenge",
+    preview: "Dramagicians record voice acting for a video, scene, or character role.",
+    homeworkTitle: "Dubbing Studio Task",
     instructions:
-      "Choose one character voice. Copy the rhythm, emotion, and pronunciation clearly. Try to sound confident and expressive.",
+      "Watch the video or scene. Record your voice acting as if you are dubbing it. Focus on timing, emotion, and clear English.",
     videoUrl: "https://www.youtube.com/"
   },
   {
-    id: "template-confidence",
-    title: "Confidence Speech",
-    icon: "🎤",
-    preview: "Students record a short confident speech with clear English.",
-    homeworkTitle: "Confidence Voice Practice",
+    id: "template-story-lab",
+    title: "Story Lab",
+    icon: "📖",
+    preview: "Dramagicians create a full story from a spark: characters, setting, conflict, and ending.",
+    homeworkTitle: "Story Lab Mission",
     instructions:
-      "Record a short speech using a strong voice. Focus on clear words, eye-contact feeling, pauses, and confident delivery.",
-    videoUrl: "https://www.youtube.com/"
-  },
-  {
-    id: "template-improv",
-    title: "Improv Mission",
-    icon: "🪄",
-    preview: "Students create a mini scene from a random situation.",
-    homeworkTitle: "Drama Improv Mission",
-    instructions:
-      "Create a short imaginary scene. Choose a character, a place, and a problem. Act it with emotion and send your voice note.",
+      "Use the story spark to create your own story. Choose the setting, character names, problem, surprise, and ending. Send it as a voice message.",
     videoUrl: "https://www.youtube.com/"
   }
 ];
@@ -69,34 +59,34 @@ const DEMO_HOMEWORK = [
   {
     id: "hw-a-1",
     classLetter: "A",
-    title: "Imitate the Actor’s Emotion",
+    title: "Voice Imitation Practice",
     videoUrl: "https://www.youtube.com/",
     instructions:
-      "Watch the short scene. Imitate the actor’s voice, tone, emotion, and pronunciation. Send your voice note here."
+      "Listen to the short line or clip. Copy the voice, emotion, pauses, and pronunciation. Send your best voice note here."
   },
   {
     id: "hw-b-1",
     classLetter: "B",
-    title: "Disney Voice Challenge",
+    title: "Dubbing Studio Task",
     videoUrl: "https://www.youtube.com/",
     instructions:
-      "Choose one character voice. Copy the emotion, rhythm, and pronunciation clearly. Send your voice note here."
+      "Watch the short scene. Record your voice acting as if you are dubbing the scene. Focus on timing, emotion, and clarity."
   },
   {
     id: "hw-c-1",
     classLetter: "C",
-    title: "Confidence Voice Practice",
+    title: "Story Lab Mission",
     videoUrl: "https://www.youtube.com/",
     instructions:
-      "Say the lines with confidence and clear English. Focus on strong voice, pauses, and emotion."
+      "Create a full story from the story spark. Give your character a name, choose the setting, build the problem, and create an ending."
   },
   {
     id: "hw-d-1",
     classLetter: "D",
-    title: "Drama Voice Mission",
+    title: "Voice Imitation Practice",
     videoUrl: "https://www.youtube.com/",
     instructions:
-      "Use your voice to show the character’s feeling. Record your best attempt and send it to the class chat."
+      "Record the line with clear pronunciation, emotion, pauses, and confidence. Send your strongest version here."
   }
 ];
 
@@ -107,342 +97,19 @@ const DEMO_HOMEWORK = [
 ===================================================== */
 
 const MISSION_TYPES = [
-  { id: "character-arena", label: "Character Arena 🎭", icon: "🎭" },
   { id: "voice-imitation", label: "Voice Imitation 🎙️", icon: "🎙️" },
-  { id: "story-lab", label: "Story Lab 📖", icon: "📖" },
-  { id: "dubbing-studio", label: "Dubbing Studio 🎬", icon: "🎬" }
+  { id: "dubbing-studio", label: "Dubbing Studio 🎬", icon: "🎬" },
+  { id: "story-lab", label: "Story Lab 📖", icon: "📖" }
 ];
 
 const MISSION_LEVELS = [
-  { id: "little-stars", label: "Little Stars ⭐" },
-  { id: "junior-actors", label: "Junior Actors 🎬" },
-  { id: "creative-speakers", label: "Creative Speakers 🎤" },
-  { id: "teen-performers", label: "Teen Performers 🔥" }
+  { id: "little-stars", label: "Ages 8–10 ⭐" },
+  { id: "junior-actors", label: "Ages 11–13 🎬" },
+  { id: "creative-speakers", label: "Ages 14–15 🎤" },
+  { id: "teen-performers", label: "Ages 16–17 🔥" }
 ];
 
-const MISSION_BANK = [
-  {
-    id: "bank-bag-books",
-    level: "little-stars",
-    topic: "Should school bags have less books?",
-    characters: ["Tired School Bag 🎒", "Angry Pencil ✏️", "Happy Lunchbox 🍱", "Sleepy Student 😴"],
-    options: ["Yes", "No", "Maybe"],
-    requirements: ["Say who you are", "Say how you feel", "Give one simple reason", "End with a funny sentence"],
-    starters: ["Start: Hello, I am the tired school bag.", "Feeling: I feel heavy, tired, or annoyed.", "Reason: I carry books, snacks, bottles, and homework every day.", "Funny detail: My zipper is crying or my back hurts.", "Ending: Please give me a holiday or make the books lighter!"]
-  },
-  {
-    id: "bank-toy-alive",
-    level: "little-stars",
-    topic: "What if your toy came alive?",
-    characters: ["Teddy Bear 🧸", "Robot Toy 🤖", "Dinosaur Toy 🦖", "Magic Doll ✨"],
-    requirements: ["Introduce the toy", "Say what it wants", "Say one funny problem", "End with goodbye"],
-    starters: ["Start: Hello, I am your toy and today I woke up!", "Want: I want to go to school, play, or eat snacks.", "Problem: I am too small, too loud, or nobody believes me.", "Action: Ask your owner to help you.", "Ending: Say a cute or funny goodbye."]
-  },
-  {
-    id: "bank-snack-talks",
-    level: "little-stars",
-    topic: "Should snacks talk before we eat them?",
-    characters: ["Pizza Slice 🍕", "Apple 🍎", "Chocolate Bar 🍫", "Juice Box 🧃"],
-    requirements: ["Say who you are", "Say if you want to be eaten or saved", "Give one reason", "Make a funny ending"],
-    starters: ["Start: Please listen to me! I am a snack.", "Opinion: Eat me first / do not eat me yet.", "Reason: I am delicious, healthy, scared, or too young.", "Funny detail: I saw the lunchbox monster coming.", "Ending: Thank you, human!"]
-  },
-  {
-    id: "bank-angry-shoes",
-    level: "little-stars",
-    topic: "Why are your shoes angry today?",
-    characters: ["Running Shoes 👟", "School Shoes 👞", "Magic Shoes ✨", "Tiny Socks 🧦"],
-    requirements: ["Say who you are", "Say why you are angry", "Ask for something", "End dramatically"],
-    starters: ["Start: I am your shoes and I am angry!", "Reason: You run too much, step in mud, or never clean me.", "Wish: I want rest, polish, or a dance party.", "Voice: Sound dramatic and funny.", "Ending: No more running today!"]
-  },
-  {
-    id: "bank-classroom-chair",
-    level: "little-stars",
-    topic: "What does the classroom chair want to say?",
-    characters: ["Classroom Chair 🪑", "Desk 📚", "Whiteboard 📝", "School Bell 🔔"],
-    requirements: ["Introduce the object", "Say what happens every day", "Say one wish", "End with a funny line"],
-    starters: ["Start: Hello students, I am the classroom chair.", "Every day: Students sit, move, jump, or draw near me.", "Wish: I want kindness, quiet, or a soft pillow.", "Feeling: I am tired but I love my class.", "Ending: Please sit carefully!"]
-  },
-  {
-    id: "bank-animal-teacher",
-    level: "little-stars",
-    topic: "What if an animal became your teacher?",
-    characters: ["Lion Teacher 🦁", "Rabbit Teacher 🐰", "Owl Teacher 🦉", "Monkey Teacher 🐵"],
-    requirements: ["Say who the teacher is", "Say what subject they teach", "Say one funny rule", "End with class dismissed"],
-    starters: ["Start: Good morning, I am Professor Lion.", "Subject: I teach English, drama, snacks, or roaring.", "Rule: Students must roar, hop, fly, or laugh.", "Funny moment: Someone makes a silly mistake.", "Ending: Class dismissed!"]
-  },
-  {
-    id: "bank-magic-pencil",
-    level: "little-stars",
-    topic: "What would a magic pencil write by itself?",
-    characters: ["Magic Pencil ✏️", "Nervous Eraser 🧽", "Homework Paper 📄", "Talking Notebook 📓"],
-    requirements: ["Introduce the object", "Say what it writes", "Say why", "End with surprise"],
-    starters: ["Start: I am a magic pencil.", "Action: I write stories, jokes, answers, or secrets.", "Reason: I want to help or make trouble.", "Surprise: The teacher sees the paper moving.", "Ending: Oh no, hide me!"]
-  },
-  {
-    id: "bank-lost-lunchbox",
-    level: "little-stars",
-    topic: "Where did the lost lunchbox go?",
-    characters: ["Lost Lunchbox 🍱", "Hungry Backpack 🎒", "School Cat 🐱", "Brave Sandwich 🥪"],
-    requirements: ["Say who is lost", "Say where they went", "Say what happened", "End happily"],
-    starters: ["Start: I am the lost lunchbox.", "Setting: I went to the bus, playground, or classroom.", "Problem: I was scared or hungry students chased me.", "Help: Someone found me.", "Ending: I am home again!"]
-  },
-  {
-    id: "bank-rainy-day",
-    level: "little-stars",
-    topic: "What does the rain say to the students?",
-    characters: ["Rain Drop 🌧️", "Umbrella ☂️", "Wet Shoes 👟", "Happy Cloud ☁️"],
-    requirements: ["Introduce the weather", "Say how you feel", "Give one message", "End softly"],
-    starters: ["Start: Hello, I am a little rain drop.", "Feeling: I am happy, noisy, or sleepy.", "Message: Walk carefully, play safely, or enjoy the weather.", "Sound: Make your voice calm or funny.", "Ending: See you next rainy day."]
-  },
-  {
-    id: "bank-super-student",
-    level: "little-stars",
-    topic: "If you were a student superhero, what would your power be?",
-    characters: ["Homework Hero 🦸", "Kindness Hero 💙", "Fast Reader 📚", "Brave Speaker 🎤"],
-    requirements: ["Say your hero name", "Say your power", "Say who you help", "End with a hero line"],
-    starters: ["Start: I am Homework Hero!", "Power: I can read fast, speak bravely, or help friends.", "Help: I help shy students or lost pencils.", "Voice: Use a strong superhero voice.", "Ending: Dramagic needs me!"]
-  },
-  {
-    id: "bank-pets-school",
-    level: "junior-actors",
-    topic: "Should pets come to school?",
-    characters: ["Dog Principal 🐶", "Cat Student 🐱", "Scared Teacher 😳", "Happy Student 😄"],
-    requirements: ["Character introduction", "Opinion", "One reason", "Funny ending"],
-    starters: ["Start: Good morning, I am Dog Principal Max.", "Opinion: Say yes, no, or maybe.", "Reason: Pets can make students happy, but they can also be noisy.", "Example: Imagine a cat sleeping on the teacher’s desk.", "Ending: Give one funny school rule for pets."]
-  },
-  {
-    id: "bank-homework-everyday",
-    level: "junior-actors",
-    topic: "Should students have homework every day?",
-    characters: ["Tired Student 😴", "Strict Teacher 👩‍🏫", "School Bag 🎒", "Parent 👨‍👩‍👧"],
-    requirements: ["Character introduction", "Opinion", "One reason", "Example", "Ending"],
-    starters: ["Start: Hello everyone, I am the tired student / strict teacher.", "Opinion: Homework every day is good / bad / sometimes okay.", "Reason: Practice helps, but students need rest too.", "Example: Talk about drama practice, family time, or exams.", "Ending: Make a balanced final decision."]
-  },
-  {
-    id: "bank-drama-every-class",
-    level: "junior-actors",
-    topic: "Should every class have drama?",
-    characters: ["Shy Student 🙈", "Drama Teacher 🎭", "Boring Textbook 📘", "Famous Actor ⭐"],
-    requirements: ["Introduce character", "Opinion", "Reason", "Class example", "Ending"],
-    starters: ["Start: I am the boring textbook and I have a complaint.", "Opinion: Drama should / should not be in every class.", "Reason: Drama makes learning fun, but some people feel shy.", "Example: Act science, history, or English as a scene.", "Ending: Give a dramatic final line."]
-  },
-  {
-    id: "bank-school-shorter",
-    level: "junior-actors",
-    topic: "Should the school day be shorter?",
-    characters: ["Sleepy Student 😴", "School Clock 🕰️", "Teacher 👩‍🏫", "Bus Driver 🚌"],
-    requirements: ["Character voice", "Opinion", "Reason", "Problem", "Ending"],
-    starters: ["Start: Tick tock, I am the school clock.", "Opinion: The day should be shorter / stay the same.", "Reason: Students get tired or need more learning time.", "Problem: Long days can make brains sleepy.", "Ending: Ring the bell dramatically."]
-  },
-  {
-    id: "bank-kids-subjects",
-    level: "junior-actors",
-    topic: "Should kids choose their own school subjects?",
-    characters: ["Artist Student 🎨", "Math Book ➗", "Principal 👔", "Football Coach ⚽"],
-    requirements: ["Character intro", "Opinion", "One reason", "Example subject", "Ending"],
-    starters: ["Start: I am an artist student and I have a dream.", "Opinion: Kids should choose some subjects / not all subjects.", "Reason: Choice makes students excited, but basics are important.", "Example: Drama, art, sports, science, or English.", "Ending: Ask the principal for one creative day."]
-  },
-  {
-    id: "bank-uniforms",
-    level: "junior-actors",
-    topic: "Should students wear school uniforms?",
-    characters: ["Fashion Designer 👗", "Principal 👔", "Messy Student 😅", "School Mirror 🪞"],
-    requirements: ["Say who you are", "Opinion", "Reason", "Example", "Funny ending"],
-    starters: ["Start: Hello, I am the school mirror.", "Opinion: Uniforms are useful / boring / sometimes good.", "Reason: They save time, but students want personality.", "Example: Add badge, color, or creative day.", "Ending: The mirror gives a final fashion review."]
-  },
-  {
-    id: "bank-recess-longer",
-    level: "junior-actors",
-    topic: "Should break time be longer?",
-    characters: ["Playground Ball ⚽", "Hungry Student 🍔", "Teacher on Duty 👩‍🏫", "School Bell 🔔"],
-    requirements: ["Introduce character", "Opinion", "Reason", "Example", "Ending"],
-    starters: ["Start: I am the school bell and I decide everything.", "Opinion: Break should be longer / shorter / balanced.", "Reason: Students need energy and friends.", "Example: More time to eat, play, or relax.", "Ending: Ring the bell with a funny warning."]
-  },
-  {
-    id: "bank-robots-school",
-    level: "junior-actors",
-    topic: "Should robots help teachers in school?",
-    characters: ["Robot Assistant 🤖", "Teacher 👩‍🏫", "Student Inventor 🧪", "Old Chalk 🧑‍🏫"],
-    requirements: ["Character introduction", "Opinion", "Reason", "Benefit/problem", "Ending"],
-    starters: ["Start: Beep beep, I am Robot Assistant 3000.", "Opinion: Robots should help / not replace teachers.", "Reason: They can organize work but cannot feel emotions.", "Example: Robot checks attendance or explains homework.", "Ending: Human teachers still win."]
-  },
-  {
-    id: "bank-best-classroom-rule",
-    level: "junior-actors",
-    topic: "What is the most important classroom rule?",
-    characters: ["Class Captain 🏅", "Noisy Chair 🪑", "Teacher 👩‍🏫", "New Student 🎒"],
-    requirements: ["Introduce character", "Choose rule", "Explain why", "Give example", "Ending"],
-    starters: ["Start: I am the class captain and I have one rule.", "Rule: Listen, be kind, try, or raise your hand.", "Reason: The rule protects learning and feelings.", "Example: A noisy class vs. a kind class.", "Ending: Say your rule like a leader."]
-  },
-  {
-    id: "bank-presentation-fear",
-    level: "junior-actors",
-    topic: "How can a shy student become braver?",
-    characters: ["Shy Student 🙈", "Microphone 🎤", "Best Friend 🤝", "Drama Coach 🎭"],
-    requirements: ["Character intro", "Problem", "Advice", "Example", "Encouraging ending"],
-    starters: ["Start: I am the microphone and I hear tiny voices.", "Problem: Some students are scared to speak.", "Advice: Breathe, practice, smile, and start small.", "Example: Say one sentence first, then two.", "Ending: Tell the shy student they can do it."]
-  },
-  {
-    id: "bank-phones-class",
-    level: "creative-speakers",
-    topic: "Should phones be allowed in class?",
-    characters: ["The Phone 📱", "Old Notebook 📓", "Teacher 👨‍🏫", "Student 🎒"],
-    requirements: ["Opinion", "Reason", "Problem", "Solution", "Ending"],
-    starters: ["Start: Listen carefully, I am the phone everyone blames.", "Opinion: Phones can help learning, but they need rules.", "Problem: Games and distraction can ruin class.", "Solution: Use phones only for tasks, recording, or research.", "Ending: Technology is a tool, not the teacher."]
-  },
-  {
-    id: "bank-kind-popular",
-    level: "creative-speakers",
-    topic: "Is being kind more important than being popular?",
-    characters: ["Famous Student ⭐", "Lonely Student 💭", "Wise Tree 🌳", "Class Captain 🏅"],
-    requirements: ["Character intro", "Opinion", "Reason", "Small story example", "Lesson"],
-    starters: ["Start: I have watched students for many years.", "Opinion: Kindness lasts longer than popularity.", "Reason: Popularity can disappear, but kindness helps people.", "Story: Mention someone alone who needed a friend.", "Lesson: The best kind of famous is being remembered for good."]
-  },
-  {
-    id: "bank-smart-brave",
-    level: "creative-speakers",
-    topic: "Is it better to be smart or brave?",
-    characters: ["Knight 🛡️", "Scientist 🧪", "Scared Hero 🦸", "Magic Mirror 🪞"],
-    requirements: ["Strong character voice", "Opinion", "Reason", "Example", "Message"],
-    starters: ["Start: I am the magic mirror and I see the truth.", "Opinion: Smart, brave, or both?", "Reason: Smart people plan, brave people try.", "Example: A hero needs a plan and courage.", "Message: Balance is stronger than one skill alone."]
-  },
-  {
-    id: "bank-mistakes",
-    level: "creative-speakers",
-    topic: "Should students learn from mistakes?",
-    characters: ["Broken Robot 🤖", "Football Player ⚽", "Actor 🎭", "Pencil With No Eraser ✏️"],
-    requirements: ["Story opening", "Mistake", "Opinion", "Lesson", "Ending"],
-    starters: ["Start: I am a pencil with no eraser, so mistakes scare me.", "Mistake: Say what went wrong.", "Opinion: Mistakes can teach us if we do not hide them.", "Lesson: Practice makes the second try better.", "Ending: My mistake became my teacher."]
-  },
-  {
-    id: "bank-real-hero",
-    level: "creative-speakers",
-    topic: "What makes a real hero?",
-    characters: ["Superhero 🦸", "Villain 🦹", "Normal Student 🎒", "School Cleaner 🧹"],
-    requirements: ["Character intro", "Opinion", "Reason", "Example", "Hero message"],
-    starters: ["Start: Everyone thinks heroes wear capes, but I disagree.", "Opinion: A hero is brave, kind, honest, or helpful.", "Reason: Small actions can change someone’s day.", "Example: Helping a new student or speaking the truth.", "Ending: Heroes are made by choices."]
-  },
-  {
-    id: "bank-rules-creativity",
-    level: "creative-speakers",
-    topic: "Should people always follow rules?",
-    characters: ["Inventor 🧪", "Principal 👔", "Villain 🦹", "Artist 🎨"],
-    requirements: ["Opinion", "Reason", "Danger/problem", "Creative solution", "Ending"],
-    starters: ["Start: I am an inventor, and rules are interesting.", "Opinion: Some rules protect us, but some need creative thinking.", "Problem: Breaking rules can hurt people; blind rules can stop ideas.", "Solution: Respect safety, question unfair rules.", "Ending: Creativity needs responsibility."]
-  },
-  {
-    id: "bank-social-media",
-    level: "creative-speakers",
-    topic: "Is social media good for young people?",
-    characters: ["Phone 📱", "Parent 👨‍👩‍👧", "Influencer ⭐", "Quiet Student 💭"],
-    requirements: ["Opinion", "Reason", "Good side", "Bad side", "Advice"],
-    starters: ["Start: I am the phone, and I know your secrets.", "Opinion: Social media can be useful and dangerous.", "Good side: Learning, inspiration, connection.", "Bad side: Wasting time or comparing yourself.", "Advice: Control the app before it controls you."]
-  },
-  {
-    id: "bank-teamwork-alone",
-    level: "creative-speakers",
-    topic: "Is teamwork better than working alone?",
-    characters: ["Team Captain 🏅", "Lone Artist 🎨", "Coach 📣", "Puzzle Piece 🧩"],
-    requirements: ["Character intro", "Opinion", "Reason", "Example", "Final message"],
-    starters: ["Start: I am a puzzle piece; alone, I am strange.", "Opinion: Teamwork or alone work depends on the task.", "Reason: Teams share ideas; alone time builds focus.", "Example: A play needs a team, a monologue needs practice.", "Ending: Great people know when to do both."]
-  },
-  {
-    id: "bank-imagination-knowledge",
-    level: "creative-speakers",
-    topic: "Is imagination more powerful than knowledge?",
-    characters: ["Wizard 🧙", "Scientist 🧪", "Book 📘", "Dream 💭"],
-    requirements: ["Dramatic opening", "Opinion", "Reason", "Example", "Message"],
-    starters: ["Start: I am a dream, and I visit minds at night.", "Opinion: Imagination and knowledge need each other.", "Reason: Knowledge gives tools; imagination builds new worlds.", "Example: Every invention was imagined before it existed.", "Ending: Learn facts, then make magic."]
-  },
-  {
-    id: "bank-pressure-friends",
-    level: "creative-speakers",
-    topic: "Should friends always agree with each other?",
-    characters: ["Best Friend 🤝", "Honest Mirror 🪞", "Class Captain 🏅", "Drama Narrator 🎭"],
-    requirements: ["Character intro", "Opinion", "Reason", "Example", "Kind ending"],
-    starters: ["Start: I am the honest mirror, and I cannot lie.", "Opinion: Real friends do not always agree.", "Reason: Honest advice can protect someone.", "Example: A friend stops another from making a bad choice.", "Ending: Disagree with kindness, not cruelty."]
-  },
-  {
-    id: "bank-confidence-talent",
-    level: "teen-performers",
-    topic: "Is confidence more important than talent?",
-    characters: ["Famous Actor 🎬", "Shy Singer 🎤", "Coach 📣", "Jealous Rival 😏"],
-    requirements: ["Strong opening", "Opinion", "Reason", "Example", "Powerful ending"],
-    starters: ["Opening: Let me tell you what talent cannot do alone.", "Opinion: Confidence opens the door; talent improves the performance.", "Reason: A talented person who never tries stays invisible.", "Example: A shy singer with practice becomes stronger on stage.", "Ending: Talent whispers, but confidence steps into the light."]
-  },
-  {
-    id: "bank-failure-useful",
-    level: "teen-performers",
-    topic: "Can failure be useful?",
-    characters: ["Failed Magician 🎩", "Broken Robot 🤖", "Athlete 🏃", "Student Before Exam 📝"],
-    requirements: ["Emotional opening", "Problem", "Opinion", "Lesson", "Ending"],
-    starters: ["Opening: Yesterday, I failed in front of everyone.", "Problem: Explain what went wrong and how it felt.", "Opinion: Failure hurts, but it can guide the next try.", "Lesson: Every mistake shows what needs training.", "Ending: Failure is not the end of the show; it is rehearsal."]
-  },
-  {
-    id: "bank-second-chance",
-    level: "teen-performers",
-    topic: "Should everyone get a second chance?",
-    characters: ["Villain 🦹", "Judge ⚖️", "Teacher 👩‍🏫", "Best Friend 🤝"],
-    requirements: ["Character intro", "Opinion", "Reason", "Example", "Final message"],
-    starters: ["Opening: I am the judge, and this decision is not easy.", "Opinion: Some people deserve a second chance, with responsibility.", "Reason: People can grow, but trust needs proof.", "Example: Someone apologizes, changes, and works harder.", "Ending: A second chance is not a gift; it is a test."]
-  },
-  {
-    id: "bank-popularity-kindness",
-    level: "teen-performers",
-    topic: "Is popularity worth changing yourself?",
-    characters: ["Influencer ⭐", "Quiet Student 💭", "Old Friend 🤝", "Mirror 🪞"],
-    requirements: ["Strong opening", "Conflict", "Opinion", "Example", "Ending"],
-    starters: ["Opening: Everyone liked my mask, but nobody knew my face.", "Conflict: The character changes to impress people.", "Opinion: Popularity is not worth losing yourself.", "Example: A student hides their real interests to fit in.", "Ending: Being accepted as yourself is the real win."]
-  },
-  {
-    id: "bank-risk-safe",
-    level: "teen-performers",
-    topic: "Is it better to take risks or stay safe?",
-    characters: ["Explorer 🧭", "Careful Parent 👨‍👩‍👧", "Inventor 🧪", "Fearful Friend 😟"],
-    requirements: ["Character voice", "Opinion", "Reason", "Example", "Balanced ending"],
-    starters: ["Opening: I stand at the edge of a new journey.", "Opinion: Good risks can help us grow, but foolish risks can harm us.", "Reason: Fear protects us, but it can also trap us.", "Example: Auditioning, presenting, joining a new team.", "Ending: Take brave risks, not blind risks."]
-  },
-  {
-    id: "bank-rules-break",
-    level: "teen-performers",
-    topic: "Should people follow rules or break them creatively?",
-    characters: ["Villain 🦹", "Hero 🦸", "Inventor 🧪", "Principal 👔"],
-    requirements: ["Dramatic opening", "Opinion", "Reason", "Warning", "Ending"],
-    starters: ["Opening: Rules built this city, but imagination changed it.", "Opinion: Rules matter, but creative thinking questions limits.", "Reason: Some rules protect; some rules need improvement.", "Warning: Breaking rules without care becomes chaos.", "Ending: The best rebels build something better."]
-  },
-  {
-    id: "bank-leader-friend",
-    level: "teen-performers",
-    topic: "Can a leader also be a friend?",
-    characters: ["Team Leader 🏅", "Best Friend 🤝", "Coach 📣", "Jealous Teammate 😏"],
-    requirements: ["Opening", "Opinion", "Reason", "Challenge", "Ending"],
-    starters: ["Opening: Today I had to choose between being liked and being fair.", "Opinion: A leader can be a friend, but must be honest.", "Reason: Friendship without fairness destroys trust.", "Challenge: Correcting a friend is hard.", "Ending: Real friends respect honest leadership."]
-  },
-  {
-    id: "bank-forgiveness",
-    level: "teen-performers",
-    topic: "Is forgiving someone always the right choice?",
-    characters: ["Best Friend 🤝", "Judge ⚖️", "Hurt Student 💭", "Wise Grandparent 👵"],
-    requirements: ["Emotional intro", "Opinion", "Boundary", "Example", "Final lesson"],
-    starters: ["Opening: I forgave them, but I did not forget the lesson.", "Opinion: Forgiveness can free you, but it does not mean accepting harm.", "Boundary: You can forgive and still protect yourself.", "Example: A friend apologizes after betrayal.", "Ending: Forgiveness needs wisdom, not weakness."]
-  },
-  {
-    id: "bank-dream-career",
-    level: "teen-performers",
-    topic: "Should you follow your dream even if people doubt you?",
-    characters: ["Young Actor 🎭", "Strict Parent 👨‍👩‍👧", "Future Self ✨", "Jealous Rival 😏"],
-    requirements: ["Strong opening", "Conflict", "Opinion", "Reason", "Powerful ending"],
-    starters: ["Opening: They called my dream impossible.", "Conflict: People doubt the character’s goal.", "Opinion: Dreams need work, not just wishes.", "Reason: Doubt can hurt, but it can also push you to prove yourself.", "Ending: I do not need everyone to believe before I begin."]
-  },
-  {
-    id: "bank-pressure-success",
-    level: "teen-performers",
-    topic: "Does success always make people happy?",
-    characters: ["Famous Actor 🎬", "Tired Winner 🏆", "Old Friend 🤝", "Reporter 🎙️"],
-    requirements: ["Opening", "Opinion", "Reason", "Hidden problem", "Ending"],
-    starters: ["Opening: Everyone clapped, but I felt strangely quiet.", "Opinion: Success can feel good, but it does not solve everything.", "Reason: Pressure, loneliness, or fear can follow success.", "Hidden problem: The character misses simple happiness.", "Ending: Success matters, but peace matters too."]
-  }
-];
+const MISSION_BANK = [];
 
 const DEFAULT_MISSION_REQUIREMENTS = [
   "Character introduction",
@@ -461,61 +128,42 @@ const DEFAULT_MISSION_STARTERS = [
 ];
 
 const MISSION_TYPE_CONFIGS = {
-  "character-arena": {
-    builderIntro: "Dramagicians answer one topic as a chosen character. Perfect for acting + speaking + opinion.",
-    topicLabel: "Topic / question",
-    topicPlaceholder: "Example: Should school bags have less books?",
-    bankLabel: "Choose Character Arena topic",
-    choiceLabel: "Character choices",
-    choiceHeading: "Character choices",
-    choiceSubmitLabel: "Choose character",
-    choiceSummaryLabel: "Character",
-    choicePlaceholder: "One per line. Example:\nTired School Bag 🎒\nAngry Pencil ✏️\nSleepy Student 😴",
-    optionsLabel: "Opinion choices",
-    optionsHeading: "Choose opinion",
-    optionsSummaryLabel: "Opinion",
-    options: ["Yes", "No", "Maybe"],
-    requirementsLabel: "Dramagician must include",
-    requirementsHeading: "Must include",
-    helperLabel: "Detailed Dramagician helper / ready speaking ideas",
-    helperHeading: "Dramagician helper / what to talk about:",
-    materialLabel: "Video or material link (optional)",
-    instructionsLabel: "Extra instructions",
-    recordButton: "🎙️ Record Character Voice",
-    demoButton: "Submit Demo Without Recording",
-    publishNote: "Dramagicians choose a character and opinion, then submit from the pinned card in the group chat.",
-    defaultCharacters: ["Tired School Bag 🎒", "Strict Teacher 👩‍🏫", "Sleepy Student 😴", "Robot Principal 🤖"],
-    defaultRequirements: DEFAULT_MISSION_REQUIREMENTS,
-    defaultStarters: DEFAULT_MISSION_STARTERS,
-    defaultInstructions: "Choose a character, choose your opinion, and perform the answer as that character."
-  },
   "story-lab": {
-    builderIntro: "Dramagicians build and perform a short story. The form changes into setting, problem, twist, and ending help.",
-    topicLabel: "Story prompt",
-    topicPlaceholder: "Example: A school bag found a secret map inside the classroom.",
-    bankLabel: "Choose Story Lab prompt",
-    choiceLabel: "Story role / narrator choices",
-    choiceHeading: "Story role choices",
-    choiceSubmitLabel: "Choose story role",
-    choiceSummaryLabel: "Story role",
-    choicePlaceholder: "One per line. Example:\nNarrator 🎙️\nMain Hero 🦸\nFunny Friend 😂\nSecret Villain 🦹",
-    optionsLabel: "Story mood choices",
-    optionsHeading: "Choose story mood",
-    optionsSummaryLabel: "Mood",
-    options: ["Funny", "Mysterious", "Magical", "Dramatic"],
-    requirementsLabel: "Story must include",
-    requirementsHeading: "Story must include",
-    helperLabel: "Story helper / ready story ideas",
-    helperHeading: "Story helper / what to build:",
+    builderIntro: "Story Lab gives one character spark with a real problem. Learners create the name, setting, other characters, conflict, ending, and message.",
+    usesChoices: false,
+    usesOptions: false,
+    usesRequirements: false,
+    topicLabel: "Story title / spark",
+    topicPlaceholder: "Example: The character who found a tiny dragon in their pocket",
+    bankLabel: "Choose Story Lab spark by level",
+    choiceLabel: "No character choices",
+    choiceHeading: "Open imagination",
+    choiceSubmitLabel: "Create the full story",
+    choiceSummaryLabel: "Story freedom",
+    choicePlaceholder: "Story Lab does not use character choices.",
+    optionsLabel: "No mood choices",
+    optionsHeading: "Free mood",
+    optionsSummaryLabel: "Mood freedom",
+    options: [],
+    requirementsLabel: "No fixed requirements",
+    requirementsHeading: "Open story",
+    helperLabel: "Story-building guide — not fixed answers",
+    helperHeading: "Build your story:",
     materialLabel: "Picture / prompt material link (optional)",
-    instructionsLabel: "Story instructions",
-    recordButton: "🎙️ Record Story Performance",
+    instructionsLabel: "Story spark sent to learners",
+    recordButton: "🎙️ Record Your Story",
     demoButton: "Submit Demo Story",
-    publishNote: "Dramagicians choose a story role and mood, then perform a short story from the pinned group-chat card.",
-    defaultCharacters: ["Narrator 🎙️", "Main Hero 🦸", "Funny Friend 😂", "Secret Villain 🦹"],
-    defaultRequirements: ["Setting", "Main character", "Problem", "Twist", "Ending"],
-    defaultStarters: ["Setting: Start by telling us where the story happens.", "Character: Introduce who the story follows and what they want.", "Problem: Something goes wrong or a secret appears.", "Twist: Add a surprise that changes the story.", "Ending: Finish with a lesson, joke, or dramatic final line."],
-    defaultInstructions: "Create a short story. Mention the setting, main character, problem, twist, and ending. Perform it with voice and emotion."
+    publishNote: "Learners receive the spark only. They must invent the character name, world, conflict, details, and ending.",
+    defaultCharacters: [],
+    defaultRequirements: [],
+    defaultStarters: [
+      "Give the main character a name and a clear personality.",
+      "Choose the setting: where and when does the story happen?",
+      "Create the problem, the surprise, and the turning point.",
+      "Add other characters only if your story needs them.",
+      "End with a feeling, a lesson, a joke, or a strong final image."
+    ],
+    defaultInstructions: "Create a complete story from this spark. Give your main character a name, choose the setting, build the problem, add any characters you need, and decide the ending. Send your story as a voice message."
   },
   "dubbing-studio": {
     builderIntro: "Teacher gives a clip or scene. Dramagicians record voice acting for it, and the best audio can be reviewed/downloaded later.",
@@ -576,13 +224,6 @@ const MISSION_TYPE_CONFIGS = {
 };
 
 const MISSION_EXTRA_BANK = [
-  // STORY LAB
-  { type: "story-lab", id: "story-magic-map", level: "little-stars", topic: "A school bag found a secret map inside the classroom.", characters: ["Narrator 🎙️", "School Bag 🎒", "Magic Map 🗺️", "Brave Pencil ✏️"], options: ["Funny", "Magical", "Mysterious"], requirements: ["Setting", "Main character", "Secret map", "One problem", "Happy ending"], starters: ["Setting: The classroom is quiet after everyone leaves.", "Character: The school bag hears paper moving inside it.", "Problem: The map points to a hidden place in school.", "Twist: The treasure is not money; it is something funny or helpful.", "Ending: End with a surprise sound or magical line."] },
-  { type: "story-lab", id: "story-lost-star", level: "little-stars", topic: "A tiny star fell into the playground and needed help.", characters: ["Tiny Star ⭐", "Kind Student 💙", "Moon Friend 🌙", "Playground Slide 🛝"], options: ["Sweet", "Funny", "Magical"], requirements: ["Where it landed", "Who found it", "What it wanted", "How they helped", "Ending"], starters: ["Start in the playground at night or after school.", "The tiny star is scared because it cannot fly back.", "A kind character tries silly ways to help it.", "The solution can be teamwork, a ladder, or magic words.", "End with the star shining brighter."] },
-  { type: "story-lab", id: "story-talking-door", level: "junior-actors", topic: "A door in the school started talking and refused to open.", characters: ["Talking Door 🚪", "Late Student 😰", "Strict Teacher 👩‍🏫", "Secret Key 🗝️"], options: ["Comedy", "Mystery", "Adventure"], requirements: ["Setting", "Problem", "Dialogue", "Twist", "Ending"], starters: ["Start with a student running late to class.", "The door refuses to open until someone answers a question.", "Add dialogue between the door and the student.", "Twist: The door is trying to protect something inside.", "End with a funny or mysterious reveal."] },
-  { type: "story-lab", id: "story-villain-right", level: "creative-speakers", topic: "Write a story where the villain might actually be right.", characters: ["Villain 🦹", "Hero 🦸", "Reporter 🎙️", "Citizen 👥"], options: ["Dramatic", "Debate", "Mystery"], requirements: ["World/background", "Villain reason", "Hero reaction", "Moral question", "Ending"], starters: ["Start by showing the world has a real problem.", "The villain has a reason, not just evil behavior.", "The hero disagrees with the method, not the problem.", "Give the audience a difficult question to think about.", "End without making it too easy."] },
-  { type: "story-lab", id: "story-object-secret", level: "teen-performers", topic: "Tell a story from the point of view of an object that knows everyone’s secrets.", characters: ["Old Mirror 🪞", "Classroom Chair 🪑", "Forgotten Notebook 📓", "Stage Curtain 🎭"], options: ["Emotional", "Suspense", "Deep"], requirements: ["Object narrator", "Secrets it saw", "Conflict", "Lesson", "Powerful ending"], starters: ["Begin with the object saying how long it has been watching people.", "Describe small secrets without exposing anyone too harshly.", "Choose one secret that changes the story.", "Show what the object learns about people.", "End with a strong final sentence from the object."] },
-
   // DUBBING STUDIO
   { type: "dubbing-studio", id: "dub-pencil-notebook", level: "little-stars", topic: "Dub a funny scene where a pencil argues with a notebook.", characters: ["Pencil ✏️", "Notebook 📓", "Eraser 🧽", "Narrator 🎙️"], options: ["Funny", "Angry", "Silly"], requirements: ["Clear voice", "Funny emotion", "Short pauses", "Character voice"], starters: ["Imagine the pencil is proud and dramatic.", "The notebook is tired of mistakes.", "Use short lines and funny reactions.", "Make your voice match the character.", "End with a funny apology or comeback."] },
   { type: "dubbing-studio", id: "dub-lost-lion", level: "junior-actors", topic: "Dub a scene where a brave lion loses his roar.", characters: ["Brave Lion 🦁", "Tiny Mouse 🐭", "Narrator 🎙️", "Forest Echo 🌳"], options: ["Heroic", "Scared", "Funny", "Emotional"], requirements: ["Match timing", "Show emotion", "Clear pronunciation", "One strong final line"], starters: ["The lion starts confident but becomes worried.", "The mouse can be funny or wise.", "Use silence before the big final line.", "Make the roar return at the ending.", "Teacher can choose the best audio later."] },
@@ -605,1323 +246,459 @@ const MISSION_EXTRA_BANK = [
 const STORY_LAB_CREATIVE_BANK = [
   {
     "type": "story-lab",
-    "id": "story-cloud-lost-voice",
+    "id": "story-8-pocket-dragon",
     "level": "little-stars",
-    "category": "Magical school",
-    "topic": "A cloud lost its voice and asked the class to help it rain again.",
-    "characters": [
-      "Narrator 🎙️",
-      "Silent Cloud ☁️",
-      "Brave Student 🎒",
-      "Thunder Drum 🥁"
-    ],
-    "options": [
-      "Sweet",
-      "Funny",
-      "Magical"
-    ],
-    "requirements": [
-      "Where the cloud appears",
-      "Why it lost its voice",
-      "How the class helps",
-      "One funny failed idea",
-      "Happy ending"
-    ],
+    "category": "Ages 8–10 · Magical Creature",
+    "topic": "A character finds a tiny dragon hiding inside their pocket. The dragon is scared, hungry, and keeps sneezing little sparks of fire. When the character tries to put it back, the dragon whispers, “I did not choose your pocket by mistake.”",
+    "characters": [],
+    "options": [],
+    "requirements": [],
     "starters": [
-      "Setting: The class hears tiny rain sounds from inside a school bag.",
-      "Problem: The cloud cannot speak, so it makes pictures in the air.",
-      "Try: Students test silly ideas like singing, clapping, or whispering magic words.",
-      "Twist: The quietest student understands the cloud first.",
-      "Ending: The cloud rains glitter or soft happy rain over the playground."
+      "Give the character a name and decide where they are when they find the dragon.",
+      "Decide why the dragon chose this character specifically.",
+      "Create one funny problem caused by the dragon’s fire sneezes.",
+      "Add someone or something that might discover the dragon.",
+      "End with the dragon either staying, leaving, or revealing a bigger secret."
     ],
-    "teacherPreview": "Great for gentle emotion, teamwork, and simple magical storytelling."
+    "instructions": "Create the main character, the setting, the dragon’s secret, the problem, and the ending. Record the story with voice and imagination.",
+    "teacherPreview": "Easy magical adventure for younger learners with clear visual action."
   },
   {
     "type": "story-lab",
-    "id": "story-library-book-sneeze",
+    "id": "story-8-runaway-shoes",
     "level": "little-stars",
-    "category": "Funny objects",
-    "topic": "A library book sneezed and all the words jumped out of the pages.",
-    "characters": [
-      "Library Book 📘",
-      "Lost Word 🔤",
-      "Librarian 🤫",
-      "Curious Reader 👀"
-    ],
-    "options": [
-      "Funny",
-      "Chaotic",
-      "Magical"
-    ],
-    "requirements": [
-      "Quiet library setting",
-      "Words escaping",
-      "A funny chase",
-      "How words return",
-      "Ending line"
-    ],
+    "category": "Ages 8–10 · Funny Adventure",
+    "topic": "A character is getting ready for an important day, but their shoes suddenly jump up and run away. Before escaping, the shoes leave a note: “Today, we choose where to go.”",
+    "characters": [],
+    "options": [],
+    "requirements": [],
     "starters": [
-      "Setting: The library is very quiet until one book sneezes loudly.",
-      "Problem: The words jump out and run around the room.",
-      "Action: The characters chase verbs, adjectives, and funny words.",
-      "Twist: One word refuses to go back because it wants to be in a story.",
-      "Ending: The reader writes a new sentence and the words finally sleep."
+      "Choose the character’s important day: a party, race, show, trip, visit, or something else.",
+      "Decide where the shoes run first and why.",
+      "Make the shoes have a personality: rude, funny, brave, tired, or dramatic.",
+      "Add one strange place the character reaches while chasing them.",
+      "End with the character understanding why the shoes ran away."
     ],
-    "teacherPreview": "Setting: The library is very quiet until one book sneezes loudly."
+    "instructions": "Create the character, the place, the reason the shoes escaped, and the adventure that follows.",
+    "teacherPreview": "Funny and performable; great for voice acting and movement imagination."
   },
   {
     "type": "story-lab",
-    "id": "story-shy-microphone",
+    "id": "story-8-lunchbox-city",
     "level": "little-stars",
-    "category": "Confidence stories",
-    "topic": "A shy microphone was afraid to make anyone hear its voice.",
-    "characters": [
-      "Shy Microphone 🎤",
-      "Kind Speaker 💙",
-      "Stage Light 💡",
-      "Audience Clap 👏"
-    ],
-    "options": [
-      "Sweet",
-      "Dramatic",
-      "Hopeful"
-    ],
-    "requirements": [
-      "Introduce the microphone",
-      "Show the fear",
-      "Someone helps",
-      "First small sound",
-      "Confident ending"
-    ],
+    "category": "Ages 8–10 · Tiny World",
+    "topic": "A character opens a lunchbox and finds a tiny city inside it. The houses are made of biscuits, the river is made of juice, and the tiny people are shouting, “Please don’t close the lid!”",
+    "characters": [],
+    "options": [],
+    "requirements": [],
     "starters": [
-      "Start: The microphone is hiding behind the curtain.",
-      "Fear: It thinks every voice will sound bad through it.",
-      "Helper: A kind speaker tells it that voices grow with practice.",
-      "Moment: The microphone makes one tiny sound, then a stronger one.",
-      "Ending: The audience claps for the microphone too."
+      "Name the character and decide where they open the lunchbox.",
+      "Create the tiny city and its most important rule.",
+      "Decide what danger is coming when the lid closes.",
+      "Add a tiny leader, inventor, chef, guard, or troublemaker.",
+      "End with the character saving the city, joining it, or accidentally changing it forever."
     ],
-    "teacherPreview": "Start: The microphone is hiding behind the curtain."
+    "instructions": "Build the tiny world inside the lunchbox. Choose the danger, the tiny characters, and how the main character reacts.",
+    "teacherPreview": "Visual, playful, and full of setting creation for younger storytellers."
   },
   {
     "type": "story-lab",
-    "id": "story-backpack-elevator",
+    "id": "story-8-lost-laugh",
     "level": "little-stars",
-    "category": "Comedy disaster",
-    "topic": "A backpack got stuck in a school elevator and started telling everyone’s secrets.",
-    "characters": [
-      "Backpack 🎒",
-      "Nervous Pencil ✏️",
-      "Late Student 😅",
-      "Elevator Button 🔘"
-    ],
-    "options": [
-      "Funny",
-      "Silly",
-      "Mysterious"
-    ],
-    "requirements": [
-      "Where it happens",
-      "What secret is told",
-      "Reaction",
-      "Problem solved",
-      "Funny ending"
-    ],
+    "category": "Ages 8–10 · Emotional Funny",
+    "topic": "A character laughs so hard that their laugh jumps out of their mouth and runs away. After that, the character can smile, but no sound comes out. Somewhere nearby, the runaway laugh is causing trouble.",
+    "characters": [],
+    "options": [],
+    "requirements": [],
     "starters": [
-      "Setting: The student is late and the elevator stops.",
-      "Problem: The backpack gets bored and starts talking.",
-      "Secret: It reveals funny things inside it, like old snacks or lost homework.",
-      "Solution: The elevator button asks for an apology or a joke.",
-      "Ending: The backpack promises to keep secrets, maybe."
+      "Decide what made the character laugh so much.",
+      "Imagine what the laugh looks like if it becomes alive.",
+      "Choose where the laugh hides: a jar, a tree, a toy shop, a cloud, or anywhere else.",
+      "Make the laugh cause funny chaos before the character catches it.",
+      "End with why the character needed their laugh back."
     ],
-    "teacherPreview": "Setting: The student is late and the elevator stops."
+    "instructions": "Create a funny story about a character trying to find their lost laugh. Choose the setting and ending.",
+    "teacherPreview": "Simple emotional idea with comedy and clear performance sounds."
   },
   {
     "type": "story-lab",
-    "id": "story-moon-homework",
+    "id": "story-8-drawing-alive",
     "level": "little-stars",
-    "category": "Dream / fantasy",
-    "topic": "The moon asked a student for help with its homework.",
-    "characters": [
-      "Moon 🌙",
-      "Sleepy Student 😴",
-      "Star Teacher ⭐",
-      "Night Notebook 📓"
-    ],
-    "options": [
-      "Magical",
-      "Funny",
-      "Sweet"
-    ],
-    "requirements": [
-      "Night setting",
-      "Moon problem",
-      "Student help",
-      "One mistake",
-      "Soft ending"
-    ],
+    "category": "Ages 8–10 · Imagination",
+    "topic": "A character draws something quickly on a piece of paper. A few seconds later, the drawing moves, looks at them, and says, “Finally! I have been waiting for you.”",
+    "characters": [],
+    "options": [],
+    "requirements": [],
     "starters": [
-      "Start: A student wakes up and sees the moon at the window.",
-      "Problem: The moon has homework about humans.",
-      "Action: The student explains school, friends, and courage.",
-      "Mistake: The moon writes something funny about breakfast or exams.",
-      "Ending: The moon shines brighter after learning."
+      "Choose what the character drew: a monster, friend, door, animal, crown, machine, or anything else.",
+      "Decide why the drawing was waiting.",
+      "Make the drawing need help with a problem from its paper world.",
+      "Add one moment where the real world and drawing world mix.",
+      "End with the drawing returning to paper, staying alive, or changing the character."
     ],
-    "teacherPreview": "Start: A student wakes up and sees the moon at the window."
+    "instructions": "Create the drawing, its world, its problem, and what happens when it becomes alive.",
+    "teacherPreview": "Strong fantasy spark that lets children create characters and worlds freely."
   },
   {
     "type": "story-lab",
-    "id": "story-chair-wanted-dayoff",
+    "id": "story-8-moon-help",
     "level": "little-stars",
-    "category": "Funny objects",
-    "topic": "A classroom chair wanted one day off because everyone kept sitting dramatically.",
-    "characters": [
-      "Tired Chair 🪑",
-      "Jumping Student 🦘",
-      "Desk 📚",
-      "Teacher 👩‍🏫"
-    ],
-    "options": [
-      "Funny",
-      "Dramatic",
-      "Silly"
-    ],
-    "requirements": [
-      "Chair complaint",
-      "Daily problem",
-      "Wish",
-      "Class reaction",
-      "Funny ending"
-    ],
+    "category": "Ages 8–10 · Night Magic",
+    "topic": "At night, a character hears someone gently laughing outside the window. They look up and realize the moon is laughing, then the moon says, “I am sorry, but I need your help before sunrise.”",
+    "characters": [],
+    "options": [],
+    "requirements": [],
     "starters": [
-      "Start: The chair announces it is on strike.",
-      "Problem: Students move, jump, and lean on it all day.",
-      "Wish: It wants a pillow, holiday, or chair spa.",
-      "Reaction: The class tries standing but gets tired quickly.",
-      "Ending: The chair returns only after getting respect."
+      "Name the character and decide why they are awake at night.",
+      "Choose why the moon needs help: lost stars, broken light, a secret, or a promise.",
+      "Create one magical way the character can reach or talk to the moon.",
+      "Add a problem that must be solved before sunrise.",
+      "End with the morning looking different because of what happened."
     ],
-    "teacherPreview": "Start: The chair announces it is on strike."
+    "instructions": "Create a magical night story. Decide what the moon needs, how the character helps, and what changes by sunrise.",
+    "teacherPreview": "Soft magical mood with a clear time limit."
   },
   {
     "type": "story-lab",
-    "id": "story-stage-curtain-secret",
+    "id": "story-11-wrong-memory",
     "level": "junior-actors",
-    "category": "Stage stories",
-    "topic": "The stage curtain refused to open because it knew the actors were not ready.",
-    "characters": [
-      "Stage Curtain 🎭",
-      "Nervous Actor 😰",
-      "Drama Coach 📣",
-      "Audience Whisper 👥"
-    ],
-    "options": [
-      "Dramatic",
-      "Funny",
-      "Inspiring"
-    ],
-    "requirements": [
-      "Backstage setting",
-      "Why curtain refuses",
-      "Actor fear",
-      "Practice moment",
-      "Opening scene"
-    ],
+    "category": "Ages 11–13 · Mystery",
+    "topic": "A character wakes up with a memory that does not belong to them. They remember a place they have never visited, a face they have never seen, and one sentence: “Find me before they do.”",
+    "characters": [],
+    "options": [],
+    "requirements": [],
     "starters": [
-      "Setting: Everyone is waiting, but the curtain stays closed.",
-      "Conflict: The curtain says the actors are acting brave, not feeling brave.",
-      "Action: The coach helps them breathe and focus.",
-      "Twist: The curtain opens only when the shy actor says the first line.",
-      "Ending: The audience claps before the show even starts."
+      "Create who the character is before the strange memory arrives.",
+      "Decide whose memory it might be and why it entered their mind.",
+      "Choose the place from the memory and what makes it important.",
+      "Add someone searching for the same person, object, or secret.",
+      "End with the character discovering whether the memory is a warning, a gift, or a trap."
     ],
-    "teacherPreview": "Setting: Everyone is waiting, but the curtain stays closed."
+    "instructions": "Create a mystery story around the wrong memory. Build the character, the place, the danger, and the reveal.",
+    "teacherPreview": "Good for suspense and plot-building without forcing setting or genre."
   },
   {
     "type": "story-lab",
-    "id": "story-bus-to-wrong-school",
+    "id": "story-11-shop-no-money",
     "level": "junior-actors",
-    "category": "Comedy adventure",
-    "topic": "A school bus accidentally drove to a school for superheroes.",
-    "characters": [
-      "Bus Driver 🚌",
-      "Normal Student 🎒",
-      "Super Principal 🦸",
-      "Flying Hall Monitor 🚀"
-    ],
-    "options": [
-      "Comedy",
-      "Adventure",
-      "Heroic"
-    ],
-    "requirements": [
-      "Wrong destination",
-      "New school rules",
-      "One challenge",
-      "Student solution",
-      "Return home"
-    ],
+    "category": "Ages 11–13 · Magical Choice",
+    "topic": "A character finds a small shop that appears only once. Inside, they can buy courage, silence, luck, forgiveness, forgotten dreams, or second chances. The shopkeeper smiles and says, “We do not accept money here.”",
+    "characters": [],
+    "options": [],
+    "requirements": [],
     "starters": [
-      "Start: The student notices the school gate is floating.",
-      "Problem: Everyone thinks the student has a hidden superpower.",
-      "Challenge: They must pass a strange class like flying math or invisible English.",
-      "Twist: The student’s real power is speaking clearly and bravely.",
-      "Ending: The bus returns, but the student keeps the confidence."
+      "Create the character and why they enter the shop.",
+      "Choose what they want to buy and why they need it.",
+      "Decide the price: a memory, a promise, a talent, a secret, or something stranger.",
+      "Show how the bought thing changes the character’s life.",
+      "End with whether the price was worth it."
     ],
-    "teacherPreview": "Start: The student notices the school gate is floating."
+    "instructions": "Create the shop, the shopkeeper, the thing the character buys, the price, and the consequence.",
+    "teacherPreview": "Strong moral choice with magic and clear stakes."
   },
   {
     "type": "story-lab",
-    "id": "story-principal-time-machine",
+    "id": "story-11-silent-animal",
     "level": "junior-actors",
-    "category": "Mystery school",
-    "topic": "The principal found a time machine in the teachers’ room.",
-    "characters": [
-      "Principal 👔",
-      "Curious Student 👀",
-      "Old Teacher 👩‍🏫",
-      "Time Machine ⏳"
-    ],
-    "options": [
-      "Mystery",
-      "Funny",
-      "Adventure"
-    ],
-    "requirements": [
-      "Discovery",
-      "Where they travel",
-      "One problem",
-      "Lesson learned",
-      "Return"
-    ],
+    "category": "Ages 11–13 · Adventure Mystery",
+    "topic": "Everywhere the character goes, a silent animal follows them. It never attacks, never speaks, and never leaves. One day, the animal finally drops something at the character’s feet and disappears.",
+    "characters": [],
+    "options": [],
+    "requirements": [],
     "starters": [
-      "Opening: A strange ticking sound comes from the teachers’ room.",
-      "Discovery: The principal finds a machine with school years written on buttons.",
-      "Trip: They visit the first day Dramagic started or a future classroom.",
-      "Problem: They almost get stuck in the wrong year.",
-      "Ending: They return with one lesson about courage or learning."
+      "Choose the animal and where it first appears.",
+      "Decide how the character feels about being followed.",
+      "Create the object the animal drops and what it means.",
+      "Add a journey, clue, or person connected to the object.",
+      "End by revealing whether the animal was protecting, warning, or testing the character."
     ],
-    "teacherPreview": "Opening: A strange ticking sound comes from the teachers’ room."
+    "instructions": "Create the character, the silent animal, the object it leaves, and the story behind it.",
+    "teacherPreview": "Flexible for fantasy, mystery, emotional friendship, or adventure."
   },
   {
     "type": "story-lab",
-    "id": "story-noisy-shadow",
+    "id": "story-11-five-minute-watch",
     "level": "junior-actors",
-    "category": "Mystery / expression",
-    "topic": "A student’s shadow became noisy and started acting the opposite of them.",
-    "characters": [
-      "Quiet Student 🤫",
-      "Noisy Shadow 🖤",
-      "Best Friend 🤝",
-      "Drama Teacher 🎭"
-    ],
-    "options": [
-      "Funny",
-      "Mysterious",
-      "Dramatic"
-    ],
-    "requirements": [
-      "Character contrast",
-      "Shadow problem",
-      "Public moment",
-      "Understanding",
-      "Ending"
-    ],
+    "category": "Ages 11–13 · Time Problem",
+    "topic": "A character finds a watch that can stop time for five minutes only. At first, they use it for small things. Then one day, five minutes is not enough to fix what happens.",
+    "characters": [],
+    "options": [],
+    "requirements": [],
     "starters": [
-      "Start: The student is quiet, but their shadow is dancing and shouting.",
-      "Problem: The shadow says everything the student is scared to say.",
-      "Scene: This happens during a presentation or class activity.",
-      "Twist: The shadow is trying to help, not embarrass them.",
-      "Ending: The student and shadow perform together."
+      "Create how the character finds the watch.",
+      "Show one funny or selfish way they use it at first.",
+      "Create the serious problem where five minutes is not enough.",
+      "Decide if someone else knows about the watch.",
+      "End with what the character learns about time, responsibility, or choices."
     ],
-    "teacherPreview": "Start: The student is quiet, but their shadow is dancing and shouting."
+    "instructions": "Create a time story with a clear problem. Decide what the watch can and cannot solve.",
+    "teacherPreview": "Great for cause-and-effect storytelling and character growth."
   },
   {
     "type": "story-lab",
-    "id": "story-cafeteria-kingdom",
+    "id": "story-11-map-feelings",
     "level": "junior-actors",
-    "category": "Funny world-building",
-    "topic": "The school cafeteria turned into a tiny kingdom during lunch break.",
-    "characters": [
-      "Sandwich King 🥪",
-      "Juice Queen 🧃",
-      "Hungry Knight 🍗",
-      "Lunchbox Guard 🍱"
-    ],
-    "options": [
-      "Comedy",
-      "Adventure",
-      "Royal"
-    ],
-    "requirements": [
-      "Kingdom setting",
-      "Lunch problem",
-      "Character conflict",
-      "Peace plan",
-      "Funny ending"
-    ],
+    "category": "Ages 11–13 · Emotional Fantasy",
+    "topic": "A character finds a map, but it does not show streets or countries. It shows places like the Forest of Fear, the River of Regret, the City of Hope, and the Door of Truth.",
+    "characters": [],
+    "options": [],
+    "requirements": [],
     "starters": [
-      "Start: The student opens the lunchbox and hears royal music.",
-      "Problem: The sandwich and juice are fighting for the throne.",
-      "Conflict: Hungry students are coming like dragons.",
-      "Solution: The character creates a lunch treaty.",
-      "Ending: Everyone bows to the one who cleans the table."
+      "Create why the character needs this map.",
+      "Choose the first place they enter and what it looks like.",
+      "Make each place test the character in a different way.",
+      "Add a guide, enemy, friend, or strange rule inside the map world.",
+      "End with the character finding what they were really searching for."
     ],
-    "teacherPreview": "Start: The student opens the lunchbox and hears royal music."
+    "instructions": "Create the map world and the emotional journey. Choose the places, the test, and the ending.",
+    "teacherPreview": "Deep but still imaginative; good for vivid setting creation."
   },
   {
     "type": "story-lab",
-    "id": "story-friendship-button",
+    "id": "story-11-secret-object",
     "level": "junior-actors",
-    "category": "Friendship / kindness",
-    "topic": "A student found a button that could replay one friendship moment.",
-    "characters": [
-      "Student 🎒",
-      "Best Friend 🤝",
-      "Memory Button 🔘",
-      "Future Self ✨"
-    ],
-    "options": [
-      "Emotional",
-      "Warm",
-      "Mysterious"
-    ],
-    "requirements": [
-      "Object discovery",
-      "Memory replay",
-      "Feeling",
-      "Choice",
-      "Lesson"
-    ],
+    "category": "Ages 11–13 · Object Secret",
+    "topic": "A character suddenly hears objects talking. It is funny at first, until one object says, “I saw what really happened.”",
+    "characters": [],
+    "options": [],
+    "requirements": [],
     "starters": [
-      "Opening: The button is hidden under a desk.",
-      "Power: When pressed, it shows one important friendship moment.",
-      "Feeling: The student remembers kindness, apology, or support.",
-      "Choice: They decide whether to change something today.",
-      "Ending: The button disappears after the lesson is understood."
+      "Choose which objects the character can hear.",
+      "Decide which object knows the secret: a chair, ring, phone, key, mirror, toy, or anything else.",
+      "Create what really happened and why nobody knows.",
+      "Show whether the character believes the object or not.",
+      "End with the object helping, lying, or asking for something in return."
     ],
-    "teacherPreview": "Opening: The button is hidden under a desk."
+    "instructions": "Create a mystery where an object knows the truth. Decide the object, the secret, and what the character does.",
+    "teacherPreview": "Funny opening that can become mystery, comedy, or drama."
   },
   {
     "type": "story-lab",
-    "id": "story-city-no-eye-contact",
+    "id": "story-14-famous-false",
     "level": "creative-speakers",
-    "category": "Confidence metaphor",
-    "topic": "A city where nobody could look anyone in the eye until one speaker changed it.",
-    "characters": [
-      "Brave Speaker 🎤",
-      "Mayor 👔",
-      "Mirror Seller 🪞",
-      "Silent Crowd 👥"
-    ],
-    "options": [
-      "Inspiring",
-      "Dramatic",
-      "Symbolic"
-    ],
-    "requirements": [
-      "City rule",
-      "Main problem",
-      "Speaker’s attempt",
-      "Crowd change",
-      "Message"
-    ],
+    "category": "Ages 14–15 · Identity and Truth",
+    "topic": "A character wakes up and finds their face everywhere. People call them a hero, thank them, and cheer for them. But the character knows one painful truth: they did not do the thing everyone believes they did.",
+    "characters": [],
+    "options": [],
+    "requirements": [],
     "starters": [
-      "World: People speak while looking at the floor, walls, or phones.",
-      "Problem: Nobody feels truly heard.",
-      "Hero: A speaker decides to look up during a public speech.",
-      "Conflict: People feel uncomfortable at first.",
-      "Ending: Eye contact becomes the city’s first sign of courage."
+      "Create what everyone believes the character did.",
+      "Decide what really happened and who actually deserves credit.",
+      "Show how fame changes the character’s relationships or choices.",
+      "Add pressure: money, popularity, fear, family, public attention, or guilt.",
+      "End with whether the character tells the truth and what it costs."
     ],
-    "teacherPreview": "World: People speak while looking at the floor, walls, or phones."
+    "instructions": "Create a story about false fame, truth, and choice. Build the character’s secret and final decision.",
+    "teacherPreview": "Teen-friendly moral conflict with strong point of view."
   },
   {
     "type": "story-lab",
-    "id": "story-library-of-unspoken-words",
+    "id": "story-14-delete-memory",
     "level": "creative-speakers",
-    "category": "Deep imagination",
-    "topic": "There is a secret library that stores every sentence people were too afraid to say.",
-    "characters": [
-      "Librarian 📚",
-      "Shy Speaker 💭",
-      "Old Sentence 🔤",
-      "Locked Book 🔐"
-    ],
-    "options": [
-      "Emotional",
-      "Mystery",
-      "Inspiring"
-    ],
-    "requirements": [
-      "Secret place",
-      "Unspoken words",
-      "Personal choice",
-      "Spoken moment",
-      "Ending message"
-    ],
+    "category": "Ages 14–15 · Emotional Choice",
+    "topic": "A character is offered the chance to delete one memory forever. It can be a mistake, an embarrassing moment, or something painful. But if the memory disappears, everything they learned from it disappears too.",
+    "characters": [],
+    "options": [],
+    "requirements": [],
     "starters": [
-      "Setting: The library shelves are full of glowing unfinished sentences.",
-      "Problem: The main character finds their own sentence inside a locked book.",
-      "Conflict: Speaking it might change a friendship, class, or dream.",
-      "Action: They practice the sentence until it becomes clear.",
-      "Ending: One book disappears because the words were finally spoken."
+      "Create the memory and why it matters.",
+      "Show who offers the chance to delete it: a machine, magician, doctor, stranger, app, or friend.",
+      "Decide what lesson would disappear with the memory.",
+      "Add someone who wants the character to keep or delete it.",
+      "End with the character’s choice and how they change after it."
     ],
-    "teacherPreview": "Setting: The library shelves are full of glowing unfinished sentences."
+    "instructions": "Create a thoughtful story about memory and growth. Keep it safe, emotional, and meaningful.",
+    "teacherPreview": "Deep prompt for older learners without being too dark."
   },
   {
     "type": "story-lab",
-    "id": "story-school-of-forgotten-talents",
+    "id": "story-14-other-self",
     "level": "creative-speakers",
-    "category": "Character building",
-    "topic": "A school exists for talents that people ignored or laughed at.",
-    "characters": [
-      "Forgotten Artist 🎨",
-      "Drama Coach 🎭",
-      "Talent Keeper 🗝️",
-      "Doubt Monster 🌫️"
-    ],
-    "options": [
-      "Inspiring",
-      "Fantasy",
-      "Dramatic"
-    ],
-    "requirements": [
-      "Hidden school",
-      "Forgotten talent",
-      "Obstacle",
-      "Training",
-      "Final performance"
-    ],
+    "category": "Ages 14–15 · Future Self",
+    "topic": "A character meets another version of themselves: richer, braver, colder, kinder, more successful, or completely different. This other version says, “I am what you become if you make one choice tonight.”",
+    "characters": [],
+    "options": [],
+    "requirements": [],
     "starters": [
-      "Opening: The student receives an invitation after saying “I am not good at anything.”",
-      "World: The school teaches unusual talents like listening, courage, or storytelling.",
-      "Obstacle: The Doubt Monster repeats negative thoughts.",
-      "Training: The student learns one small skill is still valuable.",
-      "Ending: They return and use the talent in real life."
+      "Create the character’s life before meeting the other self.",
+      "Decide what the other version is like and why.",
+      "Create the choice that will change the character’s future.",
+      "Add a reason why the choice is difficult.",
+      "End with which future the character chooses — or rejects."
     ],
-    "teacherPreview": "Opening: The student receives an invitation after saying “I am not good at anything.”"
+    "instructions": "Create a story about identity, future, and choice. Decide who the character could become.",
+    "teacherPreview": "Strong for point of view, internal conflict, and mature storytelling."
   },
   {
     "type": "story-lab",
-    "id": "story-trial-of-the-hero",
+    "id": "story-14-enemy-letter",
     "level": "creative-speakers",
-    "category": "Moral choice",
-    "topic": "A hero is put on trial because saving the day caused a new problem.",
-    "characters": [
-      "Hero 🦸",
-      "Judge ⚖️",
-      "Citizen 👥",
-      "Reporter 🎙️"
-    ],
-    "options": [
-      "Debate",
-      "Dramatic",
-      "Thoughtful"
-    ],
-    "requirements": [
-      "Court setting",
-      "Hero action",
-      "Problem created",
-      "Both sides",
-      "Fair ending"
-    ],
+    "category": "Ages 14–15 · Perspective Shift",
+    "topic": "A character finds a letter written by someone they dislike. After reading it, they discover a side of the story they never knew. Suddenly, the “enemy” looks less like a villain and more like a person who was hurt too.",
+    "characters": [],
+    "options": [],
+    "requirements": [],
     "starters": [
-      "Start with a courtroom scene after a dramatic rescue.",
-      "Hero side: They saved people or protected someone.",
-      "Other side: Their action damaged something or hurt trust.",
-      "Question: Can a good choice still have bad results?",
-      "Ending: Give a fair decision, not an easy one."
+      "Create why the two characters dislike each other.",
+      "Decide where the letter is found and why it was hidden.",
+      "Reveal something that changes the main character’s opinion.",
+      "Show the struggle between pride and understanding.",
+      "End with forgiveness, distance, honesty, or an unexpected conversation."
     ],
-    "teacherPreview": "Start with a courtroom scene after a dramatic rescue."
+    "instructions": "Create a story where the character’s point of view changes after discovering hidden truth.",
+    "teacherPreview": "Useful for empathy, perspective, and realistic emotional storytelling."
   },
   {
     "type": "story-lab",
-    "id": "story-emotion-market",
+    "id": "story-14-museum-unsaid",
     "level": "creative-speakers",
-    "category": "Emotions / performance",
-    "topic": "A market sells emotions in small bottles, but one bottle is missing.",
-    "characters": [
-      "Emotion Seller 🧪",
-      "Customer 😶",
-      "Bottle of Courage 💙",
-      "Thief of Fear 🌫️"
-    ],
-    "options": [
-      "Mystery",
-      "Fantasy",
-      "Emotional"
-    ],
-    "requirements": [
-      "Market description",
-      "Missing emotion",
-      "Search",
-      "Character need",
-      "Resolution"
-    ],
+    "category": "Ages 14–15 · Deep Imagination",
+    "topic": "A character enters a museum where every room holds words people never said: apologies, confessions, compliments, goodbye messages, and dreams. In the last room, they find words written for them.",
+    "characters": [],
+    "options": [],
+    "requirements": [],
     "starters": [
-      "Setting: Every shop sells bottled feelings like joy, calm, fear, or courage.",
-      "Problem: The courage bottle is gone before a big presentation.",
-      "Search: The character discovers courage cannot be bought easily.",
-      "Twist: The missing bottle was empty because courage is made by action.",
-      "Ending: The character speaks without the bottle."
+      "Create why the character enters the museum.",
+      "Describe two or three rooms and what words they hold.",
+      "Decide whose unsaid words affect the character most.",
+      "Add a rule: the character can take only one sentence out of the museum.",
+      "End with which sentence they choose and what they do with it."
     ],
-    "teacherPreview": "Setting: Every shop sells bottled feelings like joy, calm, fear, or courage."
+    "instructions": "Create a symbolic story about words, silence, and meaning. Choose the rooms and final sentence.",
+    "teacherPreview": "Cinematic and emotional with room for mature interpretation."
   },
   {
     "type": "story-lab",
-    "id": "story-newsroom-impossible-event",
+    "id": "story-14-lie-that-helped",
     "level": "creative-speakers",
-    "category": "News reporter",
-    "topic": "A reporter must cover an impossible event: the school building started moving.",
-    "characters": [
-      "Reporter 🎙️",
-      "Moving School 🏫",
-      "Principal 👔",
-      "Confused Student 😵"
-    ],
-    "options": [
-      "Breaking News",
-      "Comedy",
-      "Mystery"
-    ],
-    "requirements": [
-      "Report opening",
-      "Event details",
-      "Interview",
-      "Cause",
-      "Final headline"
-    ],
+    "category": "Ages 14–15 · Moral Conflict",
+    "topic": "A character tells a lie to protect someone. At first, the lie saves the situation. Then it grows, spreads, and starts hurting people who were not supposed to be involved.",
+    "characters": [],
+    "options": [],
+    "requirements": [],
     "starters": [
-      "Open like breaking news: “We are live from Dramagic...”",
-      "Describe the impossible event clearly.",
-      "Interview one funny or serious witness.",
-      "Reveal the cause: magic, technology, or a forgotten promise.",
-      "End with a strong final headline."
+      "Create who the character protects and why.",
+      "Decide what the lie is and why it feels necessary at first.",
+      "Show how the lie becomes bigger than expected.",
+      "Add a moment where the character can confess or continue hiding it.",
+      "End with whether the lie was understandable, wrong, or both."
     ],
-    "teacherPreview": "Open like breaking news: “We are live from Dramagic...”"
+    "instructions": "Create a realistic or imaginative story about a protective lie and its consequences.",
+    "teacherPreview": "Good debate-style story with a character-driven moral question."
   },
   {
     "type": "story-lab",
-    "id": "story-applause-machine",
+    "id": "story-16-truth-illegal",
     "level": "teen-performers",
-    "category": "Stage / identity",
-    "topic": "A machine can create fake applause, but one performer wants the real thing.",
-    "characters": [
-      "Performer 🎭",
-      "Inventor 🧪",
-      "Audience Member 👤",
-      "Applause Machine 👏"
-    ],
-    "options": [
-      "Dramatic",
-      "Emotional",
-      "Thoughtful"
-    ],
-    "requirements": [
-      "Invention",
-      "Temptation",
-      "Real vs fake",
-      "Performance moment",
-      "Lesson"
-    ],
+    "category": "Ages 16–17+ · Dystopian Truth",
+    "topic": "A character lives in a world where truth is illegal. People survive by pretending, smiling, and saying what they are expected to say. One day, the character accidentally says one honest sentence in public — and everyone hears it.",
+    "characters": [],
+    "options": [],
+    "requirements": [],
     "starters": [
-      "Opening: The performer is scared nobody will clap.",
-      "Invention: A machine can make perfect applause at any time.",
-      "Conflict: Fake applause feels safe but empty.",
-      "Turning point: The performer chooses a real honest performance.",
-      "Ending: Even a small real clap means more than a machine."
+      "Create the world and why truth became illegal.",
+      "Choose the honest sentence and why it escapes the character.",
+      "Show how different people react: fear, relief, anger, hope, or betrayal.",
+      "Add a consequence that forces the character to choose silence or resistance.",
+      "End with whether one sentence can change a society."
     ],
-    "teacherPreview": "Opening: The performer is scared nobody will clap."
+    "instructions": "Create a mature story about truth, control, and courage. Build the world, the sentence, and its consequences.",
+    "teacherPreview": "Advanced prompt for world-building and deeper themes."
   },
   {
     "type": "story-lab",
-    "id": "story-person-who-could-edit-memories",
+    "id": "story-16-sell-endings",
     "level": "teen-performers",
-    "category": "Deep moral choice",
-    "topic": "A teenager discovers they can edit one memory, but every edit changes their confidence.",
-    "characters": [
-      "Teen Performer 🎤",
-      "Memory Editor ✂️",
-      "Old Friend 🤝",
-      "Future Self ✨"
-    ],
-    "options": [
-      "Emotional",
-      "Mystery",
-      "Reflective"
-    ],
-    "requirements": [
-      "Memory power",
-      "Chosen memory",
-      "Consequence",
-      "Self-discovery",
-      "Final choice"
-    ],
+    "category": "Ages 16–17+ · Philosophical Fantasy",
+    "topic": "A character has a strange job: they sell endings. Happy endings, peaceful endings, revenge endings, mysterious endings. One day, a customer asks for an ending that should not exist.",
+    "characters": [],
+    "options": [],
+    "requirements": [],
     "starters": [
-      "Start with a memory that still feels embarrassing or painful.",
-      "Power: The character can erase or rewrite it.",
-      "Problem: Removing mistakes also removes lessons.",
-      "Realization: Confidence came from surviving that moment.",
-      "Ending: They keep the memory but change what it means."
+      "Create the character’s shop, rules, and reason for selling endings.",
+      "Decide what kind of ending the customer asks for.",
+      "Explain why this ending should not exist.",
+      "Show what happens when an ending is changed before the story is ready.",
+      "End with the character refusing, accepting, or creating a new kind of ending."
     ],
-    "teacherPreview": "Start with a memory that still feels embarrassing or painful."
+    "instructions": "Create a fantasy story about control, destiny, and endings. Decide what endings cost.",
+    "teacherPreview": "High-concept and theatrical without being locked to theatre."
   },
   {
     "type": "story-lab",
-    "id": "story-perfect-student-bug",
+    "id": "story-16-borrowed-emotions",
     "level": "teen-performers",
-    "category": "Technology / pressure",
-    "topic": "An app creates the perfect student, but the real student feels invisible.",
-    "characters": [
-      "Real Student 💭",
-      "Perfect App 🤖",
-      "Teacher 👩‍🏫",
-      "Friend 🤝"
-    ],
-    "options": [
-      "Sci-fi",
-      "Dramatic",
-      "Thoughtful"
-    ],
-    "requirements": [
-      "Technology setup",
-      "Perfect version",
-      "Emotional problem",
-      "Decision",
-      "Message"
-    ],
+    "category": "Ages 16–17+ · Emotional Sci-Fi",
+    "topic": "A character lives in a city where people can borrow emotions for a day: courage, peace, love, anger, confidence. The character borrows one emotion for a simple reason, but when the day ends, they do not want to return it.",
+    "characters": [],
+    "options": [],
+    "requirements": [],
     "starters": [
-      "Opening: The app answers perfectly, speaks perfectly, and never gets nervous.",
-      "Conflict: Everyone praises the app version.",
-      "Feeling: The real student wonders if mistakes make them useless.",
-      "Choice: They do something the app cannot: feel, connect, or improvise.",
-      "Ending: Being real becomes the strongest skill."
+      "Create how the emotion system works and who controls it.",
+      "Choose which emotion the character borrows and why.",
+      "Show how the borrowed emotion changes their choices.",
+      "Add a problem when the emotion must be returned.",
+      "End with whether emotions can be owned, borrowed, or earned."
     ],
-    "teacherPreview": "Opening: The app answers perfectly, speaks perfectly, and never gets nervous."
+    "instructions": "Create a story about feelings, identity, and ownership. Build the city and the character’s choice.",
+    "teacherPreview": "Great for advanced learners who can handle metaphor and society rules."
   },
   {
     "type": "story-lab",
-    "id": "story-stage-with-no-audience",
+    "id": "story-16-assigned-role",
     "level": "teen-performers",
-    "category": "Confidence / resilience",
-    "topic": "A performer prepares for a big show, but when the curtain opens, the room is empty.",
-    "characters": [
-      "Performer 🎭",
-      "Empty Chair 🪑",
-      "Stage Light 💡",
-      "Inner Voice 💭"
-    ],
-    "options": [
-      "Emotional",
-      "Poetic",
-      "Powerful"
-    ],
-    "requirements": [
-      "Big preparation",
-      "Empty room",
-      "Inner conflict",
-      "Decision to perform",
-      "Meaningful ending"
-    ],
+    "category": "Ages 16–17+ · Identity",
+    "topic": "In a certain world, every person receives a role at sixteen: Leader, Helper, Dreamer, Worker, Protector, Entertainer. A character receives a role everyone celebrates — but secretly, it feels completely wrong.",
+    "characters": [],
+    "options": [],
+    "requirements": [],
     "starters": [
-      "Opening: The performer has rehearsed for weeks.",
-      "Shock: The audience is gone, but the stage light is still on.",
-      "Conflict: Do they perform if nobody is watching?",
-      "Realization: Practice and passion still matter.",
-      "Ending: One person enters at the end, or the performer becomes their own audience."
+      "Create the world and how roles are chosen.",
+      "Choose the role the character receives and the role they actually want.",
+      "Show the pressure from family, society, friends, or fear.",
+      "Add someone who benefits from keeping the character in the wrong role.",
+      "End with whether they accept, escape, change the system, or redefine the role."
     ],
-    "teacherPreview": "Opening: The performer has rehearsed for weeks."
+    "instructions": "Create a story about identity, expectation, and freedom. Decide what the role means and how the character responds.",
+    "teacherPreview": "Strong age-appropriate theme for teens: pressure vs. self-understanding."
   },
   {
     "type": "story-lab",
-    "id": "story-truth-theater",
+    "id": "story-16-perfect-version",
     "level": "teen-performers",
-    "category": "Dramatic concept",
-    "topic": "A theater shows the truth behind every character’s smile.",
-    "characters": [
-      "Actor 🎭",
-      "Truth Theater 🎟️",
-      "Audience Member 👤",
-      "Mask Maker 🎭"
-    ],
-    "options": [
-      "Dramatic",
-      "Deep",
-      "Mystery"
-    ],
-    "requirements": [
-      "Theater rule",
-      "Hidden truth",
-      "Character mask",
-      "Audience reaction",
-      "Lesson"
-    ],
+    "category": "Ages 16–17+ · Psychological Mystery",
+    "topic": "A character meets someone who looks exactly like them, but perfect: calmer, smarter, more successful, more loved. Everyone prefers the perfect version. Only the original character knows something is wrong.",
+    "characters": [],
+    "options": [],
+    "requirements": [],
     "starters": [
-      "Set the scene in a beautiful theater where every smile has a shadow.",
-      "The actor performs a happy role while hiding fear, pressure, or doubt.",
-      "The theater reveals the truth through lights, music, or mirrors.",
-      "The audience learns not to judge people only by appearances.",
-      "End with the actor choosing honesty over a perfect mask."
+      "Create where the perfect version appears and how people react.",
+      "Decide what makes the perfect version suspicious.",
+      "Show the original character’s jealousy, fear, or determination.",
+      "Reveal what the perfect version wants.",
+      "End with whether perfection is defeated, accepted, exposed, or understood."
     ],
-    "teacherPreview": "Set the scene in a beautiful theater where every smile has a shadow."
+    "instructions": "Create a suspenseful story about comparison, identity, and self-worth without making it too dark.",
+    "teacherPreview": "Advanced emotional conflict with mystery and performance potential."
   },
   {
     "type": "story-lab",
-    "id": "story-final-line-stolen",
+    "id": "story-16-last-door",
     "level": "teen-performers",
-    "category": "Mystery / performance",
-    "topic": "Before a performance, someone steals the final line of the speech.",
-    "characters": [
-      "Speaker 🎤",
-      "Line Thief 🕵️",
-      "Coach 📣",
-      "Audience 👥"
-    ],
-    "options": [
-      "Mystery",
-      "Suspense",
-      "Inspiring"
-    ],
-    "requirements": [
-      "Missing line",
-      "Search",
-      "Pressure",
-      "Improvised ending",
-      "Lesson"
-    ],
+    "category": "Ages 16–17+ · Symbolic Journey",
+    "topic": "A character reaches a hallway with hundreds of doors. Each door shows a life they could live. The final door has no picture, no handle, and only one sentence written on it: “This one is yours.”",
+    "characters": [],
+    "options": [],
+    "requirements": [],
     "starters": [
-      "Opening: The speech is ready, but the last sentence disappears.",
-      "Search: Everyone looks backstage, in notebooks, and in memories.",
-      "Pressure: The speaker must go on without the perfect ending.",
-      "Twist: The best final line is improvised honestly.",
-      "Ending: The audience remembers the real words more than the planned ones."
-    ],
-    "teacherPreview": "Opening: The speech is ready, but the last sentence disappears."
-  },
-  {
-    "type": "story-lab",
-    "id": "story-robot-learning-sorry",
-    "level": "junior-actors",
-    "category": "Character building",
-    "topic": "A robot learned every English word except “sorry”.",
-    "characters": [
-      "Robot 🤖",
-      "Patient Friend 🤝",
-      "Teacher 👩‍🏫",
-      "Broken Toy 🧸"
-    ],
-    "options": [
-      "Funny",
-      "Emotional",
-      "Lesson"
-    ],
-    "requirements": [
-      "Robot problem",
-      "Mistake",
-      "Friend reaction",
-      "Learning moment",
-      "Ending"
-    ],
-    "starters": [
-      "The robot speaks perfectly but cannot apologize.",
-      "It makes a mistake that hurts a friend or breaks something.",
-      "Everyone teaches it that words need feelings too.",
-      "The robot practices “sorry” with real emotion.",
-      "End with a small kind action, not only a word."
-    ],
-    "teacherPreview": "The robot speaks perfectly but cannot apologize."
-  },
-  {
-    "type": "story-lab",
-    "id": "story-shoes-walk-to-dream",
-    "level": "little-stars",
-    "category": "Dream / adventure",
-    "topic": "A pair of shoes walked by themselves toward the owner’s dream.",
-    "characters": [
-      "Magic Shoes 👟",
-      "Dreamer 💭",
-      "Street Cat 🐱",
-      "Old Map 🗺️"
-    ],
-    "options": [
-      "Adventure",
-      "Funny",
-      "Magical"
-    ],
-    "requirements": [
-      "Shoes move",
-      "Dream destination",
-      "Obstacle",
-      "Helper",
-      "Ending"
-    ],
-    "starters": [
-      "The shoes start walking while the student is asleep.",
-      "They know the student’s dream better than the student does.",
-      "A funny obstacle blocks the way.",
-      "A helper gives advice about courage.",
-      "The student wakes up one step closer to the dream."
-    ],
-    "teacherPreview": "The shoes start walking while the student is asleep."
-  },
-  {
-    "type": "story-lab",
-    "id": "story-classroom-underwater",
-    "level": "little-stars",
-    "category": "Fantasy setting",
-    "topic": "The classroom slowly became an underwater classroom.",
-    "characters": [
-      "Fish Teacher 🐠",
-      "Bubble Student 🫧",
-      "Octopus Desk 🐙",
-      "Shy Crab 🦀"
-    ],
-    "options": [
-      "Funny",
-      "Magical",
-      "Adventure"
-    ],
-    "requirements": [
-      "Underwater change",
-      "Class reaction",
-      "One lesson",
-      "Problem",
-      "Ending"
-    ],
-    "starters": [
-      "Water appears under the chairs, then bubbles in the air.",
-      "Nobody panics because the fish teacher starts the lesson.",
-      "The class learns a word or drama move underwater.",
-      "Problem: Homework starts floating away.",
-      "Ending: The bell rings like a whale song."
-    ],
-    "teacherPreview": "Water appears under the chairs, then bubbles in the air."
-  },
-  {
-    "type": "story-lab",
-    "id": "story-day-without-names",
-    "level": "creative-speakers",
-    "category": "Identity",
-    "topic": "One day, everyone forgot their names and had to choose who they wanted to be.",
-    "characters": [
-      "Name Keeper 🗝️",
-      "Quiet Student 💭",
-      "Teacher 👩‍🏫",
-      "Old Badge 🪪"
-    ],
-    "options": [
-      "Thoughtful",
-      "Mystery",
-      "Dramatic"
-    ],
-    "requirements": [
-      "Strange event",
-      "Identity problem",
-      "Choice",
-      "Conflict",
-      "Message"
-    ],
-    "starters": [
-      "Start with attendance: every name disappears from the list.",
-      "People choose labels like smart, funny, popular, or brave.",
-      "The main character questions if a name defines a person.",
-      "A conflict happens when someone chooses a label that is not true.",
-      "End with the message that actions build identity."
-    ],
-    "teacherPreview": "Start with attendance: every name disappears from the list."
-  },
-  {
-    "type": "story-lab",
-    "id": "story-mirror-only-showed-future",
-    "level": "teen-performers",
-    "category": "Future / choice",
-    "topic": "A mirror only showed the future people were afraid to choose.",
-    "characters": [
-      "Future Mirror 🪞",
-      "Teen Speaker 🎤",
-      "Parent 👨‍👩‍👧",
-      "Doubt Voice 🌫️"
-    ],
-    "options": [
-      "Deep",
-      "Emotional",
-      "Mysterious"
-    ],
-    "requirements": [
-      "Mirror power",
-      "Fearful future",
-      "Choice",
-      "Conflict",
-      "Ending"
-    ],
-    "starters": [
-      "The mirror appears before a big decision.",
-      "It shows a future where the character chose courage.",
-      "The character is scared because courage costs effort.",
-      "Someone tries to cover the mirror.",
-      "End with the character choosing one brave step."
-    ],
-    "teacherPreview": "The mirror appears before a big decision."
-  },
-  {
-    "type": "story-lab",
-    "id": "story-camera-captured-feelings",
-    "level": "junior-actors",
-    "category": "Media / emotion",
-    "topic": "A camera took photos of feelings instead of faces.",
-    "characters": [
-      "Magic Camera 📷",
-      "Happy Student 😄",
-      "Hidden Feeling 💭",
-      "Photographer 👀"
-    ],
-    "options": [
-      "Funny",
-      "Emotional",
-      "Mysterious"
-    ],
-    "requirements": [
-      "Camera rule",
-      "First photo",
-      "Hidden feeling",
-      "Reaction",
-      "Ending"
-    ],
-    "starters": [
-      "The first photo shows storm clouds instead of a smile.",
-      "Everyone realizes the camera sees feelings, not faces.",
-      "One character tries to hide their nervousness.",
-      "A friend helps them talk honestly.",
-      "End with a photo full of light."
-    ],
-    "teacherPreview": "The first photo shows storm clouds instead of a smile."
-  },
-  {
-    "type": "story-lab",
-    "id": "story-last-seat-on-spaceship",
-    "level": "creative-speakers",
-    "category": "Debate drama",
-    "topic": "There is one seat left on a spaceship leaving Earth, and four characters want it.",
-    "characters": [
-      "Scientist 🧪",
-      "Artist 🎨",
-      "Child Dreamer 💭",
-      "Robot Pilot 🤖"
-    ],
-    "options": [
-      "Debate",
-      "Drama",
-      "Sci-fi"
-    ],
-    "requirements": [
-      "Situation",
-      "Four reasons",
-      "Fair decision",
-      "Emotion",
-      "Ending"
-    ],
-    "starters": [
-      "Set the scene: the spaceship leaves in ten minutes.",
-      "Each character explains why they should get the seat.",
-      "Add emotion, not just reasons.",
-      "The decision should feel difficult and fair.",
-      "End with a surprising solution or sacrifice."
-    ],
-    "teacherPreview": "Set the scene: the spaceship leaves in ten minutes."
-  },
-  {
-    "type": "story-lab",
-    "id": "story-classroom-lost-gravity",
-    "level": "little-stars",
-    "category": "Physical comedy",
-    "topic": "The classroom lost gravity during English class.",
-    "characters": [
-      "Floating Teacher 👩‍🏫",
-      "Flying Homework 📄",
-      "Student Astronaut 🚀",
-      "Angry Pencil ✏️"
-    ],
-    "options": [
-      "Funny",
-      "Adventure",
-      "Magical"
-    ],
-    "requirements": [
-      "Gravity problem",
-      "Funny reactions",
-      "One English task",
-      "Solution",
-      "Ending"
-    ],
-    "starters": [
-      "Books, pencils, and shoes start floating.",
-      "The teacher continues the lesson like it is normal.",
-      "Students must say a sentence to float down.",
-      "One object refuses to return to Earth.",
-      "End when the bell falls from the ceiling."
-    ],
-    "teacherPreview": "Books, pencils, and shoes start floating."
-  },
-  {
-    "type": "story-lab",
-    "id": "story-mask-shop",
-    "level": "teen-performers",
-    "category": "Identity / confidence",
-    "topic": "A shop sells masks that make people look confident, but one mask cracks on stage.",
-    "characters": [
-      "Mask Seller 🎭",
-      "Performer 🎤",
-      "Real Friend 🤝",
-      "Audience 👥"
-    ],
-    "options": [
-      "Dramatic",
-      "Emotional",
-      "Deep"
-    ],
-    "requirements": [
-      "Shop setup",
-      "Mask promise",
-      "Stage problem",
-      "Real confidence",
-      "Ending"
-    ],
-    "starters": [
-      "Open with a shop full of perfect confident masks.",
-      "The performer buys one before a presentation.",
-      "On stage, the mask cracks when the words become personal.",
-      "A friend encourages the performer to speak without it.",
-      "End with real confidence sounding imperfect but honest."
-    ],
-    "teacherPreview": "Open with a shop full of perfect confident masks."
-  },
-  {
-    "type": "story-lab",
-    "id": "story-silent-bell",
-    "level": "junior-actors",
-    "category": "School mystery",
-    "topic": "The school bell became silent because it was tired of ending good moments.",
-    "characters": [
-      "Silent Bell 🔔",
-      "Drama Class 🎭",
-      "Principal 👔",
-      "Clock 🕰️"
-    ],
-    "options": [
-      "Mystery",
-      "Funny",
-      "Warm"
-    ],
-    "requirements": [
-      "Bell silence",
-      "Why it stopped",
-      "School problem",
-      "Agreement",
-      "Ending"
-    ],
-    "starters": [
-      "The class waits for the bell, but nothing happens.",
-      "The bell says it hates stopping creative moments.",
-      "The school becomes confused: no breaks, no endings, no timing.",
-      "The class promises to finish moments properly.",
-      "The bell rings softly and respectfully."
-    ],
-    "teacherPreview": "The class waits for the bell, but nothing happens."
-  },
-  {
-    "type": "story-lab",
-    "id": "story-invisible-audience",
-    "level": "creative-speakers",
-    "category": "Presentation courage",
-    "topic": "A speaker had to present to an invisible audience that reacted only with sound.",
-    "characters": [
-      "Speaker 🎤",
-      "Invisible Audience 👥",
-      "Sound Technician 🎧",
-      "Fear Voice 💭"
-    ],
-    "options": [
-      "Suspense",
-      "Funny",
-      "Inspiring"
-    ],
-    "requirements": [
-      "Invisible audience",
-      "Sound reactions",
-      "Speaker fear",
-      "Adaptation",
-      "Ending"
-    ],
-    "starters": [
-      "The speaker cannot see faces, only hear coughs, whispers, or claps.",
-      "They must learn to trust their message without seeing approval.",
-      "Add one funny wrong interpretation of a sound.",
-      "The speaker adjusts voice and pace.",
-      "End with invisible applause becoming real confidence."
-    ],
-    "teacherPreview": "The speaker cannot see faces, only hear coughs, whispers, or claps."
-  },
-  {
-    "type": "story-lab",
-    "id": "story-pencil-writing-truth",
-    "level": "little-stars",
-    "category": "Funny object",
-    "topic": "A pencil only wrote the truth, even when the student wanted a normal story.",
-    "characters": [
-      "Truth Pencil ✏️",
-      "Student Writer 📄",
-      "Eraser 🧽",
-      "Teacher 👩‍🏫"
-    ],
-    "options": [
-      "Funny",
-      "Magical",
-      "Lesson"
-    ],
-    "requirements": [
-      "Magic pencil",
-      "Truth problem",
-      "Funny truth",
-      "Choice",
-      "Ending"
-    ],
-    "starters": [
-      "The student writes “Once upon a time,” but the pencil writes a real secret.",
-      "The eraser tries to erase it but learns it is important.",
-      "The teacher asks why the story feels honest.",
-      "The student decides to write a true story with imagination.",
-      "End with the pencil finally saying “Good job.”"
-    ],
-    "teacherPreview": "The student writes “Once upon a time,” but the pencil writes a real secret."
-  },
-  {
-    "type": "story-lab",
-    "id": "story-audition-for-clouds",
-    "level": "junior-actors",
-    "category": "Performance fantasy",
-    "topic": "Clouds held auditions to choose the next thunder voice.",
-    "characters": [
-      "Tiny Cloud ☁️",
-      "Thunder Judge ⚡",
-      "Rain Dancer 🌧️",
-      "Wind Coach 🌬️"
-    ],
-    "options": [
-      "Comedy",
-      "Dramatic",
-      "Magical"
-    ],
-    "requirements": [
-      "Audition setting",
-      "Characters perform",
-      "Problem",
-      "Winner",
-      "Ending"
-    ],
-    "starters": [
-      "Start above the city where clouds line up for auditions.",
-      "Each cloud performs a different thunder voice.",
-      "The tiny cloud is shy and almost leaves.",
-      "The wind coach teaches breath and confidence.",
-      "End with the tiniest cloud making the biggest sound."
-    ],
-    "teacherPreview": "Start above the city where clouds line up for auditions."
-  },
-  {
-    "type": "story-lab",
-    "id": "story-world-without-questions",
-    "level": "teen-performers",
-    "category": "Thoughtful debate",
-    "topic": "A world banned questions because questions made people uncomfortable.",
-    "characters": [
-      "Question Keeper ❓",
-      "Strict Leader 👔",
-      "Curious Teen 💭",
-      "Old Book 📘"
-    ],
-    "options": [
-      "Dramatic",
-      "Political",
-      "Mystery"
-    ],
-    "requirements": [
-      "World rule",
-      "Why questions banned",
-      "Curious act",
-      "Risk",
-      "Message"
-    ],
-    "starters": [
-      "Describe a place where people only repeat answers.",
-      "The main character finds an old book full of questions.",
-      "Asking one question creates tension but also truth.",
-      "Show why questions can be scary and powerful.",
-      "End with a question the audience remembers."
-    ],
-    "teacherPreview": "Describe a place where people only repeat answers."
-  },
-  {
-    "type": "story-lab",
-    "id": "story-lost-ending",
-    "level": "creative-speakers",
-    "category": "Story craft",
-    "topic": "A writer lost the ending of a story, and the characters escaped to find it.",
-    "characters": [
-      "Writer ✍️",
-      "Hero 🦸",
-      "Villain 🦹",
-      "Missing Ending 📄"
-    ],
-    "options": [
-      "Adventure",
-      "Comedy",
-      "Meta"
-    ],
-    "requirements": [
-      "Writer problem",
-      "Characters escape",
-      "Search",
-      "Argument",
-      "Ending"
-    ],
-    "starters": [
-      "The writer cannot finish the story.",
-      "The hero and villain jump out of the page to complain.",
-      "They search in the classroom, stage, or writer’s memory.",
-      "The villain suggests an ending that might be better.",
-      "End with the characters choosing their own ending."
-    ],
-    "teacherPreview": "The writer cannot finish the story."
-  },
-  {
-    "type": "story-lab",
-    "id": "story-bravery-bank",
-    "level": "creative-speakers",
-    "category": "Confidence metaphor",
-    "topic": "A bank stored bravery instead of money, but one student had an empty account.",
-    "characters": [
-      "Banker 🏦",
-      "Student 💭",
-      "Courage Coin 🪙",
-      "Fear Collector 🌫️"
-    ],
-    "options": [
-      "Inspiring",
-      "Fantasy",
-      "Emotional"
-    ],
-    "requirements": [
-      "Bank concept",
-      "Empty account",
-      "How bravery is earned",
-      "Small act",
-      "Ending"
-    ],
-    "starters": [
-      "Introduce a bank where people deposit brave moments.",
-      "The student feels poor because their courage account is empty.",
-      "The banker explains courage is earned by action, not wishes.",
-      "The student does one tiny brave thing.",
-      "End with one small coin shining brighter than gold."
-    ],
-    "teacherPreview": "Introduce a bank where people deposit brave moments."
+      "Create why the character arrives at the hallway.",
+      "Describe two or three possible lives behind other doors.",
+      "Show the temptation of choosing an easy, rich, safe, or famous life.",
+      "Explain why the final door has no picture.",
+      "End with whether the character opens it and what they understand."
+    ],
+    "instructions": "Create a symbolic story about choice and future. Decide what each door represents and what the character chooses.",
+    "teacherPreview": "Beautiful advanced story spark for meaningful voice storytelling."
   }
 ];
 
@@ -1941,7 +718,9 @@ function saveCustomMissionBankItems(items) {
 }
 
 function getAllMissionBankItemCount() {
-  return MISSION_BANK.length + MISSION_EXTRA_BANK.length + STORY_LAB_CREATIVE_BANK.length + readCustomMissionBankItems().length;
+  return MISSION_TYPES.reduce(function (total, item) {
+    return total + getMissionBankItems(item.id).length;
+  }, 0);
 }
 
 function getMissionBankItemById(bankId, type = "") {
@@ -1956,29 +735,26 @@ function getMissionBankItemById(bankId, type = "") {
 }
 
 function getMissionTypeConfig(type) {
-  return MISSION_TYPE_CONFIGS[type] || MISSION_TYPE_CONFIGS["character-arena"];
+  return MISSION_TYPE_CONFIGS[type] || MISSION_TYPE_CONFIGS["voice-imitation"];
 }
 
 function getMissionBankItems(type, level = "") {
-  const selectedType = type || "character-arena";
-  const characterArenaItems = MISSION_BANK.map(function (item) {
-    return { ...item, type: "character-arena", category: item.category || "Character Arena" };
-  });
+  const selectedType = type || "voice-imitation";
+  const allowedTypes = MISSION_TYPES.map(function (item) { return item.id; });
 
-  const expandedItems = MISSION_EXTRA_BANK
+  const source = MISSION_EXTRA_BANK
     .concat(STORY_LAB_CREATIVE_BANK)
     .concat(readCustomMissionBankItems())
     .map(function (item) {
       return {
         ...item,
         type: item.type || selectedType,
-        category: item.category || getMissionTypeLabel(item.type || selectedType).replace(/[🎭🎙️📖🎬]/g, "").trim()
+        category: item.category || getMissionTypeLabel(item.type || selectedType).replace(/[🎙️📖🎬]/g, "").trim()
       };
+    })
+    .filter(function (item) {
+      return item.type === selectedType && allowedTypes.includes(item.type);
     });
-
-  const source = selectedType === "character-arena"
-    ? characterArenaItems.concat(expandedItems.filter(function (item) { return item.type === "character-arena"; }))
-    : expandedItems.filter(function (item) { return item.type === selectedType; });
 
   if (!level) return source;
 
@@ -1988,7 +764,9 @@ function getMissionBankItems(type, level = "") {
 }
 
 function getDefaultMissionOptions(type) {
-  return getMissionTypeConfig(type).options || ["Yes", "No", "Maybe"];
+  const config = getMissionTypeConfig(type);
+  if (config.usesOptions === false) return [];
+  return config.options || ["Yes", "No", "Maybe"];
 }
 
 function getMissionOptions(mission) {
@@ -1997,11 +775,15 @@ function getMissionOptions(mission) {
 }
 
 function getDefaultCharactersForMissionType(type) {
-  return getMissionTypeConfig(type).defaultCharacters || getDefaultCharactersForType(type);
+  const config = getMissionTypeConfig(type);
+  if (config.usesChoices === false) return [];
+  return config.defaultCharacters || getDefaultCharactersForType(type);
 }
 
 function getDefaultRequirementsForMissionType(type) {
-  return getMissionTypeConfig(type).defaultRequirements || DEFAULT_MISSION_REQUIREMENTS;
+  const config = getMissionTypeConfig(type);
+  if (config.usesRequirements === false) return [];
+  return config.defaultRequirements || DEFAULT_MISSION_REQUIREMENTS;
 }
 
 function getDefaultStartersForMissionType(type) {
@@ -2014,6 +796,7 @@ const STORAGE_KEYS = {
   chatMessages: "dramagic_demo_homework_chat_messages",
   missions: "dramagic_demo_missions",
   missionSubmissions: "dramagic_demo_mission_submissions",
+  threadReads: "dramagic_demo_chat_thread_reads",
   activeThread: "dramagic_active_chat_thread",
   activeFilter: "dramagic_active_chat_filter"
 };
@@ -2023,6 +806,7 @@ let currentProfile = null;
 let chatMessages = [];
 let missions = [];
 let missionSubmissions = [];
+let threadReads = {};
 let activeChatFilter = "channels";
 let activeThread = { type: "group", id: "group-A", classLetter: "A" };
 let classSearchTerm = "";
@@ -2085,10 +869,12 @@ function initChatPage() {
 
   seedDemoChatData();
   loadChatData();
+  loadThreadReads();
   seedDemoMissionData();
   loadMissionData();
   activeThread = getInitialThread();
   activeChatFilter = activeThread.type === "private" ? "private" : "channels";
+  markActiveThreadAsRead();
 
   setupChatEvents();
   setupThemeSync();
@@ -2306,13 +1092,19 @@ function renderSidebarUser() {
   if (sidebarUserRole) sidebarUserRole.textContent = getRoleLabel();
 
   if (sidebarRoleText) {
-    sidebarRoleText.textContent = isStudent()
-      ? `Class ${getCurrentStudentClass()} + private teacher chat`
-      : "Channels, missions, and private chats";
+    if (isStudent()) {
+      sidebarRoleText.textContent = `Class ${getCurrentStudentClass()} + private teacher chat`;
+    } else if (isCEO()) {
+      sidebarRoleText.textContent = "CEO oversight: all channels and private chats";
+    } else {
+      sidebarRoleText.textContent = "Channels, missions, and private chats";
+    }
   }
 
   if (newPrivateChatBtn) {
-    newPrivateChatBtn.textContent = canSeeTeacherArea() ? "New chat" : "Teacher chat";
+    newPrivateChatBtn.textContent = isCEO()
+      ? "Audit chats"
+      : (canSeeTeacherArea() ? "New chat" : "Teacher chat");
   }
 }
 
@@ -2397,22 +1189,13 @@ function renderPrivateChatList() {
 }
 
 function renderMissionsList() {
-  const visibleClasses = getVisibleClasses();
-
   if (canSeeTeacherArea()) {
-    const activeMissions = visibleClasses
-      .map(function (classItem) {
-        const mission = getActiveMissionForClass(classItem.letter);
-        return { classItem, mission };
-      })
-      .filter(function (item) {
-        if (!classSearchTerm) return true;
-        const haystack = `${item.classItem.name} ${item.classItem.letter} ${item.mission?.topic || ""} ${item.mission?.title || ""}`.toLowerCase();
-        return haystack.includes(classSearchTerm);
-      });
-
     const pendingCount = missionSubmissions.filter(function (submission) {
       return submission.status === "waiting-review";
+    }).length;
+
+    const reviewedCount = missionSubmissions.filter(function (submission) {
+      return submission.status === "accepted" || submission.status === "featured" || submission.status === "rejected";
     }).length;
 
     classList.innerHTML = `
@@ -2421,68 +1204,30 @@ function renderMissionsList() {
         <span class="class-item-main">
           <span class="class-item-top">
             <strong>Create Mission</strong>
-            <time>CEO</time>
+            <time>New</time>
           </span>
-          <span class="class-item-preview">Publish Character Arena, Story Lab, Dubbing Studio, or imitation tasks.</span>
+          <span class="class-item-preview">Create and publish one homework mission to a class.</span>
         </span>
-        <span class="class-item-count">New</span>
+        <span class="class-item-count">+</span>
       </button>
 
       <button class="class-chat-item" type="button" data-mission-action="submissions">
         <span class="class-item-avatar">📥</span>
         <span class="class-item-main">
           <span class="class-item-top">
-            <strong>Review Submissions</strong>
+            <strong>Pending Submissions</strong>
             <time>${pendingCount}</time>
           </span>
-          <span class="class-item-preview">Accept, reject, feature, or download Dramagician voice notes.</span>
+          <span class="class-item-preview">See who submitted, then accept or request redo privately.</span>
         </span>
         <span class="class-item-count">${pendingCount}</span>
       </button>
 
-      ${activeMissions.map(function (item) {
-        if (!item.mission) {
-          return `
-            <button class="class-chat-item" type="button" data-mission-action="create" data-prefill-class="${clean(item.classItem.letter)}">
-              <span class="class-item-avatar">${clean(item.classItem.icon)}</span>
-              <span class="class-item-main">
-                <span class="class-item-top">
-                  <strong>${clean(item.classItem.name)} Mission</strong>
-                  <time>Empty</time>
-                </span>
-                <span class="class-item-preview">No active mission. Create one for this class.</span>
-              </span>
-              <span class="class-item-count">+</span>
-            </button>
-          `;
-        }
-
-        return renderMissionListItem(item.mission, item.classItem);
-      }).join("\n")}
-
-      <button class="class-chat-item" type="button" data-mission-action="bank">
-        <span class="class-item-avatar">🧠</span>
-        <span class="class-item-main">
-          <span class="class-item-top">
-            <strong>Question Bank</strong>
-            <time>${getAllMissionBankItemCount()}</time>
-          </span>
-          <span class="class-item-preview">Ready topics by level so you never run out of missions.</span>
-        </span>
-        <span class="class-item-count">Bank</span>
-      </button>
-
-      <button class="class-chat-item" type="button" data-mission-action="templates">
-        <span class="class-item-avatar">📚</span>
-        <span class="class-item-main">
-          <span class="class-item-top">
-            <strong>Saved Templates</strong>
-            <time>${HOMEWORK_TEMPLATES.length}</time>
-          </span>
-          <span class="class-item-preview">Preview saved assignment templates if needed.</span>
-        </span>
-        <span class="class-item-count">HW</span>
-      </button>
+      <div class="mission-sidebar-note">
+        <strong>Simple rule</strong>
+        <span>Student work stays private until you accept it.</span>
+        <span>${reviewedCount} reviewed homework item${reviewedCount === 1 ? "" : "s"}</span>
+      </div>
     `;
 
     attachMissionListEvents();
@@ -2498,10 +1243,10 @@ function renderMissionsList() {
       <span class="class-item-avatar">${mission ? clean(getMissionIcon(mission.type)) : "🎭"}</span>
       <span class="class-item-main">
         <span class="class-item-top">
-          <strong>Today’s Assignment</strong>
+          <strong>Today’s Mission</strong>
           <time>Class ${clean(studentClass)}</time>
         </span>
-        <span class="class-item-preview">${mission ? clean(mission.topic) : "No assignment has been published yet."}</span>
+        <span class="class-item-preview">${mission ? clean(mission.topic) : "No mission has been published yet."}</span>
       </span>
       <span class="class-item-count">${mission ? "Go" : "—"}</span>
     </button>
@@ -2510,10 +1255,10 @@ function renderMissionsList() {
       <span class="class-item-avatar">📤</span>
       <span class="class-item-main">
         <span class="class-item-top">
-          <strong>My Submission</strong>
+          <strong>My Homework</strong>
           <time>${submission ? clean(getStatusLabel(submission.status)) : "None"}</time>
         </span>
-        <span class="class-item-preview">${submission ? clean(`Character: ${submission.character}`) : "Record your voice note when an assignment is active."}</span>
+        <span class="class-item-preview">${submission ? clean(submission.feedback || "Your submission status is updated here.") : "Submit your homework from the mission card."}</span>
       </span>
       <span class="class-item-count">${submission ? "✓" : "0"}</span>
     </button>
@@ -2521,6 +1266,7 @@ function renderMissionsList() {
 
   attachMissionListEvents();
 }
+
 
 function renderMissionListItem(mission, classItem) {
   const submissions = getSubmissionsForMission(mission.id);
@@ -2575,6 +1321,7 @@ function renderClassChannelItem(classItem) {
   const threadId = getGroupThreadId(classItem.letter);
   const stats = getThreadStats(threadId);
   const active = activeThread.type === "group" && activeThread.classLetter === classItem.letter;
+  const unreadBadge = renderUnreadBadge(threadId, active);
 
   return `
     <button class="class-chat-item ${active ? "active" : ""}" type="button" data-class-letter="${clean(classItem.letter)}">
@@ -2589,7 +1336,7 @@ function renderClassChannelItem(classItem) {
         <span class="class-item-preview">${clean(stats.preview)}</span>
       </span>
 
-      <span class="class-item-count" title="Messages">${stats.count}</span>
+      ${unreadBadge}
     </button>
   `;
 }
@@ -2598,6 +1345,12 @@ function renderPrivateChatItem(student) {
   const threadId = getPrivateThreadId(student.id);
   const stats = getThreadStats(threadId);
   const active = activeThread.type === "private" && activeThread.studentId === student.id;
+  const previewText = stats.preview || (isCEO()
+    ? `CEO oversight • Class ${student.classLetter} • ${student.status}`
+    : `Class ${student.classLetter} • ${student.status}`);
+  const dotTitle = isCEO() ? "CEO can audit this private chat" : "Private chat";
+  const unreadBadge = renderUnreadBadge(threadId, active);
+  const trailing = unreadBadge || `<span class="private-status-dot" title="${clean(dotTitle)}"></span>`;
 
   return `
     <button class="class-chat-item private-chat-item ${active ? "active" : ""}" type="button" data-student-id="${clean(student.id)}">
@@ -2609,10 +1362,10 @@ function renderPrivateChatItem(student) {
           <time>${clean(stats.time)}</time>
         </span>
 
-        <span class="class-item-preview">${clean(stats.preview || `Class ${student.classLetter} • ${student.status}`)}</span>
+        <span class="class-item-preview">${clean(previewText)}</span>
       </span>
 
-      <span class="private-status-dot" title="Private chat"></span>
+      ${trailing}
     </button>
   `;
 }
@@ -2709,6 +1462,9 @@ function getVisiblePrivateContacts() {
     return [getCurrentStudentRecord()];
   }
 
+  // CEO oversight: CEO sees every private teacher/Dramagician thread.
+  // Teachers also see learner private chats in this frontend demo.
+  // Later with Supabase, restrict teachers to their assigned classes and keep CEO global.
   return DEMO_STUDENTS;
 }
 
@@ -2732,6 +1488,70 @@ function getThreadStats(threadId) {
     preview: latest.type === "mission" ? `🎭 Mission: ${latest.missionTopic || "Published assignment"}` : (latest.type === "voice" ? "🎙️ Voice note" : latest.text),
     time: formatShortTime(latest.createdAt)
   };
+}
+
+function loadThreadReads() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEYS.threadReads));
+    threadReads = saved && typeof saved === "object" && !Array.isArray(saved) ? saved : {};
+  } catch {
+    threadReads = {};
+  }
+}
+
+function saveThreadReads() {
+  localStorage.setItem(STORAGE_KEYS.threadReads, JSON.stringify(threadReads));
+}
+
+function getThreadReadKey(threadId) {
+  const userId = currentUser?.id || currentProfile?.id || currentUser?.username || currentProfile?.username || "guest";
+  return `${userId}::${threadId}`;
+}
+
+function getThreadLastReadTime(threadId) {
+  const raw = threadReads[getThreadReadKey(threadId)];
+  const time = raw ? new Date(raw).getTime() : 0;
+  return Number.isFinite(time) ? time : 0;
+}
+
+function isMyMessage(message) {
+  return !!currentUser && message.senderId === currentUser.id;
+}
+
+function getUnreadCountForThread(threadId) {
+  const lastRead = getThreadLastReadTime(threadId);
+
+  return getMessagesForThread(threadId).filter(function (message) {
+    const createdAt = new Date(message.createdAt).getTime();
+    if (!Number.isFinite(createdAt) || createdAt <= lastRead) return false;
+
+    // A user should not get a notification badge for messages they sent themselves.
+    return !isMyMessage(message);
+  }).length;
+}
+
+function renderUnreadBadge(threadId, active) {
+  if (active) return "";
+
+  const unreadCount = getUnreadCountForThread(threadId);
+  if (!unreadCount) return "";
+
+  const label = unreadCount === 1 ? "1 new message" : `${unreadCount} new messages`;
+  return `<span class="class-item-count unread-badge" title="${clean(label)}" aria-label="${clean(label)}">${unreadCount}</span>`;
+}
+
+function markThreadRead(threadId) {
+  if (!threadId) return;
+
+  threadReads[getThreadReadKey(threadId)] = new Date().toISOString();
+  saveThreadReads();
+}
+
+function markActiveThreadAsRead() {
+  if (!activeThread || !activeThread.id) return;
+  if (activeThread.type !== "group" && activeThread.type !== "private") return;
+
+  markThreadRead(activeThread.id);
 }
 
 
@@ -2860,11 +1680,11 @@ function renderMissionsHeader(title = "Assignments / Missions", subtitle = "") {
   if (chatHomeworkVideo) chatHomeworkVideo.classList.add("hidden");
   if (chatHomeworkCard) chatHomeworkCard.classList.remove("hidden");
   if (chatHomeworkTitle) chatHomeworkTitle.textContent = canSeeTeacherArea()
-    ? "Teacher Assignment Control"
-    : "Today’s Assignment";
+    ? "Homework Control"
+    : "Today’s Mission";
   if (chatHomeworkText) chatHomeworkText.textContent = canSeeTeacherArea()
-    ? "Build one mission inside the chat, publish it to a class, then review Dramagician submissions."
-    : "Choose your character, choose your opinion, and submit your performance.";
+    ? "Create missions and review pending submissions. Student work stays private until accepted."
+    : "Open the mission, submit your homework, and check feedback here.";
 
   if (chatInput) {
     chatInput.placeholder = "Use the assignment cards above...";
@@ -2872,65 +1692,63 @@ function renderMissionsHeader(title = "Assignments / Missions", subtitle = "") {
 }
 
 function renderTeacherMissionsHome() {
-  const stats = DEMO_CLASSES.map(function (classItem) {
-    const mission = getActiveMissionForClass(classItem.letter);
-    const submissions = mission ? getSubmissionsForMission(mission.id) : [];
+  const pending = missionSubmissions
+    .filter(function (item) { return item.status === "waiting-review"; })
+    .sort(function (a, b) { return new Date(b.createdAt) - new Date(a.createdAt); });
 
-    return {
-      classItem,
-      mission,
-      submissions,
-      pending: submissions.filter(function (item) { return item.status === "waiting-review"; }).length,
-      accepted: submissions.filter(function (item) { return item.status === "accepted" || item.status === "featured"; }).length
-    };
-  });
+  const reviewed = missionSubmissions
+    .filter(function (item) { return item.status !== "waiting-review"; })
+    .sort(function (a, b) { return new Date(b.reviewedAt || b.createdAt) - new Date(a.reviewedAt || a.createdAt); });
 
   if (!chatMessagesBox) return;
 
   chatMessagesBox.innerHTML = `
-    <div class="mission-screen">
-      <section class="mission-hero-panel">
-        <span class="mission-kicker">Dramagic Missions</span>
-        <h2>Assignment Builder lives inside chat.</h2>
-        <p>CEO/teacher creates the task here, Dramagicians see it here, and submissions are reviewed here.</p>
+    <div class="mission-screen mission-simple-home">
+      <section class="mission-hero-panel mission-clean-control-panel">
+        <span class="mission-kicker">Homework Control</span>
+        <h2>Create Mission</h2>
+        <p>Create the homework mission, then review submissions from one clean place. Student work is not posted in the class chat until it is accepted.</p>
 
         <div class="mission-actions-row">
           <button class="mission-primary-btn" type="button" data-mission-action="create">＋ Create Mission</button>
-          <button class="mission-soft-btn" type="button" data-mission-action="submissions">📥 Review Submissions</button>
-          <button class="mission-soft-btn" type="button" data-mission-action="bank">🧠 Homework Bank</button>
+          <button class="mission-soft-btn" type="button" data-mission-action="submissions">📥 Pending Submissions (${pending.length})</button>
         </div>
       </section>
 
-      <section class="mission-stat-grid">
-        ${stats.map(function (item) {
-          return `
-            <article class="mission-class-card">
-              <div class="mission-class-top">
-                <strong>${clean(item.classItem.name)}</strong>
-                <span>${item.mission ? clean(getMissionIcon(item.mission.type)) : "—"}</span>
-              </div>
+      <section class="mission-review-section">
+        <div class="mission-section-title-row">
+          <div>
+            <span class="mission-kicker">Waiting for Review</span>
+            <h2>Pending submissions</h2>
+          </div>
+          <span class="mission-status waiting-review">${pending.length} waiting</span>
+        </div>
 
-              ${item.mission ? `
-                <h3>${clean(item.mission.title)}</h3>
-                <p>${clean(item.mission.topic)}</p>
-                <div class="mission-mini-stats">
-                  <span>${item.submissions.length} submitted</span>
-                  <span>${item.pending} waiting</span>
-                  <span>${item.accepted} accepted</span>
-                </div>
-                <button class="mission-soft-btn full" type="button" data-mission-action="details" data-mission-id="${clean(item.mission.id)}">Open Class Mission</button>
-              ` : `
-                <h3>No active mission</h3>
-                <p>Create a mission for this class when you are ready.</p>
-                <button class="mission-soft-btn full" type="button" data-mission-action="create" data-prefill-class="${clean(item.classItem.letter)}">Create for ${clean(item.classItem.name)}</button>
-              `}
-            </article>
-          `;
-        }).join("\n")}
+        ${pending.length ? pending.map(renderReviewSubmissionCard).join("\n") : `
+          <section class="mission-empty-card compact-empty">
+            <div class="empty-icon">📥</div>
+            <h2>No pending homework</h2>
+            <p>When a Dramagician submits a voice note or demo homework, it will appear here.</p>
+          </section>
+        `}
       </section>
+
+      ${reviewed.length ? `
+        <section class="mission-review-section reviewed-homework-section">
+          <div class="mission-section-title-row">
+            <div>
+              <span class="mission-kicker">Already Reviewed</span>
+              <h2>Accepted / Needs Redo</h2>
+            </div>
+            <span class="mission-status accepted">${reviewed.length} reviewed</span>
+          </div>
+          ${reviewed.slice(0, 6).map(renderReviewSubmissionCard).join("\n")}
+        </section>
+      ` : ""}
     </div>
   `;
 }
+
 
 function openMissionCreator(prefillClass = "", preset = {}) {
   closeMobileSidebar();
@@ -2964,7 +1782,7 @@ function openMissionCreator(prefillClass = "", preset = {}) {
 
         <div class="mission-builder-note">
           <strong>Teacher flow:</strong>
-          <span>Choose type + level → pick a bank story → edit the instructions → publish.</span>
+          <span>Choose mission type + level → pick a bank task → edit the instructions → publish.</span>
         </div>
 
         <div class="mission-form-grid">
@@ -3005,9 +1823,11 @@ function openMissionCreator(prefillClass = "", preset = {}) {
             <select id="missionCreatorBankTopic"></select>
           </label>
 
+          <article id="missionCreatorSparkPreview" class="mission-spark-preview wide hidden" aria-live="polite"></article>
+
           <label class="wide">
             <span id="missionCreatorTopicLabel">Topic</span>
-            <input id="missionCreatorTopic" type="text" placeholder="Example: A stage curtain refused to open." />
+            <textarea id="missionCreatorTopic" rows="4" placeholder="Example: A stage curtain refused to open."></textarea>
           </label>
 
           <label class="wide">
@@ -3064,49 +1884,108 @@ function openMissionCreator(prefillClass = "", preset = {}) {
   }
 }
 
+function getMissionBankDropdownLabel(item, index = 0) {
+  if (!item) return "Choose a spark";
+
+  const category = String(item.category || "").replace(/^Ages\s*\d+[^·]*·\s*/i, "").trim();
+  const topic = String(item.topic || "").trim();
+  const firstSentence = (topic.split(/(?<=[.!?])\s+/)[0] || topic).trim();
+  const shortSpark = firstSentence.length > 54 ? firstSentence.slice(0, 51).trim() + "…" : firstSentence;
+
+  if (category && shortSpark) return `${index + 1}. ${category} — ${shortSpark}`;
+  if (shortSpark) return `${index + 1}. ${shortSpark}`;
+  return `${index + 1}. Story spark`;
+}
+
+function updateMissionCreatorSparkPreview(bankItem) {
+  const preview = document.getElementById("missionCreatorSparkPreview");
+  if (!preview) return;
+
+  if (!bankItem) {
+    preview.classList.add("hidden");
+    preview.innerHTML = "";
+    return;
+  }
+
+  const category = bankItem.category || "Story Lab Spark";
+  const topic = bankItem.topic || "";
+  const instructions = bankItem.instructions || "Create your own story from this spark. Choose the character name, setting, conflict, ending, and message.";
+  const starters = Array.isArray(bankItem.starters) ? bankItem.starters.slice(0, 5) : [];
+
+  preview.classList.remove("hidden");
+  preview.innerHTML = `
+    <div class="mission-spark-preview-top">
+      <span>${clean(category)}</span>
+      <strong>Full story spark</strong>
+    </div>
+    <p class="mission-spark-preview-text">${clean(topic)}</p>
+    <div class="mission-spark-preview-task">
+      <strong>What they create:</strong>
+      <span>${clean(instructions)}</span>
+    </div>
+    ${starters.length ? `
+      <details class="mission-spark-preview-details">
+        <summary>Show story-building guide</summary>
+        <ul>
+          ${starters.map(function (line) { return `<li>${clean(line)}</li>`; }).join("")}
+        </ul>
+      </details>
+    ` : ""}
+  `;
+}
+
 function refreshCreatorBankOptions() {
   const typeSelect = document.getElementById("missionCreatorType");
   const levelSelect = document.getElementById("missionCreatorLevel");
   const bankSelect = document.getElementById("missionCreatorBankTopic");
   if (!levelSelect || !bankSelect) return;
 
-  const type = typeSelect?.value || "character-arena";
+  const type = typeSelect?.value || "voice-imitation";
   const level = levelSelect.value;
   const topics = getMissionBankItems(type, level);
 
-  bankSelect.innerHTML = topics.map(function (item) {
-    return `<option value="${clean(item.id)}">${clean(item.topic)}</option>`;
+  bankSelect.innerHTML = topics.map(function (item, index) {
+    return `<option value="${clean(item.id)}">${clean(getMissionBankDropdownLabel(item, index))}</option>`;
   }).join("\n");
 
   if (topics[0]) {
     applyBankTopicToCreator(topics[0].id);
   } else {
     const config = getMissionTypeConfig(type);
+    const usesChoices = config.usesChoices !== false;
+    const usesOptions = config.usesOptions !== false;
+    const usesRequirements = config.usesRequirements !== false;
     const topicInput = document.getElementById("missionCreatorTopic");
     const charactersInput = document.getElementById("missionCreatorCharacters");
     const optionsInput = document.getElementById("missionCreatorOptions");
     const requirementsInput = document.getElementById("missionCreatorRequirements");
     const startersInput = document.getElementById("missionCreatorStarters");
+    const instructionsInput = document.getElementById("missionCreatorInstructions");
     if (topicInput) topicInput.value = "";
-    if (charactersInput) charactersInput.value = (config.defaultCharacters || []).join("\n");
-    if (optionsInput) optionsInput.value = (config.options || []).join("\n");
-    if (requirementsInput) requirementsInput.value = (config.defaultRequirements || []).join("\n");
+    updateMissionCreatorSparkPreview(null);
+    if (charactersInput) charactersInput.value = usesChoices ? (config.defaultCharacters || []).join("\n") : "";
+    if (optionsInput) optionsInput.value = usesOptions ? (config.options || []).join("\n") : "";
+    if (requirementsInput) requirementsInput.value = usesRequirements ? (config.defaultRequirements || []).join("\n") : "";
     if (startersInput) startersInput.value = (config.defaultStarters || []).join("\n");
+    if (instructionsInput) instructionsInput.value = getDefaultMissionInstructions(type);
   }
 }
 
 function applyBankTopicToCreator(bankId) {
   const typeSelect = document.getElementById("missionCreatorType");
-  const type = typeSelect?.value || "character-arena";
+  const type = typeSelect?.value || "voice-imitation";
   const bankItem = getMissionBankItems(type).find(function (item) {
-    return item.id === bankId;
-  }) || MISSION_BANK.find(function (item) {
     return item.id === bankId;
   }) || MISSION_EXTRA_BANK.find(function (item) {
     return item.id === bankId;
   });
 
-  if (!bankItem) return;
+  if (!bankItem) {
+    updateMissionCreatorSparkPreview(null);
+    return;
+  }
+
+  updateMissionCreatorSparkPreview(bankItem);
 
   const config = getMissionTypeConfig(type);
   const topicInput = document.getElementById("missionCreatorTopic");
@@ -3114,12 +1993,18 @@ function applyBankTopicToCreator(bankId) {
   const optionsInput = document.getElementById("missionCreatorOptions");
   const requirementsInput = document.getElementById("missionCreatorRequirements");
   const startersInput = document.getElementById("missionCreatorStarters");
+  const instructionsInput = document.getElementById("missionCreatorInstructions");
+
+  const usesChoices = config.usesChoices !== false;
+  const usesOptions = config.usesOptions !== false;
+  const usesRequirements = config.usesRequirements !== false;
 
   if (topicInput) topicInput.value = bankItem.topic || "";
-  if (charactersInput) charactersInput.value = (bankItem.characters || config.defaultCharacters || []).join("\n");
-  if (optionsInput) optionsInput.value = (bankItem.options || config.options || []).join("\n");
-  if (requirementsInput) requirementsInput.value = (bankItem.requirements || config.defaultRequirements || []).join("\n");
+  if (charactersInput) charactersInput.value = usesChoices ? (bankItem.characters || config.defaultCharacters || []).join("\n") : "";
+  if (optionsInput) optionsInput.value = usesOptions ? (bankItem.options || config.options || []).join("\n") : "";
+  if (requirementsInput) requirementsInput.value = usesRequirements ? (bankItem.requirements || config.defaultRequirements || []).join("\n") : "";
   if (startersInput) startersInput.value = (bankItem.starters || config.defaultStarters || []).join("\n");
+  if (instructionsInput) instructionsInput.value = bankItem.instructions || getDefaultMissionInstructions(type);
 }
 
 function refreshCreatorTypeHelper() {
@@ -3141,6 +2026,29 @@ function refreshCreatorTypeHelper() {
   const startersLabel = document.getElementById("missionCreatorStartersLabel");
   const videoLabel = document.getElementById("missionCreatorVideoLabel");
   const instructionsLabel = document.getElementById("missionCreatorInstructionsLabel");
+
+  const usesChoices = config.usesChoices !== false;
+  const usesOptions = config.usesOptions !== false;
+  const usesRequirements = config.usesRequirements !== false;
+
+  if (choicesInput) {
+    const choicesWrap = choicesInput.closest("label");
+    if (choicesWrap) choicesWrap.classList.toggle("hidden", !usesChoices);
+    if (!usesChoices) choicesInput.value = "";
+  }
+
+  if (optionsInput) {
+    const optionsWrap = optionsInput.closest("label");
+    if (optionsWrap) optionsWrap.classList.toggle("hidden", !usesOptions);
+    if (!usesOptions) optionsInput.value = "";
+  }
+
+  const requirementsInput = document.getElementById("missionCreatorRequirements");
+  if (requirementsInput) {
+    const requirementsWrap = requirementsInput.closest("label");
+    if (requirementsWrap) requirementsWrap.classList.toggle("hidden", !usesRequirements);
+    if (!usesRequirements) requirementsInput.value = "";
+  }
 
   if (bankLabel) bankLabel.textContent = config.bankLabel;
   if (topicLabel) topicLabel.textContent = config.topicLabel;
@@ -3187,6 +2095,10 @@ function publishMissionFromForm() {
   }
 
   const typeLabel = getMissionTypeLabel(type);
+  const config = getMissionTypeConfig(type);
+  const usesChoices = config.usesChoices !== false;
+  const usesOptions = config.usesOptions !== false;
+  const usesRequirements = config.usesRequirements !== false;
   const characters = splitLines(charactersInput?.value || "").slice(0, 8);
   const requirements = splitLines(requirementsInput?.value || "").slice(0, 8);
   const starters = splitLines(startersInput?.value || "").slice(0, 10);
@@ -3207,9 +2119,9 @@ function publishMissionFromForm() {
     title: typeLabel.replace(/[🎭🎙️📖🎬]/g, "").trim(),
     level: level,
     topic: topic,
-    characters: characters.length ? characters : getDefaultCharactersForMissionType(type),
-    options: options.length ? options : getDefaultMissionOptions(type),
-    requirements: requirements.length ? requirements : getDefaultRequirementsForMissionType(type),
+    characters: usesChoices ? (characters.length ? characters : getDefaultCharactersForMissionType(type)) : [],
+    options: usesOptions ? (options.length ? options : getDefaultMissionOptions(type)) : [],
+    requirements: usesRequirements ? (requirements.length ? requirements : getDefaultRequirementsForMissionType(type)) : [],
     starters: starters.length ? starters : getDefaultStartersForMissionType(type),
     instructions: instructionsInput?.value.trim() || getDefaultMissionInstructions(type),
     deadline: deadlineInput?.value.trim() || "Next session",
@@ -3242,6 +2154,7 @@ function saveCurrentMissionToBank() {
   const optionsInput = document.getElementById("missionCreatorOptions");
   const requirementsInput = document.getElementById("missionCreatorRequirements");
   const startersInput = document.getElementById("missionCreatorStarters");
+  const instructionsInput = document.getElementById("missionCreatorInstructions");
 
   const type = typeSelect?.value || "story-lab";
   const level = levelSelect?.value || "junior-actors";
@@ -3252,6 +2165,11 @@ function saveCurrentMissionToBank() {
     return;
   }
 
+  const config = getMissionTypeConfig(type);
+  const usesChoices = config.usesChoices !== false;
+  const usesOptions = config.usesOptions !== false;
+  const usesRequirements = config.usesRequirements !== false;
+
   const customItems = readCustomMissionBankItems();
   const item = {
     type: type,
@@ -3259,10 +2177,11 @@ function saveCurrentMissionToBank() {
     level: level,
     category: "My Saved Missions",
     topic: topic,
-    characters: splitLines(charactersInput?.value || "").slice(0, 8),
-    options: splitLines(optionsInput?.value || "").slice(0, 6),
-    requirements: splitLines(requirementsInput?.value || "").slice(0, 8),
+    characters: usesChoices ? splitLines(charactersInput?.value || "").slice(0, 8) : [],
+    options: usesOptions ? splitLines(optionsInput?.value || "").slice(0, 6) : [],
+    requirements: usesRequirements ? splitLines(requirementsInput?.value || "").slice(0, 8) : [],
     starters: splitLines(startersInput?.value || "").slice(0, 10),
+    instructions: instructionsInput?.value.trim() || getDefaultMissionInstructions(type),
     teacherPreview: "Saved by teacher from the mission builder.",
     createdAt: new Date().toISOString()
   };
@@ -3361,9 +2280,107 @@ function openStudentMissionHome(view = "") {
 function renderMissionDisplayCard(mission, mode) {
   const config = getMissionTypeConfig(mission.type);
   const options = getMissionOptions(mission);
+  const usesChoices = config.usesChoices !== false;
+  const usesOptions = config.usesOptions !== false;
+  const usesRequirements = config.usesRequirements !== false;
+  const showChoices = usesChoices && Array.isArray(mission.characters) && mission.characters.length;
+  const showOptions = usesOptions && Array.isArray(options) && options.length;
+  const showRequirements = usesRequirements && Array.isArray(mission.requirements) && mission.requirements.length;
+  const showHelper = Array.isArray(mission.starters) && mission.starters.length;
   const materialText = mission.videoUrl
     ? (mission.type === "dubbing-studio" ? "Open video / scene" : "Open material / video")
     : "";
+
+  if (mission.type === "story-lab") {
+    const storyGuideText = Array.isArray(mission.starters) && mission.starters.length
+      ? mission.starters.map(function (item) { return String(item || "").trim(); }).filter(Boolean).join(" ")
+      : "Create the world, choose the sentence, show the reactions, add the consequence, and decide the ending.";
+
+    return `
+      <section class="mission-display-card mission-display-${clean(mission.type)}">
+        <div class="mission-display-top">
+          <span class="mission-icon">${clean(getMissionIcon(mission.type))}</span>
+          <div>
+            <span class="mission-kicker">${clean(getMissionTypeLabel(mission.type))} • ${clean(getLevelLabel(mission.level))}</span>
+            <h2>${clean(mission.topic)}</h2>
+            <p>${clean(mission.instructions)}</p>
+          </div>
+        </div>
+
+        <div class="mission-pill-row">
+          <span>Class ${clean(mission.classLetter)}</span>
+          <span>Deadline: ${clean(mission.deadline || "Next session")}</span>
+          <span>${clean(mission.status)}</span>
+        </div>
+
+        <div class="mission-story-single-box">
+          <strong>Open Story Lab</strong>
+          <p>No fixed characters. No fixed mood. No required path. Create the character name, setting, other characters, problem, turning point, and ending from your imagination.</p>
+          <p><b>Build your story:</b> ${clean(storyGuideText)}</p>
+        </div>
+
+        ${mission.videoUrl ? `<a class="mission-video-link" href="${clean(mission.videoUrl)}" target="_blank" rel="noopener">${clean(materialText)}</a>` : ""}
+      </section>
+    `;
+  }
+
+  const choiceSection = (showChoices || showOptions) ? `
+      <div class="mission-two-col">
+        ${showChoices ? `
+          <div>
+            <h3>${clean(config.choiceHeading)}</h3>
+            <div class="mission-chip-wrap">
+              ${mission.characters.map(function (item) {
+                return `<span class="mission-chip">${clean(item)}</span>`;
+              }).join("")}
+            </div>
+          </div>
+        ` : ""}
+
+        ${showOptions ? `
+          <div>
+            <h3>${clean(config.optionsHeading)}</h3>
+            <div class="mission-chip-wrap">
+              ${options.map(function (item) {
+                return `<span class="mission-chip soft">${clean(item)}</span>`;
+              }).join("")}
+            </div>
+          </div>
+        ` : ""}
+      </div>
+  ` : "";
+
+  const requirementsAndHelper = (showRequirements || showHelper) ? `
+      <div class="mission-two-col ${!showRequirements || !showHelper ? "mission-one-col" : ""}">
+        ${showRequirements ? `
+          <div>
+            <h3>${clean(config.requirementsHeading)}</h3>
+            <ul class="mission-clean-list">
+              ${mission.requirements.map(function (item) {
+                return `<li>${clean(item)}</li>`;
+              }).join("")}
+            </ul>
+          </div>
+        ` : ""}
+
+        ${showHelper ? `
+          <div class="mission-helper-box mission-detailed-helper compact-helper">
+            <strong>${clean(config.helperHeading)}</strong>
+            ${mission.starters.map(function (item) {
+              return `<span class="mission-helper-line">${clean(item)}</span>`;
+            }).join("")}
+          </div>
+        ` : ""}
+      </div>
+  ` : "";
+
+  const openStoryNote = mission.type === "story-lab" ? `
+      <div class="mission-helper-box mission-detailed-helper compact-helper">
+        <strong>Open Story Lab</strong>
+        <span>No fixed characters. No fixed mood. No required path.</span>
+        <span>Create the character name, setting, other characters, problem, turning point, and ending from your imagination.</span>
+      </div>
+  ` : "";
 
   return `
     <section class="mission-display-card mission-display-${clean(mission.type)}">
@@ -3382,43 +2399,9 @@ function renderMissionDisplayCard(mission, mode) {
         <span>${clean(mission.status)}</span>
       </div>
 
-      <div class="mission-two-col">
-        <div>
-          <h3>${clean(config.choiceHeading)}</h3>
-          <div class="mission-chip-wrap">
-            ${mission.characters.map(function (item) {
-              return `<span class="mission-chip">${clean(item)}</span>`;
-            }).join("\n")}
-          </div>
-        </div>
-
-        <div>
-          <h3>${clean(config.optionsHeading)}</h3>
-          <div class="mission-chip-wrap">
-            ${options.map(function (item) {
-              return `<span class="mission-chip soft">${clean(item)}</span>`;
-            }).join("\n")}
-          </div>
-        </div>
-      </div>
-
-      <div class="mission-two-col">
-        <div>
-          <h3>${clean(config.requirementsHeading)}</h3>
-          <ul class="mission-clean-list">
-            ${mission.requirements.map(function (item) {
-              return `<li>${clean(item)}</li>`;
-            }).join("\n")}
-          </ul>
-        </div>
-
-        <div class="mission-helper-box mission-detailed-helper compact-helper">
-          <strong>${clean(config.helperHeading)}</strong>
-          ${mission.starters.map(function (item) {
-            return `<span class="mission-helper-line">${clean(item)}</span>`;
-          }).join("\n")}
-        </div>
-      </div>
+      ${openStoryNote}
+      ${choiceSection}
+      ${requirementsAndHelper}
 
       ${mission.videoUrl ? `<a class="mission-video-link" href="${clean(mission.videoUrl)}" target="_blank" rel="noopener">${clean(materialText)}</a>` : ""}
     </section>
@@ -3428,55 +2411,92 @@ function renderMissionDisplayCard(mission, mode) {
 function renderStudentSubmitCard(mission) {
   const config = getMissionTypeConfig(mission.type);
   const options = getMissionOptions(mission);
+  const usesChoices = config.usesChoices !== false;
+  const usesOptions = config.usesOptions !== false;
+
+  const choiceBlocks = `
+      ${usesChoices ? `
+        <div class="mission-choice-block">
+          <h3>${clean(config.choiceSubmitLabel)}</h3>
+          <div class="mission-choice-row" id="missionCharacterChoices">
+            ${mission.characters.map(function (item, index) {
+              return `<button class="mission-choice-btn ${index === 0 ? "selected" : ""}" type="button" data-select-mission-character="${clean(item)}">${clean(item)}</button>`;
+            }).join("")}
+          </div>
+        </div>
+      ` : ""}
+
+      ${usesOptions ? `
+        <div class="mission-choice-block">
+          <h3>${clean(config.optionsHeading)}</h3>
+          <div class="mission-choice-row" id="missionOpinionChoices">
+            ${options.map(function (item, index) {
+              return `<button class="mission-choice-btn ${index === 0 ? "selected" : ""}" type="button" data-select-mission-opinion="${clean(item)}">${clean(item)}</button>`;
+            }).join("")}
+          </div>
+        </div>
+      ` : ""}
+  `;
+
+  const title = mission.type === "story-lab"
+    ? "Create the full story"
+    : `${config.choiceSubmitLabel} and perform`;
+
+  const note = mission.type === "story-lab"
+    ? "Build everything yourself: character name, setting, other characters, problem, twist, ending, and message."
+    : "Demo mode saves on this browser only. Later Supabase will let teacher and Dramagician see it from different devices.";
 
   return `
     <section class="mission-submit-card">
       <span class="mission-kicker">Your submission</span>
-      <h2>${clean(config.choiceSubmitLabel)} and perform</h2>
+      <h2>${clean(title)}</h2>
+      ${mission.type === "story-lab" ? `<p>${clean(note)}</p>` : ""}
 
-      <div class="mission-choice-block">
-        <h3>${clean(config.choiceSubmitLabel)}</h3>
-        <div class="mission-choice-row" id="missionCharacterChoices">
-          ${mission.characters.map(function (item, index) {
-            return `<button class="mission-choice-btn ${index === 0 ? "selected" : ""}" type="button" data-select-mission-character="${clean(item)}">${clean(item)}</button>`;
-          }).join("\n")}
-        </div>
-      </div>
-
-      <div class="mission-choice-block">
-        <h3>${clean(config.optionsHeading)}</h3>
-        <div class="mission-choice-row" id="missionOpinionChoices">
-          ${options.map(function (item, index) {
-            return `<button class="mission-choice-btn ${index === 0 ? "selected" : ""}" type="button" data-select-mission-opinion="${clean(item)}">${clean(item)}</button>`;
-          }).join("\n")}
-        </div>
-      </div>
+      ${choiceBlocks}
 
       <div class="mission-actions-row">
         <button class="mission-primary-btn" type="button" data-mission-action="student-record" data-mission-id="${clean(mission.id)}">${clean(config.recordButton)}</button>
         <button class="mission-soft-btn" type="button" data-mission-action="student-submit-demo" data-mission-id="${clean(mission.id)}">${clean(config.demoButton)}</button>
       </div>
 
-      <p class="mission-small-note">Demo mode saves on this browser only. Later Supabase will let teacher and Dramagician see it from different devices.</p>
+      ${mission.type !== "story-lab" ? `<p class="mission-small-note">${clean(note)}</p>` : `<p class="mission-small-note">Demo mode saves on this browser only. Later Supabase will let teacher and Dramagician see it from different devices.</p>`}
     </section>
   `;
 }
 
 function renderStudentSubmissionCard(submission) {
   const mission = getMissionById(submission.missionId);
-  const config = getMissionTypeConfig(mission?.type || "character-arena");
+  const config = getMissionTypeConfig(mission?.type || "voice-imitation");
+  const usesChoices = config.usesChoices !== false;
+  const usesOptions = config.usesOptions !== false;
+  const canRedo = submission.status === "rejected";
+  const metaLine = (usesChoices || usesOptions) ? `
+      <p>
+        ${usesChoices ? `<strong>${clean(config.choiceSummaryLabel)}:</strong> ${clean(submission.character)}` : ""}
+        ${usesChoices && usesOptions ? " • " : ""}
+        ${usesOptions ? `<strong>${clean(config.optionsSummaryLabel)}:</strong> ${clean(submission.opinion)}` : ""}
+      </p>
+  ` : `<p>Your story was submitted as a free imagination Story Lab response.</p>`;
 
   return `
     <section class="mission-submit-card">
-      <span class="mission-kicker">My Submission</span>
+      <span class="mission-kicker">My Homework</span>
       <h2>${clean(getStatusLabel(submission.status))}</h2>
-      <p><strong>${clean(config.choiceSummaryLabel)}:</strong> ${clean(submission.character)} • <strong>${clean(config.optionsSummaryLabel)}:</strong> ${clean(submission.opinion)}</p>
-      ${submission.feedback ? `<p><strong>Teacher feedback:</strong> ${clean(submission.feedback)}</p>` : ""}
+      ${metaLine}
+      ${submission.feedback ? `<p><strong>Teacher Feedback:</strong> ${clean(submission.feedback)}</p>` : ""}
       ${submission.audioUrl ? `<audio controls src="${clean(submission.audioUrl)}"></audio>` : `<div class="mission-demo-audio">🎙️ Demo voice note submitted</div>`}
       <p class="mission-small-note">Submitted ${clean(formatShortTime(submission.createdAt))}</p>
+
+      ${canRedo ? `
+        <div class="mission-actions-row">
+          <button class="mission-primary-btn" type="button" data-mission-action="student-record" data-mission-id="${clean(submission.missionId)}">🎙️ Record Redo</button>
+          <button class="mission-soft-btn" type="button" data-mission-action="student-submit-demo" data-mission-id="${clean(submission.missionId)}">Submit Demo Redo</button>
+        </div>
+      ` : ""}
     </section>
   `;
 }
+
 
 function selectMissionChoice(type, value) {
   const containerId = type === "character" ? "missionCharacterChoices" : "missionOpinionChoices";
@@ -3512,10 +2532,14 @@ function beginMissionRecording(missionId) {
   const mission = getMissionById(missionId);
   if (!mission) return;
 
+  const config = getMissionTypeConfig(mission.type);
+  const usesChoices = config.usesChoices !== false;
+  const usesOptions = config.usesOptions !== false;
+
   pendingMissionSubmission = {
     missionId: mission.id,
-    character: getSelectedMissionChoice("character"),
-    opinion: getSelectedMissionChoice("opinion")
+    character: usesChoices ? getSelectedMissionChoice("character") : "",
+    opinion: usesOptions ? getSelectedMissionChoice("opinion") : ""
   };
 
   startVoiceRecording();
@@ -3526,6 +2550,14 @@ function createDemoMissionSubmission(missionId, audioUrl = "") {
   if (!mission) return;
 
   const existing = getMySubmissionForMission(mission.id);
+  const config = getMissionTypeConfig(mission.type);
+  const usesChoices = config.usesChoices !== false;
+  const usesOptions = config.usesOptions !== false;
+
+  if (existing && existing.status !== "rejected" && existing.status !== "waiting-review") {
+    alert("Your homework was already accepted. Ask your teacher before submitting again.");
+    return;
+  }
 
   const submission = {
     id: existing?.id || makeId("submission"),
@@ -3533,12 +2565,14 @@ function createDemoMissionSubmission(missionId, audioUrl = "") {
     classLetter: mission.classLetter,
     studentId: getCurrentStudentRecord().id,
     studentName: currentUser?.full_name || getCurrentStudentRecord().full_name,
-    character: pendingMissionSubmission?.character || getSelectedMissionChoice("character"),
-    opinion: pendingMissionSubmission?.opinion || getSelectedMissionChoice("opinion"),
+    character: usesChoices ? (pendingMissionSubmission?.character || getSelectedMissionChoice("character")) : "",
+    opinion: usesOptions ? (pendingMissionSubmission?.opinion || getSelectedMissionChoice("opinion")) : "",
     audioUrl: audioUrl || "",
     status: "waiting-review",
     feedback: "",
     featured: false,
+    privateMessageId: "",
+    sharedMessageId: "",
     createdAt: new Date().toISOString()
   };
 
@@ -3560,16 +2594,18 @@ function createDemoMissionSubmission(missionId, audioUrl = "") {
   openStudentMissionHome("submission");
 }
 
+
 function openMissionSubmissions(missionId = "") {
   activeChatFilter = "homework-templates";
   activeThread = {
     type: "mission-submissions",
-    id: "mission-submissions"
+    id: "mission-submissions",
+    missionId: missionId || ""
   };
 
   renderChatTabs();
   renderChatList();
-  renderMissionsHeader("Review Submissions", "Accept, reject, feature, or download student mission audio.");
+  renderMissionsHeader("Pending Submissions", "Accept homework to publish it in the class chat, or reject it to send private feedback.");
 
   let submissions = missionId
     ? missionSubmissions.filter(function (item) { return item.missionId === missionId; })
@@ -3579,6 +2615,9 @@ function openMissionSubmissions(missionId = "") {
     return new Date(b.createdAt) - new Date(a.createdAt);
   });
 
+  const pending = submissions.filter(function (item) { return item.status === "waiting-review"; });
+  const reviewed = submissions.filter(function (item) { return item.status !== "waiting-review"; });
+
   if (!chatMessagesBox) return;
 
   if (submissions.length === 0) {
@@ -3587,7 +2626,7 @@ function openMissionSubmissions(missionId = "") {
         <section class="mission-empty-card">
           <div class="empty-icon">📥</div>
           <h2>No submissions yet</h2>
-          <p>When students submit mission voice notes, they will appear here for review.</p>
+          <p>When students submit homework, it will appear here for review.</p>
         </section>
       </div>
     `;
@@ -3595,69 +2634,194 @@ function openMissionSubmissions(missionId = "") {
   }
 
   chatMessagesBox.innerHTML = `
-    <div class="mission-screen">
-      ${submissions.map(renderReviewSubmissionCard).join("\n")}
+    <div class="mission-screen mission-review-board">
+      <section class="mission-review-section">
+        <div class="mission-section-title-row">
+          <div>
+            <span class="mission-kicker">Waiting for Review</span>
+            <h2>Pending submissions</h2>
+          </div>
+          <span class="mission-status waiting-review">${pending.length} waiting</span>
+        </div>
+        ${pending.length ? pending.map(renderReviewSubmissionCard).join("\n") : `
+          <section class="mission-empty-card compact-empty">
+            <div class="empty-icon">✅</div>
+            <h2>No pending submissions</h2>
+            <p>Everything is reviewed for now.</p>
+          </section>
+        `}
+      </section>
+
+      ${reviewed.length ? `
+        <section class="mission-review-section reviewed-homework-section">
+          <div class="mission-section-title-row">
+            <div>
+              <span class="mission-kicker">Reviewed</span>
+              <h2>Accepted / Needs Redo</h2>
+            </div>
+            <span class="mission-status accepted">${reviewed.length} reviewed</span>
+          </div>
+          ${reviewed.map(renderReviewSubmissionCard).join("\n")}
+        </section>
+      ` : ""}
     </div>
   `;
 }
 
+
 function renderReviewSubmissionCard(submission) {
   const mission = getMissionById(submission.missionId);
   const statusLabel = getStatusLabel(submission.status);
-  const config = getMissionTypeConfig(mission?.type || "character-arena");
+  const config = getMissionTypeConfig(mission?.type || "voice-imitation");
+  const student = getStudentById(submission.studentId);
+  const isWaiting = submission.status === "waiting-review";
+  const isAccepted = submission.status === "accepted" || submission.status === "featured";
+  const isRejected = submission.status === "rejected";
 
   return `
-    <section class="mission-review-card">
+    <section class="mission-review-card ${isWaiting ? "pending-review-card" : ""}">
       <div class="mission-review-head">
-        <div>
-          <span class="mission-kicker">${clean(mission?.title || "Mission")} • Class ${clean(submission.classLetter)}</span>
-          <h2>${clean(submission.studentName)}</h2>
-          <p>${clean(mission?.topic || "Mission topic")}</p>
+        <div class="mission-review-student-line">
+          <img class="mission-review-avatar" src="${clean(student ? getStudentAvatar(student) : getDefaultAvatar("student"))}" alt="${clean(submission.studentName)} profile picture" />
+          <div>
+            <span class="mission-kicker">${clean(mission?.title || "Mission")} • Class ${clean(submission.classLetter)}</span>
+            <h2>${clean(submission.studentName)}</h2>
+            <p>${clean(mission?.topic || "Mission topic")}</p>
+          </div>
         </div>
         <span class="mission-status ${clean(submission.status)}">${clean(statusLabel)}</span>
       </div>
 
       <div class="mission-pill-row">
-        <span>${clean(config.choiceSummaryLabel)}: ${clean(submission.character)}</span>
-        <span>${clean(config.optionsSummaryLabel)}: ${clean(submission.opinion)}</span>
-        <span>${clean(formatShortTime(submission.createdAt))}</span>
+        ${config.usesChoices !== false ? `<span>${clean(config.choiceSummaryLabel)}: ${clean(submission.character || "—")}</span>` : ""}
+        ${config.usesOptions !== false ? `<span>${clean(config.optionsSummaryLabel)}: ${clean(submission.opinion || "—")}</span>` : ""}
+        ${config.usesChoices === false && config.usesOptions === false ? `<span>Story Lab submission</span>` : ""}
+        <span>Submitted ${clean(formatShortTime(submission.createdAt))}</span>
+        ${isAccepted ? `<span>Published to class chat</span>` : ""}
+        ${isRejected ? `<span>Private feedback sent</span>` : ""}
       </div>
 
       ${submission.audioUrl ? `<audio controls src="${clean(submission.audioUrl)}"></audio>` : `<div class="mission-demo-audio">🎙️ Demo voice note submitted</div>`}
 
-      ${submission.feedback ? `<p class="mission-feedback"><strong>Feedback:</strong> ${clean(submission.feedback)}</p>` : ""}
+      ${submission.feedback ? `<p class="mission-feedback"><strong>Teacher Feedback:</strong> ${clean(submission.feedback)}</p>` : ""}
+
+      ${isWaiting ? `<p class="mission-small-note">This homework is private now. It will only appear in the class chat after you accept it.</p>` : ""}
 
       <div class="mission-actions-row">
-        <button class="mission-primary-btn" type="button" data-review-submission="${clean(submission.id)}" data-review-status="accepted">✅ Accept</button>
-        <button class="mission-soft-btn" type="button" data-review-submission="${clean(submission.id)}" data-review-status="featured">⭐ Feature</button>
-        <button class="mission-danger-btn" type="button" data-review-submission="${clean(submission.id)}" data-review-status="rejected">❌ Reject</button>
+        ${!isAccepted ? `<button class="mission-primary-btn" type="button" data-review-submission="${clean(submission.id)}" data-review-status="accepted">✅ Accept and publish</button>` : ""}
+        ${!isRejected ? `<button class="mission-danger-btn" type="button" data-review-submission="${clean(submission.id)}" data-review-status="rejected">↺ Reject and send private feedback</button>` : ""}
         ${submission.audioUrl ? `<button class="mission-soft-btn" type="button" data-download-submission="${clean(submission.id)}">⬇ Download Audio</button>` : ""}
       </div>
     </section>
   `;
 }
 
+
 function reviewMissionSubmission(submissionId, nextStatus) {
-  const feedback = nextStatus === "rejected"
-    ? prompt("Why is it rejected? Write what the student should improve:", "Please record again with clearer voice and stronger emotion.")
-    : "";
+  const target = missionSubmissions.find(function (item) {
+    return item.id === submissionId;
+  });
+
+  if (!target) return;
+
+  const finalStatus = nextStatus === "featured" ? "accepted" : nextStatus;
+  let feedback = "";
+  let privateMessageId = target.privateMessageId || "";
+  let sharedMessageId = target.sharedMessageId || "";
+
+  if (finalStatus === "rejected") {
+    feedback = prompt("Write the reason. This will be sent privately to the student:", target.feedback || "Please record again with clearer voice and stronger emotion.") || "";
+    feedback = feedback.trim();
+
+    if (!feedback) {
+      alert("Please write a reason before rejecting the homework.");
+      return;
+    }
+
+    privateMessageId = sendMissionRejectionPrivateMessage(target, feedback);
+  }
+
+  if (finalStatus === "accepted") {
+    sharedMessageId = publishAcceptedHomeworkToClass(target);
+  }
 
   missionSubmissions = missionSubmissions.map(function (submission) {
     if (submission.id !== submissionId) return submission;
 
     return {
       ...submission,
-      status: nextStatus,
-      featured: nextStatus === "featured",
-      feedback: feedback || submission.feedback || "",
+      status: finalStatus,
+      featured: false,
+      feedback: finalStatus === "rejected" ? feedback : submission.feedback,
+      privateMessageId: privateMessageId,
+      sharedMessageId: sharedMessageId,
       reviewedBy: currentUser?.id || "demo-teacher",
       reviewedAt: new Date().toISOString()
     };
   });
 
   saveMissionData();
-  openMissionSubmissions();
+  saveChatData();
+  renderChatList();
+  openMissionSubmissions(activeThread.missionId || "");
 }
+
+function sendMissionRejectionPrivateMessage(submission, feedback) {
+  if (submission.privateMessageId && chatMessages.some(function (message) { return message.id === submission.privateMessageId; })) {
+    return submission.privateMessageId;
+  }
+
+  const mission = getMissionById(submission.missionId);
+  const message = {
+    id: makeId("feedback"),
+    threadId: getPrivateThreadId(submission.studentId),
+    chatType: "private",
+    studentId: submission.studentId,
+    classLetter: submission.classLetter,
+    type: "text",
+    text: `Your homework needs redo.\n\nTeacher Feedback: ${feedback}\n\nPlease open the mission and resubmit when you are ready.`,
+    audioUrl: "",
+    senderId: currentUser?.id || "teacher-demo-user",
+    senderName: currentUser?.full_name || "Demo Teacher",
+    senderRole: currentUser?.role || "teacher",
+    missionId: submission.missionId,
+    submissionId: submission.id,
+    systemKind: "homework-rejected",
+    createdAt: new Date().toISOString()
+  };
+
+  chatMessages.push(message);
+  return message.id;
+}
+
+function publishAcceptedHomeworkToClass(submission) {
+  if (submission.sharedMessageId && chatMessages.some(function (message) { return message.id === submission.sharedMessageId; })) {
+    return submission.sharedMessageId;
+  }
+
+  const mission = getMissionById(submission.missionId);
+  const message = {
+    id: makeId("accepted-homework"),
+    threadId: getGroupThreadId(submission.classLetter),
+    chatType: "group",
+    classLetter: submission.classLetter,
+    type: "accepted-homework",
+    text: `Accepted homework from ${submission.studentName}.`,
+    audioUrl: submission.audioUrl || "",
+    senderId: currentUser?.id || "teacher-demo-user",
+    senderName: currentUser?.full_name || "Demo Teacher",
+    senderRole: currentUser?.role || "teacher",
+    missionId: submission.missionId,
+    submissionId: submission.id,
+    studentName: submission.studentName,
+    missionTitle: mission?.title || "Homework",
+    createdAt: new Date().toISOString()
+  };
+
+  chatMessages.push(message);
+  return message.id;
+}
+
 
 function downloadMissionSubmission(submissionId) {
   const submission = missionSubmissions.find(function (item) {
@@ -3697,7 +2861,7 @@ function openQuestionBank() {
       <section class="mission-bank-intro">
         <span class="mission-kicker">Teacher Library</span>
         <h2>Choose a ready mission, then edit it before sending.</h2>
-        <p>The Story Lab bank is now much richer: magical school stories, stage stories, confidence stories, mystery scenes, comedy disasters, and deeper teen prompts.</p>
+        <p>The Story Lab bank now uses character-based story sparks with age levels: 8–10, 11–13, 14–15, and 16–17+. Each spark gives a situation, but learners create the name, setting, conflict, and ending.</p>
         <div class="mission-mini-stats">
           <span>${getAllMissionBankItemCount()} total missions</span>
           <span>${storyLabTotal} Story Lab prompts</span>
@@ -3731,6 +2895,9 @@ function openQuestionBank() {
                   ${group.items.map(function (item) {
                     const config = getMissionTypeConfig(typeItem.id);
                     const characters = item.characters || config.defaultCharacters || [];
+                    const bankLine = config.usesChoices === false
+                      ? "Open imagination • no fixed characters"
+                      : characters.slice(0, 4).join(" • ");
                     const preview = item.teacherPreview || (Array.isArray(item.starters) && item.starters[0]) || config.builderIntro;
                     const category = item.category || getMissionTypeLabel(typeItem.id).replace(/[🎭🎙️📖🎬]/g, "").trim();
                     return `
@@ -3741,7 +2908,7 @@ function openQuestionBank() {
                         </div>
                         <h3>${clean(item.topic)}</h3>
                         <p>${clean(preview)}</p>
-                        <div class="bank-character-line">${clean(characters.slice(0, 4).join(" • "))}</div>
+                        <div class="bank-character-line">${clean(bankLine)}</div>
                         <div class="mission-actions-row bank-card-actions">
                           <button class="mission-primary-btn" type="button" data-mission-action="create" data-prefill-type="${clean(typeItem.id)}" data-prefill-level="${clean(item.level)}" data-prefill-bank-id="${clean(item.id)}">Use in Builder</button>
                         </div>
@@ -3786,6 +2953,13 @@ function openHomeworkTemplatesView() {
 }
 
 function makeMissionAnnouncementMessage(mission) {
+  const topicLabel = mission.type === "story-lab" ? "Story Spark" : "Topic";
+  const missionInstructions = mission.type === "story-lab" && mission.instructions
+    ? `
+
+${mission.instructions}`
+    : "";
+
   return {
     id: makeId(),
     threadId: getGroupThreadId(mission.classLetter),
@@ -3796,10 +2970,10 @@ function makeMissionAnnouncementMessage(mission) {
     missionTopic: mission.topic,
     text: `${getMissionIcon(mission.type)} New ${mission.title} Mission
 
-Topic: ${mission.topic}
+${topicLabel}: ${mission.topic}${missionInstructions}
 Deadline: ${mission.deadline}
 
-Dramagicians submit directly from this class group chat.`,
+Submit directly from this class group chat.`,
     audioUrl: "",
     senderId: currentUser?.id || "teacher-demo-user",
     senderName: currentUser?.full_name || "Demo Teacher",
@@ -3815,15 +2989,15 @@ function seedDemoMissionData() {
   const demoMission = {
     id: "mission-demo-class-a",
     classLetter: "A",
-    type: "character-arena",
-    title: "Character Arena",
+    type: "voice-imitation",
+    title: "Voice Imitation",
     level: "little-stars",
-    topic: "Should school bags have less books?",
-    characters: ["Tired School Bag 🎒", "Angry Pencil ✏️", "Happy Lunchbox 🍱", "Sleepy Student 😴"],
-    options: ["Yes", "No", "Maybe"],
-    requirements: ["Say who you are", "Say how you feel", "Give one reason", "End with a funny sentence"],
-    starters: ["Hello, I am...", "I feel...", "I want...", "Because...", "Goodbye!"],
-    instructions: "Choose one character and record a short voice note as that character. Make us believe the character is real.",
+    topic: "Say one sentence in three emotions: happy, angry, and scared.",
+    characters: ["Happy Voice 😀", "Angry Voice 😡", "Scared Voice 😱", "Confident Voice ⭐"],
+    options: ["Happy", "Angry", "Scared", "Confident"],
+    requirements: ["Copy the emotion", "Copy the pauses", "Clear pronunciation", "Same energy", "One strong final try"],
+    starters: ["Listen first: notice the speed, pauses, and feeling.", "Repeat slowly before recording.", "Focus on the mouth sounds and ending letters.", "Add facial expression while recording; it changes the voice.", "Record again if your first try feels flat."],
+    instructions: "Copy the voice, emotion, pronunciation, pauses, and tone. Send your best voice note.",
     deadline: "Next session",
     videoUrl: "",
     status: "active",
@@ -3836,8 +3010,20 @@ function seedDemoMissionData() {
 }
 
 function loadMissionData() {
-  missions = readArray(STORAGE_KEYS.missions).map(normalizeMission);
-  missionSubmissions = readArray(STORAGE_KEYS.missionSubmissions).map(normalizeMissionSubmission);
+  const allowedTypes = MISSION_TYPES.map(function (item) { return item.id; });
+
+  missions = readArray(STORAGE_KEYS.missions)
+    .map(normalizeMission)
+    .filter(function (mission) {
+      return allowedTypes.includes(mission.type);
+    });
+
+  missionSubmissions = readArray(STORAGE_KEYS.missionSubmissions)
+    .filter(function (submission) {
+      const mission = missions.find(function (item) { return item.id === submission.missionId; });
+      return !!mission;
+    });
+
   saveMissionData();
 }
 
@@ -3847,18 +3033,23 @@ function saveMissionData() {
 }
 
 function normalizeMission(mission) {
+  const incomingType = mission.type || "voice-imitation";
+  const allowedTypes = MISSION_TYPES.map(function (item) { return item.id; });
+  const safeType = allowedTypes.includes(incomingType) ? incomingType : "voice-imitation";
+  const config = getMissionTypeConfig(safeType);
+
   return {
     id: mission.id || makeId("mission"),
     classLetter: mission.classLetter || "A",
-    type: mission.type || "character-arena",
-    title: mission.title || "Character Arena",
+    type: safeType,
+    title: safeType === "story-lab" ? (mission.title || "Story Lab") : safeType === "dubbing-studio" ? (mission.title || "Dubbing Studio") : (mission.title || "Voice Imitation"),
     level: mission.level || "junior-actors",
-    topic: mission.topic || "Should students have homework every day?",
-    characters: Array.isArray(mission.characters) ? mission.characters : getDefaultCharactersForMissionType(mission.type || "character-arena"),
-    options: Array.isArray(mission.options) ? mission.options : getDefaultMissionOptions(mission.type || "character-arena"),
-    requirements: Array.isArray(mission.requirements) ? mission.requirements : getDefaultRequirementsForMissionType(mission.type || "character-arena"),
-    starters: Array.isArray(mission.starters) ? mission.starters : getDefaultStartersForMissionType(mission.type || "character-arena"),
-    instructions: mission.instructions || getDefaultMissionInstructions(mission.type || "character-arena"),
+    topic: mission.topic || (safeType === "story-lab" ? "Create a complete story from this spark." : safeType === "dubbing-studio" ? "Dub this scene with clear timing and emotion." : "Copy the voice, emotion, pronunciation, pauses, and tone."),
+    characters: Array.isArray(mission.characters) ? mission.characters : getDefaultCharactersForMissionType(safeType),
+    options: Array.isArray(mission.options) ? mission.options : getDefaultMissionOptions(safeType),
+    requirements: Array.isArray(mission.requirements) ? mission.requirements : getDefaultRequirementsForMissionType(safeType),
+    starters: Array.isArray(mission.starters) ? mission.starters : getDefaultStartersForMissionType(safeType),
+    instructions: mission.instructions || getDefaultMissionInstructions(safeType),
     deadline: mission.deadline || "Next session",
     videoUrl: mission.videoUrl || "",
     status: mission.status || "active",
@@ -3927,7 +3118,7 @@ function getMissionTypeLabel(type) {
     return item.id === type;
   });
 
-  return missionType ? missionType.label : "Character Arena 🎭";
+  return missionType ? missionType.label : "Voice Imitation 🎙️";
 }
 
 function getLevelLabel(level) {
@@ -3985,6 +3176,7 @@ function selectClassChannel(classLetter) {
   };
 
   saveActiveThread();
+  markActiveThreadAsRead();
 
   if (emojiPicker) emojiPicker.classList.add("hidden");
 
@@ -4018,6 +3210,7 @@ function selectPrivateChat(studentId) {
   };
 
   saveActiveThread();
+  markActiveThreadAsRead();
 
   if (emojiPicker) emojiPicker.classList.add("hidden");
 
@@ -4232,7 +3425,7 @@ function renderGroupHeader() {
   if (chatSubtitle) {
     chatSubtitle.textContent = isStudent()
       ? "Your class channel • everyone in this class can see this"
-      : "Teacher/CEO view • class group channel";
+      : "Teacher / CEO view • class group channel";
   }
 
   if (chatModePill) chatModePill.textContent = "Channel";
@@ -4260,8 +3453,10 @@ function renderPrivateHeader() {
   const student = getStudentById(activeThread.studentId) || getCurrentStudentRecord();
   const title = isStudent() ? "Private chat with your teacher" : student.full_name;
   const subtitle = isStudent()
-    ? "Only you and the teacher/CEO can see this"
-    : `Private chat • Class ${student.classLetter} • ${student.status}`;
+    ? "Private teacher chat"
+    : (isCEO()
+      ? `CEO oversight • Private chat • Class ${student.classLetter} • ${student.status}`
+      : `Private chat • Class ${student.classLetter} • ${student.status}`);
 
   if (activeClassIcon) {
     activeClassIcon.innerHTML = `<img src="${clean(getStudentAvatar(student))}" alt="${clean(student.full_name)} profile picture" />`;
@@ -4269,7 +3464,7 @@ function renderPrivateHeader() {
 
   if (chatTitle) chatTitle.textContent = title;
   if (chatSubtitle) chatSubtitle.textContent = subtitle;
-  if (chatModePill) chatModePill.textContent = "Private";
+  if (chatModePill) chatModePill.textContent = isCEO() ? "CEO View" : "Private";
 
   if (chatHomeworkCard) chatHomeworkCard.classList.add("hidden");
   if (chatHomeworkVideo) chatHomeworkVideo.classList.add("hidden");
@@ -4277,7 +3472,9 @@ function renderPrivateHeader() {
   if (chatInput) {
     chatInput.placeholder = isStudent()
       ? "Message your teacher privately..."
-      : `Message ${student.full_name} privately...`;
+      : (isCEO()
+        ? `Message or monitor ${student.full_name}'s private chat...`
+        : `Message ${student.full_name} privately...`);
   }
 }
 
@@ -4285,6 +3482,8 @@ function renderChatMessages() {
   if (!chatMessagesBox) return;
 
   if (activeThread.type === "template" || String(activeThread.type || "").startsWith("mission") || activeThread.type === "missions" || activeThread.type === "student-mission") return;
+
+  markActiveThreadAsRead();
 
   const threadMessages = getMessagesForThread(activeThread.id).sort(function (a, b) {
     return new Date(a.createdAt) - new Date(b.createdAt);
@@ -4397,8 +3596,8 @@ function renderEmptyThread() {
     return `
       <div class="chat-empty teams-empty">
         <div class="empty-icon">💬</div>
-        <strong>${isStudent() ? "Start your private teacher chat" : `Start a private chat with ${clean(student.full_name)}`}</strong>
-        <p>This message stays between the teacher/CEO and this Dramagician.</p>
+        <strong>${isStudent() ? "Start your private teacher chat" : (isCEO() ? `CEO oversight for ${clean(student.full_name)}` : `Start a private chat with ${clean(student.full_name)}`)}</strong>
+        <p>${isCEO() ? "You can see this private conversation for safety and quality control." : "Private support messages appear here."}</p>
       </div>
     `;
   }
@@ -4425,6 +3624,8 @@ function renderChatMessage(message) {
 
   if (message.type === "mission") {
     bodyHTML = renderMissionAnnouncementBubble(message);
+  } else if (message.type === "accepted-homework") {
+    bodyHTML = renderAcceptedHomeworkBubble(message);
   } else if (message.type === "voice") {
     bodyHTML = `
       <div class="voice-note">
@@ -4484,6 +3685,25 @@ function renderMissionAnnouncementBubble(message) {
   `;
 }
 
+function renderAcceptedHomeworkBubble(message) {
+  const mission = getMissionById(message.missionId);
+  const studentName = message.studentName || "Dramagician";
+
+  return `
+    <div class="mission-chat-announcement accepted-homework-announcement">
+      <div class="mission-announcement-title">
+        <span>✅</span>
+        <strong>Accepted Homework</strong>
+      </div>
+      <p><strong>Student:</strong> ${clean(studentName)}</p>
+      <p><strong>Mission:</strong> ${clean(mission?.title || message.missionTitle || "Homework")}</p>
+      ${message.audioUrl ? `<audio controls src="${clean(message.audioUrl)}"></audio>` : `<div class="mission-demo-audio compact-demo-audio">🎙️ Accepted demo voice note</div>`}
+      <p class="mission-small-note">This was shared only after teacher acceptance.</p>
+    </div>
+  `;
+}
+
+
 function sendTextMessage() {
   if (!currentUser || !chatInput) return;
 
@@ -4503,6 +3723,7 @@ function sendTextMessage() {
 
   chatMessages.push(message);
   saveChatData();
+  markActiveThreadAsRead();
 
   chatInput.value = "";
   autoResizeChatInput();
@@ -4646,6 +3867,7 @@ function handleVoiceRecordingFinished() {
 
     try {
       saveChatData();
+      markActiveThreadAsRead();
     } catch (error) {
       console.error(error);
       alert("The voice note is too large for demo localStorage. Try recording a shorter voice note.");
@@ -4992,7 +4214,13 @@ function isStudent() {
 }
 
 function canOpenPrivateThread(studentId) {
+  // CEO can audit/open every private chat for safety and quality control.
+  if (isCEO()) return true;
+
+  // Teacher demo access: teachers can open learner private chats.
+  // Later with Supabase, restrict this by teacher-class assignment.
   if (canSeeTeacherArea()) return true;
+
   if (!isStudent()) return false;
 
   return getCurrentStudentRecord().id === studentId;

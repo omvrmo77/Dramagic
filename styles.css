@@ -834,28 +834,6 @@ footer {
 }
 
 
-/* ===============================
-   HOMEWORK CHAT LAUNCH
-================================ */
-
-.class-badge {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  width: fit-content;
-  padding: 9px 14px;
-  border-radius: 999px;
-  color: var(--blue-dark);
-  background: var(--blue-soft);
-  font-size: 13px;
-  font-weight: 900;
-  white-space: nowrap;
-}
-
-.class-select {
-  width: 100%;
-  min-width: 180px;
-}
 
 /* ===============================
    GUEST NEWS PAGE
@@ -1312,18 +1290,58 @@ footer {
   }
 
   .site-header {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr) auto auto;
     gap: 10px;
-    padding: 12px 14px;
+    padding: 10px 12px;
+  }
+
+  .brand {
+    min-width: 0;
+  }
+
+  .brand strong {
+    max-width: 140px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .brand span {
     display: none;
   }
 
-  .nav {
-    justify-content: flex-start;
-    width: 100%;
+  .mobile-menu-btn {
+    display: inline-grid;
+  }
+
+  .site-header > .nav {
+    display: none;
+  }
+
+  .user-menu {
+    justify-self: end;
+  }
+
+  .user-menu-btn {
+    min-width: 48px;
+    height: 48px;
+    padding: 4px;
+    gap: 0;
+  }
+
+  .user-menu-btn span,
+  .user-menu-btn b {
+    display: none;
+  }
+
+  .nav-profile-pic {
+    width: 40px;
+    height: 40px;
+  }
+
+  .user-dropdown {
+    right: -4px;
+    width: 180px;
   }
 
   .user-box {
@@ -1488,16 +1506,7 @@ footer {
     width: 100%;
     padding: 28px 18px 40px;
   }
-
-  .chat-launch-content {
-    display: grid;
-  }
-
-  .chat-launch-actions {
-    min-width: 0;
-  }
-
-  .guest-header {
+.guest-header {
     align-items: stretch;
     flex-direction: column;
   }
@@ -1611,6 +1620,184 @@ footer {
   background: linear-gradient(135deg, #00aeef, #7edcff);
   color: #ffffff;
   box-shadow: 0 8px 22px rgba(0, 174, 239, 0.22);
+}
+
+
+/* ===============================
+   MOBILE HAMBURGER APP MENU
+================================ */
+
+.mobile-menu-btn {
+  width: 48px;
+  height: 48px;
+  border: 0;
+  border-radius: 18px;
+  background: var(--blue-soft);
+  display: none;
+  place-items: center;
+  gap: 4px;
+  cursor: pointer;
+  box-shadow: 0 10px 26px rgba(0, 122, 167, 0.10);
+}
+
+.mobile-menu-btn span {
+  width: 20px;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--blue-dark);
+}
+
+.mobile-nav-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 950;
+  background: rgba(7, 19, 27, 0.34);
+  backdrop-filter: blur(8px);
+}
+
+.mobile-nav-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 960;
+  width: min(350px, calc(100% - 42px));
+  height: 100svh;
+  padding: max(16px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom));
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 16px;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(8, 169, 217, 0.16), transparent 260px),
+    rgba(255, 255, 255, 0.96);
+  border-left: 1px solid rgba(8, 169, 217, 0.16);
+  box-shadow: -22px 0 70px rgba(0, 35, 55, 0.18);
+  backdrop-filter: blur(20px);
+  animation: mobileMenuIn 0.22s ease both;
+}
+
+.mobile-nav-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(8, 169, 217, 0.14);
+}
+
+.mobile-nav-head strong,
+.mobile-nav-head span {
+  display: block;
+}
+
+.mobile-nav-head strong {
+  color: var(--ink);
+  font-size: 20px;
+  letter-spacing: -0.5px;
+}
+
+.mobile-nav-head span {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.mobile-nav-close {
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 16px;
+  color: var(--blue-dark);
+  background: var(--blue-soft);
+  font-size: 28px;
+  line-height: 1;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.mobile-nav-links {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+.mobile-nav-link {
+  min-height: 52px;
+  padding: 0 15px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(8, 169, 217, 0.14);
+  box-shadow: 0 10px 24px rgba(0, 122, 167, 0.06);
+  font-size: 15px;
+  font-weight: 950;
+}
+
+.mobile-nav-link::after {
+  content: "›";
+  color: var(--blue-dark);
+  font-size: 22px;
+}
+
+.mobile-nav-link.active,
+.mobile-nav-link:hover {
+  color: white;
+  background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+  border-color: transparent;
+}
+
+.mobile-nav-link.active::after,
+.mobile-nav-link:hover::after {
+  color: white;
+}
+
+.mobile-nav-footer {
+  display: grid;
+  gap: 10px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(8, 169, 217, 0.14);
+}
+
+.mobile-nav-footer a,
+.mobile-nav-footer button {
+  width: 100%;
+  min-height: 46px;
+  border: 0;
+  border-radius: 16px;
+  padding: 0 14px;
+  display: flex;
+  align-items: center;
+  color: var(--ink);
+  background: rgba(8, 169, 217, 0.08);
+  font-weight: 900;
+  text-align: left;
+  cursor: pointer;
+}
+
+.mobile-nav-footer button {
+  color: var(--danger);
+  background: #fff0f0;
+}
+
+body.mobile-menu-open {
+  overflow: hidden;
+}
+
+@keyframes mobileMenuIn {
+  from {
+    opacity: 0;
+    transform: translateX(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 /* ===============================
@@ -1778,6 +1965,30 @@ body.dark-mode .user-dropdown button {
 
 body.dark-mode .ghost-btn,
 body.dark-mode .guest-btn {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+
+body.dark-mode .mobile-nav-panel {
+  background:
+    radial-gradient(circle at 20% 0%, rgba(8, 169, 217, 0.18), transparent 260px),
+    rgba(12, 29, 40, 0.96);
+  border-color: rgba(255, 255, 255, 0.10);
+}
+
+body.dark-mode .mobile-nav-link {
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.10);
+}
+
+body.dark-mode .mobile-nav-link.active,
+body.dark-mode .mobile-nav-link:hover {
+  color: white;
+}
+
+body.dark-mode .mobile-nav-footer a {
+  color: var(--ink);
   background: rgba(255, 255, 255, 0.08);
 }
 
@@ -2792,4 +3003,586 @@ body.dark-mode .guest-timeline-year::after {
   .guest-stage-orbit {
     height: 245px;
   }
+}
+
+/* Keep the hamburger visible on mobile after the shared menu rules load. */
+@media (max-width: 850px) {
+  .mobile-menu-btn {
+    display: inline-grid;
+  }
+
+  .site-header > .nav {
+    display: none;
+  }
+}
+
+/* =====================================================
+   MOBILE HEADER FINAL FIX
+   Logo + circular profile picture + hamburger only.
+   This block is intentionally at the end to override older
+   user-menu rules that made the profile pill too wide.
+===================================================== */
+@media (max-width: 850px) {
+  .site-header {
+    display: flex !important;
+    grid-template-columns: none !important;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    min-height: 72px;
+  }
+
+  .brand {
+    flex: 0 0 auto;
+    min-width: 0;
+  }
+
+  .brand img {
+    width: 48px;
+    height: 48px;
+  }
+
+  .brand > div {
+    display: none !important;
+  }
+
+  .site-header > .nav {
+    display: none !important;
+  }
+
+  .user-menu {
+    order: 2;
+    flex: 0 0 auto;
+    margin-left: auto;
+    justify-self: auto;
+  }
+
+  .mobile-menu-btn {
+    order: 3;
+    flex: 0 0 48px;
+    display: inline-grid !important;
+  }
+
+  .user-menu-btn {
+    width: 48px !important;
+    min-width: 48px !important;
+    max-width: 48px !important;
+    height: 48px !important;
+    padding: 3px !important;
+    border-radius: 50% !important;
+    gap: 0 !important;
+    overflow: hidden;
+    background: var(--blue-soft) !important;
+    box-shadow: 0 10px 26px rgba(0, 122, 167, 0.10);
+  }
+
+  .user-menu-btn > span,
+  .user-menu-btn > b {
+    display: none !important;
+  }
+
+  .nav-profile-pic {
+    width: 42px !important;
+    height: 42px !important;
+    min-width: 42px !important;
+    border-radius: 50% !important;
+    object-fit: cover;
+    display: block;
+  }
+
+  .user-dropdown {
+    right: 0;
+    width: 190px;
+  }
+}
+
+/* =====================================================
+   HAMBURGER ICON FINAL SPACING FIX
+   Makes the 3 lines look like a standard compact hamburger.
+===================================================== */
+@media (max-width: 850px) {
+  .mobile-menu-btn {
+    display: inline-flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 4px !important;
+    line-height: 0 !important;
+  }
+
+  .mobile-menu-btn span {
+    display: block !important;
+    width: 22px !important;
+    height: 2px !important;
+    min-height: 2px !important;
+    margin: 0 !important;
+    border-radius: 999px !important;
+  }
+}
+
+/* =====================================================
+   DRAMAGIC DARK MODE COHESION PATCH
+   Fixes logo stage/orbit cards + public story dark mode.
+===================================================== */
+html.dark-mode body,
+body.dark-mode {
+  --ink: #f4fbff;
+  --muted: #b8c9d6;
+  --blue-soft: rgba(8, 169, 217, 0.16);
+  background:
+    radial-gradient(circle at 12% 0%, rgba(8, 169, 217, 0.16), transparent 340px),
+    radial-gradient(circle at 88% 12%, rgba(91, 83, 255, 0.10), transparent 360px),
+    linear-gradient(180deg, #07131b 0%, #0b1d28 55%, #07131b 100%) !important;
+}
+
+html.dark-mode .guest-public-page,
+body.dark-mode .guest-public-page,
+html.dark-mode .app,
+body.dark-mode .app {
+  color: var(--ink) !important;
+}
+
+html.dark-mode .guest-public-body,
+body.dark-mode.guest-public-body,
+html.dark-mode body.guest-public-body {
+  background:
+    radial-gradient(circle at 12% 0%, rgba(8, 169, 217, 0.16), transparent 340px),
+    radial-gradient(circle at 82% 8%, rgba(9, 126, 167, 0.12), transparent 360px),
+    linear-gradient(180deg, #07131b 0%, #0b1d28 55%, #07131b 100%) !important;
+}
+
+html.dark-mode .site-header,
+html.dark-mode .guest-header,
+body.dark-mode .site-header,
+body.dark-mode .guest-header {
+  background: rgba(8, 19, 28, 0.82) !important;
+  border-color: rgba(255, 255, 255, 0.10) !important;
+  box-shadow: 0 18px 55px rgba(0, 0, 0, 0.24) !important;
+}
+
+html.dark-mode .brand strong,
+html.dark-mode .guest-brand strong,
+html.dark-mode .guest-story-copy h1,
+html.dark-mode .section-title h2,
+html.dark-mode .guest-story-feature h3,
+html.dark-mode .guest-timeline-card h3,
+html.dark-mode .guest-news-card h3,
+html.dark-mode .guest-gallery-card h3,
+body.dark-mode .brand strong,
+body.dark-mode .guest-brand strong,
+body.dark-mode .guest-story-copy h1,
+body.dark-mode .section-title h2,
+body.dark-mode .guest-story-feature h3,
+body.dark-mode .guest-timeline-card h3,
+body.dark-mode .guest-news-card h3,
+body.dark-mode .guest-gallery-card h3 {
+  color: #f4fbff !important;
+}
+
+html.dark-mode .guest-story-copy p,
+html.dark-mode .section-title p,
+html.dark-mode .guest-hero-lead,
+html.dark-mode .guest-story-feature p,
+html.dark-mode .guest-timeline-card p,
+html.dark-mode .guest-news-card p,
+html.dark-mode .guest-gallery-card p,
+body.dark-mode .guest-story-copy p,
+body.dark-mode .section-title p,
+body.dark-mode .guest-hero-lead,
+body.dark-mode .guest-story-feature p,
+body.dark-mode .guest-timeline-card p,
+body.dark-mode .guest-news-card p,
+body.dark-mode .guest-gallery-card p {
+  color: #b8c9d6 !important;
+}
+
+html.dark-mode .magic-stage,
+body.dark-mode .magic-stage,
+html.dark-mode .guest-stage-card,
+body.dark-mode .guest-stage-card {
+  background:
+    radial-gradient(circle at 50% 40%, rgba(8, 169, 217, 0.18), transparent 210px),
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.06), transparent 260px),
+    linear-gradient(135deg, rgba(7, 19, 27, 0.96), rgba(12, 39, 54, 0.88)) !important;
+  border-color: rgba(8, 169, 217, 0.22) !important;
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.32) !important;
+}
+
+html.dark-mode .magic-stage::before,
+body.dark-mode .magic-stage::before {
+  background:
+    radial-gradient(circle, transparent 44%, rgba(8, 169, 217, 0.16) 45%, transparent 63%) !important;
+}
+
+html.dark-mode .orbit-ring,
+body.dark-mode .orbit-ring,
+html.dark-mode .guest-stage-card::before,
+html.dark-mode .guest-stage-card::after,
+body.dark-mode .guest-stage-card::before,
+body.dark-mode .guest-stage-card::after {
+  border-color: rgba(8, 169, 217, 0.22) !important;
+  opacity: 0.85 !important;
+}
+
+html.dark-mode .orbit-word,
+body.dark-mode .orbit-word,
+html.dark-mode .guest-stage-orbit span,
+body.dark-mode .guest-stage-orbit span {
+  color: #eaffff !important;
+  background: rgba(8, 169, 217, 0.14) !important;
+  border-color: rgba(111, 223, 255, 0.22) !important;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.18) !important;
+  opacity: 0.92 !important;
+}
+
+html.dark-mode .guest-stage-quote,
+body.dark-mode .guest-stage-quote {
+  background: rgba(7, 19, 27, 0.84) !important;
+  border-color: rgba(255, 255, 255, 0.10) !important;
+}
+
+html.dark-mode .guest-story-feature article,
+html.dark-mode .guest-hero-micro-grid article,
+html.dark-mode .guest-timeline-card,
+html.dark-mode .guest-timeline-year,
+html.dark-mode .guest-news-card,
+html.dark-mode .guest-gallery-card,
+html.dark-mode .guest-manager-card,
+html.dark-mode .guest-manager-shell,
+body.dark-mode .guest-story-feature article,
+body.dark-mode .guest-hero-micro-grid article,
+body.dark-mode .guest-timeline-card,
+body.dark-mode .guest-timeline-year,
+body.dark-mode .guest-news-card,
+body.dark-mode .guest-gallery-card,
+body.dark-mode .guest-manager-card,
+body.dark-mode .guest-manager-shell {
+  background: rgba(12, 29, 40, 0.88) !important;
+  border-color: rgba(255, 255, 255, 0.10) !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.22) !important;
+}
+
+html.dark-mode .guest-hero-micro-grid strong,
+body.dark-mode .guest-hero-micro-grid strong,
+html.dark-mode .guest-story-copy h1 span,
+body.dark-mode .guest-story-copy h1 span,
+html.dark-mode .section-title h2 span,
+body.dark-mode .section-title h2 span {
+  color: #08a9d9 !important;
+}
+
+html.dark-mode .guest-final-cta,
+body.dark-mode .guest-final-cta {
+  background:
+    radial-gradient(circle at 18% 0%, rgba(255, 255, 255, 0.16), transparent 220px),
+    linear-gradient(135deg, #075a77, #08a9d9) !important;
+}
+
+/* =====================================================
+   DRAMAGIC LOGO ORBIT — PLANET STYLE
+   Each word now moves on its own orbit with its own speed.
+===================================================== */
+.orbit-words {
+  animation: none !important;
+  width: 440px;
+  height: 440px;
+  pointer-events: none;
+}
+
+.orbit-word {
+  left: 50% !important;
+  top: 50% !important;
+  transform-origin: center center !important;
+  will-change: transform;
+  animation-duration: var(--orbit-speed, 24s) !important;
+  animation-timing-function: linear !important;
+  animation-iteration-count: infinite !important;
+  animation-delay: var(--orbit-delay, 0s) !important;
+}
+
+.word-1 {
+  --word-orbit-r: 205px;
+  --orbit-speed: 30s;
+  --orbit-delay: -3s;
+  animation-name: wordPlanetOrbit1 !important;
+}
+
+.word-2 {
+  --word-orbit-r: 170px;
+  --orbit-speed: 23s;
+  --orbit-delay: -8s;
+  animation-name: wordPlanetOrbit2 !important;
+}
+
+.word-3 {
+  --word-orbit-r: 190px;
+  --orbit-speed: 34s;
+  --orbit-delay: -14s;
+  animation-name: wordPlanetOrbit3 !important;
+}
+
+.word-4 {
+  --word-orbit-r: 155px;
+  --orbit-speed: 27s;
+  --orbit-delay: -18s;
+  animation-name: wordPlanetOrbit4 !important;
+}
+
+.word-5 {
+  --word-orbit-r: 215px;
+  --orbit-speed: 38s;
+  --orbit-delay: -24s;
+  animation-name: wordPlanetOrbit5 !important;
+}
+
+@keyframes wordPlanetOrbit1 {
+  from { transform: translate(-50%, -50%) rotate(0deg) translateX(var(--word-orbit-r)) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg) translateX(var(--word-orbit-r)) rotate(-360deg); }
+}
+
+@keyframes wordPlanetOrbit2 {
+  from { transform: translate(-50%, -50%) rotate(72deg) translateX(var(--word-orbit-r)) rotate(-72deg); }
+  to { transform: translate(-50%, -50%) rotate(432deg) translateX(var(--word-orbit-r)) rotate(-432deg); }
+}
+
+@keyframes wordPlanetOrbit3 {
+  from { transform: translate(-50%, -50%) rotate(144deg) translateX(var(--word-orbit-r)) rotate(-144deg); }
+  to { transform: translate(-50%, -50%) rotate(504deg) translateX(var(--word-orbit-r)) rotate(-504deg); }
+}
+
+@keyframes wordPlanetOrbit4 {
+  from { transform: translate(-50%, -50%) rotate(216deg) translateX(var(--word-orbit-r)) rotate(-216deg); }
+  to { transform: translate(-50%, -50%) rotate(576deg) translateX(var(--word-orbit-r)) rotate(-576deg); }
+}
+
+@keyframes wordPlanetOrbit5 {
+  from { transform: translate(-50%, -50%) rotate(288deg) translateX(var(--word-orbit-r)) rotate(-288deg); }
+  to { transform: translate(-50%, -50%) rotate(648deg) translateX(var(--word-orbit-r)) rotate(-648deg); }
+}
+
+@media (max-width: 850px) {
+  .orbit-words {
+    width: 330px;
+    height: 330px;
+  }
+
+  .word-1 { --word-orbit-r: 150px; }
+  .word-2 { --word-orbit-r: 123px; }
+  .word-3 { --word-orbit-r: 140px; }
+  .word-4 { --word-orbit-r: 112px; }
+  .word-5 { --word-orbit-r: 155px; }
+}
+
+@media (max-width: 390px) {
+  .orbit-words {
+    width: 300px;
+    height: 300px;
+  }
+
+  .word-1 { --word-orbit-r: 136px; }
+  .word-2 { --word-orbit-r: 112px; }
+  .word-3 { --word-orbit-r: 126px; }
+  .word-4 { --word-orbit-r: 102px; }
+  .word-5 { --word-orbit-r: 140px; }
+}
+
+
+/* ===============================
+   PARENT ATTENDANCE + WEEKLY AGENDA FIXES
+================================ */
+
+.parent-progress-card.clickable-card,
+.parent-attendance-card {
+  display: grid;
+  color: inherit;
+  text-decoration: none;
+}
+
+.parent-progress-card.clickable-card:hover,
+.parent-attendance-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 22px 60px rgba(0, 122, 167, 0.18);
+}
+
+.parent-attendance-card strong::after {
+  content: " →";
+  color: var(--blue);
+}
+
+.agenda-status-note {
+  margin-top: 10px;
+  color: var(--muted);
+  font-weight: 800;
+}
+
+@media (max-width: 720px) {
+  .parent-progress-grid,
+  .parent-action-grid,
+  .cards-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .parent-child-hero {
+    grid-template-columns: 1fr !important;
+    text-align: left;
+  }
+
+  .parent-rank-badge {
+    justify-self: start;
+  }
+}
+
+
+/* Connected Dramagic points copy */
+.parent-progress-card small {
+  line-height: 1.45;
+}
+
+
+/* =====================================================
+   DARK MODE READABILITY FINAL PATCH
+   Keeps text readable on cards, panels, forms, tables, and drawers.
+===================================================== */
+html.dark-mode,
+body.dark-mode {
+  --white: rgba(12, 29, 40, 0.94);
+  --ink: #f4fbff;
+  --muted: #b8c9d6;
+  --blue-soft: rgba(8, 169, 217, 0.18);
+}
+
+html.dark-mode body,
+body.dark-mode {
+  color: #f4fbff !important;
+}
+
+html.dark-mode .auth-card,
+html.dark-mode .info-card,
+html.dark-mode .stat-card,
+html.dark-mode .summary-card,
+html.dark-mode .panel,
+html.dark-mode .status-card,
+html.dark-mode .personal-card,
+html.dark-mode .guest-manager-card,
+html.dark-mode .guest-timeline-card,
+html.dark-mode .guest-news-card,
+html.dark-mode .guest-gallery-card,
+html.dark-mode .parent-progress-card,
+html.dark-mode .parent-attendance-card,
+html.dark-mode .leaderboard-mini-card,
+html.dark-mode .leaderboard-hero-card,
+body.dark-mode .auth-card,
+body.dark-mode .info-card,
+body.dark-mode .stat-card,
+body.dark-mode .summary-card,
+body.dark-mode .panel,
+body.dark-mode .status-card,
+body.dark-mode .personal-card,
+body.dark-mode .guest-manager-card,
+body.dark-mode .guest-timeline-card,
+body.dark-mode .guest-news-card,
+body.dark-mode .guest-gallery-card,
+body.dark-mode .parent-progress-card,
+body.dark-mode .parent-attendance-card,
+body.dark-mode .leaderboard-mini-card,
+body.dark-mode .leaderboard-hero-card {
+  background: rgba(12, 29, 40, 0.94) !important;
+  color: #f4fbff !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+html.dark-mode .auth-card h1,
+html.dark-mode .auth-card h2,
+html.dark-mode .auth-card h3,
+html.dark-mode .info-card h3,
+html.dark-mode .panel h2,
+html.dark-mode .panel h3,
+html.dark-mode .status-card h3,
+html.dark-mode .summary-card h3,
+html.dark-mode .leaderboard-mini-card strong,
+html.dark-mode .leaderboard-hero-card strong,
+body.dark-mode .auth-card h1,
+body.dark-mode .auth-card h2,
+body.dark-mode .auth-card h3,
+body.dark-mode .info-card h3,
+body.dark-mode .panel h2,
+body.dark-mode .panel h3,
+body.dark-mode .status-card h3,
+body.dark-mode .summary-card h3,
+body.dark-mode .leaderboard-mini-card strong,
+body.dark-mode .leaderboard-hero-card strong {
+  color: #f4fbff !important;
+}
+
+html.dark-mode .auth-card p,
+html.dark-mode .info-card p,
+html.dark-mode .panel p,
+html.dark-mode .status-card p,
+html.dark-mode .summary-card p,
+html.dark-mode .leaderboard-mini-card small,
+html.dark-mode .leaderboard-mini-card span,
+body.dark-mode .auth-card p,
+body.dark-mode .info-card p,
+body.dark-mode .panel p,
+body.dark-mode .status-card p,
+body.dark-mode .summary-card p,
+body.dark-mode .leaderboard-mini-card small,
+body.dark-mode .leaderboard-mini-card span {
+  color: #b8c9d6 !important;
+}
+
+html.dark-mode input,
+html.dark-mode textarea,
+html.dark-mode select,
+body.dark-mode input,
+body.dark-mode textarea,
+body.dark-mode select {
+  background: rgba(255, 255, 255, 0.09) !important;
+  color: #f4fbff !important;
+  border-color: rgba(255, 255, 255, 0.14) !important;
+}
+
+html.dark-mode input::placeholder,
+html.dark-mode textarea::placeholder,
+body.dark-mode input::placeholder,
+body.dark-mode textarea::placeholder {
+  color: rgba(244, 251, 255, 0.58) !important;
+}
+
+html.dark-mode table,
+body.dark-mode table {
+  color: #f4fbff !important;
+}
+
+html.dark-mode th,
+html.dark-mode td,
+body.dark-mode th,
+body.dark-mode td {
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+html.dark-mode .ghost-btn,
+html.dark-mode .guest-btn,
+body.dark-mode .ghost-btn,
+body.dark-mode .guest-btn {
+  color: #f4fbff !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(255, 255, 255, 0.16) !important;
+}
+
+/* Extra auth readability guard after removing chat */
+html.dark-mode .auth-tabs,
+body.dark-mode .auth-tabs {
+  background: rgba(255, 255, 255, 0.06) !important;
+}
+
+html.dark-mode .auth-tabs .tab-btn,
+body.dark-mode .auth-tabs .tab-btn {
+  color: #f4fbff !important;
+}
+
+html.dark-mode .auth-tabs .tab-btn.active,
+body.dark-mode .auth-tabs .tab-btn.active {
+  color: #ffffff !important;
+  background: linear-gradient(135deg, #08a9d9, #007aa7) !important;
 }

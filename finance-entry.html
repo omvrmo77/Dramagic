@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>إدخال الدفعات | Dramagic</title>
+  <link rel="stylesheet" href="finance.css" />
+  <link rel="stylesheet" href="finance-entry.css" />
+  <link rel="stylesheet" href="dramagic-nav.css" />
+<!-- Dramagic PWA -->
+<link rel="manifest" href="manifest.json" />
+<link rel="icon" href="favicon.ico" />
+<link rel="apple-touch-icon" href="assets/icons/icon-180.png" />
+<meta name="theme-color" content="#08a9d9" />
+<meta name="application-name" content="Dramagic" />
+<meta name="apple-mobile-web-app-title" content="Dramagic" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+</head>
+<body class="finance-entry-body">
+  <section class="finance-lock hidden" id="entryAccessDenied">
+    <div class="lock-card">
+      <img alt="Dramagic Logo" class="lock-logo" src="dramagic-logo.png" />
+      <p class="eyebrow">صفحة محدودة</p>
+      <h1>إدخال الدفعات فقط</h1>
+      <p class="lock-text" id="entryDeniedText">
+        هذه الصفحة مخصصة لحساب مسؤول إدخال الدفعات فقط، أو حساب CEO.
+      </p>
+      <a class="btn primary-btn" href="auth.html#signin">تسجيل الدخول</a>
+      <a class="back-link" href="auth.html#home">العودة إلى اللوحة</a>
+    </div>
+  </section>
+
+  <section class="finance-lock hidden" id="entryPasswordLock">
+    <div class="lock-card">
+      <img alt="Dramagic Logo" class="lock-logo" src="dramagic-logo.png" />
+      <p class="eyebrow">حماية إضافية</p>
+      <h1>كلمة مرور إدخال الدفعات</h1>
+      <p class="lock-text">
+        حتى لو وصل أحد إلى رابط الصفحة، يجب إدخال كلمة المرور قبل فتح بيانات الدفعات والمتبقيات.
+      </p>
+      <form class="password-form" id="entryPasswordForm">
+        <label>
+          كلمة المرور
+          <input autocomplete="current-password" id="entryPassword" placeholder="اكتب كلمة مرور إدخال الدفعات" required type="password" />
+        </label>
+        <button class="btn primary-btn" type="submit">فتح صفحة الدفعات</button>
+        <div class="form-message" id="entryPasswordMessage"></div>
+      </form>
+      <a class="back-link" href="auth.html#home">العودة إلى اللوحة</a>
+    </div>
+  </section>
+
+  <div class="finance-entry-app hidden" id="entryApp">
+    <div id="dramagicGlobalNav"></div>
+
+    <header class="finance-header entry-header">
+      <a class="brand" href="auth.html#home">
+        <img alt="Dramagic Logo" src="dramagic-logo.png" />
+        <div>
+          <strong>Dramagic</strong>
+          <span>إدخال الدفعات</span>
+        </div>
+      </a>
+      <div class="entry-header-note">صلاحية محدودة، لا يوجد ملخص أرباح أو مصروفات</div>
+      <div class="entry-header-actions">
+        <button class="btn danger-btn" id="lockEntryPageBtn" type="button">قفل الصفحة</button>
+        <a class="btn secondary-btn" href="auth.html#home">الرئيسية</a>
+      </div>
+    </header>
+
+    <main class="finance-main entry-main">
+      <section class="finance-mobile-hero entry-hero">
+        <div>
+          <p class="eyebrow">Payment Entry</p>
+          <h1>إدخال دفعات الطلاب</h1>
+          <p>
+            هذه صفحة تشغيلية فقط لإضافة دفعة طالب أو قسط جديد ومتابعة الطلاب المتبقي عليهم دفعات، بدون عرض إجمالي الإيرادات أو عدد الطلاب أو الأرباح.
+          </p>
+        </div>
+      </section>
+
+      <section class="entry-layout">
+        <article class="panel finance-form-card entry-card">
+          <div class="panel-heading compact-heading">
+            <div>
+              <p class="eyebrow">دفعة طالب</p>
+              <h2 id="entryFormTitle">إضافة دفعة طالب</h2>
+              <p id="entryModeNote">أدخل بيانات الطالب والدفعة. إذا كان الطالب موجودًا، اضغط “إضافة قسط” من القائمة.</p>
+            </div>
+            <button class="btn secondary-btn hidden" id="cancelInstallmentBtn" type="button">إلغاء القسط</button>
+          </div>
+
+          <form id="entryStudentForm">
+            <label>
+              اسم الطالب
+              <input id="entryStudentName" placeholder="مثال: جنا أحمد" required type="text" />
+            </label>
+
+            <label>
+              اسم ولي الأمر
+              <input id="entryParentName" placeholder="مثال: أحمد محمد" type="text" />
+            </label>
+
+            <label>
+              الكورس / المجموعة
+              <input id="entryStudentCourse" placeholder="مثال: كورس الصيف" type="text" />
+            </label>
+
+            <div class="two-cols">
+              <label>
+                إجمالي مصروفات الطالب
+                <input id="entryStudentFee" min="0" placeholder="3000" required type="number" />
+              </label>
+
+              <label>
+                قيمة الدفعة الحالية
+                <input id="entryStudentPaid" min="0" placeholder="1000" required type="number" />
+              </label>
+            </div>
+
+            <div class="two-cols">
+              <label>
+                تاريخ ووقت الدفع
+                <input id="entryStudentDate" required type="datetime-local" />
+              </label>
+
+              <label>
+                طريقة الدفع
+                <select id="entryStudentPaymentMethod">
+                  <option>كاش</option>
+                  <option>فودافون كاش</option>
+                  <option>تحويل بنكي</option>
+                  <option>إنستاباي</option>
+                  <option>أخرى</option>
+                </select>
+              </label>
+            </div>
+
+            <label>
+              البيان / سبب الدفع
+              <input id="entryStudentPaymentFor" placeholder="مثال: دفعة كورس / قسط جديد / باقي مصاريف" type="text" />
+            </label>
+
+            <label>
+              ملاحظات
+              <textarea id="entryStudentNotes" placeholder="مثال: تم الدفع كاش والمتبقي الأسبوع القادم" rows="3"></textarea>
+            </label>
+
+            <button class="btn primary-btn full-mobile-btn" id="entrySubmitBtn" type="submit">حفظ الدفعة</button>
+          </form>
+        </article>
+
+        <article class="panel records-panel entry-card">
+          <div class="records-top entry-records-top">
+            <div>
+              <p class="eyebrow">المتبقيات</p>
+              <h2>طلاب عليهم باقي</h2>
+              <p>تظهر البيانات اللازمة للتحصيل فقط، بدون أي ملخص إجمالي.</p>
+            </div>
+            <label class="entry-toggle">
+              <input id="entryDueOnly" type="checkbox" checked />
+              عرض المتبقي فقط
+            </label>
+          </div>
+
+          <input id="entryStudentSearch" placeholder="بحث باسم الطالب أو ولي الأمر أو المجموعة..." type="search" />
+          <div class="entry-helper-note">لا يتم عرض عدد الطلاب أو إجمالي التحصيل في هذه الصفحة.</div>
+          <div class="records-list entry-records-list" id="entryStudentsList"></div>
+        </article>
+      </section>
+
+      <section class="panel entry-receipt-panel">
+        <div class="panel-heading compact-heading">
+          <div>
+            <p class="eyebrow">إيصال سريع</p>
+            <h2>آخر دفعة تم حفظها</h2>
+            <p>يمكن طباعة إيصال للدفعة التي تم إدخالها فقط.</p>
+          </div>
+          <button class="btn secondary-btn" id="entryPrintReceiptBtn" type="button">طباعة الإيصال</button>
+        </div>
+
+        <article class="receipt-paper entry-receipt-paper" id="entryReceiptPaper">
+          <div class="receipt-watermark">Dramagic</div>
+          <header class="receipt-top">
+            <img alt="Dramagic Logo" src="dramagic-logo.png" />
+            <div>
+              <h2>إيصال قبض</h2>
+              <p>Dramagic English Drama Academy</p>
+            </div>
+          </header>
+          <div class="receipt-meta">
+            <span>رقم: <strong id="entryPaperNumber">---</strong></span>
+            <span>التاريخ: <strong id="entryPaperDate">---</strong></span>
+          </div>
+          <div class="receipt-body">
+            <p id="entryPaperMainText">سيظهر الإيصال هنا بعد حفظ دفعة طالب.</p>
+            <div class="receipt-lines">
+              <div><span>الاسم / ولي الأمر</span><strong id="entryPaperPerson">---</strong></div>
+              <div><span>اسم الطالب</span><strong id="entryPaperStudent">---</strong></div>
+              <div><span>المجموعة</span><strong id="entryPaperGroup">---</strong></div>
+              <div><span>المبلغ</span><strong id="entryPaperAmount">---</strong></div>
+              <div><span>طريقة الدفع</span><strong id="entryPaperMethod">---</strong></div>
+              <div><span>البيان</span><strong id="entryPaperReason">---</strong></div>
+              <div><span>ملاحظات</span><strong id="entryPaperNotes">---</strong></div>
+            </div>
+          </div>
+          <footer class="receipt-signatures">
+            <div>
+              <span>المستلم</span>
+              <strong>إدارة Dramagic</strong>
+            </div>
+            <div>
+              <span>التوقيع</span>
+              <strong>________________</strong>
+            </div>
+          </footer>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <script defer src="finance-entry.js"></script>
+  <script defer src="dramagic-nav.js"></script>
+<script defer src="pwa-register.js"></script>
+</body>
+</html>

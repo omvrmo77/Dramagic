@@ -1,182 +1,176 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dramagic | Settings</title>
-  <link rel="stylesheet" href="settings.css" />
-  <script src="settings.js" defer></script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dramagic | Settings</title>
+<link href="settings.css" rel="stylesheet"/><link href="dramagic-nav.css" rel="stylesheet"/>
+<script defer="" src="settings.js"></script>
+<!-- Dramagic PWA -->
+<link rel="manifest" href="manifest.json" />
+<link rel="icon" href="favicon.ico" />
+<link rel="apple-touch-icon" href="assets/icons/icon-180.png" />
+<meta name="theme-color" content="#08a9d9" />
+<meta name="application-name" content="Dramagic" />
+<meta name="apple-mobile-web-app-title" content="Dramagic" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
 </head>
-<body>
-  <main class="settings-page">
-    <header class="settings-topbar">
-      <button class="back-btn" id="backBtn" type="button" aria-label="Go back">
-        <span>←</span>
+<body><div id="dramagicGlobalNav"></div>
+<main class="settings-page">
+<header aria-hidden="true" class="settings-topbar" style="display:none !important;">
+<button aria-label="Go back" class="back-btn" id="backBtn" type="button">
+<span>←</span>
         Back
       </button>
-
-      <a class="mini-brand" href="index.html" aria-label="Go to Dramagic home">
-        <span class="brand-mark">🎭</span>
-        <span>
-          <strong>Dramagic</strong>
-          <small>Settings Center</small>
-        </span>
-      </a>
-
-      <a class="profile-link" href="profile.html">Profile 👤</a>
-    </header>
-
-    <section class="settings-hero">
-      <p class="eyebrow">Personalize</p>
-      <h1>Make Dramagic feel like you.</h1>
-      <p>Change the look, comfort, and tiny details of your experience. Your choices are saved on this device.</p>
-    </section>
-
-    <section class="settings-grid">
-      <article class="settings-card big-card">
-        <div class="card-heading">
-          <span class="card-icon">🌓</span>
-          <div>
-            <h2>Appearance</h2>
-            <p>Dark mode is fixed here. You can also use system mode.</p>
-          </div>
-        </div>
-
-        <label>
+<a aria-label="Go to Dramagic home" class="mini-brand" href="index.html">
+<span class="brand-mark">🎭</span>
+<span>
+<strong>Dramagic</strong>
+<small>Settings Center</small>
+</span>
+</a>
+<a class="profile-link" href="profile.html">Profile 👤</a>
+</header>
+<section class="settings-hero">
+<p class="eyebrow">Personalize</p>
+<h1>Make Dramagic feel like you.</h1>
+<p>Change the look, comfort, and tiny details of your experience. Your choices are saved on this device.</p>
+</section>
+<section class="settings-grid">
+<article class="settings-card big-card">
+<div class="card-heading">
+<span class="card-icon">🌓</span>
+<div>
+<h2>Appearance</h2>
+<p>Dark mode is fixed here. You can also use system mode.</p>
+</div>
+</div>
+<label>
           Theme
           <select id="themeSelect">
-            <option value="light">Light Mode</option>
-            <option value="dark">Dark Mode</option>
-            <option value="system">Use Device Theme</option>
-          </select>
-        </label>
-
-        <label>
+<option value="light">Light Mode</option>
+<option value="dark">Dark Mode</option>
+<option value="system">Use Device Theme</option>
+</select>
+</label>
+<label>
           Accent color
           <select id="accentSelect">
-            <option value="blue">Dramagic Blue</option>
-            <option value="purple">Magic Purple</option>
-            <option value="pink">Stage Pink</option>
-            <option value="green">Fresh Green</option>
-            <option value="gold">Spotlight Gold</option>
-          </select>
-        </label>
-
-        <div class="theme-preview" id="themePreview">
-          <strong>Preview card</strong>
-          <span>This is how cards, buttons, and profile pages will feel.</span>
-        </div>
-      </article>
-
-      <article class="settings-card">
-        <div class="card-heading">
-          <span class="card-icon">✨</span>
-          <div>
-            <h2>Comfort</h2>
-            <p>Control movement and layout style.</p>
-          </div>
-        </div>
-
-        <div class="setting-row">
-          <div>
-            <strong>Reduce animations</strong>
-            <span>Turn this on if you want the page to move less.</span>
-          </div>
-          <label class="toggle" aria-label="Reduce animations">
-            <input id="reduceMotionToggle" type="checkbox" />
-            <span></span>
-          </label>
-        </div>
-
-        <div class="setting-row">
-          <div>
-            <strong>Compact cards</strong>
-            <span>Makes cards smaller and cleaner on mobile.</span>
-          </div>
-          <label class="toggle" aria-label="Compact cards">
-            <input id="compactModeToggle" type="checkbox" />
-            <span></span>
-          </label>
-        </div>
-      </article>
-
-      <article class="settings-card">
-        <div class="card-heading">
-          <span class="card-icon">💬</span>
-          <div>
-            <h2>Personality</h2>
-            <p>Make the website feel more conversational.</p>
-          </div>
-        </div>
-
-        <label>
+<option value="blue">Dramagic Blue</option>
+<option value="purple">Magic Purple</option>
+<option value="pink">Stage Pink</option>
+<option value="green">Fresh Green</option>
+<option value="gold">Spotlight Gold</option>
+</select>
+</label>
+<div class="theme-preview" id="themePreview">
+<strong>Preview card</strong>
+<span>This is how cards, buttons, and profile pages will feel.</span>
+</div>
+</article>
+<article class="settings-card">
+<div class="card-heading">
+<span class="card-icon">✨</span>
+<div>
+<h2>Comfort</h2>
+<p>Control movement and layout style.</p>
+</div>
+</div>
+<div class="setting-row">
+<div>
+<strong>Reduce animations</strong>
+<span>Turn this on if you want the page to move less.</span>
+</div>
+<label aria-label="Reduce animations" class="toggle">
+<input id="reduceMotionToggle" type="checkbox"/>
+<span></span>
+</label>
+</div>
+<div class="setting-row">
+<div>
+<strong>Compact cards</strong>
+<span>Makes cards smaller and cleaner on mobile.</span>
+</div>
+<label aria-label="Compact cards" class="toggle">
+<input id="compactModeToggle" type="checkbox"/>
+<span></span>
+</label>
+</div>
+</article>
+<article class="settings-card">
+<div class="card-heading">
+<span class="card-icon">💬</span>
+<div>
+<h2>Personality</h2>
+<p>Make the website feel more conversational.</p>
+</div>
+</div>
+<label>
           Coach tone
           <select id="coachToneSelect">
-            <option value="friendly">Friendly Coach</option>
-            <option value="energetic">Energetic Hype</option>
-            <option value="calm">Calm & Simple</option>
-          </select>
-        </label>
-
-        <div class="setting-row">
-          <div>
-            <strong>Show coach tips</strong>
-            <span>Small motivational messages on profile and learning pages.</span>
-          </div>
-          <label class="toggle" aria-label="Show coach tips">
-            <input id="coachTipsToggle" type="checkbox" />
-            <span></span>
-          </label>
-        </div>
-      </article>
-
-      <article class="settings-card">
-        <div class="card-heading">
-          <span class="card-icon">🔔</span>
-          <div>
-            <h2>Small details</h2>
-            <p>Extra settings you can connect later to other pages.</p>
-          </div>
-        </div>
-
-        <div class="setting-row">
-          <div>
-            <strong>Sound effects</strong>
-            <span>Ready for click sounds or success sounds later.</span>
-          </div>
-          <label class="toggle" aria-label="Sound effects">
-            <input id="soundEffectsToggle" type="checkbox" />
-            <span></span>
-          </label>
-        </div>
-
-        <label>
+<option value="friendly">Friendly Coach</option>
+<option value="energetic">Energetic Hype</option>
+<option value="calm">Calm &amp; Simple</option>
+</select>
+</label>
+<div class="setting-row">
+<div>
+<strong>Show coach tips</strong>
+<span>Small motivational messages on profile and learning pages.</span>
+</div>
+<label aria-label="Show coach tips" class="toggle">
+<input id="coachTipsToggle" type="checkbox"/>
+<span></span>
+</label>
+</div>
+</article>
+<article class="settings-card">
+<div class="card-heading">
+<span class="card-icon">🔔</span>
+<div>
+<h2>Small details</h2>
+<p>Extra settings you can connect later to other pages.</p>
+</div>
+</div>
+<div class="setting-row">
+<div>
+<strong>Sound effects</strong>
+<span>Ready for click sounds or success sounds later.</span>
+</div>
+<label aria-label="Sound effects" class="toggle">
+<input id="soundEffectsToggle" type="checkbox"/>
+<span></span>
+</label>
+</div>
+<label>
           Preferred language
           <select id="languageSelect">
-            <option value="english">English</option>
-            <option value="arabic">Arabic</option>
-            <option value="both">English + Arabic</option>
-          </select>
-        </label>
-      </article>
-
-      <article class="settings-card full-card danger-zone">
-        <div class="card-heading">
-          <span class="card-icon">🧹</span>
-          <div>
-            <h2>Account actions</h2>
-            <p>Logout or reset only your local settings. This will not delete your website files.</p>
-          </div>
-        </div>
-
-        <div class="settings-actions">
-          <button id="resetSettingsBtn" class="btn soft-btn" type="button">Reset Settings</button>
-          <button id="logoutSettingsBtn" class="btn danger-btn" type="button">Logout</button>
-        </div>
-
-        <p id="settingsStatus" class="status-message" aria-live="polite"></p>
-      </article>
-    </section>
-  </main>
+<option value="english">English</option>
+<option value="arabic">Arabic</option>
+<option value="both">English + Arabic</option>
+</select>
+</label>
+</article>
+<article class="settings-card full-card danger-zone">
+<div class="card-heading">
+<span class="card-icon">🧹</span>
+<div>
+<h2>Account actions</h2>
+<p>Logout or reset only your local settings. This will not delete your website files.</p>
+</div>
+</div>
+<div class="settings-actions">
+<button class="btn soft-btn" id="resetSettingsBtn" type="button">Reset Settings</button>
+<button class="btn danger-btn" id="logoutSettingsBtn" type="button">Logout</button>
+</div>
+<p aria-live="polite" class="status-message" id="settingsStatus"></p>
+</article>
+</section>
+</main>
+<script defer="True" src="dramagic-nav.js"></script>
+<script defer src="pwa-register.js"></script>
 </body>
 </html>

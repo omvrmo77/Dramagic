@@ -1,23 +1,103 @@
 {
-  "name": "Dramagic",
+  "name": "Dramagic English Drama Academy",
   "short_name": "Dramagic",
-  "description": "Dramagic English Drama Academy.",
+  "description": "Dramagic English Drama Academy, where the magic begins.",
+  "id": "./index.html",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
-  "background_color": "#eefaff",
-  "theme_color": "#635bff",
+  "display_override": [
+    "standalone",
+    "minimal-ui"
+  ],
   "orientation": "portrait",
+  "background_color": "#e6f9ff",
+  "theme_color": "#08a9d9",
+  "categories": [
+    "education",
+    "entertainment"
+  ],
   "icons": [
     {
       "src": "assets/icons/icon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
       "src": "assets/icons/icon-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icons/maskable-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "assets/icons/maskable-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ],
-  "scope": "./"
+  "shortcuts": [
+    {
+      "name": "Open Dramagic",
+      "short_name": "Home",
+      "url": "./index.html",
+      "icons": [
+        {
+          "src": "assets/icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Sign In",
+      "short_name": "Sign In",
+      "url": "./auth.html",
+      "icons": [
+        {
+          "src": "assets/icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Chat & Tasks",
+      "short_name": "Chat",
+      "url": "./chat.html",
+      "icons": [
+        {
+          "src": "assets/icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Attendance",
+      "short_name": "Attendance",
+      "url": "./attendance.html",
+      "icons": [
+        {
+          "src": "assets/icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Presentacy",
+      "short_name": "Presentacy",
+      "url": "./presentacy.html",
+      "icons": [
+        {
+          "src": "assets/icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
 }

@@ -150,3 +150,211 @@ html.dark-mode select optgroup {
   background: #ffffff !important;
 }
 
+
+
+/* =====================================================
+   SITE-WIDE DARK MODE READABILITY PATCH
+   Prevents unreadable light text on light cards or dark text on dark cards.
+===================================================== */
+html.dark-mode,
+body.dark-mode {
+  --dramagic-page-bg: #07131b;
+  --dramagic-card-bg: rgba(12, 29, 40, 0.94);
+  --dramagic-text: #f4fbff;
+  --dramagic-muted: #b8c9d6;
+  --dramagic-border: rgba(255, 255, 255, 0.13);
+}
+
+html.dark-mode body,
+body.dark-mode {
+  background: radial-gradient(circle at 15% 8%, color-mix(in srgb, var(--dramagic-accent) 20%, transparent), transparent 260px), linear-gradient(180deg, #07131b, #0b1d28) !important;
+  color: var(--dramagic-text) !important;
+}
+
+html.dark-mode .card,
+html.dark-mode .dashboard-card,
+html.dark-mode .panel,
+html.dark-mode .modal,
+html.dark-mode .box,
+html.dark-mode .container,
+html.dark-mode .profile-card,
+html.dark-mode .settings-card,
+html.dark-mode .info-card,
+html.dark-mode .stat-card,
+html.dark-mode .summary-card,
+html.dark-mode .status-card,
+html.dark-mode .guest-manager-card,
+html.dark-mode .guest-timeline-card,
+html.dark-mode .guest-news-card,
+html.dark-mode .guest-gallery-card,
+body.dark-mode .card,
+body.dark-mode .dashboard-card,
+body.dark-mode .panel,
+body.dark-mode .modal,
+body.dark-mode .box,
+body.dark-mode .container,
+body.dark-mode .profile-card,
+body.dark-mode .settings-card,
+body.dark-mode .info-card,
+body.dark-mode .stat-card,
+body.dark-mode .summary-card,
+body.dark-mode .status-card,
+body.dark-mode .guest-manager-card,
+body.dark-mode .guest-timeline-card,
+body.dark-mode .guest-news-card,
+body.dark-mode .guest-gallery-card {
+  background: var(--dramagic-card-bg) !important;
+  color: var(--dramagic-text) !important;
+  border-color: var(--dramagic-border) !important;
+}
+
+html.dark-mode h1,
+html.dark-mode h2,
+html.dark-mode h3,
+html.dark-mode h4,
+html.dark-mode strong,
+html.dark-mode label,
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode strong,
+body.dark-mode label {
+  color: var(--dramagic-text) !important;
+}
+
+html.dark-mode p,
+html.dark-mode small,
+html.dark-mode .muted,
+html.dark-mode .section-title p,
+html.dark-mode .info-card p,
+html.dark-mode .status-card p,
+body.dark-mode p,
+body.dark-mode small,
+body.dark-mode .muted,
+body.dark-mode .section-title p,
+body.dark-mode .info-card p,
+body.dark-mode .status-card p {
+  color: var(--dramagic-muted) !important;
+}
+
+html.dark-mode input,
+html.dark-mode textarea,
+html.dark-mode select,
+body.dark-mode input,
+body.dark-mode textarea,
+body.dark-mode select {
+  background: rgba(255, 255, 255, 0.09) !important;
+  color: var(--dramagic-text) !important;
+  border-color: var(--dramagic-border) !important;
+}
+
+html.dark-mode input::placeholder,
+html.dark-mode textarea::placeholder,
+body.dark-mode input::placeholder,
+body.dark-mode textarea::placeholder {
+  color: rgba(244, 251, 255, 0.58) !important;
+}
+
+/* =====================================================
+   FINAL AUTH + DARK MODE SAFETY PATCH
+   Keeps login, forms, cards, dropdowns, and navigation readable.
+===================================================== */
+html.dark-mode .auth-page,
+body.dark-mode .auth-page,
+html.dark-mode .app,
+body.dark-mode .app {
+  background: radial-gradient(circle at 14% 8%, rgba(8, 169, 217, 0.22), transparent 260px), linear-gradient(180deg, #07131b, #0b1d28) !important;
+  color: #f4fbff !important;
+}
+
+html.dark-mode .auth-card,
+html.dark-mode .auth-form,
+html.dark-mode .guest-access,
+html.dark-mode .user-dropdown,
+html.dark-mode .mobile-nav-panel,
+body.dark-mode .auth-card,
+body.dark-mode .auth-form,
+body.dark-mode .guest-access,
+body.dark-mode .user-dropdown,
+body.dark-mode .mobile-nav-panel {
+  background: rgba(12, 29, 40, 0.96) !important;
+  color: #f4fbff !important;
+  border-color: rgba(255, 255, 255, 0.14) !important;
+}
+
+html.dark-mode .auth-card *,
+html.dark-mode .auth-form *,
+html.dark-mode .user-dropdown *,
+html.dark-mode .mobile-nav-panel *,
+body.dark-mode .auth-card *,
+body.dark-mode .auth-form *,
+body.dark-mode .user-dropdown *,
+body.dark-mode .mobile-nav-panel * {
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+html.dark-mode .auth-card h1,
+html.dark-mode .auth-card h2,
+html.dark-mode .auth-card h3,
+html.dark-mode .auth-card label,
+html.dark-mode .auth-card strong,
+html.dark-mode .auth-card .tab-btn,
+body.dark-mode .auth-card h1,
+body.dark-mode .auth-card h2,
+body.dark-mode .auth-card h3,
+body.dark-mode .auth-card label,
+body.dark-mode .auth-card strong,
+body.dark-mode .auth-card .tab-btn {
+  color: #f4fbff !important;
+}
+
+html.dark-mode .auth-card p,
+html.dark-mode .guest-access p,
+html.dark-mode .form-message,
+body.dark-mode .auth-card p,
+body.dark-mode .guest-access p,
+body.dark-mode .form-message {
+  color: #b8c9d6 !important;
+}
+
+html.dark-mode .form-message.success,
+body.dark-mode .form-message.success {
+  color: #9be7b0 !important;
+}
+
+html.dark-mode .auth-card input,
+html.dark-mode .auth-card select,
+html.dark-mode .auth-card textarea,
+body.dark-mode .auth-card input,
+body.dark-mode .auth-card select,
+body.dark-mode .auth-card textarea {
+  background: rgba(255, 255, 255, 0.10) !important;
+  color: #f4fbff !important;
+  border-color: rgba(255, 255, 255, 0.16) !important;
+}
+
+html.dark-mode .auth-card input::placeholder,
+html.dark-mode .auth-card textarea::placeholder,
+body.dark-mode .auth-card input::placeholder,
+body.dark-mode .auth-card textarea::placeholder {
+  color: rgba(244, 251, 255, 0.58) !important;
+}
+
+html.dark-mode .btn.primary-btn,
+html.dark-mode button.primary-btn,
+body.dark-mode .btn.primary-btn,
+body.dark-mode button.primary-btn {
+  color: #ffffff !important;
+}
+
+html.dark-mode .btn.ghost-btn,
+html.dark-mode .guest-btn,
+html.dark-mode .tab-btn:not(.active),
+body.dark-mode .btn.ghost-btn,
+body.dark-mode .guest-btn,
+body.dark-mode .tab-btn:not(.active) {
+  color: #f4fbff !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(255, 255, 255, 0.16) !important;
+}

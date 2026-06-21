@@ -65,7 +65,7 @@ const demoMedia = [
     album: "Important Files",
     classId: "all",
     className: "All Classes",
-    visibility: "public",
+    visibility: "parents",
     type: "file",
     src: "",
     fileName: "event-notes.pdf",
@@ -213,7 +213,8 @@ function canCurrentUserSee(item) {
   }
 
   if (role === "guest") {
-    return item.visibility === "guests" || item.visibility === "public";
+    const isGuestSafeMedia = item.type === "image" || item.type === "video";
+    return item.visibility === "guests" && isGuestSafeMedia;
   }
 
   const classMatches =

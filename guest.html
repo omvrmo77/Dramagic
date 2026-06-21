@@ -1,12 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>Dramagic | Since 2017</title>
-
-  <script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dramagic | Since 2017</title>
+<script>
     (function () {
       let theme = "light";
 
@@ -27,333 +26,294 @@
       document.documentElement.classList.toggle("light-mode", !useDark);
     })();
   </script>
-
-  <link rel="stylesheet" href="dramagic-global-settings.css" />
-  <link rel="stylesheet" href="styles.css" />
+<link href="dramagic-global-settings.css" rel="stylesheet"/>
+<link href="styles.css" rel="stylesheet"/><link href="dramagic-nav.css" rel="stylesheet"/>
+<!-- Dramagic PWA -->
+<link rel="manifest" href="manifest.json" />
+<link rel="icon" href="favicon.ico" />
+<link rel="apple-touch-icon" href="assets/icons/icon-180.png" />
+<meta name="theme-color" content="#08a9d9" />
+<meta name="application-name" content="Dramagic" />
+<meta name="apple-mobile-web-app-title" content="Dramagic" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
 </head>
-
-<body class="guest-public-body">
-  <div class="guest-public-page">
-    <header class="guest-header guest-public-header">
-      <a href="index.html" class="guest-brand">
-        <img src="dramagic-logo.png" alt="Dramagic Logo" />
-        <div>
-          <strong>Dramagic</strong>
-          <span>Since 2017</span>
-        </div>
-      </a>
-
-      <nav class="guest-public-nav" aria-label="Guest page navigation">
-        <a href="#story">Story</a>
-        <a href="#journey">Journey</a>
-        <a href="#updates">Updates</a>
-        <a href="#memories">Memories</a>
-        <a href="#contact">Contact</a>
-      </nav>
-
-      <div class="guest-actions">
-        <button id="openGuestManagerBtn" class="btn ghost-btn guest-manager-open hidden" type="button">
+<body class="guest-public-body"><div id="dramagicGlobalNav"></div>
+<div class="guest-public-page">
+<header aria-hidden="true" class="guest-header guest-public-header" style="display:none !important;">
+<a class="guest-brand" href="index.html">
+<img alt="Dramagic Logo" src="dramagic-logo.png"/>
+<div>
+<strong>Dramagic</strong>
+<span>Since 2017</span>
+</div>
+</a>
+<nav aria-label="Guest page navigation" class="guest-public-nav">
+<a href="#story">Story</a>
+<a href="#journey">Journey</a>
+<a href="#updates">Updates</a>
+<a href="#memories">Memories</a>
+<a href="#contact">Contact</a>
+</nav>
+<div class="guest-actions">
+<button class="btn ghost-btn guest-manager-open hidden" id="openGuestManagerBtn" type="button">
           Manage Page
         </button>
-        <a href="auth.html#signin" class="btn ghost-btn">Sign In</a>
-        <a href="auth.html#signup" class="btn primary-btn">Create Account</a>
-      </div>
-    </header>
-
-    <main>
-      <section class="guest-story-hero">
-        <div class="guest-story-copy reveal-motion">
-          <p class="eyebrow">Dramagic English Drama Academy</p>
-
-          <h1>
+<a class="btn ghost-btn" href="auth.html#signin">Sign In</a>
+<a class="btn primary-btn" href="auth.html#signup">Create Account</a>
+</div>
+</header>
+<main>
+<section class="guest-story-hero">
+<div class="guest-story-copy reveal-motion">
+<p class="eyebrow">Dramagic English Drama Academy</p>
+<h1>
             Born on stage. Built through <span>confidence</span>.
           </h1>
-
-          <p class="guest-hero-lead">
+<p class="guest-hero-lead">
             Since 2017, Dramagic has helped learners discover that English is not only a subject.
             It can be a voice, a character, a story, a performance, and a moment of courage.
           </p>
-
-          <div class="hero-buttons">
-            <a href="#journey" class="btn primary-btn">Explore Our Journey</a>
-            <a href="#contact" class="btn ghost-btn">Ask About Joining</a>
-          </div>
-
-          <div class="guest-hero-micro-grid" aria-label="Dramagic highlights">
-            <article>
-              <strong>2017</strong>
-              <span>The beginning</span>
-            </article>
-            <article>
-              <strong>Stage</strong>
-              <span>Confidence through performance</span>
-            </article>
-            <article>
-              <strong>2026</strong>
-              <span>New tools, same soul</span>
-            </article>
-          </div>
-        </div>
-
-        <aside class="guest-stage-card reveal-motion">
-          <div class="guest-stage-orbit">
-            <span>English</span>
-            <span>Drama</span>
-            <span>Confidence</span>
-            <span>Stage</span>
-          </div>
-          <img src="dramagic-logo.png" alt="Dramagic Logo" />
-          <div class="guest-stage-quote">
-            <strong>“The first applause changed everything.”</strong>
-            <p>That moment became the heart of Dramagic.</p>
-          </div>
-        </aside>
-      </section>
-
-      <section id="story" class="section guest-story-section">
-        <div class="section-title reveal-motion">
-          <p class="eyebrow">Our Story</p>
-          <h2>The moment <span>Dramagic</span> became real</h2>
-          <p>
+<div class="hero-buttons">
+<a class="btn primary-btn" href="#journey">Explore Our Journey</a>
+<a class="btn ghost-btn" href="#contact">Ask About Joining</a>
+</div>
+<div aria-label="Dramagic highlights" class="guest-hero-micro-grid">
+<article>
+<strong>2017</strong>
+<span>The beginning</span>
+</article>
+<article>
+<strong>Stage</strong>
+<span>Confidence through performance</span>
+</article>
+<article>
+<strong>2026</strong>
+<span>New tools, same soul</span>
+</article>
+</div>
+</div>
+<aside class="guest-stage-card reveal-motion">
+<div class="guest-stage-orbit">
+<span>English</span>
+<span>Drama</span>
+<span>Confidence</span>
+<span>Stage</span>
+</div>
+<img alt="Dramagic Logo" src="dramagic-logo.png"/>
+<div class="guest-stage-quote">
+<strong>“The first applause changed everything.”</strong>
+<p>That moment became the heart of Dramagic.</p>
+</div>
+</aside>
+</section>
+<section class="section guest-story-section" id="story">
+<div class="section-title reveal-motion">
+<p class="eyebrow">Our Story</p>
+<h2>The moment <span>Dramagic</span> became real</h2>
+<p>
             Dramagic was born when we saw learners who loved theatre but were afraid of going on stage.
             The first time they performed, something changed. They felt the lights, the audience, and the
             sound of people clapping for them. After that, they became more confident — and that feeling
             became our mission.
           </p>
-        </div>
-
-        <div class="guest-story-feature reveal-motion">
-          <article>
-            <span>01</span>
-            <h3>The fear before the stage</h3>
-            <p>Many learners wanted to perform, but the stage felt scary at first.</p>
-          </article>
-
-          <article>
-            <span>02</span>
-            <h3>The first applause</h3>
-            <p>After their first performance, they felt proud, seen, and powerful.</p>
-          </article>
-
-          <article>
-            <span>03</span>
-            <h3>The idea became a course</h3>
-            <p>English, drama, confidence, and character-building became one experience.</p>
-          </article>
-        </div>
-      </section>
-
-      <section id="journey" class="section guest-journey-section">
-        <div class="section-title reveal-motion">
-          <p class="eyebrow">Timeline</p>
-          <h2>The Dramagic <span>Journey</span></h2>
-          <p>
+</div>
+<div class="guest-story-feature reveal-motion">
+<article>
+<span>01</span>
+<h3>The fear before the stage</h3>
+<p>Many learners wanted to perform, but the stage felt scary at first.</p>
+</article>
+<article>
+<span>02</span>
+<h3>The first applause</h3>
+<p>After their first performance, they felt proud, seen, and powerful.</p>
+</article>
+<article>
+<span>03</span>
+<h3>The idea became a course</h3>
+<p>English, drama, confidence, and character-building became one experience.</p>
+</article>
+</div>
+</section>
+<section class="section guest-journey-section" id="journey">
+<div class="section-title reveal-motion">
+<p class="eyebrow">Timeline</p>
+<h2>The Dramagic <span>Journey</span></h2>
+<p>
             A living timeline of our beginning, our pauses, our comeback, and the new chapter we are building now.
           </p>
-        </div>
-
-        <div id="guestTimeline" class="guest-timeline" aria-live="polite"></div>
-      </section>
-
-      <section id="updates" class="section guest-updates-section">
-        <div class="section-title reveal-motion">
-          <p class="eyebrow">Latest Updates</p>
-          <h2>What’s new in <span>Dramagic</span></h2>
-          <p>
+</div>
+<div aria-live="polite" class="guest-timeline" id="guestTimeline"></div>
+</section>
+<section class="section guest-updates-section" id="updates">
+<div class="section-title reveal-motion">
+<p class="eyebrow">Latest Updates</p>
+<h2>What’s new in <span>Dramagic</span></h2>
+<p>
             Announcements, course openings, events, important notes, and public news for families and guests.
           </p>
-        </div>
-
-        <div id="guestNewsGrid" class="guest-news-grid guest-news-grid-live" aria-live="polite"></div>
-      </section>
-
-      <section id="memories" class="section guest-memories-section">
-        <div class="section-title reveal-motion">
-          <p class="eyebrow">Memories</p>
-          <h2>Moments that <span>shaped us</span></h2>
-          <p>
+</div>
+<div aria-live="polite" class="guest-news-grid guest-news-grid-live" id="guestNewsGrid"></div>
+</section>
+<section class="section guest-memories-section" id="memories">
+<div class="section-title reveal-motion">
+<p class="eyebrow">Memories</p>
+<h2>Moments that <span>shaped us</span></h2>
+<p>
             Photos, videos, stage moments, activities, rehearsals, class memories, and behind-the-scenes moments.
           </p>
-        </div>
-
-        <div id="guestGalleryGrid" class="guest-gallery guest-gallery-live" aria-live="polite"></div>
-      </section>
-
-      <section class="section guest-difference-section">
-        <div class="section-title reveal-motion">
-          <p class="eyebrow">Why Dramagic</p>
-          <h2>Not just English. <span>Experience.</span></h2>
-        </div>
-
-        <div class="cards-grid guest-difference-grid">
-          <article class="info-card reveal-motion">
-            <div class="icon">🎭</div>
-            <h3>Drama-based English</h3>
-            <p>Learners practise language through characters, emotion, scenes, and real expression.</p>
-          </article>
-
-          <article class="info-card reveal-motion">
-            <div class="icon">🎤</div>
-            <h3>Presentation confidence</h3>
-            <p>Presentacy, speaking turns, topics, scoring, and feedback help every voice grow.</p>
-          </article>
-
-          <article class="info-card reveal-motion">
-            <div class="icon">⭐</div>
-            <h3>Character building</h3>
-            <p>Dramagic builds confidence, teamwork, creativity, courage, and communication.</p>
-          </article>
-        </div>
-      </section>
-
-      <section id="guestManager" class="section guest-manager-section hidden">
-        <div class="guest-manager-shell">
-          <div class="section-title">
-            <p class="eyebrow">CEO Tools</p>
-            <h2>Manage Guest <span>Page</span></h2>
-            <p>
+</div>
+<div aria-live="polite" class="guest-gallery guest-gallery-live" id="guestGalleryGrid"></div>
+</section>
+<section class="section guest-difference-section">
+<div class="section-title reveal-motion">
+<p class="eyebrow">Why Dramagic</p>
+<h2>Not just English. <span>Experience.</span></h2>
+</div>
+<div class="cards-grid guest-difference-grid">
+<article class="info-card reveal-motion">
+<div class="icon">🎭</div>
+<h3>Drama-based English</h3>
+<p>Learners practise language through characters, emotion, scenes, and real expression.</p>
+</article>
+<article class="info-card reveal-motion">
+<div class="icon">🎤</div>
+<h3>Presentation confidence</h3>
+<p>Presentacy, speaking turns, topics, scoring, and feedback help every voice grow.</p>
+</article>
+<article class="info-card reveal-motion">
+<div class="icon">⭐</div>
+<h3>Character building</h3>
+<p>Dramagic builds confidence, teamwork, creativity, courage, and communication.</p>
+</article>
+</div>
+</section>
+<section class="section guest-manager-section hidden" id="guestManager">
+<div class="guest-manager-shell">
+<div class="section-title">
+<p class="eyebrow">CEO Tools</p>
+<h2>Manage Guest <span>Page</span></h2>
+<p>
               Add timeline memories, public announcements, and gallery moments from the website.
               This demo saves on this browser using localStorage. Later we can connect it to Supabase.
             </p>
-          </div>
-
-          <div class="guest-manager-grid">
-            <article class="guest-manager-card">
-              <h3>Add timeline story</h3>
-              <form id="guestTimelineForm" class="guest-manager-form">
-                <label>
+</div>
+<div class="guest-manager-grid">
+<article class="guest-manager-card">
+<h3>Add timeline story</h3>
+<form class="guest-manager-form" id="guestTimelineForm">
+<label>
                   Year
-                  <input id="timelineYearInput" type="text" placeholder="Example: 2026" required />
-                </label>
-
-                <label>
+                  <input id="timelineYearInput" placeholder="Example: 2026" required="" type="text"/>
+</label>
+<label>
                   Title
-                  <input id="timelineTitleInput" type="text" placeholder="Example: The new Dramagic platform" required />
-                </label>
-
-                <label>
+                  <input id="timelineTitleInput" placeholder="Example: The new Dramagic platform" required="" type="text"/>
+</label>
+<label>
                   Tag
-                  <input id="timelineTagInput" type="text" placeholder="Example: New Chapter" />
-                </label>
-
-                <label>
+                  <input id="timelineTagInput" placeholder="Example: New Chapter" type="text"/>
+</label>
+<label>
                   Story
-                  <textarea id="timelineStoryInput" placeholder="Write the story for this year..." required></textarea>
-                </label>
-
-                <label>
+                  <textarea id="timelineStoryInput" placeholder="Write the story for this year..." required=""></textarea>
+</label>
+<label>
                   Image URL or YouTube link
-                  <input id="timelineMediaInput" type="url" placeholder="Optional link" />
-                </label>
-
-                <label>
+                  <input id="timelineMediaInput" placeholder="Optional link" type="url"/>
+</label>
+<label>
                   Upload image
-                  <input id="timelineFileInput" type="file" accept="image/*" />
-                </label>
-
-                <button class="btn primary-btn" type="submit">Add Timeline Item</button>
-              </form>
-            </article>
-
-            <article class="guest-manager-card">
-              <h3>Add update / announcement</h3>
-              <form id="guestNewsForm" class="guest-manager-form">
-                <label>
+                  <input accept="image/*" id="timelineFileInput" type="file"/>
+</label>
+<button class="btn primary-btn" type="submit">Add Timeline Item</button>
+</form>
+</article>
+<article class="guest-manager-card">
+<h3>Add update / announcement</h3>
+<form class="guest-manager-form" id="guestNewsForm">
+<label>
                   Tag
-                  <input id="newsTagInput" type="text" placeholder="Example: Announcement" required />
-                </label>
-
-                <label>
+                  <input id="newsTagInput" placeholder="Example: Announcement" required="" type="text"/>
+</label>
+<label>
                   Title
-                  <input id="newsTitleInput" type="text" placeholder="Example: New course coming soon" required />
-                </label>
-
-                <label>
+                  <input id="newsTitleInput" placeholder="Example: New course coming soon" required="" type="text"/>
+</label>
+<label>
                   Text
-                  <textarea id="newsTextInput" placeholder="Write the update..." required></textarea>
-                </label>
-
-                <label>
+                  <textarea id="newsTextInput" placeholder="Write the update..." required=""></textarea>
+</label>
+<label>
                   Image URL or video link
-                  <input id="newsMediaInput" type="url" placeholder="Optional link" />
-                </label>
-
-                <label>
+                  <input id="newsMediaInput" placeholder="Optional link" type="url"/>
+</label>
+<label>
                   Upload image
-                  <input id="newsFileInput" type="file" accept="image/*" />
-                </label>
-
-                <button class="btn primary-btn" type="submit">Publish Update</button>
-              </form>
-            </article>
-
-            <article class="guest-manager-card">
-              <h3>Add gallery memory</h3>
-              <form id="guestGalleryForm" class="guest-manager-form">
-                <label>
+                  <input accept="image/*" id="newsFileInput" type="file"/>
+</label>
+<button class="btn primary-btn" type="submit">Publish Update</button>
+</form>
+</article>
+<article class="guest-manager-card">
+<h3>Add gallery memory</h3>
+<form class="guest-manager-form" id="guestGalleryForm">
+<label>
                   Type
                   <select id="galleryTypeInput">
-                    <option value="photo">Photo</option>
-                    <option value="video">Video</option>
-                  </select>
-                </label>
-
-                <label>
+<option value="photo">Photo</option>
+<option value="video">Video</option>
+</select>
+</label>
+<label>
                   Title
-                  <input id="galleryTitleInput" type="text" placeholder="Example: Stage moment" required />
-                </label>
-
-                <label>
+                  <input id="galleryTitleInput" placeholder="Example: Stage moment" required="" type="text"/>
+</label>
+<label>
                   Caption
-                  <textarea id="galleryCaptionInput" placeholder="Short memory caption..." required></textarea>
-                </label>
-
-                <label>
+                  <textarea id="galleryCaptionInput" placeholder="Short memory caption..." required=""></textarea>
+</label>
+<label>
                   Image URL or video link
-                  <input id="galleryMediaInput" type="url" placeholder="Optional link" />
-                </label>
-
-                <label>
+                  <input id="galleryMediaInput" placeholder="Optional link" type="url"/>
+</label>
+<label>
                   Upload image
-                  <input id="galleryFileInput" type="file" accept="image/*" />
-                </label>
-
-                <button class="btn primary-btn" type="submit">Add Memory</button>
-              </form>
-            </article>
-          </div>
-
-          <div class="guest-manager-actions">
-            <button id="resetGuestContentBtn" class="btn danger-btn" type="button">Reset Guest Page Demo Content</button>
-          </div>
-        </div>
-      </section>
-
-      <section id="contact" class="section">
-        <div class="contact-card guest-final-cta reveal-motion">
-          <p class="eyebrow">Join Dramagic</p>
-
-          <h2>Want to join the next Dramagic chapter?</h2>
-
-          <p>
+                  <input accept="image/*" id="galleryFileInput" type="file"/>
+</label>
+<button class="btn primary-btn" type="submit">Add Memory</button>
+</form>
+</article>
+</div>
+<div class="guest-manager-actions">
+<button class="btn danger-btn" id="resetGuestContentBtn" type="button">Reset Guest Page Demo Content</button>
+</div>
+</div>
+</section>
+<section class="section" id="contact">
+<div class="contact-card guest-final-cta reveal-motion">
+<p class="eyebrow">Join Dramagic</p>
+<h2>Want to join the next Dramagic chapter?</h2>
+<p>
             Ask about registration, age groups, schedules, prices, class availability,
             or how Dramagic can help a learner become braver in English and on stage.
           </p>
-
-          <div class="contact-buttons">
-            <a href="tel:+201000000000" class="btn primary-btn">Call Us</a>
-            <a href="https://wa.me/201000000000" class="btn ghost-btn">WhatsApp</a>
-            <a href="auth.html#signup" class="btn ghost-btn">Create Account</a>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer>
+<div class="contact-buttons">
+<a class="btn primary-btn" href="tel:+201000000000">Call Us</a>
+<a class="btn ghost-btn" href="https://wa.me/201000000000">WhatsApp</a>
+<a class="btn ghost-btn" href="auth.html#signup">Create Account</a>
+</div>
+</div>
+</section>
+</main>
+<footer>
       © <span id="guestYear"></span> Dramagic English Drama Academy. Since 2017.
     </footer>
-  </div>
-
-  <script src="guest.js" defer></script>
+</div>
+<script defer="" src="guest.js"></script>
+<script defer="True" src="dramagic-nav.js"></script>
+<script defer src="pwa-register.js"></script>
 </body>
 </html>

@@ -1,0 +1,43 @@
+Dramagic Website is now PWA-ready.
+
+What was added/updated:
+- manifest.json
+- service-worker.js
+- pwa-register.js
+- offline.html
+- favicon.ico
+- assets/icons/ app icons from the Dramagic logo
+- PWA head tags in all main HTML pages
+- PWA registration script in all main HTML pages
+- Removed the old attendance service-worker unregister code so the app install does not break
+- Replaced the old chat-missions inline service-worker registration with the shared pwa-register.js
+
+Main start page: index.html
+App name: Dramagic English Drama Academy
+Theme color: #08a9d9
+
+Important:
+- clear-dramagic-cache.html was intentionally left without PWA registration because its job is to clear/unregister old caches if needed.
+- Upload the whole folder to Cloudflare Pages or your hosting.
+- On mobile, open the site in the browser and choose Add to Home Screen.
+- After future updates, if a phone still shows old files, open clear-dramagic-cache.html once.
+
+Modified HTML files:
+- agenda.html
+- attendance.html
+- auth.html
+- chat-missions.html
+- chat.html
+- finance-entry.html
+- finance.html
+- game.html
+- guest.html
+- index.html
+- indexdark.html
+- indexlight.html
+- media.html
+- offline.html
+- presentacy.html
+- profile.html
+- qr-cards.html
+- settings.html

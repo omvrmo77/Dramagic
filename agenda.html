@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Dramagic | Weekly Calendar</title>
+
+  <script>
+    (function () {
+      let theme = "light";
+      try {
+        const settings = JSON.parse(localStorage.getItem("dramagic_settings")) || {};
+        theme = settings.theme || localStorage.getItem("dramagic_theme") || "light";
+      } catch {
+        theme = localStorage.getItem("dramagic_theme") || "light";
+      }
+
+      const systemDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      const useDark = theme === "dark" || (theme === "system" && systemDark);
+      document.documentElement.classList.toggle("dark-mode", useDark);
+      document.documentElement.classList.toggle("light-mode", !useDark);
+    })();
+  </script>
+
+  <link rel="stylesheet" href="dramagic-global-settings.css" />
+  <link rel="stylesheet" href="dramagic-nav.css" />
+  <link rel="stylesheet" href="agenda.css" />
+<!-- Dramagic PWA -->
+<link rel="manifest" href="manifest.json" />
+<link rel="icon" href="favicon.ico" />
+<link rel="apple-touch-icon" href="assets/icons/icon-180.png" />
+<meta name="theme-color" content="#08a9d9" />
+<meta name="application-name" content="Dramagic" />
+<meta name="apple-mobile-web-app-title" content="Dramagic" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+</head>
+
+<body>
+  <div id="dramagicGlobalNav"></div>
+
+  <main class="agenda-page">
+    <section class="agenda-hero">
+      <div>
+        <p class="eyebrow">Weekly Calendar</p>
+        <h1>Dramagic agenda.</h1>
+        <p id="agendaHeroText">
+          Scroll through the week and see presentations, homework, rehearsal plans, reminders, and parent notes in one calendar.
+        </p>
+      </div>
+
+      <article class="agenda-hero-card">
+        <span>🗓️</span>
+        <strong id="agendaRoleText">Class calendar</strong>
+        <small id="agendaAccessText">Loading access...</small>
+      </article>
+    </section>
+
+    <section class="agenda-controls-card">
+      <div class="agenda-controls">
+        <label>
+          <span>Week</span>
+          <input id="agendaWeekInput" type="week" />
+        </label>
+
+        <label>
+          <span>Class</span>
+          <select id="agendaClassSelect">
+            <option value="A">Class A</option>
+            <option value="B">Class B</option>
+            <option value="C">Class C</option>
+            <option value="D">Class D</option>
+            <option value="E">Class E</option>
+            <option value="F">Class F</option>
+          </select>
+        </label>
+
+        <div class="week-buttons" aria-label="Calendar week controls">
+          <button id="prevWeekBtn" class="soft-btn" type="button">‹ Previous</button>
+          <button id="todayAgendaBtn" class="primary-btn" type="button">This Week</button>
+          <button id="nextWeekBtn" class="soft-btn" type="button">Next ›</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="agendaViewerCard" class="agenda-viewer-card hidden"></section>
+
+    <section class="agenda-calendar-card">
+      <div class="section-heading calendar-heading">
+        <div>
+          <p class="eyebrow">Class week</p>
+          <h2 id="agendaListTitle">Weekly Calendar</h2>
+          <p id="agendaListSubtitle">Choose a week and class to view the plan.</p>
+        </div>
+        <div class="calendar-legend" aria-label="Event type colors">
+          <span><i class="legend-dot type-session"></i>Session</span>
+          <span><i class="legend-dot type-presentation"></i>Presentation</span>
+          <span><i class="legend-dot type-homework"></i>Homework</span>
+          <span><i class="legend-dot type-rehearsal"></i>Rehearsal</span>
+          <span><i class="legend-dot type-reminder"></i>Reminder</span>
+        </div>
+      </div>
+
+      <div id="agendaList" class="calendar-shell" aria-live="polite"></div>
+    </section>
+
+    <section id="agendaEditor" class="agenda-editor-card hidden">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Teacher / CEO area</p>
+          <h2 id="agendaEditorTitle">Add calendar item</h2>
+          <p>Create items for any day: presentation, homework, rehearsal, reminder, assessment, or class plan.</p>
+        </div>
+      </div>
+
+      <form id="agendaForm" class="agenda-form">
+        <input id="agendaEditingId" type="hidden" />
+
+        <div class="agenda-form-grid agenda-date-grid">
+          <label>
+            <span>Exact date</span>
+            <input id="agendaDateInput" type="date" />
+          </label>
+
+          <label>
+            <span>Day</span>
+            <select id="agendaDayInput">
+              <option value="Sunday">Sunday</option>
+              <option value="Monday">Monday</option>
+              <option value="Tuesday">Tuesday</option>
+              <option value="Wednesday">Wednesday</option>
+              <option value="Thursday">Thursday</option>
+              <option value="Friday">Friday</option>
+              <option value="Saturday">Saturday</option>
+            </select>
+          </label>
+
+          <label>
+            <span>Type</span>
+            <select id="agendaTypeInput">
+              <option value="session">Class session</option>
+              <option value="presentation">Presentation</option>
+              <option value="homework">Homework</option>
+              <option value="rehearsal">Drama rehearsal</option>
+              <option value="assessment">Assessment</option>
+              <option value="reminder">Reminder</option>
+              <option value="announcement">Announcement</option>
+              <option value="other">Other</option>
+            </select>
+          </label>
+        </div>
+
+        <label>
+          <span>Title</span>
+          <input id="agendaTitleInput" type="text" placeholder="Example: Presentacy practice + drama rehearsal" required />
+        </label>
+
+        <div class="agenda-form-grid time-grid">
+          <label>
+            <span>Start time</span>
+            <input id="agendaStartInput" type="time" value="17:00" />
+          </label>
+
+          <label>
+            <span>End time</span>
+            <input id="agendaEndInput" type="time" value="18:00" />
+          </label>
+        </div>
+
+        <label>
+          <span>Details / what will happen</span>
+          <textarea id="agendaPlanInput" placeholder="Optional. Write the class plan, reminder, or extra details..."></textarea>
+        </label>
+
+        <label>
+          <span>Preparation / homework</span>
+          <textarea id="agendaHomeworkInput" placeholder="Example: Bring notebook, rehearse character voice, prepare one-minute speech..."></textarea>
+        </label>
+
+        <label>
+          <span>Notes for parents and Dramagicians</span>
+          <textarea id="agendaNotesInput" placeholder="Any reminder, costume note, timing change, or important update..."></textarea>
+        </label>
+
+        <div class="agenda-actions">
+          <button class="primary-btn" type="submit" id="saveAgendaBtn">Save Calendar Item</button>
+          <button id="clearAgendaFormBtn" class="soft-btn" type="button">Clear Form</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <script src="dramagic-nav.js" defer></script>
+  <script src="dramagic-settings-loader.js" defer></script>
+  <script src="agenda.js" defer></script>
+<script defer src="pwa-register.js"></script>
+</body>
+</html>

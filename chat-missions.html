@@ -3,10 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#635bff" />
-  <title>Dramagic Chat / Missions</title>
-  <link rel="manifest" href="manifest.json" />
-  <link rel="stylesheet" href="index.css" />
+<title>Dramagic Chat / Missions</title>
+<link rel="stylesheet" href="index.css" />
+<!-- Dramagic PWA -->
+<link rel="manifest" href="manifest.json" />
+<link rel="icon" href="favicon.ico" />
+<link rel="apple-touch-icon" href="assets/icons/icon-180.png" />
+<meta name="theme-color" content="#08a9d9" />
+<meta name="application-name" content="Dramagic" />
+<meta name="apple-mobile-web-app-title" content="Dramagic" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
 </head>
 <body>
   <main class="dashboard-app">
@@ -26,13 +34,6 @@
       <p class="plain-copy">The attendance system is ready as a separate offline module. The Chat / Missions system should stay in your main Dramagic files, then we connect the dashboard button to it later.</p>
     </section>
   </main>
-
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('service-worker.js').catch(console.warn);
-      });
-    }
-  </script>
+<script defer src="pwa-register.js"></script>
 </body>
 </html>

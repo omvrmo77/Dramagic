@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>Dramagic Games | Wordle</title>
+<script>
+    (function () {
+      let theme = "light";
+
+      try {
+        const settings = JSON.parse(localStorage.getItem("dramagic_settings")) || {};
+        theme = settings.theme || localStorage.getItem("dramagic_theme") || "light";
+      } catch {
+        theme = localStorage.getItem("dramagic_theme") || "light";
+      }
+
+      const systemDark =
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+      const useDark = theme === "dark" || (theme === "system" && systemDark);
+
+      document.documentElement.classList.toggle("dark-mode", useDark);
+      document.documentElement.classList.toggle("light-mode", !useDark);
+    })();
+  </script>
+<link href="dramagic-global-settings.css" rel="stylesheet"/>
+<link href="game.css" rel="stylesheet"/><link href="dramagic-nav.css" rel="stylesheet"/>
+<!-- Dramagic PWA -->
+<link rel="manifest" href="manifest.json" />
+<link rel="icon" href="favicon.ico" />
+<link rel="apple-touch-icon" href="assets/icons/icon-180.png" />
+<meta name="theme-color" content="#08a9d9" />
+<meta name="application-name" content="Dramagic" />
+<meta name="apple-mobile-web-app-title" content="Dramagic" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+</head>
+<body><div id="dramagicGlobalNav"></div>
+<div class="games-page">
+<header aria-hidden="true" class="games-topbar" style="display:none !important;">
+<a aria-label="Back to Dramagic dashboard" class="games-brand" href="auth.html#studentArea">
+<img alt="Dramagic Logo" src="dramagic-logo.png"/>
+<div>
+<strong>Dramagic</strong>
+<span>Game Section</span>
+</div>
+</a>
+<nav aria-label="Games navigation" class="games-nav">
+<a href="auth.html#studentArea">Dashboard</a>
+<a href="presentacy.html">Presentacy</a>
+<a href="media.html">Memories</a>
+</nav>
+</header>
+<main>
+<section class="games-hero">
+<div>
+<p class="eyebrow">Dramagic Game Section</p>
+<h1>Practice English through <span>games</span>.</h1>
+<p>
+            Start with Dramagic Wordle. Later, this page can hold more games,
+            challenges, points, badges, and class competitions.
+          </p>
+</div>
+<article aria-label="Game points summary" class="points-card">
+<span>⭐</span>
+<strong id="totalGamePoints">0</strong>
+<small>Total game points</small>
+</article>
+</section>
+<section class="games-layout">
+<aside aria-label="Available games" class="games-list">
+<div class="section-heading compact-heading">
+<div>
+<p class="eyebrow">Games</p>
+<h2>Choose a game</h2>
+</div>
+</div>
+<button class="game-tile active" data-game="wordle" type="button">
+<span>🟩</span>
+<div>
+<strong>Dramagic Wordle</strong>
+<small>Daily 5-letter English word.</small>
+</div>
+</button>
+<button class="game-tile coming" disabled="" type="button">
+<span>✨</span>
+<div>
+<strong>Other games coming soon</strong>
+<small>New Dramagic practice games will be added later.</small>
+</div>
+</button>
+</aside>
+<section aria-label="Dramagic Wordle game" class="wordle-card">
+<div class="wordle-head">
+<div>
+<p class="eyebrow">Wordle</p>
+<h2>Dramagic Wordle</h2>
+<p id="wordleSubtitle">One calm daily word for Dramagicians. Teachers and CEO can practise freely.</p>
+</div>
+<div class="wordle-actions">
+<button class="soft-btn" id="newPracticeBtn" type="button">New Practice Word</button>
+</div>
+</div>
+<div aria-label="Wordle stats" class="wordle-stats">
+<article>
+<strong id="gamesPlayed">0</strong>
+<span>Played</span>
+</article>
+<article>
+<strong id="gamesWon">0</strong>
+<span>Won</span>
+</article>
+<article>
+<strong id="currentStreak">0</strong>
+<span>Streak</span>
+</article>
+<article>
+<strong id="todayPoints">0</strong>
+<span>Last word</span>
+</article>
+</div>
+<div aria-live="polite" class="message-box" id="messageBox" role="status">
+            Type a word or tap the keyboard.
+          </div>
+<section aria-label="Wordle board" class="wordle-board" id="wordleBoard"></section>
+<section aria-label="Wordle keyboard" class="keyboard" id="keyboard"></section>
+<div class="wordle-help">
+<h3>How Wordle works</h3>
+<div aria-label="Wordle color guide" class="color-guide">
+<article>
+<span class="guide-tile correct">A</span>
+<div>
+<strong>Green</strong>
+<p>Right letter, right place.</p>
+</div>
+</article>
+<article>
+<span class="guide-tile present">A</span>
+<div>
+<strong>Yellow</strong>
+<p>Right letter, wrong place.</p>
+</div>
+</article>
+<article>
+<span class="guide-tile absent">A</span>
+<div>
+<strong>Grey</strong>
+<p>Letter is not in the word.</p>
+</div>
+</article>
+</div>
+</div>
+<div class="wordle-leaderboard">
+<div class="leaderboard-title-row">
+<div>
+<p class="eyebrow">Wordle leaderboard</p>
+<h3>Top Dramagicians</h3>
+</div>
+<span class="leaderboard-pill">1 point per win</span>
+</div>
+<div class="wordle-leaderboard-list" id="wordleLeaderboardList"></div>
+</div>
+</section>
+</section>
+</main>
+</div>
+<script defer="" src="dramagic-settings-loader.js"></script>
+<script defer="" src="game.js"></script>
+<script defer="True" src="dramagic-nav.js"></script>
+<script defer src="pwa-register.js"></script>
+</body>
+</html>

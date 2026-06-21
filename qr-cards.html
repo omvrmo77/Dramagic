@@ -3,10 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#635bff" />
-  <title>Dramagic QR Cards</title>
-  <link rel="manifest" href="manifest.json" />
-  <link rel="stylesheet" href="qr-cards.css" />
+<title>Dramagic QR Cards</title>
+<link rel="stylesheet" href="qr-cards.css" />
+<!-- Dramagic PWA -->
+<link rel="manifest" href="manifest.json" />
+<link rel="icon" href="favicon.ico" />
+<link rel="apple-touch-icon" href="assets/icons/icon-180.png" />
+<meta name="theme-color" content="#08a9d9" />
+<meta name="application-name" content="Dramagic" />
+<meta name="apple-mobile-web-app-title" content="Dramagic" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
 </head>
 <body>
   <header class="print-header">
@@ -24,5 +32,6 @@
   <main id="cardsGrid" class="cards-grid"></main>
 
   <script src="qr-cards.js"></script>
+<script defer src="pwa-register.js"></script>
 </body>
 </html>

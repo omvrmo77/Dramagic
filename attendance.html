@@ -1,183 +1,257 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#635bff" />
-  <title>Dramagic Attendance</title>
-  <link rel="manifest" href="manifest.json" />
-  <link rel="stylesheet" href="attendance.css" />
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>Dramagic Attendance</title>
+<script>
+    (function () {
+      let theme = "light";
+
+      try {
+        const settings = JSON.parse(localStorage.getItem("dramagic_settings")) || {};
+        theme = settings.theme || localStorage.getItem("dramagic_theme") || "light";
+      } catch {
+        theme = localStorage.getItem("dramagic_theme") || "light";
+      }
+
+      const systemDark =
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+      const useDark = theme === "dark" || (theme === "system" && systemDark);
+
+      document.documentElement.classList.toggle("dark-mode", useDark);
+      document.documentElement.classList.toggle("light-mode", !useDark);
+    })();
+  </script>
+<link href="dramagic-global-settings.css" rel="stylesheet"/>
+<link href="attendance.css" rel="stylesheet"/><link href="dramagic-nav.css" rel="stylesheet"/>
+<!-- Dramagic PWA -->
+<link rel="manifest" href="manifest.json" />
+<link rel="icon" href="favicon.ico" />
+<link rel="apple-touch-icon" href="assets/icons/icon-180.png" />
+<meta name="theme-color" content="#08a9d9" />
+<meta name="application-name" content="Dramagic" />
+<meta name="apple-mobile-web-app-title" content="Dramagic" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
 </head>
-<body>
-  <main class="attendance-app">
-    <nav class="attendance-nav" aria-label="Attendance navigation">
-      <button id="homeTopBtn" class="dashboard-back-link nav-home-button" type="button">← Home</button>
-      <a class="dashboard-back-link secondary" href="qr-cards.html">▦ QR Cards</a>
-    </nav>
-
-    <header class="hero-card">
-      <div class="hero-top">
-        <div class="brand-mark">D</div>
-        <div>
-          <p class="eyebrow">Dramagic Offline PWA</p>
-          <h1>QR Attendance</h1>
-          <p class="hero-subtitle">Prepare before class, scan without internet, sync later.</p>
-        </div>
-      </div>
-
-      <div class="status-row">
-        <span id="connectionPill" class="status-pill">Checking...</span>
-        <span id="offlineReadyPill" class="status-pill muted">Offline list not prepared</span>
-        <span id="syncPill" class="status-pill muted">0 unsynced</span>
-      </div>
-    </header>
-
-    <section class="control-card">
-      <div class="field-grid">
-        <label>
-          <span>Class</span>
-          <select id="classSelect">
-            <option value="A">Class A</option>
-            <option value="B">Class B</option>
-            <option value="C">Class C</option>
-            <option value="D">Class D</option>
-          </select>
-        </label>
-
-        <label>
-          <span>Session</span>
-          <input id="sessionInput" type="number" min="1" value="1" />
-        </label>
-
-        <label>
-          <span>Starts at</span>
-          <input id="startTimeInput" type="time" value="17:00" />
-        </label>
-
-        <label>
-          <span>Late after</span>
-          <select id="lateAfterSelect">
-            <option value="5">5 min</option>
-            <option value="10">10 min</option>
-            <option value="15" selected>15 min</option>
-            <option value="20">20 min</option>
-            <option value="30">30 min</option>
-          </select>
-        </label>
-      </div>
-
-      <div class="button-row">
-        <button id="prepareBtn" class="primary-btn" type="button">Prepare Offline Attendance</button>
-        <button id="startSessionBtn" class="soft-btn" type="button">Start / Open Session</button>
-        <button id="syncBtn" class="soft-btn" type="button">Sync Demo</button>
-        <button id="resetSessionBtn" class="danger-btn" type="button">Reset Session</button>
-      </div>
-    </section>
-
-    <section class="tabs" aria-label="Attendance tabs">
-      <button class="tab active" data-tab="scan" type="button">Scan</button>
-      <button class="tab" data-tab="students" type="button">Class List</button>
-      <button class="tab" data-tab="queue" type="button">Sync Queue</button>
-      <a class="tab link-tab" href="qr-cards.html">QR Cards</a>
-    </section>
-
-    <section id="scanPanel" class="panel active-panel">
-      <div class="scan-card">
-        <div class="scan-header">
-          <div>
-            <p class="eyebrow">Camera scanner</p>
-            <h2>Scan student QR</h2>
-          </div>
-          <div class="scan-actions">
-            <button id="scanBtn" class="primary-btn" type="button">Open Camera</button>
-            <button id="stopScanBtn" class="danger-btn hidden" type="button">Stop</button>
-          </div>
-        </div>
-
-        <div class="video-frame">
-          <video id="scannerVideo" playsinline muted></video>
-          <div id="scanOverlay" class="scan-overlay">
-            <strong>Camera preview</strong>
-            <span>Camera works on HTTPS/localhost. Manual demo works anywhere.</span>
-          </div>
-        </div>
-
-        <p id="scannerMessage" class="scanner-message">Tap “Open Camera” or use the manual demo below.</p>
-      </div>
-
-      <div class="manual-card">
-        <label>
-          <span>Manual QR code / demo scan</span>
-          <div class="manual-row">
-            <input id="manualCodeInput" type="text" placeholder="Example: DRG-A-001-X9K2" />
-            <button id="manualScanBtn" class="primary-btn" type="button">Mark</button>
-          </div>
-        </label>
-
-        <div class="sample-row" id="sampleButtons"></div>
-      </div>
-
-      <div id="lastScanCard" class="last-scan-card hidden"></div>
-    </section>
-
-    <section id="studentsPanel" class="panel">
-      <div class="summary-grid">
-        <article>
-          <strong id="presentCount">0</strong>
-          <span>Present</span>
-        </article>
-        <article>
-          <strong id="lateCount">0</strong>
-          <span>Late</span>
-        </article>
-        <article>
-          <strong id="absentCount">0</strong>
-          <span>Absent</span>
-        </article>
-        <article>
-          <strong id="totalCount">0</strong>
-          <span>Total</span>
-        </article>
-      </div>
-
-      <div class="list-tools">
-        <label class="search-box">
-          <span>⌕</span>
-          <input id="studentSearchInput" type="search" placeholder="Search students..." />
-        </label>
-        <button id="exportCsvBtn" class="soft-btn" type="button">Export CSV Backup</button>
-      </div>
-
-      <div id="attendanceList" class="attendance-list"></div>
-    </section>
-
-    <section id="queuePanel" class="panel">
-      <div class="queue-card">
-        <h2>Offline Sync Queue</h2>
-        <p>This demo marks records as synced locally. Later this button will upload to Supabase.</p>
-        <div id="queueList" class="queue-list"></div>
-      </div>
-    </section>
-
-    <footer class="page-footer-nav">
-      <button id="homeBottomBtn" class="dashboard-back-link nav-home-button" type="button">← Back to Dashboard</button>
-      <a class="dashboard-back-link secondary" href="qr-cards.html">▦ QR Cards</a>
-    </footer>
-  </main>
-
-  <button id="homeFloatBtn" class="floating-home-link nav-home-button" type="button" aria-label="Back to dashboard">🏠 Home</button>
-
-  <script>
-    /*
-      HOME FIX ONLY:
-      This does NOT touch index.html or any old Dramagic file.
-      It only makes the Attendance Home buttons return to the page that opened Attendance.
-    */
+<body><div id="dramagicGlobalNav"></div>
+<main class="attendance-app">
+<nav aria-hidden="true" aria-label="Attendance navigation" class="attendance-nav" style="display:none !important;">
+<button class="dashboard-back-link nav-home-button" id="homeTopBtn" type="button">← Home</button>
+</nav>
+<header class="hero-card">
+<div class="hero-top">
+<div class="brand-mark">D</div>
+<div>
+<p class="eyebrow">Dramagic Attendance</p>
+<h1 id="attendanceHeroTitle">Attendance by Name</h1>
+<p id="attendanceHeroSubtitle" class="hero-subtitle">Choose the class, select the Dramagician, and mark attendance instantly.</p>
+</div>
+</div>
+<div class="status-row">
+<span class="status-pill" id="connectionPill">Checking...</span>
+<span class="status-pill muted" id="offlineReadyPill">Student list loading...</span>
+<span class="status-pill muted" id="syncPill">0 unsynced</span>
+</div>
+</header>
+<section id="readonlyAttendanceNotice" class="readonly-attendance-notice hidden">
+  <strong>Attendance records</strong>
+  <span>Your child’s saved attendance sessions will appear here.</span>
+</section>
+<section class="control-card" id="attendanceControlCard">
+<div class="field-grid">
+<label>
+<span>Class</span>
+<select id="classSelect">
+<option value="A">Class A</option>
+<option value="B">Class B</option>
+<option value="C">Class C</option>
+<option value="D">Class D</option>
+<option value="E">Class E</option>
+<option value="F">Class F</option>
+</select>
+</label>
+<label>
+<span>Session</span>
+<input id="sessionInput" min="1" type="number" value="1"/>
+</label>
+<label>
+<span>Session day</span>
+<input id="sessionDateInput" type="date"/>
+</label>
+<label>
+<span>Starts at</span>
+<input id="startTimeInput" type="time" value="17:00"/>
+</label>
+<label class="fixed-late-rule-field">
+<span>Late rule</span>
+<div class="fixed-late-rule-box">After 15 min: -3 pts, then -1 every extra 5 min</div>
+<select id="lateAfterSelect" hidden aria-hidden="true">
+<option selected="" value="15">15 min</option>
+</select>
+</label>
+</div>
+<div class="button-row">
+<button class="primary-btn" id="prepareBtn" type="button">Prepare Student List</button>
+<button class="soft-btn" id="startSessionBtn" type="button">Start / Open Session</button>
+<button class="soft-btn" id="syncBtn" type="button">Sync Demo</button>
+<button class="danger-btn" id="resetSessionBtn" type="button">Reset Session</button>
+</div>
+</section>
+<section aria-label="Attendance tabs" class="tabs">
+<button class="tab active" data-tab="students" type="button">Mark Attendance</button>
+<button class="tab" data-tab="sheet" type="button">Attendance Sheet</button>
+<button class="tab" data-tab="queue" type="button">Sync Queue</button>
+</section>
+<section class="panel active-panel" id="studentsPanel">
+<div class="summary-grid">
+<article>
+<strong id="presentCount">0</strong>
+<span>Present</span>
+</article>
+<article>
+<strong id="lateCount">0</strong>
+<span>Late</span>
+</article>
+<article>
+<strong id="absentCount">0</strong>
+<span>Absent</span>
+</article>
+<article>
+<strong id="totalCount">0</strong>
+<span>Total</span>
+</article>
+</div>
+<section aria-label="Quick attendance marker" class="quick-card">
+<div>
+<p class="eyebrow">Quick Mark</p>
+<h2>Choose the Dramagician</h2>
+<p>Select the name and press Save Attendance. The website will automatically mark Present or Late from the class start time. Any unmarked Dramagician stays Absent.</p>
+</div>
+<div class="quick-controls">
+<label>
+<span>Dramagician</span>
+<select id="studentPicker"></select>
+</label>
+<div aria-label="Automatic attendance status" class="status-picker auto-status-hidden" id="quickStatusButtons" aria-hidden="true">
+<button class="status-choice present-choice active" data-status="present" type="button" tabindex="-1">Present</button>
+<button class="status-choice late-choice" data-status="late" type="button" tabindex="-1">Late</button>
+<button class="status-choice absent-choice" data-status="absent" type="button" tabindex="-1">Absent</button>
+</div>
+<p class="pending-hint" id="pendingAttendanceHint">Automatic status will be calculated when you save.</p>
+<div class="deduction-preview-card" id="lateDeductionPreview">Late points will be calculated automatically from the class start time.</div>
+<label class="excuse-toggle">
+  <input id="attendanceExcusedToggle" type="checkbox" />
+  <span>Excused / no point deduction</span>
+</label>
+<label class="excuse-reason" id="attendanceExcuseReasonWrap">
+  <span>Reason / note</span>
+  <textarea id="attendanceExcuseReason" rows="2" placeholder="Example: Parent told us before, medical reason, approved by CEO..."></textarea>
+</label>
+<button class="primary-btn save-attendance-btn" id="saveSelectedAttendanceBtn" type="button">Save Attendance / Update Reason</button>
+</div>
+</section>
+<div class="last-scan-card hidden" id="lastScanCard"></div>
+<div class="list-tools">
+<label class="search-box">
+<span>⌕</span>
+<input id="studentSearchInput" placeholder="Search by name..." type="search"/>
+</label>
+<button class="soft-btn" id="exportCsvBtn" type="button">Export CSV Backup</button>
+</div>
+<div class="attendance-list" id="attendanceList"></div>
+</section>
+<section class="panel" id="sheetPanel">
+<section aria-label="Full attendance sheet" class="sheet-card">
+<div class="section-heading">
+<div>
+<p class="eyebrow">Full Attendance Sheet</p>
+<h2>Class attendance by day</h2>
+<p>Choose the class, available course day, and session to view the full attendance sheet.</p>
+</div>
+<button class="soft-btn" id="exportSheetCsvBtn" type="button">Export Sheet CSV</button>
+</div>
+<div class="sheet-controls">
+<label>
+<span>Class</span>
+<select id="sheetClassSelect">
+<option value="all">All Classes</option>
+<option value="A">Class A</option>
+<option value="B">Class B</option>
+<option value="C">Class C</option>
+<option value="D">Class D</option>
+<option value="E">Class E</option>
+<option value="F">Class F</option>
+</select>
+</label>
+<label>
+<span>Available Day</span>
+<select id="sheetDateInput"></select>
+</label>
+<label>
+<span>Session</span>
+<input id="sheetSessionInput" min="1" type="number" value="1"/>
+</label>
+</div>
+<div class="sheet-summary-grid">
+<article>
+<strong id="sheetPresentCount">0</strong>
+<span>Present</span>
+</article>
+<article>
+<strong id="sheetLateCount">0</strong>
+<span>Late</span>
+</article>
+<article>
+<strong id="sheetAbsentCount">0</strong>
+<span>Absent</span>
+</article>
+<article>
+<strong id="sheetTotalCount">0</strong>
+<span>Total</span>
+</article>
+</div>
+<div class="sheet-table-wrap">
+<table class="attendance-sheet-table">
+<thead>
+<tr>
+<th>Class</th>
+<th>Dramagician</th>
+<th>Status</th>
+<th>Time</th>
+<th>Session</th>
+<th>Points</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody id="attendanceSheetBody"></tbody>
+</table>
+</div>
+</section>
+</section>
+<section class="panel" id="queuePanel">
+<div class="queue-card">
+<h2>Offline Sync Queue</h2>
+<p>This demo marks records as synced locally. Later this button will upload to Supabase.</p>
+<div class="queue-list" id="queueList"></div>
+</div>
+</section>
+<footer aria-hidden="true" class="page-footer-nav" style="display:none !important;">
+<button class="dashboard-back-link nav-home-button" id="homeBottomBtn" type="button">← Back to Dashboard</button>
+</footer>
+</main>
+<button aria-hidden="true" aria-label="Back to dashboard" class="floating-home-link nav-home-button" id="homeFloatBtn" style="display:none !important;" type="button">🏠 Home</button>
+<script>
     function getSafeHomeTarget() {
       const params = new URLSearchParams(window.location.search);
-      const backParam = params.get('back');
+      const backParam = params.get("back");
 
-      if (backParam && !backParam.includes('://') && !backParam.startsWith('//')) {
+      if (backParam && !backParam.includes("://") && !backParam.startsWith("//")) {
         return backParam;
       }
 
@@ -185,11 +259,11 @@
         if (document.referrer) {
           const referrerUrl = new URL(document.referrer);
           const currentUrl = new URL(window.location.href);
-          const referrerFile = referrerUrl.pathname.split('/').pop() || '';
+          const referrerFile = referrerUrl.pathname.split("/").pop() || "";
 
           const cameFromSameFolder =
             referrerUrl.origin === currentUrl.origin &&
-            referrerUrl.pathname.replace(/[^/]*$/, '') === currentUrl.pathname.replace(/[^/]*$/, '');
+            referrerUrl.pathname.replace(/[^/]*$/, "") === currentUrl.pathname.replace(/[^/]*$/, "");
 
           const referrerIsNotAttendancePage =
             !/^(attendance|qr-cards)(\.html)?$/i.test(referrerFile);
@@ -199,42 +273,25 @@
           }
         }
       } catch {
-        // If the browser blocks referrer parsing, use the normal homepage fallback below.
+        // Use fallback below.
       }
 
-      return './index.html';
+      return "./auth.html";
     }
 
     function goToDramagicHome() {
       window.location.href = getSafeHomeTarget();
     }
 
-    document.addEventListener('DOMContentLoaded', function () {
-      document.querySelectorAll('.nav-home-button').forEach(function (button) {
-        button.addEventListener('click', goToDramagicHome);
+    document.addEventListener("DOMContentLoaded", function () {
+      document.querySelectorAll(".nav-home-button").forEach(function (button) {
+        button.addEventListener("click", goToDramagicHome);
       });
     });
-
-    /*
-      The old offline demo may have registered a service worker that cached
-      the fake demo index.html. Since you asked to keep Attendance as a
-      separate tab and not replace the homepage, this page unregisters that
-      demo cache from here only.
-    */
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.getRegistrations().then(function (registrations) {
-        registrations.forEach(function (registration) {
-          const scriptUrl = registration.active?.scriptURL || registration.installing?.scriptURL || registration.waiting?.scriptURL || '';
-
-          if (scriptUrl.includes('service-worker.js')) {
-            registration.unregister();
-          }
-        });
-      }).catch(function () {
-        // Keep attendance working even if the browser refuses service worker access.
-      });
-    }
-  </script>
-  <script src="attendance.js" defer></script>
+</script>
+<script defer="" src="dramagic-settings-loader.js"></script>
+<script defer="" src="attendance.js"></script>
+<script defer="True" src="dramagic-nav.js"></script>
+<script defer src="pwa-register.js"></script>
 </body>
 </html>

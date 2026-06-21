@@ -1,6 +1,8 @@
 const roleSelect = document.getElementById("roleSelect");
 const classSelect = document.getElementById("classSelect");
 const studentSelect = document.getElementById("studentSelect");
+const scoreClassSelect = document.getElementById("scoreClassSelect");
+const scoreStudentSelect = document.getElementById("scoreStudentSelect");
 const studentPickerWrap = document.getElementById("studentPickerWrap");
 
 const lockedView = document.getElementById("lockedView");
@@ -92,6 +94,47 @@ let activeBoard = "class";
 let generatedTopic = null;
 let timerSeconds = 60;
 let timerInterval = null;
+
+const SCORE_LEVELS = {
+  1: "Needs Improvement",
+  2: "Developing",
+  3: "Good",
+  4: "Excellent"
+};
+
+const SCORE_MAX = 4;
+const SCORE_TOTAL_MAX = 10 * SCORE_MAX; // 10 rubric criteria × 4 levels. Keep this before scoringCriteria to avoid startup errors.
+
+function clampScore(value, fallback = 1) {
+  const number = Number(value);
+  if (!Number.isFinite(number) || number <= 0) return fallback;
+
+  // Safety for old saved 10-point demo scores: convert them to the new 1–4 scale.
+  if (number > SCORE_MAX) {
+    return Math.min(SCORE_MAX, Math.max(1, Math.round(number / 2.5)));
+  }
+
+  return Math.min(SCORE_MAX, Math.max(1, Math.round(number)));
+}
+
+function getScoreLabel(value) {
+  const rounded = clampScore(value, 0);
+  return SCORE_LEVELS[rounded] || "Not scored";
+}
+
+function formatScoreValue(value) {
+  const score = clampScore(value, 0);
+  if (!score) return "0 / 4";
+  return `${score} / 4 — ${getScoreLabel(score)}`;
+}
+
+function formatAverageScore(value) {
+  const number = Number(value || 0);
+  if (!number) return "0 / 4";
+
+  const roundedForLabel = Math.min(SCORE_MAX, Math.max(1, Math.round(number)));
+  return `${number.toFixed(1)} / 4 — ${getScoreLabel(roundedForLabel)}`;
+}
 
 const scoringCriteria = [
   {
@@ -421,6 +464,1181 @@ topicPool.push(
   { genre: "acting", level: "advanced", title: "Great acting begins when the audience forgets you are acting", ideas: ["Explain the meaning.", "Talk about honesty on stage.", "Give a strong example."] }
 );
 
+
+// DRAMAGIC EXPANDED TOPIC BANK — added to make the generator richer and less vague.
+topicPool.push(...[
+  {
+    "genre": "funny",
+    "level": "beginner",
+    "title": "The day our class pet became the teacher",
+    "ideas": [
+      "Describe the class pet and its serious teacher face.",
+      "Explain the first funny rule it gives the class.",
+      "End with how the real teacher reacts."
+    ]
+  },
+  {
+    "genre": "funny",
+    "level": "beginner",
+    "title": "My alarm clock joined the school WhatsApp group",
+    "ideas": [
+      "Say what the alarm clock keeps sending.",
+      "Describe how students and parents react.",
+      "End with the funniest message it sends."
+    ]
+  },
+  {
+    "genre": "funny",
+    "level": "beginner",
+    "title": "If my lunchbox judged my food choices",
+    "ideas": [
+      "Give the lunchbox a funny personality.",
+      "Make it comment on one snack or meal.",
+      "End with a funny promise you make to it."
+    ]
+  },
+  {
+    "genre": "funny",
+    "level": "intermediate",
+    "title": "A school announcement that everyone misunderstood",
+    "ideas": [
+      "Explain the announcement and why it was confusing.",
+      "Describe three different reactions from students.",
+      "Reveal what the announcement really meant."
+    ]
+  },
+  {
+    "genre": "funny",
+    "level": "intermediate",
+    "title": "The group project where nobody understood the project",
+    "ideas": [
+      "Introduce the team and their strange ideas.",
+      "Describe how the project gets worse and funnier.",
+      "End with what the teacher thinks of it."
+    ]
+  },
+  {
+    "genre": "funny",
+    "level": "intermediate",
+    "title": "If emojis became real people in our classroom",
+    "ideas": [
+      "Choose three emojis and give each one a personality.",
+      "Describe the chaos they create during class.",
+      "End with the emoji that saves the day."
+    ]
+  },
+  {
+    "genre": "funny",
+    "level": "advanced",
+    "title": "Why small misunderstandings can become unforgettable comedy",
+    "ideas": [
+      "Explain how one unclear word can start a funny problem.",
+      "Give a detailed school or family example.",
+      "End with why comedy feels better after the embarrassment passes."
+    ]
+  },
+  {
+    "genre": "funny",
+    "level": "advanced",
+    "title": "The science of timing: why a pause can make people laugh",
+    "ideas": [
+      "Explain timing using a simple joke or scene.",
+      "Show how silence, face reactions, and surprise work together.",
+      "End with how speakers can use timing without overacting."
+    ]
+  },
+  {
+    "genre": "funny",
+    "level": "advanced",
+    "title": "A speech where the speaker tries too hard to sound smart",
+    "ideas": [
+      "Create a speaker who uses big words incorrectly.",
+      "Show how the audience slowly realizes the problem.",
+      "End with a lesson about being clear instead of showing off."
+    ]
+  },
+  {
+    "genre": "personal",
+    "level": "beginner",
+    "title": "The first compliment I still remember",
+    "ideas": [
+      "Say who gave you the compliment.",
+      "Explain what you were doing at that moment.",
+      "Describe why it stayed in your heart."
+    ]
+  },
+  {
+    "genre": "personal",
+    "level": "beginner",
+    "title": "A small habit that makes my day better",
+    "ideas": [
+      "Name the habit and when you do it.",
+      "Explain how it changes your mood.",
+      "Tell the audience why they could try it too."
+    ]
+  },
+  {
+    "genre": "personal",
+    "level": "beginner",
+    "title": "The object in my room that tells my story",
+    "ideas": [
+      "Choose one object and describe it.",
+      "Explain where it came from.",
+      "Say what it shows about your personality."
+    ]
+  },
+  {
+    "genre": "personal",
+    "level": "intermediate",
+    "title": "A time I wanted to quit but continued anyway",
+    "ideas": [
+      "Describe the challenge clearly.",
+      "Explain what made you continue.",
+      "Share what changed after you did not quit."
+    ]
+  },
+  {
+    "genre": "personal",
+    "level": "intermediate",
+    "title": "Someone believed in me before I believed in myself",
+    "ideas": [
+      "Introduce the person and what they noticed in you.",
+      "Explain how their support affected your actions.",
+      "End with what you would tell them now."
+    ]
+  },
+  {
+    "genre": "personal",
+    "level": "intermediate",
+    "title": "The day I learned that being quiet is not weakness",
+    "ideas": [
+      "Describe a moment when you were quiet.",
+      "Explain what people misunderstood.",
+      "Show how quiet people can still be strong."
+    ]
+  },
+  {
+    "genre": "personal",
+    "level": "advanced",
+    "title": "The difference between the person people see and the person I am building",
+    "ideas": [
+      "Explain what people usually notice about you.",
+      "Describe the private effort they do not see.",
+      "End with the person you are trying to become."
+    ]
+  },
+  {
+    "genre": "personal",
+    "level": "advanced",
+    "title": "How one sentence from someone can stay with you for years",
+    "ideas": [
+      "Share or paraphrase the sentence.",
+      "Explain the situation around it.",
+      "Analyze how words can shape confidence or fear."
+    ]
+  },
+  {
+    "genre": "personal",
+    "level": "advanced",
+    "title": "Why growth sometimes feels uncomfortable before it feels exciting",
+    "ideas": [
+      "Describe a difficult change or new skill.",
+      "Explain why discomfort happens.",
+      "End with advice for people starting something new."
+    ]
+  },
+  {
+    "genre": "storytelling",
+    "level": "beginner",
+    "title": "The elevator that stopped on a secret floor",
+    "ideas": [
+      "Say who was inside the elevator.",
+      "Describe the secret floor.",
+      "Explain what the character finds there."
+    ]
+  },
+  {
+    "genre": "storytelling",
+    "level": "beginner",
+    "title": "The birthday cake with a hidden message",
+    "ideas": [
+      "Describe the party and the cake.",
+      "Reveal the hidden message.",
+      "Tell what happens after everyone reads it."
+    ]
+  },
+  {
+    "genre": "storytelling",
+    "level": "beginner",
+    "title": "The school bell that rang at the wrong time",
+    "ideas": [
+      "Say when the bell rang.",
+      "Describe how everyone reacted.",
+      "Reveal why it rang."
+    ]
+  },
+  {
+    "genre": "storytelling",
+    "level": "intermediate",
+    "title": "A student receives tomorrow’s newspaper today",
+    "ideas": [
+      "Explain how the student finds the newspaper.",
+      "Choose one headline that scares or excites them.",
+      "Show what they do to change tomorrow."
+    ]
+  },
+  {
+    "genre": "storytelling",
+    "level": "intermediate",
+    "title": "The rehearsal where the wrong person became the hero",
+    "ideas": [
+      "Describe the play rehearsal.",
+      "Explain the mistake that happens.",
+      "Show how an unexpected character saves the scene."
+    ]
+  },
+  {
+    "genre": "storytelling",
+    "level": "intermediate",
+    "title": "The map drawn on the back of an exam paper",
+    "ideas": [
+      "Say who finds the map.",
+      "Explain why the map is strange.",
+      "End with what they discover."
+    ]
+  },
+  {
+    "genre": "storytelling",
+    "level": "advanced",
+    "title": "A story where the narrator slowly realizes they caused the problem",
+    "ideas": [
+      "Begin with the narrator blaming someone else.",
+      "Add clues that reveal the truth.",
+      "End with responsibility and change."
+    ]
+  },
+  {
+    "genre": "storytelling",
+    "level": "advanced",
+    "title": "A story told through three voice notes found on a phone",
+    "ideas": [
+      "Describe each voice note and who recorded it.",
+      "Let every note reveal a new part of the mystery.",
+      "End with the final voice note changing the meaning of everything."
+    ]
+  },
+  {
+    "genre": "storytelling",
+    "level": "advanced",
+    "title": "A character has one minute to say the truth before the lights go out",
+    "ideas": [
+      "Set the place and the urgent situation.",
+      "Explain what truth they are hiding.",
+      "End with the choice they make in the last seconds."
+    ]
+  },
+  {
+    "genre": "debate",
+    "level": "beginner",
+    "title": "Should every class have five minutes of drama practice?",
+    "ideas": [
+      "Say your opinion clearly.",
+      "Explain how drama practice can help speaking.",
+      "Mention one possible problem and answer it."
+    ]
+  },
+  {
+    "genre": "debate",
+    "level": "beginner",
+    "title": "Should students be allowed to choose their seats?",
+    "ideas": [
+      "Choose yes or no.",
+      "Give two reasons from classroom life.",
+      "End with a fair rule suggestion."
+    ]
+  },
+  {
+    "genre": "debate",
+    "level": "beginner",
+    "title": "Is a kind teacher better than a strict teacher?",
+    "ideas": [
+      "Explain what kind and strict mean.",
+      "Give examples of both.",
+      "Choose the type you learn better with."
+    ]
+  },
+  {
+    "genre": "debate",
+    "level": "intermediate",
+    "title": "Should schools replace some exams with performances or projects?",
+    "ideas": [
+      "Explain what exams measure.",
+      "Explain what performances and projects can show.",
+      "Give a balanced conclusion."
+    ]
+  },
+  {
+    "genre": "debate",
+    "level": "intermediate",
+    "title": "Do students learn more from correction or encouragement?",
+    "ideas": [
+      "Define correction and encouragement.",
+      "Give a classroom example for each.",
+      "Explain the best balance."
+    ]
+  },
+  {
+    "genre": "debate",
+    "level": "intermediate",
+    "title": "Should teamwork marks be separate from individual marks?",
+    "ideas": [
+      "Explain why teamwork can be unfair sometimes.",
+      "Explain why teamwork is still important.",
+      "Suggest a fair scoring system."
+    ]
+  },
+  {
+    "genre": "debate",
+    "level": "advanced",
+    "title": "Does public speaking matter more than writing in the future?",
+    "ideas": [
+      "Compare speaking and writing in work and life.",
+      "Discuss technology and communication.",
+      "Give a nuanced final opinion."
+    ]
+  },
+  {
+    "genre": "debate",
+    "level": "advanced",
+    "title": "Should students be taught how to fail?",
+    "ideas": [
+      "Explain why failure is usually feared.",
+      "Give examples of learning from failure.",
+      "Suggest how schools can teach resilience."
+    ]
+  },
+  {
+    "genre": "debate",
+    "level": "advanced",
+    "title": "Is confidence a personal skill or a social responsibility?",
+    "ideas": [
+      "Explain how people build confidence individually.",
+      "Discuss how families, schools, and friends affect confidence.",
+      "End with who should help and how."
+    ]
+  },
+  {
+    "genre": "technology",
+    "level": "beginner",
+    "title": "A classroom robot that only tells the truth",
+    "ideas": [
+      "Describe what the robot looks like.",
+      "Say what honest things it says in class.",
+      "Explain whether students like it or fear it."
+    ]
+  },
+  {
+    "genre": "technology",
+    "level": "beginner",
+    "title": "If my notebook could save voice notes",
+    "ideas": [
+      "Explain how the notebook works.",
+      "Say how it helps you study.",
+      "Mention one funny or annoying problem."
+    ]
+  },
+  {
+    "genre": "technology",
+    "level": "beginner",
+    "title": "The best device for a student’s bag",
+    "ideas": [
+      "Choose one device or invention.",
+      "Describe how it helps at school.",
+      "Explain why it should be safe and simple."
+    ]
+  },
+  {
+    "genre": "technology",
+    "level": "intermediate",
+    "title": "How AI can help shy students practise speaking",
+    "ideas": [
+      "Explain the speaking problem shy students face.",
+      "Give examples of AI practice tools.",
+      "Mention why real human feedback is still important."
+    ]
+  },
+  {
+    "genre": "technology",
+    "level": "intermediate",
+    "title": "The danger of believing everything you see online",
+    "ideas": [
+      "Explain fake information with a simple example.",
+      "Describe how students can check facts.",
+      "End with a rule for smart internet use."
+    ]
+  },
+  {
+    "genre": "technology",
+    "level": "intermediate",
+    "title": "Should students record themselves to improve speaking?",
+    "ideas": [
+      "Explain how recording reveals pronunciation and confidence.",
+      "Mention the uncomfortable feeling at first.",
+      "Give tips for using recordings kindly."
+    ]
+  },
+  {
+    "genre": "technology",
+    "level": "advanced",
+    "title": "When technology gives everyone a voice, who teaches people how to use that voice?",
+    "ideas": [
+      "Discuss social media, videos, and public platforms.",
+      "Explain the need for communication skills and responsibility.",
+      "End with a connection to presentation training."
+    ]
+  },
+  {
+    "genre": "technology",
+    "level": "advanced",
+    "title": "The future problem is not information; it is attention",
+    "ideas": [
+      "Explain how information is easy to find now.",
+      "Discuss distraction and focus.",
+      "Suggest how students can protect attention."
+    ]
+  },
+  {
+    "genre": "technology",
+    "level": "advanced",
+    "title": "Could virtual stages replace real stages?",
+    "ideas": [
+      "Explain online performance and virtual reality.",
+      "Compare it with the feeling of a live audience.",
+      "Give your opinion about what cannot be replaced."
+    ]
+  },
+  {
+    "genre": "movies",
+    "level": "beginner",
+    "title": "A movie scene I would like to act on stage",
+    "ideas": [
+      "Name or describe the type of scene.",
+      "Explain which character you would play.",
+      "Say how you would use your voice and face."
+    ]
+  },
+  {
+    "genre": "movies",
+    "level": "beginner",
+    "title": "The character who would be terrible at school",
+    "ideas": [
+      "Choose a character type.",
+      "Explain what they would do in class.",
+      "End with the lesson they need to learn."
+    ]
+  },
+  {
+    "genre": "movies",
+    "level": "beginner",
+    "title": "If my life had a movie trailer",
+    "ideas": [
+      "Describe the opening shot.",
+      "Say what music would play.",
+      "Mention one exciting line from the trailer."
+    ]
+  },
+  {
+    "genre": "movies",
+    "level": "intermediate",
+    "title": "Why the best movie characters are not perfect",
+    "ideas": [
+      "Explain flaws in characters.",
+      "Give a character example without needing the whole movie.",
+      "Connect imperfection to real people."
+    ]
+  },
+  {
+    "genre": "movies",
+    "level": "intermediate",
+    "title": "A scene can become powerful because of silence",
+    "ideas": [
+      "Describe a silent or quiet scene.",
+      "Explain facial expression and body language.",
+      "Connect it to acting on stage."
+    ]
+  },
+  {
+    "genre": "movies",
+    "level": "intermediate",
+    "title": "If the villain told the story, what would change?",
+    "ideas": [
+      "Explain the original hero view.",
+      "Show what the villain might say.",
+      "End with how perspective changes judgment."
+    ]
+  },
+  {
+    "genre": "movies",
+    "level": "advanced",
+    "title": "Cinema teaches empathy by making us live inside another person’s choices",
+    "ideas": [
+      "Explain empathy through characters.",
+      "Analyze how story, music, and acting affect feelings.",
+      "End with why this matters in real life."
+    ]
+  },
+  {
+    "genre": "movies",
+    "level": "advanced",
+    "title": "Why a simple movie line can become part of culture",
+    "ideas": [
+      "Explain what makes a line memorable.",
+      "Discuss timing, emotion, and repetition.",
+      "Connect famous lines to identity or shared memories."
+    ]
+  },
+  {
+    "genre": "movies",
+    "level": "advanced",
+    "title": "Do movies reflect society or shape society?",
+    "ideas": [
+      "Explain both sides.",
+      "Give examples like heroes, beauty standards, courage, or justice.",
+      "End with a balanced opinion."
+    ]
+  },
+  {
+    "genre": "sports",
+    "level": "beginner",
+    "title": "The first sport I would teach an alien",
+    "ideas": [
+      "Choose the sport.",
+      "Explain the rules very simply.",
+      "Describe the alien’s funny first try."
+    ]
+  },
+  {
+    "genre": "sports",
+    "level": "beginner",
+    "title": "A captain I would trust",
+    "ideas": [
+      "Describe the captain’s qualities.",
+      "Explain how they treat the team.",
+      "Say why trust matters in a match."
+    ]
+  },
+  {
+    "genre": "sports",
+    "level": "beginner",
+    "title": "My perfect sports day",
+    "ideas": [
+      "Choose the place and sport.",
+      "Say who plays with you.",
+      "Describe the best moment of the day."
+    ]
+  },
+  {
+    "genre": "sports",
+    "level": "intermediate",
+    "title": "The moment before a penalty kick",
+    "ideas": [
+      "Describe the pressure before the kick.",
+      "Explain what the player thinks and feels.",
+      "Connect it to speaking in front of people."
+    ]
+  },
+  {
+    "genre": "sports",
+    "level": "intermediate",
+    "title": "Why the bench players still matter",
+    "ideas": [
+      "Explain what bench players do.",
+      "Talk about support, preparation, and teamwork.",
+      "End with a life lesson about unseen effort."
+    ]
+  },
+  {
+    "genre": "sports",
+    "level": "intermediate",
+    "title": "A coach’s words can change a whole match",
+    "ideas": [
+      "Describe a difficult moment in a match.",
+      "Give the coach one powerful sentence.",
+      "Explain how the team changes after hearing it."
+    ]
+  },
+  {
+    "genre": "sports",
+    "level": "advanced",
+    "title": "The difference between winning a trophy and becoming a champion",
+    "ideas": [
+      "Define trophy and champion differently.",
+      "Discuss discipline, character, and consistency.",
+      "End with a message about values."
+    ]
+  },
+  {
+    "genre": "sports",
+    "level": "advanced",
+    "title": "Why pressure reveals preparation",
+    "ideas": [
+      "Explain pressure in sports and performance.",
+      "Give an example of someone prepared versus unprepared.",
+      "Connect it to presentation skills."
+    ]
+  },
+  {
+    "genre": "sports",
+    "level": "advanced",
+    "title": "Should athletes be role models outside the game?",
+    "ideas": [
+      "Explain why people follow athletes.",
+      "Discuss responsibility and personal freedom.",
+      "Give a balanced conclusion."
+    ]
+  },
+  {
+    "genre": "imagination",
+    "level": "beginner",
+    "title": "If my classroom had a secret magic door",
+    "ideas": [
+      "Describe where the door appears.",
+      "Say where it leads.",
+      "Explain what the class does next."
+    ]
+  },
+  {
+    "genre": "imagination",
+    "level": "beginner",
+    "title": "A pencil that writes what people really think",
+    "ideas": [
+      "Describe who finds the pencil.",
+      "Say what surprising sentence appears.",
+      "End with a problem or lesson."
+    ]
+  },
+  {
+    "genre": "imagination",
+    "level": "beginner",
+    "title": "If clouds delivered messages",
+    "ideas": [
+      "Explain how the messages appear.",
+      "Choose one message you receive.",
+      "Say how it changes your day."
+    ]
+  },
+  {
+    "genre": "imagination",
+    "level": "intermediate",
+    "title": "A world where every person has background music",
+    "ideas": [
+      "Describe how music follows people.",
+      "Explain what your music would sound like.",
+      "Show a problem this world creates."
+    ]
+  },
+  {
+    "genre": "imagination",
+    "level": "intermediate",
+    "title": "If memories could be kept in jars",
+    "ideas": [
+      "Describe the jar shop or memory room.",
+      "Choose one memory to keep or throw away.",
+      "Explain the emotional result."
+    ]
+  },
+  {
+    "genre": "imagination",
+    "level": "intermediate",
+    "title": "A school where subjects are living characters",
+    "ideas": [
+      "Give English, Math, or Science a personality.",
+      "Describe a conversation between subjects.",
+      "End with which subject becomes your friend."
+    ]
+  },
+  {
+    "genre": "imagination",
+    "level": "advanced",
+    "title": "A world where everyone can hear the narrator of their own life",
+    "ideas": [
+      "Explain how the narrator comments on decisions.",
+      "Discuss the funny and serious effects.",
+      "End with whether this would help or hurt people."
+    ]
+  },
+  {
+    "genre": "imagination",
+    "level": "advanced",
+    "title": "What if courage was a visible color around people?",
+    "ideas": [
+      "Describe what different colors mean.",
+      "Show how society judges people by courage colors.",
+      "End with the truth about invisible bravery."
+    ]
+  },
+  {
+    "genre": "imagination",
+    "level": "advanced",
+    "title": "A future museum displays emotions instead of objects",
+    "ideas": [
+      "Describe exhibits like fear, joy, regret, or hope.",
+      "Choose one exhibit and explain its story.",
+      "End with what visitors learn about being human."
+    ]
+  },
+  {
+    "genre": "mystery",
+    "level": "beginner",
+    "title": "The locker that only opens at 3:03",
+    "ideas": [
+      "Describe who notices the locker.",
+      "Say what happens at exactly 3:03.",
+      "Reveal what is inside."
+    ]
+  },
+  {
+    "genre": "mystery",
+    "level": "beginner",
+    "title": "The missing microphone before the show",
+    "ideas": [
+      "Explain why the microphone is important.",
+      "List two clues.",
+      "Reveal who took it and why."
+    ]
+  },
+  {
+    "genre": "mystery",
+    "level": "beginner",
+    "title": "A message written on the classroom window",
+    "ideas": [
+      "Describe the message.",
+      "Say who sees it first.",
+      "End with the surprising meaning."
+    ]
+  },
+  {
+    "genre": "mystery",
+    "level": "intermediate",
+    "title": "Every clock in school stopped at the same minute",
+    "ideas": [
+      "Describe the exact minute and the first reaction.",
+      "Give three clues from different places.",
+      "Reveal the reason behind the stopped clocks."
+    ]
+  },
+  {
+    "genre": "mystery",
+    "level": "intermediate",
+    "title": "The applause coming from an empty theatre",
+    "ideas": [
+      "Set the scene after rehearsal.",
+      "Describe the sound and the fear.",
+      "Reveal whether it is scary, funny, or emotional."
+    ]
+  },
+  {
+    "genre": "mystery",
+    "level": "intermediate",
+    "title": "The student who kept receiving answers in dreams",
+    "ideas": [
+      "Explain the dream pattern.",
+      "Show how it helps and creates suspicion.",
+      "End with the real source of the answers."
+    ]
+  },
+  {
+    "genre": "mystery",
+    "level": "advanced",
+    "title": "A mystery where the audience knows one clue the detective misses",
+    "ideas": [
+      "Give the audience a hidden clue early.",
+      "Show the detective following the wrong path.",
+      "Use the clue to create a satisfying reveal."
+    ]
+  },
+  {
+    "genre": "mystery",
+    "level": "advanced",
+    "title": "The final rehearsal reveals a secret from years ago",
+    "ideas": [
+      "Connect an old event to the current play.",
+      "Use a prop, line, or costume as the clue.",
+      "End with how the truth changes the characters."
+    ]
+  },
+  {
+    "genre": "mystery",
+    "level": "advanced",
+    "title": "A voice note arrives from someone who is standing beside you",
+    "ideas": [
+      "Create the impossible situation.",
+      "Suggest realistic and strange explanations.",
+      "Reveal the truth in a way that changes the relationship."
+    ]
+  },
+  {
+    "genre": "future",
+    "level": "beginner",
+    "title": "My first day in my dream job",
+    "ideas": [
+      "Name the job and workplace.",
+      "Describe what you do first.",
+      "Say how you feel at the end of the day."
+    ]
+  },
+  {
+    "genre": "future",
+    "level": "beginner",
+    "title": "A skill I want to master this summer",
+    "ideas": [
+      "Name the skill.",
+      "Explain why it matters to you.",
+      "Say how you will practise it step by step."
+    ]
+  },
+  {
+    "genre": "future",
+    "level": "beginner",
+    "title": "The city I want to live in one day",
+    "ideas": [
+      "Describe the city.",
+      "Explain what people do there.",
+      "Say why it fits your future."
+    ]
+  },
+  {
+    "genre": "future",
+    "level": "intermediate",
+    "title": "What I want my future self to thank me for",
+    "ideas": [
+      "Choose one habit or decision you can start now.",
+      "Explain how it helps later.",
+      "End with a promise to yourself."
+    ]
+  },
+  {
+    "genre": "future",
+    "level": "intermediate",
+    "title": "The job that does not exist yet but should",
+    "ideas": [
+      "Invent the job title.",
+      "Explain the problem this job solves.",
+      "Describe the skills needed for it."
+    ]
+  },
+  {
+    "genre": "future",
+    "level": "intermediate",
+    "title": "How communication skills can open doors in any career",
+    "ideas": [
+      "Give career examples.",
+      "Explain speaking, listening, and confidence.",
+      "Connect it to school life now."
+    ]
+  },
+  {
+    "genre": "future",
+    "level": "advanced",
+    "title": "In the future, your voice may be your most valuable skill",
+    "ideas": [
+      "Explain why ideas need communication.",
+      "Discuss leadership, interviews, presentations, and teamwork.",
+      "End with practical advice for today."
+    ]
+  },
+  {
+    "genre": "future",
+    "level": "advanced",
+    "title": "The careers of tomorrow will belong to learners, not memorizers",
+    "ideas": [
+      "Compare memorizing information with learning how to adapt.",
+      "Give examples from technology and work.",
+      "End with what schools should change."
+    ]
+  },
+  {
+    "genre": "future",
+    "level": "advanced",
+    "title": "A letter from 2040 warning today’s students",
+    "ideas": [
+      "Create a future problem.",
+      "Write the warning clearly.",
+      "End with what students should start doing now."
+    ]
+  },
+  {
+    "genre": "confidence",
+    "level": "beginner",
+    "title": "The brave voice inside me",
+    "ideas": [
+      "Describe when this voice appears.",
+      "Say what it tells you.",
+      "Explain how you can listen to it more."
+    ]
+  },
+  {
+    "genre": "confidence",
+    "level": "beginner",
+    "title": "A time I raised my hand even though I was nervous",
+    "ideas": [
+      "Describe the class moment.",
+      "Explain what you felt before speaking.",
+      "Say what happened after you spoke."
+    ]
+  },
+  {
+    "genre": "confidence",
+    "level": "beginner",
+    "title": "My confidence toolbox",
+    "ideas": [
+      "Choose three tools like breathing, practice, or smiling.",
+      "Explain how each one helps.",
+      "End with the tool you need most."
+    ]
+  },
+  {
+    "genre": "confidence",
+    "level": "intermediate",
+    "title": "Why a strong opening makes the whole speech easier",
+    "ideas": [
+      "Explain the fear at the start.",
+      "Give examples of strong openings.",
+      "Show how the speaker feels after starting well."
+    ]
+  },
+  {
+    "genre": "confidence",
+    "level": "intermediate",
+    "title": "The difference between acting confident and becoming confident",
+    "ideas": [
+      "Explain actions that look confident.",
+      "Discuss practice and real growth.",
+      "Give a practical example from presentations."
+    ]
+  },
+  {
+    "genre": "confidence",
+    "level": "intermediate",
+    "title": "How feedback can build confidence instead of breaking it",
+    "ideas": [
+      "Explain bad feedback and good feedback.",
+      "Give examples of helpful teacher comments.",
+      "End with how students should receive correction."
+    ]
+  },
+  {
+    "genre": "confidence",
+    "level": "advanced",
+    "title": "Confidence is a relationship between preparation and self-trust",
+    "ideas": [
+      "Define preparation and self-trust.",
+      "Explain what happens when one is missing.",
+      "End with a practical confidence routine."
+    ]
+  },
+  {
+    "genre": "confidence",
+    "level": "advanced",
+    "title": "Why confidence without kindness can become arrogance",
+    "ideas": [
+      "Compare confidence and arrogance.",
+      "Give examples in class or on stage.",
+      "Explain how humility makes confidence stronger."
+    ]
+  },
+  {
+    "genre": "confidence",
+    "level": "advanced",
+    "title": "The audience is not your enemy: changing the way we see listeners",
+    "ideas": [
+      "Explain why speakers fear judgment.",
+      "Show how the audience can become support.",
+      "Give techniques for connecting with listeners."
+    ]
+  },
+  {
+    "genre": "school",
+    "level": "beginner",
+    "title": "The classroom job I would choose",
+    "ideas": [
+      "Choose a job like helper, leader, designer, or speaker.",
+      "Explain what you would do.",
+      "Say why this job fits your personality."
+    ]
+  },
+  {
+    "genre": "school",
+    "level": "beginner",
+    "title": "A school trip I would plan",
+    "ideas": [
+      "Choose the place.",
+      "Explain three activities.",
+      "Say what students would learn there."
+    ]
+  },
+  {
+    "genre": "school",
+    "level": "beginner",
+    "title": "The best corner in my classroom",
+    "ideas": [
+      "Describe the corner.",
+      "Say what students do there.",
+      "Explain why it feels special."
+    ]
+  },
+  {
+    "genre": "school",
+    "level": "intermediate",
+    "title": "A class becomes better when students feel safe to make mistakes",
+    "ideas": [
+      "Explain why mistakes scare students.",
+      "Describe how teachers and friends can help.",
+      "Give an example of learning from a mistake."
+    ]
+  },
+  {
+    "genre": "school",
+    "level": "intermediate",
+    "title": "Should schools have a confidence report beside the grade report?",
+    "ideas": [
+      "Explain what a confidence report could include.",
+      "Mention benefits and risks.",
+      "Suggest a fair way to use it."
+    ]
+  },
+  {
+    "genre": "school",
+    "level": "intermediate",
+    "title": "The difference between a quiet classroom and a focused classroom",
+    "ideas": [
+      "Define both types.",
+      "Explain why silence does not always mean learning.",
+      "Describe the ideal learning atmosphere."
+    ]
+  },
+  {
+    "genre": "school",
+    "level": "advanced",
+    "title": "School culture can make students brave or invisible",
+    "ideas": [
+      "Explain school culture with examples.",
+      "Discuss participation, mistakes, and encouragement.",
+      "Suggest how to build a brave classroom."
+    ]
+  },
+  {
+    "genre": "school",
+    "level": "advanced",
+    "title": "Why creativity should be treated as a core skill, not a reward after work",
+    "ideas": [
+      "Explain how creativity helps learning.",
+      "Compare traditional lessons with creative tasks.",
+      "End with a school design idea."
+    ]
+  },
+  {
+    "genre": "school",
+    "level": "advanced",
+    "title": "A school should measure growth, not only performance",
+    "ideas": [
+      "Compare growth and performance.",
+      "Give examples like confidence, speaking, and teamwork.",
+      "Suggest how teachers can track progress fairly."
+    ]
+  },
+  {
+    "genre": "acting",
+    "level": "beginner",
+    "title": "A character who always tells dramatic stories",
+    "ideas": [
+      "Describe the character’s voice and movement.",
+      "Tell one small event in a dramatic way.",
+      "End by showing how people react."
+    ]
+  },
+  {
+    "genre": "acting",
+    "level": "beginner",
+    "title": "Acting as someone who just found a secret",
+    "ideas": [
+      "Show the face reaction.",
+      "Explain what the secret is.",
+      "Say whether the character hides it or tells someone."
+    ]
+  },
+  {
+    "genre": "acting",
+    "level": "beginner",
+    "title": "A character who enters the stage late",
+    "ideas": [
+      "Describe how they enter.",
+      "Explain why they are late.",
+      "Act one excuse they give."
+    ]
+  },
+  {
+    "genre": "acting",
+    "level": "intermediate",
+    "title": "How a character changes from nervous to brave in one scene",
+    "ideas": [
+      "Describe the nervous body language at the start.",
+      "Show the moment that changes the character.",
+      "Explain the brave ending."
+    ]
+  },
+  {
+    "genre": "acting",
+    "level": "intermediate",
+    "title": "The power of entering a scene with a clear objective",
+    "ideas": [
+      "Explain what the character wants.",
+      "Show how the objective affects voice and movement.",
+      "Give a scene example."
+    ]
+  },
+  {
+    "genre": "acting",
+    "level": "intermediate",
+    "title": "A scene where the words are happy but the body is sad",
+    "ideas": [
+      "Explain the contradiction.",
+      "Show how face and posture reveal truth.",
+      "Discuss why this makes acting deeper."
+    ]
+  },
+  {
+    "genre": "acting",
+    "level": "advanced",
+    "title": "A great performer makes the audience feel the thought before hearing the line",
+    "ideas": [
+      "Explain how thinking appears through pauses and eyes.",
+      "Discuss subtext and emotional preparation.",
+      "Give an example of a line with hidden meaning."
+    ]
+  },
+  {
+    "genre": "acting",
+    "level": "advanced",
+    "title": "The difference between performing loudly and performing truthfully",
+    "ideas": [
+      "Compare volume with emotional honesty.",
+      "Explain when loud acting works and when it feels fake.",
+      "End with advice for young actors."
+    ]
+  },
+  {
+    "genre": "acting",
+    "level": "advanced",
+    "title": "Why every character believes they are the hero of their own story",
+    "ideas": [
+      "Explain character motivation.",
+      "Apply it to heroes, villains, and comic characters.",
+      "Show how this idea helps actors perform better."
+    ]
+  }
+]);
+
 function init() {
   const savedRole = localStorage.getItem("presentacy_role");
   const savedClass = localStorage.getItem("presentacy_class");
@@ -463,8 +1681,28 @@ function setupEvents() {
 
   studentSelect.addEventListener("change", () => {
     localStorage.setItem("presentacy_student", studentSelect.value);
+    syncScoreStudentSelect();
     renderAll();
   });
+
+  if (scoreClassSelect) {
+    scoreClassSelect.addEventListener("change", () => {
+      classSelect.value = scoreClassSelect.value;
+      localStorage.setItem("presentacy_class", scoreClassSelect.value);
+      populateStudentSelect();
+      renderAll();
+      switchTab("scoring");
+    });
+  }
+
+  if (scoreStudentSelect) {
+    scoreStudentSelect.addEventListener("change", () => {
+      studentSelect.value = scoreStudentSelect.value;
+      localStorage.setItem("presentacy_student", scoreStudentSelect.value);
+      renderAll();
+      switchTab("scoring");
+    });
+  }
 
   tabButtons.forEach((button) => {
     button.addEventListener("click", () => switchTab(button.dataset.tab));
@@ -585,6 +1823,7 @@ function switchTab(tabName) {
 }
 
 function populateStudentSelect() {
+  syncScoreClassSelect();
   const availableStudents = getStudentsForSelectedClass();
   const previousId = studentSelect.value || localStorage.getItem("presentacy_student") || "";
 
@@ -603,6 +1842,7 @@ function populateStudentSelect() {
     option.textContent = "No Dramagicians yet";
     studentSelect.appendChild(option);
     localStorage.removeItem("presentacy_student");
+    syncScoreStudentSelect();
     return;
   }
 
@@ -611,6 +1851,44 @@ function populateStudentSelect() {
 
   studentSelect.value = nextStudentId;
   localStorage.setItem("presentacy_student", nextStudentId);
+  syncScoreStudentSelect();
+}
+
+function syncScoreClassSelect() {
+  if (!scoreClassSelect || !classSelect) return;
+
+  const selectedClass = classSelect.value || localStorage.getItem("presentacy_class") || "all";
+  scoreClassSelect.value = selectedClass;
+}
+
+function syncScoreStudentSelect() {
+  if (!scoreStudentSelect) return;
+
+  const availableStudents = getStudentsForSelectedClass();
+  const selectedId = studentSelect.value || localStorage.getItem("presentacy_student") || "";
+
+  scoreStudentSelect.innerHTML = "";
+
+  if (!availableStudents.length) {
+    const option = document.createElement("option");
+    option.value = "";
+    option.textContent = "No Dramagicians yet";
+    scoreStudentSelect.appendChild(option);
+    scoreStudentSelect.disabled = true;
+    return;
+  }
+
+  availableStudents.forEach((student) => {
+    const option = document.createElement("option");
+    option.value = student.id;
+    option.textContent = `${student.name} — ${student.className}`;
+    scoreStudentSelect.appendChild(option);
+  });
+
+  scoreStudentSelect.value = availableStudents.some((student) => student.id === selectedId)
+    ? selectedId
+    : availableStudents[0].id;
+  scoreStudentSelect.disabled = false;
 }
 
 function getStudentsForSelectedClass() {
@@ -671,7 +1949,7 @@ function renderOverview() {
     : `${student.name} has not presented yet.`;
 
   const scoreStatus = student.presentationScore
-    ? ` Presentation score: ${student.presentationScore}/10.`
+    ? ` Presentation score: ${formatAverageScore(student.presentationScore)}.`
     : "";
 
   myStudentName.textContent = student.name;
@@ -799,6 +2077,38 @@ function renderLeaderboard() {
   }
 }
 
+
+function pickTopicWithoutRecentRepeat(pool, level, genre) {
+  const safePool = Array.isArray(pool) && pool.length ? pool : topicPool;
+  const historyKey = `presentacy_topic_history_${level}_${genre}`;
+  let recentTitles = [];
+
+  try {
+    const savedHistory = JSON.parse(localStorage.getItem(historyKey));
+    recentTitles = Array.isArray(savedHistory) ? savedHistory : [];
+  } catch {
+    recentTitles = [];
+  }
+
+  const freshPool = safePool.filter((topic) => !recentTitles.includes(topic.title));
+  const activePool = freshPool.length ? freshPool : safePool;
+  const selected = activePool[Math.floor(Math.random() * activePool.length)];
+
+  const maxHistory = Math.min(18, Math.max(6, Math.floor(safePool.length / 2)));
+  const nextHistory = [
+    selected.title,
+    ...recentTitles.filter((title) => title !== selected.title)
+  ].slice(0, maxHistory);
+
+  try {
+    localStorage.setItem(historyKey, JSON.stringify(nextHistory));
+  } catch {
+    // If localStorage is unavailable, the generator still works normally.
+  }
+
+  return selected;
+}
+
 function generateTopic() {
   const level = topicLevel.value;
   let genre = topicGenre.value;
@@ -817,7 +2127,7 @@ function generateTopic() {
     pool = topicPool;
   }
 
-  const selected = pool[Math.floor(Math.random() * pool.length)];
+  const selected = pickTopicWithoutRecentRepeat(pool, level, genre);
 
   generatedTopic = selected;
 
@@ -912,6 +2222,7 @@ function pickNextPresenter() {
 
   studentSelect.value = selected.id;
   localStorage.setItem("presentacy_student", selected.id);
+  syncScoreStudentSelect();
   renderOverview();
 }
 
@@ -1551,28 +2862,51 @@ function getLatestScoreText(student) {
     : null;
 
   if (latest) {
-    return `${Number(latest.average || 0).toFixed(1)} / 10`;
+    return formatAverageScore(latest.average || 0);
   }
 
-  return student.presentationScore ? `${Number(student.presentationScore).toFixed(1)} / 10` : "No score yet";
+  return student.presentationScore ? formatAverageScore(student.presentationScore) : "No score yet";
 }
 
 function normalizeStudents(list) {
   return list.map((student) => {
     const normalizedScores = {
-      ...getEmptyScores(),
-      ...(student.scores || {})
+      ...getEmptyScores()
     };
 
+    scoringCriteria.forEach((criteria) => {
+      const rawValue = student.scores?.[criteria.key] ?? 0;
+      normalizedScores[criteria.key] = rawValue ? clampScore(rawValue, 0) : 0;
+    });
+
     const scoreStats = getScoreStats(normalizedScores);
+
+    const normalizedHistory = Array.isArray(student.scoreHistory)
+      ? student.scoreHistory.map((entry) => {
+          const historyScores = {};
+          scoringCriteria.forEach((criteria) => {
+            const rawValue = entry.scores?.[criteria.key] ?? 0;
+            historyScores[criteria.key] = rawValue ? clampScore(rawValue, 0) : 0;
+          });
+
+          const historyStats = getScoreStats(historyScores);
+
+          return {
+            ...entry,
+            scores: historyScores,
+            average: historyStats.average,
+            total: historyStats.total
+          };
+        })
+      : [];
 
     return {
       ...student,
       scores: normalizedScores,
-      presentationScore: Number(student.presentationScore || scoreStats.average || 0),
+      presentationScore: Number(scoreStats.average || 0),
       scoreFeedback: student.scoreFeedback || "",
-      scoreHistory: Array.isArray(student.scoreHistory) ? student.scoreHistory : [],
-      presentationCount: getPresentationCount(student)
+      scoreHistory: normalizedHistory,
+      presentationCount: getPresentationCount({ ...student, scoreHistory: normalizedHistory })
     };
   });
 }
@@ -1611,8 +2945,8 @@ function renderScoring() {
     if (scorePresentationCount) scorePresentationCount.textContent = "0";
     if (scorePresentationNext) scorePresentationNext.textContent = "Presentation #1";
     if (scoreLatestScore) scoreLatestScore.textContent = "No score yet";
-    scoreTotal.textContent = "0 / 10";
-    if (scoreTotal100) scoreTotal100.textContent = "0 / 100";
+    scoreTotal.textContent = "0 / 4";
+    if (scoreTotal100) scoreTotal100.textContent = `0 / ${SCORE_TOTAL_MAX}`;
     scoringSliders.innerHTML = "";
     scoreFeedbackInput.value = "";
     renderScoreHistory(null);
@@ -1639,35 +2973,64 @@ function renderScoring() {
   scoringSliders.innerHTML = "";
 
   scoringCriteria.forEach((criteria, index) => {
-    const value = Number(student.scores?.[criteria.key] || 0);
+    const savedValue = Number(student.scores?.[criteria.key] || 0);
+    const value = savedValue ? clampScore(savedValue, 1) : 1;
 
     const row = document.createElement("div");
-    row.className = `score-row ${value ? "saved-score-row" : ""}`;
+    row.className = `score-row score-button-row ${savedValue ? "saved-score-row" : ""}`;
+    row.dataset.scoreKey = criteria.key;
+    row.dataset.scoreValue = String(value);
+
+    const levelButtons = Object.entries(SCORE_LEVELS).map(([level, label]) => {
+      const numericLevel = Number(level);
+      const isSelected = numericLevel === value;
+      return `
+        <button
+          type="button"
+          class="score-choice-btn ${isSelected ? "active" : ""}"
+          data-score-key="${criteria.key}"
+          data-score-value="${numericLevel}"
+          aria-pressed="${isSelected ? "true" : "false"}"
+          ${!isManager ? "disabled" : ""}
+        >
+          <strong>${numericLevel}</strong>
+          <span>${label}</span>
+        </button>
+      `;
+    }).join("");
 
     row.innerHTML = `
       <div class="score-row-top">
         <span>${index + 1}. ${criteria.icon} ${criteria.name}</span>
-        <strong id="scoreValue-${criteria.key}">${value}</strong>
+        <strong id="scoreValue-${criteria.key}">${formatScoreValue(value)}</strong>
       </div>
 
-      <input
-        type="range"
-        min="0"
-        max="10"
-        value="${value}"
-        data-score-key="${criteria.key}"
-        ${!isManager ? "disabled" : ""}
-      />
+      <div class="score-choice-grid" role="group" aria-label="Score ${criteria.name}">
+        ${levelButtons}
+      </div>
     `;
 
     scoringSliders.appendChild(row);
   });
 
-  scoringSliders.querySelectorAll("input[type='range']").forEach((input) => {
-    input.addEventListener("input", () => {
-      const valueLabel = document.getElementById(`scoreValue-${input.dataset.scoreKey}`);
-      if (valueLabel) valueLabel.textContent = input.value;
-      input.closest(".score-row")?.classList.toggle("saved-score-row", Number(input.value) > 0);
+  scoringSliders.querySelectorAll(".score-choice-btn").forEach((button) => {
+    button.addEventListener("click", () => {
+      const row = button.closest(".score-row");
+      if (!row) return;
+
+      const value = clampScore(button.dataset.scoreValue, 1);
+      row.dataset.scoreValue = String(value);
+
+      row.querySelectorAll(".score-choice-btn").forEach((choice) => {
+        const selected = Number(choice.dataset.scoreValue) === value;
+        choice.classList.toggle("active", selected);
+        choice.setAttribute("aria-pressed", selected ? "true" : "false");
+      });
+
+      const valueLabel = document.getElementById(`scoreValue-${button.dataset.scoreKey}`);
+      if (valueLabel) valueLabel.textContent = formatScoreValue(value);
+
+      row.classList.add("saved-score-row");
       updateScorePreview();
     });
   });
@@ -1700,7 +3063,7 @@ function renderScoreHistory(student) {
 
     return `
       <article class="score-history-item">
-        <strong>Presentation #${item.presentationNumber || "?"} • ${Number(item.average || 0).toFixed(1)} / 10 • ${Number(item.total || 0)} / 100</strong>
+        <strong>Presentation #${item.presentationNumber || "?"} • ${formatAverageScore(item.average || 0)} • ${Number(item.total || 0)} / ${SCORE_TOTAL_MAX}</strong>
         <span>${dateText}${item.savedBy ? " • " + escapeHtml(item.savedBy) : ""}</span>
         ${item.feedback ? `<p>${escapeHtml(item.feedback)}</p>` : ""}
       </article>
@@ -1711,34 +3074,39 @@ function renderScoreHistory(student) {
 function getScoreStats(scores) {
   const safeScores = scores || getEmptyScores();
   let total = 0;
+  let scoredCount = 0;
 
   scoringCriteria.forEach((criteria) => {
-    total += Number(safeScores[criteria.key] || 0);
+    const rawValue = Number(safeScores[criteria.key] || 0);
+    if (rawValue > 0) {
+      total += clampScore(rawValue, 1);
+      scoredCount += 1;
+    }
   });
 
-  const average = scoringCriteria.length ? Number((total / scoringCriteria.length).toFixed(1)) : 0;
+  const average = scoredCount ? Number((total / scoredCount).toFixed(1)) : 0;
 
   return { total, average };
 }
 
 function updateScorePreview() {
-  const inputs = scoringSliders.querySelectorAll("input[type='range']");
+  const rows = scoringSliders.querySelectorAll(".score-row[data-score-key]");
 
-  if (!inputs.length) {
-    scoreTotal.textContent = "0 / 10";
-    if (scoreTotal100) scoreTotal100.textContent = "0 / 100";
+  if (!rows.length) {
+    scoreTotal.textContent = "0 / 4";
+    if (scoreTotal100) scoreTotal100.textContent = `0 / ${SCORE_TOTAL_MAX}`;
     return;
   }
 
   let total = 0;
 
-  inputs.forEach((input) => {
-    total += Number(input.value);
+  rows.forEach((row) => {
+    total += clampScore(row.dataset.scoreValue, 1);
   });
 
-  const average = (total / inputs.length).toFixed(1);
-  scoreTotal.textContent = `${average} / 10`;
-  if (scoreTotal100) scoreTotal100.textContent = `${total} / 100`;
+  const averageNumber = Number((total / rows.length).toFixed(1));
+  scoreTotal.textContent = formatAverageScore(averageNumber);
+  if (scoreTotal100) scoreTotal100.textContent = `${total} / ${SCORE_TOTAL_MAX}`;
 }
 
 function handleSaveScore(event) {
@@ -1759,20 +3127,25 @@ function handleSaveScore(event) {
     return;
   }
 
-  const inputs = scoringSliders.querySelectorAll("input[type='range']");
+  const scoreRows = scoringSliders.querySelectorAll(".score-row[data-score-key]");
   let total = 0;
+
+  if (!scoreRows.length) {
+    alert("No score sheet was found. Please refresh the page and try again.");
+    return;
+  }
 
   if (!student.scores) {
     student.scores = getEmptyScores();
   }
 
-  inputs.forEach((input) => {
-    const value = Number(input.value);
-    student.scores[input.dataset.scoreKey] = value;
+  scoreRows.forEach((row) => {
+    const value = clampScore(row.dataset.scoreValue, 1);
+    student.scores[row.dataset.scoreKey] = value;
     total += value;
   });
 
-  const average = Number((total / scoringCriteria.length).toFixed(1));
+  const average = Number((total / scoreRows.length).toFixed(1));
   const presentationNumber = getPresentationCount(student) + 1;
 
   student.presentationCount = presentationNumber;
@@ -1803,7 +3176,7 @@ function handleSaveScore(event) {
   renderAll();
   switchTab("scoring");
 
-  alert(`Presentation #${presentationNumber} score saved for ${student.name}.`);
+  alert(`Presentation #${presentationNumber} score saved for ${student.name}. Average: ${formatAverageScore(average)}.`);
 }
 
 function resetCurrentStudentScore() {
@@ -1838,3 +3211,947 @@ function resetCurrentStudentScore() {
   renderAll();
   switchTab("scoring");
 }
+
+function getAllowedTabsForRole(role = roleSelect.value) {
+  if (role === "teacher" || role === "ceo") return ["overview","leaderboard","history","topic","scoring"];
+  if (role === "student") return ["overview","leaderboard","history","topic"];
+  if (role === "parent") return ["overview","leaderboard","history"];
+  return [];
+}
+
+function updateAccess() {
+  const role = roleSelect.value;
+  const allowed = role !== "guest";
+  const isManager = role === "teacher" || role === "ceo";
+  lockedView.classList.toggle("hidden", allowed);
+  presentacyApp.classList.toggle("hidden", !allowed);
+  document.querySelectorAll(".teacher-only, .teacher-action").forEach((item)=>item.classList.toggle("hidden", !isManager));
+  refreshVisibleTabs();
+  const activeSection=document.querySelector(".tab-section.active");
+  if(activeSection && !canAccessTab(activeSection.id)) switchTab("overview");
+  roleBadge.textContent = role==="parent" ? "Parent View" : (isManager ? "Teacher View" : "Dramagician View");
+}
+
+function renderLeaderboard() {
+  const list = activeBoard === "class" ? getStudentsForSelectedClass() : [...students];
+  const sorted = [...list].sort((a,b)=>b.points-a.points);
+  leaderboardList.innerHTML="";
+  sorted.forEach((student,index)=>{
+    const row=document.createElement("div");
+    row.className="leaderboard-row";
+    row.innerHTML=`<div class="rank-number">#${index+1}</div>
+      <div class="leaderboard-name">
+        <strong>${escapeHtml(student.name)}</strong>
+        <span>${escapeHtml(student.className)}</span>
+      </div>
+      <div class="leaderboard-points">${student.points} pts</div>`;
+    leaderboardList.appendChild(row);
+  });
+  if(!sorted.length) leaderboardList.innerHTML=`<p class="empty-mini">No students to rank yet.</p>`;
+}
+
+function renderStudentHistory() {
+  const studentHistoryList = document.getElementById("studentHistoryList");
+  const studentHistoryCount = document.getElementById("studentHistoryCount");
+
+  if (!studentHistoryList) return;
+
+  const student = getSelectedStudent();
+
+  if (!student || !Array.isArray(student.scoreHistory) || !student.scoreHistory.length) {
+    studentHistoryList.innerHTML = '<p class="empty-mini">No presentations yet.</p>';
+    if (studentHistoryCount) studentHistoryCount.textContent = '0';
+    return;
+  }
+
+  if (studentHistoryCount) studentHistoryCount.textContent = String(student.scoreHistory.length);
+
+  studentHistoryList.innerHTML = student.scoreHistory.map((item) => {
+    const scores = item.scores || {};
+    const rubricRows = scoringCriteria.map((criterion) => {
+      const value = scores[criterion.key] || 0;
+      return `<li><strong>${escapeHtml(criterion.name)}</strong><span>${escapeHtml(formatScoreValue(value))}</span></li>`;
+    }).join("");
+
+    return `
+      <article class="history-item">
+        <strong>Presentation #${escapeHtml(item.presentationNumber || "")}</strong>
+        <p>${escapeHtml(formatLedgerDate(item.date))}</p>
+        <p>Average: ${escapeHtml(formatAverageScore(item.average))}</p>
+        <p>${escapeHtml(item.feedback || "No feedback")}</p>
+        <ul class="history-rubric-list">${rubricRows}</ul>
+      </article>`;
+  }).join('');
+}
+
+const oldRenderAll = renderAll;
+renderAll = function(){
+  updateAccess();
+  populateStudentSelect();
+  renderOverview();
+  renderScoring();
+  renderPresenters();
+  renderLeaderboard();
+  renderStudentHistory();
+}
+
+
+/* =====================================================
+   DRAMAGIC FIX — Global Dramagic points
+   Presentacy points connect to attendance adjustments.
+   Wordle/game points are intentionally separate.
+===================================================== */
+var DRAMAGIC_ATTENDANCE_POINTS_KEY = "dramagic_attendance_point_adjustments";
+
+function readAttendancePointAdjustmentsForPresentacy() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(DRAMAGIC_ATTENDANCE_POINTS_KEY));
+    return Array.isArray(saved) ? saved : [];
+  } catch {
+    return [];
+  }
+}
+
+function classIdToAttendanceLetter(classId) {
+  const map = { "kids-a": "A", "kids-b": "B", teens: "C", adults: "D" };
+  return map[classId] || "";
+}
+
+function normalizeScoreLookup(value) {
+  return String(value || "").trim().toLowerCase();
+}
+
+function attendanceItemMatchesPresentacyStudent(student, item) {
+  if (!student || !item) return false;
+
+  const studentName = normalizeScoreLookup(student.name);
+  const itemName = normalizeScoreLookup(item.studentName);
+  const classLetter = String(classIdToAttendanceLetter(student.classId || "")).trim().toUpperCase();
+  const itemClass = String(item.classLetter || "").trim().toUpperCase();
+
+  const possibleStudentCodes = [
+    student.attendanceStudentId,
+    student.attendanceId,
+    student.studentId,
+    student.studentCode,
+    student.code
+  ].filter(Boolean).map((value) => String(value).trim().toUpperCase());
+
+  const possibleAttendanceCodes = [
+    item.studentId,
+    item.studentCode,
+    item.code
+  ].filter(Boolean).map((value) => String(value).trim().toUpperCase());
+
+  const hasExactCodeMatch = possibleStudentCodes.some((code) => possibleAttendanceCodes.includes(code));
+  if (hasExactCodeMatch) return true;
+
+  if (!studentName || !itemName || studentName !== itemName) return false;
+
+  // Backend will use one real student id. For the frontend demo, some lists still
+  // have different demo class names for the same Dramagician, so exact class match
+  // is preferred but name-only fallback is allowed to stop deductions disappearing.
+  if (classLetter && itemClass && classLetter === itemClass) return true;
+  return true;
+}
+
+function getAttendanceAdjustmentForPresentacyStudent(student) {
+  return readAttendancePointAdjustmentsForPresentacy().reduce((total, item) => {
+    return attendanceItemMatchesPresentacyStudent(student, item)
+      ? total + Number(item.pointDelta || 0)
+      : total;
+  }, 0);
+}
+
+function getDramagicPointsForStudent(student) {
+  return Number(student?.points || 0) + getAttendanceAdjustmentForPresentacyStudent(student);
+}
+
+function formatDramagicPoints(student) {
+  const base = Number(student?.points || 0);
+  const adjustment = getAttendanceAdjustmentForPresentacyStudent(student);
+  const total = base + adjustment;
+  if (!adjustment) return `${total} Points`;
+  return `${total} Points (${base}${adjustment > 0 ? "+" : ""}${adjustment})`;
+}
+
+function renderOverview() {
+  const student = getSelectedStudent();
+
+  if (!student) {
+    myStudentName.textContent = "No Dramagician selected";
+    myStatusText.textContent = "Choose a Dramagician to view progress.";
+    myClassTag.textContent = "No class";
+    myRoundTag.textContent = "0 presentations";
+    myPoints.textContent = "0 Points";
+    myRank.textContent = "No Rank";
+    myRankText.textContent = "No ranking yet.";
+    classRankTag.textContent = "Class";
+    dramagicRankTag.textContent = "Dramagic";
+    currentTopicText.textContent = "No topic selected yet.";
+    teacherNotesText.textContent = "No notes yet.";
+    myProgressBar.style.width = "0%";
+    if (notesInput) notesInput.value = "";
+    return;
+  }
+
+  const classRank = getRank(student, "class");
+  const dramagicRank = getRank(student, "dramagic");
+  const completedPresentations = getPresentationCount(student);
+  const baseStatus = completedPresentations
+    ? `${student.name} has completed ${completedPresentations} presentation${completedPresentations === 1 ? "" : "s"}.`
+    : `${student.name} has not presented yet.`;
+  const scoreStatus = student.presentationScore
+    ? ` Presentation score: ${formatAverageScore(student.presentationScore)}.`
+    : "";
+  const attendanceAdjustment = getAttendanceAdjustmentForPresentacyStudent(student);
+  const adjustmentStatus = attendanceAdjustment
+    ? ` Attendance adjustment: ${attendanceAdjustment} point${Math.abs(attendanceAdjustment) === 1 ? "" : "s"}.`
+    : "";
+  const totalPoints = getDramagicPointsForStudent(student);
+
+  myStudentName.textContent = student.name;
+  myStatusText.textContent = `${baseStatus}${scoreStatus}${adjustmentStatus}`;
+  myClassTag.textContent = student.className;
+  myRoundTag.textContent = `${completedPresentations} presentation${completedPresentations === 1 ? "" : "s"}`;
+  myPoints.textContent = formatDramagicPoints(student);
+  myRank.textContent = `#${classRank} in class`;
+  myRankText.textContent = `${student.name} is #${classRank} in ${student.className} and #${dramagicRank} in all Dramagic.`;
+  classRankTag.textContent = `Class #${classRank}`;
+  dramagicRankTag.textContent = `Dramagic #${dramagicRank}`;
+  currentTopicText.textContent = student.topic || "No topic selected yet.";
+  teacherNotesText.textContent = student.scoreFeedback || student.notes || "No notes yet.";
+  myProgressBar.style.width = `${Math.min(100, Math.max(0, Math.round((totalPoints / 100) * 100)))}%`;
+
+  if (notesInput) notesInput.value = student.notes || "";
+}
+
+function renderLeaderboard() {
+  const list = activeBoard === "class" ? getStudentsForSelectedClass() : [...students];
+  const sorted = [...list].sort((a, b) => getDramagicPointsForStudent(b) - getDramagicPointsForStudent(a));
+  leaderboardList.innerHTML = "";
+
+  sorted.forEach((student, index) => {
+    const row = document.createElement("div");
+    row.className = "leaderboard-row";
+    const adjustment = getAttendanceAdjustmentForPresentacyStudent(student);
+    const total = getDramagicPointsForStudent(student);
+    const pointsNote = adjustment ? `<small class="points-adjustment-note">Base ${Number(student.points || 0)} ${adjustment > 0 ? "+" : ""}${adjustment}</small>` : "";
+    row.innerHTML = `
+      <div class="rank-number">#${index + 1}</div>
+      <div class="leaderboard-name">
+        <strong>${escapeHtml(student.name)}</strong>
+        <span>${escapeHtml(student.className)}</span>
+        ${pointsNote}
+      </div>
+      <div class="leaderboard-points">${total} pts</div>
+    `;
+    leaderboardList.appendChild(row);
+  });
+
+  if (!sorted.length) leaderboardList.innerHTML = `<p class="empty-mini">No students to rank yet.</p>`;
+}
+
+function getRank(student, type) {
+  const list = type === "class"
+    ? students.filter((item) => item.classId === student.classId)
+    : students;
+  const sorted = [...list].sort((a, b) => getDramagicPointsForStudent(b) - getDramagicPointsForStudent(a));
+  return sorted.findIndex((item) => item.id === student.id) + 1;
+}
+
+function createStudentRow(student, isPresented) {
+  const row = document.createElement("div");
+  row.className = "student-row";
+  const role = roleSelect.value;
+  const isManager = role === "teacher" || role === "ceo";
+  row.innerHTML = `
+    <div class="student-info">
+      <strong>${escapeHtml(student.name)}</strong>
+      <span>${escapeHtml(student.className)} • ${getDramagicPointsForStudent(student)} Dramagic points</span>
+      <span>${student.topic ? "Topic: " + escapeHtml(student.topic) : "No topic yet"}</span>
+    </div>
+    <div class="student-actions">
+      <span class="student-chip">Presentacy</span>
+      ${isManager ? `
+        <button class="small-btn green" data-action="mark" data-id="${student.id}">${isPresented ? "Undo" : "Mark"}</button>
+        <button class="small-btn" data-action="select" data-id="${student.id}">Select</button>
+      ` : ""}
+    </div>
+  `;
+  row.querySelectorAll("[data-action]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const action = button.dataset.action;
+      const studentId = button.dataset.id;
+      if (action === "mark") togglePresented(studentId);
+      if (action === "select") {
+        studentSelect.value = studentId;
+        localStorage.setItem("presentacy_student", studentId);
+        renderAll();
+        switchTab("overview");
+      }
+    });
+  });
+  return row;
+}
+
+window.addEventListener("storage", function (event) {
+  if (event.key === DRAMAGIC_ATTENDANCE_POINTS_KEY) renderAll();
+});
+window.addEventListener("dramagicPointsChanged", renderAll);
+
+/* =====================================================
+   DRAMAGIC FIX — Real role from login + Total Scores file
+   CEO/Teacher can score. Parent/Dramagician can view scores.
+   Wordle/game points stay separate.
+===================================================== */
+function readDramagicSessionForPresentacy() {
+  try {
+    return JSON.parse(localStorage.getItem("dramagic_demo_session")) || null;
+  } catch {
+    return null;
+  }
+}
+
+function presentacyClassIdFromLetter(letter) {
+  const value = String(letter || "").trim().toUpperCase();
+  const map = { A: "kids-a", B: "kids-b", C: "teens", D: "adults", E: "kids-a", F: "kids-b" };
+  return map[value] || "kids-a";
+}
+
+function getSessionStudentIdForPresentacy(session) {
+  if (!session) return "";
+  if (session.presentacyStudentId) return session.presentacyStudentId;
+  if (session.role === "parent" && Array.isArray(session.children) && session.children.length) {
+    const savedChild = localStorage.getItem("dramagic_selected_parent_child_id") || "";
+    const selectedChild = session.children.find((child) => child.studentId === savedChild || child.presentacyStudentId === savedChild) || session.children[0];
+    return selectedChild?.presentacyStudentId || "";
+  }
+  const sessionName = String(session.linkedStudentName || session.full_name || session.name || "").trim().toLowerCase();
+  const matched = students.find((student) => String(student.name || "").trim().toLowerCase() === sessionName);
+  return matched?.id || "";
+}
+
+function applyLoggedInRoleToPresentacy() {
+  const session = readDramagicSessionForPresentacy();
+  const savedRole = localStorage.getItem("presentacy_role");
+  const savedClass = localStorage.getItem("presentacy_class");
+  const savedStudentId = localStorage.getItem("presentacy_student");
+
+  const role = String(session?.role || savedRole || "student").toLowerCase();
+  if (roleSelect && ["student", "teacher", "ceo", "parent", "guest"].includes(role)) {
+    roleSelect.value = role;
+  }
+
+  let classId = savedClass || classSelect?.value || "kids-a";
+  if (session?.role === "student" && session.classLetter) classId = presentacyClassIdFromLetter(session.classLetter);
+  if (session?.role === "parent" && Array.isArray(session.children) && session.children.length) {
+    const savedChild = localStorage.getItem("dramagic_selected_parent_child_id") || "";
+    const selectedChild = session.children.find((child) => child.studentId === savedChild || child.presentacyStudentId === savedChild) || session.children[0];
+    classId = presentacyClassIdFromLetter(selectedChild?.classLetter || session.classLetter || "A");
+  }
+  if (session?.role === "ceo") classId = savedClass || "all";
+
+  if (classSelect) classSelect.value = classId;
+  populateStudentSelect();
+
+  const sessionStudentId = getSessionStudentIdForPresentacy(session);
+  const desiredStudentId = sessionStudentId || savedStudentId || studentSelect?.value || "";
+  if (desiredStudentId && students.some((student) => student.id === desiredStudentId)) {
+    if (studentSelect) studentSelect.value = desiredStudentId;
+    localStorage.setItem("presentacy_student", desiredStudentId);
+  }
+
+  syncScoreClassSelect();
+  syncScoreStudentSelect();
+}
+
+function getAllowedTabsForRole(role = roleSelect.value) {
+  if (role === "teacher" || role === "ceo") return ["overview", "leaderboard", "history", "totalScores", "topic", "scoring"];
+  if (role === "student") return ["overview", "leaderboard", "history", "totalScores", "topic"];
+  if (role === "parent") return ["overview", "leaderboard", "history", "totalScores"];
+  return [];
+}
+
+function updateAccess() {
+  const role = roleSelect.value;
+  const allowed = role !== "guest";
+  const isManager = role === "teacher" || role === "ceo";
+
+  lockedView.classList.toggle("hidden", allowed);
+  presentacyApp.classList.toggle("hidden", !allowed);
+  document.body.dataset.presentacyRole = role;
+  document.body.classList.toggle("presentacy-manager", isManager);
+  document.body.classList.toggle("presentacy-dramagician", role === "student");
+
+  document.querySelectorAll(".teacher-only, .teacher-action").forEach((item) => item.classList.toggle("hidden", !isManager));
+  refreshVisibleTabs();
+
+  const activeSection = document.querySelector(".tab-section.active");
+  if (activeSection && !canAccessTab(activeSection.id)) switchTab(role === "parent" ? "overview" : "overview");
+
+  roleBadge.textContent = role === "parent" ? "Parent View" : (isManager ? (role === "ceo" ? "CEO View" : "Teacher View") : "Dramagician View");
+}
+
+function getAttendanceAdjustmentRowsForPresentacyStudent(student) {
+  return readAttendancePointAdjustmentsForPresentacy()
+    .filter((item) => attendanceItemMatchesPresentacyStudent(student, item))
+    .sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
+}
+
+function readHomeworkPointRowsForPresentacyStudent(student) {
+  // Future-ready placeholder. When homework/class points are approved from Supabase,
+  // save rows under this key with studentName/classLetter/pointDelta/reason/date.
+  try {
+    const saved = JSON.parse(localStorage.getItem("dramagic_homework_point_adjustments"));
+    if (!Array.isArray(saved)) return [];
+    return saved.filter((item) => attendanceItemMatchesPresentacyStudent(student, item));
+  } catch {
+    return [];
+  }
+}
+
+function formatLedgerDate(value) {
+  if (!value) return "";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return String(value);
+  return date.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
+}
+
+function renderTotalScores() {
+  const totalScoreSummary = document.getElementById("totalScoreSummary");
+  const totalScoreLedgerList = document.getElementById("totalScoreLedgerList");
+  const totalScoreLedgerCount = document.getElementById("totalScoreLedgerCount");
+  if (!totalScoreSummary || !totalScoreLedgerList) return;
+
+  const student = getSelectedStudent();
+  if (!student) {
+    totalScoreSummary.querySelectorAll("h3").forEach((item) => item.textContent = "0");
+    totalScoreLedgerList.innerHTML = `<p class="empty-mini">Choose a Dramagician to view the score file.</p>`;
+    if (totalScoreLedgerCount) totalScoreLedgerCount.textContent = "0";
+    return;
+  }
+
+  const presentacyPoints = Number(student.points || 0);
+  const attendanceRows = getAttendanceAdjustmentRowsForPresentacyStudent(student);
+  const attendanceAdjustment = attendanceRows.reduce((sum, item) => sum + Number(item.pointDelta || 0), 0);
+  const homeworkRows = readHomeworkPointRowsForPresentacyStudent(student);
+  const homeworkPoints = homeworkRows.reduce((sum, item) => sum + Number(item.pointDelta || 0), 0);
+  const totalPoints = presentacyPoints + attendanceAdjustment + homeworkPoints;
+  const summaryValues = [totalPoints, presentacyPoints, attendanceAdjustment, homeworkPoints];
+
+  totalScoreSummary.querySelectorAll("h3").forEach((item, index) => {
+    const value = summaryValues[index] || 0;
+    item.textContent = value > 0 && index > 1 ? `+${value}` : String(value);
+  });
+
+  const ledgerRows = [];
+  ledgerRows.push({
+    title: "Presentacy / approved progress",
+    meta: "Main Dramagic points from presentation progress and approved class work.",
+    note: `${student.className} • Current base points`,
+    points: presentacyPoints,
+    kind: "positive"
+  });
+
+  if (Array.isArray(student.scoreHistory) && student.scoreHistory.length) {
+    student.scoreHistory.forEach((item) => {
+      ledgerRows.push({
+        title: `Presentation #${item.presentationNumber}`,
+        meta: `Average: ${formatAverageScore(item.average)} • Total rubric: ${Number(item.total || 0)} / ${SCORE_TOTAL_MAX}`,
+        note: item.feedback || "No feedback added.",
+        points: null,
+        kind: "neutral",
+        date: item.date
+      });
+    });
+  }
+
+  attendanceRows.forEach((item) => {
+    ledgerRows.push({
+      title: "Attendance deduction",
+      meta: item.reason || "Late attendance deduction",
+      note: `Session ${item.sessionNumber || ""} • ${formatLedgerDate(item.date)}`,
+      points: Number(item.pointDelta || 0),
+      kind: "negative",
+      date: item.date
+    });
+  });
+
+  homeworkRows.forEach((item) => {
+    ledgerRows.push({
+      title: item.title || "Homework / class progress",
+      meta: item.reason || "Approved homework/class score",
+      note: formatLedgerDate(item.date),
+      points: Number(item.pointDelta || 0),
+      kind: Number(item.pointDelta || 0) < 0 ? "negative" : "positive",
+      date: item.date
+    });
+  });
+
+  if (!ledgerRows.length) {
+    totalScoreLedgerList.innerHTML = `<p class="empty-mini">No score records yet.</p>`;
+    if (totalScoreLedgerCount) totalScoreLedgerCount.textContent = "0";
+    return;
+  }
+
+  if (totalScoreLedgerCount) totalScoreLedgerCount.textContent = String(ledgerRows.length);
+  totalScoreLedgerList.innerHTML = ledgerRows.map((row) => {
+    const pointClass = row.points === null ? "neutral" : (Number(row.points) < 0 ? "negative" : "");
+    const pointText = row.points === null ? "Score" : `${Number(row.points) > 0 ? "+" : ""}${Number(row.points)} pts`;
+    return `
+      <article class="score-ledger-row">
+        <div>
+          <strong>${escapeHtml(row.title)}</strong>
+          <span>${escapeHtml(row.meta || "")}</span>
+          <small>${escapeHtml(row.note || "")}</small>
+        </div>
+        <div class="score-ledger-points ${pointClass}">${escapeHtml(pointText)}</div>
+      </article>
+    `;
+  }).join("");
+}
+
+function renderAll() {
+  updateAccess();
+  populateStudentSelect();
+  renderOverview();
+  renderScoring();
+  renderPresenters();
+  renderLeaderboard();
+  renderStudentHistory();
+  renderTotalScores();
+}
+
+window.addEventListener("storage", function (event) {
+  if (event.key === "dramagic_demo_session") {
+    applyLoggedInRoleToPresentacy();
+    renderAll();
+  }
+});
+
+applyLoggedInRoleToPresentacy();
+renderAll();
+openTabFromHash();
+
+
+
+/* =====================================================
+   DRAMAGIC HARD FIX — Presentacy role must follow login session
+   Problem fixed:
+   - Hidden Preview Mode / presentacy_role localStorage could keep the page as "student"
+     even when the real logged-in session is CEO.
+   - This bridge makes the real auth session the source of truth.
+===================================================== */
+(function () {
+  const SESSION_KEYS = [
+    "dramagic_demo_session",
+    "dramagic_session",
+    "dramagic_current_user",
+    "dramagic_user"
+  ];
+
+  function readAnySession() {
+    for (const key of SESSION_KEYS) {
+      try {
+        const raw = localStorage.getItem(key);
+        if (!raw) continue;
+        const parsed = JSON.parse(raw);
+        if (parsed && typeof parsed === "object") {
+          return parsed;
+        }
+      } catch {
+        // Ignore broken localStorage values.
+      }
+    }
+
+    return null;
+  }
+
+  function normalizedRole(value) {
+    const role = String(value || "").trim().toLowerCase();
+    return ["student", "teacher", "ceo", "parent", "guest"].includes(role) ? role : "student";
+  }
+
+  function classIdFromLetter(letter) {
+    const value = String(letter || "").trim().toUpperCase();
+    const map = { A: "kids-a", B: "kids-b", C: "teens", D: "adults", E: "kids-a", F: "kids-b" };
+    return map[value] || "kids-a";
+  }
+
+  function getSessionStudentId(session) {
+    if (!session) return "";
+    if (session.presentacyStudentId) return session.presentacyStudentId;
+
+    if (session.role === "parent" && Array.isArray(session.children) && session.children.length) {
+      const savedChild = localStorage.getItem("dramagic_selected_parent_child_id") || "";
+      const selectedChild =
+        session.children.find((child) => child.studentId === savedChild || child.presentacyStudentId === savedChild) ||
+        session.children[0];
+
+      return selectedChild?.presentacyStudentId || "";
+    }
+
+    const sessionName = String(session.linkedStudentName || session.full_name || session.name || "").trim().toLowerCase();
+    const matched = Array.isArray(students)
+      ? students.find((student) => String(student.name || "").trim().toLowerCase() === sessionName)
+      : null;
+
+    return matched?.id || "";
+  }
+
+  function forceLoginRole() {
+    const session = readAnySession();
+    const role = normalizedRole(session?.role || localStorage.getItem("presentacy_role") || "student");
+
+    if (roleSelect && roleSelect.value !== role) {
+      roleSelect.value = role;
+    }
+
+    localStorage.setItem("presentacy_role", role);
+
+    if (session && classSelect) {
+      let nextClass = classSelect.value || "kids-a";
+
+      if (role === "ceo" || role === "teacher") {
+        nextClass = localStorage.getItem("presentacy_class") || (role === "ceo" ? "all" : "kids-a");
+      }
+
+      if (role === "student" && session.classLetter) {
+        nextClass = classIdFromLetter(session.classLetter);
+      }
+
+      if (role === "parent" && Array.isArray(session.children) && session.children.length) {
+        const savedChild = localStorage.getItem("dramagic_selected_parent_child_id") || "";
+        const selectedChild =
+          session.children.find((child) => child.studentId === savedChild || child.presentacyStudentId === savedChild) ||
+          session.children[0];
+
+        nextClass = classIdFromLetter(selectedChild?.classLetter || session.classLetter || "A");
+      }
+
+      if (classSelect.value !== nextClass) {
+        classSelect.value = nextClass;
+      }
+
+      if (typeof populateStudentSelect === "function") {
+        populateStudentSelect();
+      }
+
+      const sessionStudentId = getSessionStudentId(session);
+      if (sessionStudentId && studentSelect && Array.isArray(students) && students.some((student) => student.id === sessionStudentId)) {
+        studentSelect.value = sessionStudentId;
+        localStorage.setItem("presentacy_student", sessionStudentId);
+      }
+    }
+
+    if (typeof syncScoreClassSelect === "function") syncScoreClassSelect();
+    if (typeof syncScoreStudentSelect === "function") syncScoreStudentSelect();
+
+    return role;
+  }
+
+  getAllowedTabsForRole = function (role = forceLoginRole()) {
+    if (role === "teacher" || role === "ceo") {
+      return ["overview", "leaderboard", "history", "totalScores", "topic", "scoring"];
+    }
+
+    if (role === "student") {
+      return ["overview", "leaderboard", "history", "totalScores", "topic"];
+    }
+
+    if (role === "parent") {
+      return ["overview", "leaderboard", "history", "totalScores"];
+    }
+
+    return [];
+  };
+
+  canAccessTab = function (tabName) {
+    return getAllowedTabsForRole().includes(tabName);
+  };
+
+  refreshVisibleTabs = function () {
+    const allowedTabs = getAllowedTabsForRole();
+
+    tabButtons.forEach((button) => {
+      const allowed = allowedTabs.includes(button.dataset.tab);
+      button.classList.toggle("hidden", !allowed);
+    });
+  };
+
+  updateAccess = function () {
+    const role = forceLoginRole();
+    const allowed = role !== "guest";
+    const isManager = role === "teacher" || role === "ceo";
+
+    if (lockedView) lockedView.classList.toggle("hidden", allowed);
+    if (presentacyApp) presentacyApp.classList.toggle("hidden", !allowed);
+
+    document.body.dataset.presentacyRole = role;
+    document.body.classList.toggle("presentacy-manager", isManager);
+    document.body.classList.toggle("presentacy-dramagician", role === "student");
+
+    document.querySelectorAll(".teacher-only, .teacher-action").forEach((item) => {
+      item.classList.toggle("hidden", !isManager);
+    });
+
+    refreshVisibleTabs();
+
+    const activeSection = document.querySelector(".tab-section.active");
+    if (activeSection && !canAccessTab(activeSection.id)) {
+      switchTab("overview");
+    }
+
+    if (roleBadge) {
+      roleBadge.textContent =
+        role === "parent"
+          ? "Parent View"
+          : isManager
+            ? role === "ceo" ? "CEO View" : "Teacher View"
+            : "Dramagician View";
+    }
+  };
+
+  const originalSwitchTab = typeof switchTab === "function" ? switchTab : null;
+  switchTab = function (tabName) {
+    forceLoginRole();
+
+    if (!canAccessTab(tabName)) {
+      tabName = "overview";
+    }
+
+    tabButtons.forEach((button) => {
+      button.classList.toggle("active", button.dataset.tab === tabName);
+    });
+
+    tabSections.forEach((section) => {
+      section.classList.toggle("active", section.id === tabName);
+    });
+
+    if (history.replaceState) {
+      history.replaceState(null, "", `#${tabName}`);
+    }
+
+    updateAccess();
+  };
+
+  const originalRenderAll = typeof renderAll === "function" ? renderAll : null;
+  renderAll = function () {
+    forceLoginRole();
+    updateAccess();
+    if (typeof populateStudentSelect === "function") populateStudentSelect();
+    if (typeof renderOverview === "function") renderOverview();
+    if (typeof renderScoring === "function") renderScoring();
+    if (typeof renderPresenters === "function") renderPresenters();
+    if (typeof renderLeaderboard === "function") renderLeaderboard();
+    if (typeof renderStudentHistory === "function") renderStudentHistory();
+    if (typeof renderTotalScores === "function") renderTotalScores();
+  };
+
+  if (scoringForm) {
+    scoringForm.addEventListener(
+      "submit",
+      function () {
+        forceLoginRole();
+      },
+      true
+    );
+  }
+
+  window.DramagicPresentacyRoleFix = {
+    readSession: readAnySession,
+    force: forceLoginRole,
+    role: () => forceLoginRole()
+  };
+
+  forceLoginRole();
+  renderAll();
+
+  if (location.hash && canAccessTab(location.hash.replace("#", ""))) {
+    switchTab(location.hash.replace("#", ""));
+  } else if (forceLoginRole() === "ceo" || forceLoginRole() === "teacher") {
+    // Keep the full page available; do not force scoring open automatically.
+    updateAccess();
+  }
+
+  window.addEventListener("storage", function (event) {
+    if (SESSION_KEYS.includes(event.key) || event.key === "presentacy_role") {
+      renderAll();
+    }
+  });
+})();
+
+
+/* =====================================================
+   DRAMAGIC FIX — CEO/Teacher score viewer selector
+   Managers should not be locked to Laila or the hidden preview student.
+   This visible selector controls My Score, Presentations, Total Scores,
+   Topic Generator context, and Add Score.
+===================================================== */
+(function () {
+  const viewerPanel = document.getElementById("managerScoreViewer");
+  const viewerClassSelect = document.getElementById("viewerClassSelect");
+  const viewerStudentSelect = document.getElementById("viewerStudentSelect");
+
+  if (!viewerPanel || !viewerClassSelect || !viewerStudentSelect) return;
+
+  function readSessionRoleForViewer() {
+    try {
+      const session = JSON.parse(localStorage.getItem("dramagic_demo_session")) || null;
+      return String(session?.role || roleSelect?.value || "student").toLowerCase();
+    } catch {
+      return String(roleSelect?.value || "student").toLowerCase();
+    }
+  }
+
+  function isViewerManager() {
+    const role = readSessionRoleForViewer();
+    return role === "ceo" || role === "teacher";
+  }
+
+  function getStudentsForViewerClass() {
+    const selectedClass = viewerClassSelect.value || "all";
+    if (selectedClass === "all") return Array.isArray(students) ? [...students] : [];
+    return Array.isArray(students) ? students.filter((student) => student.classId === selectedClass) : [];
+  }
+
+  function setSelectedStudentEverywhere(studentId) {
+    if (!studentId) return;
+
+    if (studentSelect) studentSelect.value = studentId;
+    if (scoreStudentSelect) scoreStudentSelect.value = studentId;
+    if (viewerStudentSelect) viewerStudentSelect.value = studentId;
+
+    localStorage.setItem("presentacy_student", studentId);
+    if (typeof syncScoreStudentSelect === "function") syncScoreStudentSelect();
+  }
+
+  function refreshManagerScoreViewer(keepSelected = true) {
+    const manager = isViewerManager();
+    viewerPanel.classList.toggle("hidden", !manager);
+    if (!manager) return;
+
+    const realRole = readSessionRoleForViewer();
+    if (roleSelect && roleSelect.value !== realRole) roleSelect.value = realRole;
+
+    const currentClass = classSelect?.value || localStorage.getItem("presentacy_class") || "all";
+    if (viewerClassSelect.value !== currentClass) {
+      viewerClassSelect.value = currentClass;
+    }
+
+    const previousStudentId = keepSelected
+      ? (viewerStudentSelect.value || studentSelect?.value || localStorage.getItem("presentacy_student") || "")
+      : "";
+
+    const availableStudents = getStudentsForViewerClass();
+    viewerStudentSelect.innerHTML = "";
+
+    if (!availableStudents.length) {
+      const option = document.createElement("option");
+      option.value = "";
+      option.textContent = "No Dramagicians in this class";
+      viewerStudentSelect.appendChild(option);
+      viewerStudentSelect.disabled = true;
+      return;
+    }
+
+    availableStudents.forEach((student) => {
+      const option = document.createElement("option");
+      option.value = student.id;
+      option.textContent = `${student.name} — ${student.className}`;
+      viewerStudentSelect.appendChild(option);
+    });
+
+    viewerStudentSelect.disabled = false;
+    const nextStudentId = availableStudents.some((student) => student.id === previousStudentId)
+      ? previousStudentId
+      : availableStudents[0].id;
+
+    setSelectedStudentEverywhere(nextStudentId);
+  }
+
+  function rerenderSelectedScoreFile() {
+    if (typeof renderOverview === "function") renderOverview();
+    if (typeof renderScoring === "function") renderScoring();
+    if (typeof renderLeaderboard === "function") renderLeaderboard();
+    if (typeof renderStudentHistory === "function") renderStudentHistory();
+    if (typeof renderTotalScores === "function") renderTotalScores();
+  }
+
+  viewerClassSelect.addEventListener("change", function () {
+    if (classSelect) classSelect.value = viewerClassSelect.value;
+    if (scoreClassSelect) scoreClassSelect.value = viewerClassSelect.value;
+    localStorage.setItem("presentacy_class", viewerClassSelect.value);
+
+    if (typeof populateStudentSelect === "function") populateStudentSelect();
+    refreshManagerScoreViewer(false);
+    rerenderSelectedScoreFile();
+  });
+
+  viewerStudentSelect.addEventListener("change", function () {
+    setSelectedStudentEverywhere(viewerStudentSelect.value);
+    rerenderSelectedScoreFile();
+  });
+
+  const originalGetSelectedStudentForViewer = typeof getSelectedStudent === "function" ? getSelectedStudent : null;
+  getSelectedStudent = function () {
+    if (isViewerManager()) {
+      const selectedId = viewerStudentSelect.value || studentSelect?.value || localStorage.getItem("presentacy_student") || "";
+      const found = Array.isArray(students) ? students.find((student) => student.id === selectedId) : null;
+      if (found) return found;
+    }
+
+    return originalGetSelectedStudentForViewer ? originalGetSelectedStudentForViewer() : null;
+  };
+
+  const originalUpdateAccessForViewer = typeof updateAccess === "function" ? updateAccess : null;
+  updateAccess = function () {
+    if (originalUpdateAccessForViewer) originalUpdateAccessForViewer();
+    refreshManagerScoreViewer(true);
+  };
+
+  const originalSwitchTabForViewer = typeof switchTab === "function" ? switchTab : null;
+  switchTab = function (tabName) {
+    if (originalSwitchTabForViewer) originalSwitchTabForViewer(tabName);
+    refreshManagerScoreViewer(true);
+    rerenderSelectedScoreFile();
+  };
+
+  const originalRenderAllForViewer = typeof renderAll === "function" ? renderAll : null;
+  renderAll = function () {
+    if (originalRenderAllForViewer) originalRenderAllForViewer();
+    refreshManagerScoreViewer(true);
+    rerenderSelectedScoreFile();
+  };
+
+  if (scoreClassSelect) {
+    scoreClassSelect.addEventListener("change", function () {
+      if (!isViewerManager()) return;
+      viewerClassSelect.value = scoreClassSelect.value || "all";
+      refreshManagerScoreViewer(false);
+      rerenderSelectedScoreFile();
+    });
+  }
+
+  if (scoreStudentSelect) {
+    scoreStudentSelect.addEventListener("change", function () {
+      if (!isViewerManager()) return;
+      setSelectedStudentEverywhere(scoreStudentSelect.value);
+      rerenderSelectedScoreFile();
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    refreshManagerScoreViewer(true);
+    rerenderSelectedScoreFile();
+  });
+
+  refreshManagerScoreViewer(true);
+  rerenderSelectedScoreFile();
+
+  window.DramagicPresentacyViewer = {
+    refresh: refreshManagerScoreViewer,
+    selectedStudent: () => getSelectedStudent()
+  };
+})();

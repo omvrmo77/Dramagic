@@ -1,542 +1,552 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Presentacy | Dramagic</title>
-
-  <link rel="stylesheet" href="presentacy.css" />
-  <link rel="stylesheet" href="dramagic-global-settings.css" />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>Presentacy | Dramagic</title>
+<link href="presentacy.css" rel="stylesheet"/>
+<link href="dramagic-global-settings.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=Playfair+Display:wght@700;800&amp;display=swap" rel="stylesheet"/><link href="dramagic-nav.css" rel="stylesheet"/>
+<!-- Dramagic PWA -->
+<link rel="manifest" href="manifest.json" />
+<link rel="icon" href="favicon.ico" />
+<link rel="apple-touch-icon" href="assets/icons/icon-180.png" />
+<meta name="theme-color" content="#08a9d9" />
+<meta name="application-name" content="Dramagic" />
+<meta name="apple-mobile-web-app-title" content="Dramagic" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
 </head>
-
-<body>
-  <div class="presentacy-page">
-    <header class="topbar">
-      <a href="index.html" class="brand">
-        <img src="dramagic-logo.png" alt="Dramagic Logo" />
-        <div>
-          <strong>Dramagic</strong>
-          <span>English Drama Academy</span>
-        </div>
-      </a>
-
-      <nav class="main-nav">
-        <a href="index.html">Home</a>
-        <a href="media.html">Dramagic Memories</a>
-        <a href="presentacy.html" class="active">Presentacy</a>
-      </nav>
-    </header>
-
-    <main>
-      <section class="hero">
-        <div class="hero-content">
-          <p class="eyebrow">Presentation Skills Hub</p>
-          <h1>Presentacy</h1>
-          <p>
+<body><div id="dramagicGlobalNav"></div>
+<div class="presentacy-page">
+<header aria-hidden="true" class="topbar" style="display:none !important;">
+<a class="brand" href="index.html">
+<img alt="Dramagic Logo" src="dramagic-logo.png"/>
+<div>
+<strong>Dramagic</strong>
+<span>English Drama Academy</span>
+</div>
+</a>
+<nav class="main-nav">
+<a href="auth.html">Home</a>
+<a href="media.html">Dramagic Memories</a>
+<a class="active" href="presentacy.html">Presentacy</a>
+</nav>
+</header>
+<main>
+<section class="hero">
+<div class="hero-content">
+<p class="eyebrow">Presentation Skills Hub</p>
+<h1>Presentacy</h1>
+<p>
             Your Presentacy score, class leaderboard, and topic generator — simple, focused, and easy to use.
           </p>
-
-          <div class="hero-actions">
-            <button class="primary-btn" data-tab-target="overview">View My Score</button>
-            <button class="secondary-btn" data-tab-target="leaderboard">View Leaderboard</button>
-          </div>
-        </div>
-
-        <div class="hero-card">
-          <span>🎤</span>
-          <h3>Speak. Shine. Grow.</h3>
-          <p>Every Dramagician sees progress clearly without confusing extra tabs.</p>
-        </div>
-      </section>
-
-      <section class="access-panel">
-        <div>
-          <h2>Preview Mode</h2>
-          <p>
+<div class="hero-actions">
+<button class="primary-btn" data-tab-target="overview">View My Score</button>
+<button class="secondary-btn" data-tab-target="leaderboard">View Leaderboard</button>
+</div>
+</div>
+<div class="hero-card">
+<span>🎤</span>
+<h3>Speak. Shine. Grow.</h3>
+<p>Every Dramagician sees progress clearly without confusing extra tabs.</p>
+</div>
+</section>
+<section class="access-panel hidden">
+<div>
+<h2>Preview Mode</h2>
+<p>
             Choose a role for testing only. Later, Presentacy will open automatically based on each login role.
           </p>
-        </div>
-
-        <div class="access-controls">
-          <label>
+</div>
+<div class="access-controls">
+<label>
             Role
             <select id="roleSelect">
-              <option value="student">Dramagician</option>
-              <option value="teacher">Teacher</option>
-              <option value="ceo">CEO</option>
-              <option value="parent">Parent</option>
-              <option value="guest">Guest</option>
-            </select>
-          </label>
-
-          <label>
+<option value="student">Dramagician</option>
+<option value="teacher">Teacher</option>
+<option value="ceo">CEO</option>
+<option value="parent">Parent</option>
+<option value="guest">Guest</option>
+</select>
+</label>
+<label>
             Class
             <select id="classSelect">
-              <option value="kids-a">Kids A</option>
-              <option value="kids-b">Kids B</option>
-              <option value="teens">Teens</option>
-              <option value="adults">Adults</option>
-              <option value="all">All Classes</option>
-            </select>
-          </label>
-
-          <label id="studentPickerWrap">
+<option value="kids-a">Kids A</option>
+<option value="kids-b">Kids B</option>
+<option value="teens">Teens</option>
+<option value="adults">Adults</option>
+<option value="all">All Classes</option>
+</select>
+</label>
+<label id="studentPickerWrap">
             Dramagician
             <select id="studentSelect"></select>
-          </label>
-        </div>
-      </section>
-
-      <section id="lockedView" class="locked-view hidden">
-        <div class="lock-icon">🔒</div>
-        <h2>Presentacy is private</h2>
-        <p>
-          This section is only for students, teachers, and the CEO.
-          Parents and guests can use Dramagic Memories instead.
+</label>
+</div>
+</section>
+<section class="locked-view hidden" id="lockedView">
+<div class="lock-icon">🔒</div>
+<h2>Presentacy is private</h2>
+<p>
+          Parents can view scores and leaderboard information only.
         </p>
-        <a href="media.html" class="primary-link">Go to Dramagic Memories</a>
-      </section>
+<a class="primary-link" href="media.html">Go to Dramagic Memories</a>
+</section>
+<section class="presentacy-app" id="presentacyApp">
+<div class="tabs simplified-tabs" id="presentacyTabs">
+<button class="tab-btn active" data-roles="student teacher ceo" data-tab="overview">My Score</button>
+<button class="tab-btn" data-roles="student teacher ceo parent" data-tab="leaderboard">Leaderboard</button>
+<button class="tab-btn" data-roles="student teacher ceo parent" data-tab="history">Presentations</button>
+<button class="tab-btn" data-roles="student teacher ceo parent" data-tab="totalScores">Total Scores</button>
+<button class="tab-btn" data-roles="student teacher ceo" data-tab="topic">Topic Generator</button>
+<button class="tab-btn teacher-only" data-roles="teacher ceo" data-tab="scoring">Add Score</button>
+</div>
+<section class="manager-score-viewer hidden" id="managerScoreViewer">
+  <div>
+    <p class="eyebrow">Manager Score View</p>
+    <h3>Choose Dramagician to review</h3>
+    <p>CEO and teachers can switch between Dramagicians to review scores, presentations, total points, or add a new score.</p>
+  </div>
+  <div class="manager-score-controls">
+    <label>
+      Class
+      <select id="viewerClassSelect" aria-label="Choose class to view scores">
+        <option value="all">All Classes</option>
+        <option value="kids-a">Kids A</option>
+        <option value="kids-b">Kids B</option>
+        <option value="teens">Teens</option>
+        <option value="adults">Adults</option>
+      </select>
+    </label>
+    <label>
+      Dramagician
+      <select id="viewerStudentSelect" aria-label="Choose Dramagician to view scores"></select>
+    </label>
+  </div>
+</section>
 
-      <section id="presentacyApp" class="presentacy-app">
-        <div class="tabs simplified-tabs" id="presentacyTabs">
-          <button class="tab-btn active" data-tab="overview" data-roles="student teacher ceo">My Score</button>
-          <button class="tab-btn" data-tab="leaderboard" data-roles="student teacher ceo">Leaderboard</button>
-          <button class="tab-btn" data-tab="topic" data-roles="student teacher ceo">Topic Generator</button>
-          <button class="tab-btn teacher-only" data-tab="scoring" data-roles="teacher ceo">Add Score</button>
-        </div>
-
-        <!-- OVERVIEW SECTION -->
-        <section id="overview" class="tab-section active">
-          <div class="section-heading">
-            <div>
-              <p class="eyebrow">My progress</p>
-              <h2>My Presentacy Score</h2>
-            </div>
-            <span id="roleBadge" class="pill">Student View</span>
-          </div>
-
-          <div class="overview-grid">
-            <article class="summary-card">
-              <span class="summary-icon">🎙️</span>
-              <h3 id="myStudentName">Dramagician Name</h3>
-              <p id="myStatusText">Your presentation status will appear here.</p>
-              <div class="mini-tags">
-                <span id="myClassTag">Class</span>
-                <span id="myRoundTag">Round 1</span>
-              </div>
-            </article>
-
-            <article class="summary-card">
-              <span class="summary-icon">🏆</span>
-              <h3 id="myPoints">0 Points</h3>
-              <p>Total points from presentations, practice, Wordle, and improvement.</p>
-              <div class="progress-line">
-                <span id="myProgressBar"></span>
-              </div>
-            </article>
-
-            <article class="summary-card">
-              <span class="summary-icon">📊</span>
-              <h3 id="myRank">Class Rank</h3>
-              <p id="myRankText">Rank details will appear here.</p>
-              <div class="mini-tags">
-                <span id="classRankTag">Class</span>
-                <span id="dramagicRankTag">Dramagic</span>
-              </div>
-            </article>
-          </div>
-
-          <div class="two-column">
-            <article class="panel">
-              <h3>Current Topic</h3>
-              <p id="currentTopicText" class="big-topic">No topic selected yet.</p>
-              <button class="primary-btn" data-tab-target="topic">Generate a Practice Topic</button>
-            </article>
-
-            <article class="panel">
-              <h3>Teacher Notes</h3>
-              <p id="teacherNotesText">
+<!-- OVERVIEW SECTION -->
+<section class="tab-section active" id="overview">
+<div class="section-heading">
+<div>
+<p class="eyebrow">My progress</p>
+<h2>My Presentacy Score</h2>
+</div>
+<span class="pill" id="roleBadge">Student View</span>
+</div>
+<div class="overview-grid">
+<article class="summary-card">
+<span class="summary-icon">🎙️</span>
+<h3 id="myStudentName">Dramagician Name</h3>
+<p id="myStatusText">Your presentation status will appear here.</p>
+<div class="mini-tags">
+<span id="myClassTag">Class</span>
+<span id="myRoundTag">Round 1</span>
+</div>
+</article>
+<article class="summary-card">
+<span class="summary-icon">🏆</span>
+<h3 id="myPoints">0 Points</h3>
+<p>Total Dramagic points from Presentacy, attendance, and approved class progress.</p>
+<div class="progress-line">
+<span id="myProgressBar"></span>
+</div>
+</article>
+<article class="summary-card">
+<span class="summary-icon">📊</span>
+<h3 id="myRank">Class Rank</h3>
+<p id="myRankText">Rank details will appear here.</p>
+<div class="mini-tags">
+<span id="classRankTag">Class</span>
+<span id="dramagicRankTag">Dramagic</span>
+</div>
+</article>
+</div>
+<div class="two-column">
+<article class="panel">
+<h3>Current Topic</h3>
+<p class="big-topic" id="currentTopicText">No topic selected yet.</p>
+<button class="primary-btn" data-tab-target="topic">Generate a Practice Topic</button>
+</article>
+<article class="panel">
+<h3>Teacher Notes</h3>
+<p id="teacherNotesText">
                 Notes will appear here when a teacher or CEO adds them.
               </p>
-            </article>
-          </div>
-        </section>
-
-        <!-- TOPIC GENERATOR SECTION -->
-        <section id="topic" class="tab-section">
-          <div class="section-heading">
-            <div>
-              <p class="eyebrow">Practice ideas</p>
-              <h2>Topic Generator</h2>
-            </div>
-            <span class="pill">With Genres</span>
-          </div>
-
-          <div class="generator-layout">
-            <article class="generator-card">
-              <div class="form-grid">
-                <label>
+</article>
+</div>
+</section>
+<!-- TOPIC GENERATOR SECTION -->
+<section class="tab-section" id="topic">
+<div class="section-heading">
+<div>
+<p class="eyebrow">Practice ideas</p>
+<h2>Topic Generator</h2>
+</div>
+<span class="pill">With Genres</span>
+</div>
+<div class="generator-layout">
+<article class="generator-card">
+<div class="form-grid">
+<label>
                   Level
                   <select id="topicLevel">
-                    <option value="beginner">Beginner</option>
-                    <option value="intermediate">Intermediate</option>
-                    <option value="advanced">Advanced</option>
-                  </select>
-                </label>
-
-                <label>
+<option value="beginner">Beginner</option>
+<option value="intermediate">Intermediate</option>
+<option value="advanced">Advanced</option>
+</select>
+</label>
+<label>
                   Genre
                   <select id="topicGenre">
-                    <option value="random">Random</option>
-                    <option value="funny">Funny</option>
-                    <option value="personal">Personal</option>
-                    <option value="storytelling">Storytelling</option>
-                    <option value="debate">Debate</option>
-                    <option value="technology">Technology</option>
-                    <option value="movies">Movies</option>
-                    <option value="sports">Sports</option>
-                    <option value="imagination">Imagination</option>
-                    <option value="mystery">Mystery</option>
-                    <option value="future">Dreams & Future</option>
-                    <option value="confidence">Confidence</option>
-                    <option value="school">School Life</option>
-                    <option value="acting">Drama / Acting</option>
-                  </select>
-                </label>
-              </div>
-
-              <button id="generateTopicBtn" class="primary-btn full-btn">Generate Topic</button>
-
-              <div id="generatedTopicBox" class="generated-topic">
-                <p class="eyebrow">Generated Topic</p>
-                <h3 id="generatedTopicTitle">Click generate to get a topic.</h3>
-                <p id="generatedTopicMeta">Choose level and genre first.</p>
-
-                <ul id="generatedTopicIdeas"></ul>
-
-                <div class="topic-actions">
-  <button id="saveTopicBtn" class="secondary-btn">I Like This Topic — Save It</button>
-  <button id="helpTopicBtn" class="secondary-btn">I Like This Topic — Give Me Hints</button>
-  <button id="copyTopicBtn" class="secondary-btn">Copy Topic</button>
+<option value="random">Random</option>
+<option value="funny">Funny</option>
+<option value="personal">Personal</option>
+<option value="storytelling">Storytelling</option>
+<option value="debate">Debate</option>
+<option value="technology">Technology</option>
+<option value="movies">Movies</option>
+<option value="sports">Sports</option>
+<option value="imagination">Imagination</option>
+<option value="mystery">Mystery</option>
+<option value="future">Dreams &amp; Future</option>
+<option value="confidence">Confidence</option>
+<option value="school">School Life</option>
+<option value="acting">Drama / Acting</option>
+</select>
+</label>
 </div>
-
-<div id="topicHelpBox" class="topic-help hidden">
-  <h4 id="topicHelpTitle">Topic Help</h4>
-
-  <div>
-    <strong>How to start</strong>
-    <ul id="topicHelpOpenings"></ul>
-  </div>
-
-  <div>
-    <strong>Speech Structure</strong>
-    <ul id="topicHelpStructure"></ul>
-  </div>
-
-  <div>
-    <strong>What to talk about</strong>
-    <ul id="topicHelpHints"></ul>
-  </div>
-
-  <div>
-    <strong>Background / History</strong>
-    <ul id="topicHelpBackground"></ul>
-  </div>
-
-  <div>
-  <strong>Ready speaking ideas</strong>
-  <ul id="topicHelpTalkingPoints"></ul>
+<button class="primary-btn full-btn" id="generateTopicBtn">Generate Topic</button>
+<div class="generated-topic" id="generatedTopicBox">
+<p class="eyebrow">Generated Topic</p>
+<h3 id="generatedTopicTitle">Click generate to get a topic.</h3>
+<p id="generatedTopicMeta">Choose level and genre first.</p>
+<ul id="generatedTopicIdeas"></ul>
+<div class="topic-actions">
+<button class="secondary-btn" id="saveTopicBtn">I Like This Topic — Save It</button>
+<button class="secondary-btn" id="helpTopicBtn">I Like This Topic — Give Me Hints</button>
+<button class="secondary-btn" id="copyTopicBtn">Copy Topic</button>
 </div>
-
-  <div>
-    <strong>Useful sentences</strong>
-    <ul id="topicHelpPhrases"></ul>
-  </div>
-
-  <div>
-    <strong>Strong ending ideas</strong>
-    <ul id="topicHelpEndings"></ul>
-  </div>
+<div class="topic-help hidden" id="topicHelpBox">
+<h4 id="topicHelpTitle">Topic Help</h4>
+<div>
+<strong>How to start</strong>
+<ul id="topicHelpOpenings"></ul>
 </div>
-              </div>
-            </article>
-
-            <article class="practice-card">
-              <h3>Practice Helper</h3>
-              <p>
+<div>
+<strong>Speech Structure</strong>
+<ul id="topicHelpStructure"></ul>
+</div>
+<div>
+<strong>What to talk about</strong>
+<ul id="topicHelpHints"></ul>
+</div>
+<div>
+<strong>Background / History</strong>
+<ul id="topicHelpBackground"></ul>
+</div>
+<div>
+<strong>Ready speaking ideas</strong>
+<ul id="topicHelpTalkingPoints"></ul>
+</div>
+<div>
+<strong>Useful sentences</strong>
+<ul id="topicHelpPhrases"></ul>
+</div>
+<div>
+<strong>Strong ending ideas</strong>
+<ul id="topicHelpEndings"></ul>
+</div>
+</div>
+</div>
+</article>
+<article class="practice-card">
+<h3>Practice Helper</h3>
+<p>
                 Use these steps after generating a topic:
               </p>
-
-              <ol>
-                <li>Start with a strong opening sentence.</li>
-                <li>Give 2 or 3 clear points.</li>
-                <li>Add a personal example or short story.</li>
-                <li>End with a confident final sentence.</li>
-              </ol>
-
-              <div class="timer-box">
-                <span id="timerDisplay">01:00</span>
-                <div>
-                  <button id="startTimerBtn">Start</button>
-                  <button id="resetTimerBtn">Reset</button>
-                </div>
-              </div>
-            </article>
-          </div>
-        </section>
-
-        <!-- SCORING CRITERIA SECTION -->
-        <section id="scoring" class="tab-section teacher-section">
-          <div class="section-heading">
-            <div>
-              <p class="eyebrow">Teacher scoring room</p>
-              <h2>Add Presentation Score</h2>
-            </div>
-            <span class="pill">Teacher / CEO only</span>
-          </div>
-
-          <article id="selectedScoreCard" class="selected-score-card compact-score-card">
-            <div class="selected-score-main">
-              <span class="selected-score-avatar">🎤</span>
-
-              <div>
-                <p class="eyebrow">Selected Dramagician</p>
-                <h3 id="scoringStudentName">Choose a Dramagician</h3>
-                <p id="scoringStudentMeta">Use the Dramagician dropdown above, then save the score for this presenter.</p>
-              </div>
-            </div>
-
-            <div class="selected-score-stats">
-              <div>
-                <span>Average</span>
-                <strong id="scoreTotal">0 / 10</strong>
-              </div>
-
-              <div>
-                <span>Total</span>
-                <strong id="scoreTotal100">0 / 100</strong>
-              </div>
-            </div>
-          </article>
-
-          <div class="presentation-count-strip" aria-label="Presentation count summary">
-            <article>
-              <span>Presentations done</span>
-              <strong id="scorePresentationCount">0</strong>
-            </article>
-            <article>
-              <span>Saving now</span>
-              <strong id="scorePresentationNext">Presentation #1</strong>
-            </article>
-            <article>
-              <span>Latest score</span>
-              <strong id="scoreLatestScore">No score yet</strong>
-            </article>
-          </div>
-
-          <div class="score-sheet-layout">
-            <article class="panel scoring-guide-panel">
-              <div class="mini-heading">
-                <h3>Rubric Quick Guide</h3>
-                <span>10</span>
-              </div>
-              <p class="simple-note">Use this as your clear checklist while watching the presentation.</p>
-              <div id="criteriaGrid" class="criteria-grid compact-rubric-list"></div>
-            </article>
-
-            <article class="panel scoring-panel teacher-score-panel">
-              <h3 id="scoringPanelTitle">Score this presentation</h3>
-
-              <form id="scoringForm" class="control-form">
-                <div id="scoringSliders" class="scoring-sliders"></div>
-
-                <label>
+<ol>
+<li>Start with a strong opening sentence.</li>
+<li>Give 2 or 3 clear points.</li>
+<li>Add a personal example or short story.</li>
+<li>End with a confident final sentence.</li>
+</ol>
+<div class="timer-box">
+<span id="timerDisplay">01:00</span>
+<div>
+<button id="startTimerBtn">Start</button>
+<button id="resetTimerBtn">Reset</button>
+</div>
+</div>
+</article>
+</div>
+</section>
+<!-- SCORING CRITERIA SECTION -->
+<section class="tab-section teacher-section" id="scoring">
+<div class="section-heading">
+<div>
+<p class="eyebrow">Teacher scoring room</p>
+<h2>Add Presentation Score</h2>
+</div>
+<span class="pill">Teacher / CEO only</span>
+</div>
+<article class="selected-score-card compact-score-card score-picker-card" id="selectedScoreCard">
+<div class="selected-score-main">
+<span class="selected-score-avatar">🎤</span>
+<div>
+<p class="eyebrow">Selected Dramagician</p>
+<h3 id="scoringStudentName">Choose a Dramagician</h3>
+<p id="scoringStudentMeta">Choose the presenter here, then save the score.</p>
+</div>
+</div>
+<div class="score-picker-controls teacher-only">
+<label>
+                Select class
+                <select aria-label="Select class to score" id="scoreClassSelect">
+<option value="kids-a">Kids A</option>
+<option value="kids-b">Kids B</option>
+<option value="teens">Teens</option>
+<option value="adults">Adults</option>
+<option value="all">All Classes</option>
+</select>
+</label>
+<label>
+                Select presenter
+                <select aria-label="Select presenter to score" id="scoreStudentSelect"></select>
+</label>
+</div>
+<div class="selected-score-stats">
+<div>
+<span>Average Level</span>
+<strong id="scoreTotal">0 / 4</strong>
+</div>
+<div>
+<span>Rubric Total</span>
+<strong id="scoreTotal100">0 / 40</strong>
+</div>
+</div>
+</article>
+<div aria-label="Presentation count summary" class="presentation-count-strip">
+<article>
+<span>Presentations done</span>
+<strong id="scorePresentationCount">0</strong>
+</article>
+<article>
+<span>Saving now</span>
+<strong id="scorePresentationNext">Presentation #1</strong>
+</article>
+<article>
+<span>Latest score</span>
+<strong id="scoreLatestScore">No score yet</strong>
+</article>
+</div>
+<div class="score-sheet-layout score-first-layout">
+<article class="panel scoring-panel teacher-score-panel">
+<h3 id="scoringPanelTitle">Score this presentation</h3>
+<form class="control-form" id="scoringForm">
+<div class="scoring-sliders" id="scoringSliders"></div>
+<label>
                   Feedback for this Dramagician
                   <textarea id="scoreFeedbackInput" placeholder="Example: Great confidence, but needs clearer pronunciation."></textarea>
-                </label>
+</label>
+<div class="button-row">
+<button class="primary-btn" type="submit">Save Presentation Score</button>
+<button class="secondary-btn" id="resetCurrentScoreBtn" type="button">Reset Current Score Sheet</button>
+</div>
+</form>
+</article>
+<article class="panel scoring-guide-panel after-score-guide">
+<div class="mini-heading">
+<h3>Rubric Quick Guide</h3>
+<span>10</span>
+</div>
+<p class="simple-note">Use this only when you need a reminder. The score sheet now appears first.</p>
+<div class="criteria-grid compact-rubric-list" id="criteriaGrid"></div>
+</article>
+</div>
+<article class="panel score-history-card simplified-history-card">
+<div class="mini-heading">
+<h3>Presentation History</h3>
+<span id="scoreHistoryCount">0</span>
+</div>
+<div class="score-history-list" id="scoreHistoryList">
+<p class="empty-mini">No saved scores yet.</p>
+</div>
+</article>
+</section>
+<section class="tab-section" id="history">
+<div class="section-heading"><div><p class="eyebrow">Presentation Archive</p><h2>My Presentations</h2></div></div>
+<article class="panel score-history-card simplified-history-card">
+<div class="mini-heading"><h3>Presentation History</h3><span id="studentHistoryCount">0</span></div>
+<div id="studentHistoryList" class="score-history-list"><p class="empty-mini">No presentations yet.</p></div>
+</article>
+</section>
+<section class="tab-section" id="totalScores">
+<div class="section-heading">
+<div>
+<p class="eyebrow">Score File</p>
+<h2>My Total Scores</h2>
+<p class="score-ledger-subtitle">Track Dramagic points from Presentacy, attendance deductions, and future approved class progress. Wordle stays separate.</p>
+</div>
+<span class="pill">Dramagic Points</span>
+</div>
+<div class="total-score-grid" id="totalScoreSummary">
+<article class="summary-card"><span class="summary-icon">⭐</span><h3>0</h3><p>Total Dramagic points</p></article>
+<article class="summary-card"><span class="summary-icon">🎤</span><h3>0</h3><p>Presentacy / approved progress</p></article>
+<article class="summary-card"><span class="summary-icon">✅</span><h3>0</h3><p>Attendance adjustments</p></article>
+<article class="summary-card"><span class="summary-icon">📚</span><h3>0</h3><p>Class progress points</p></article>
+</div>
+<article class="panel total-score-ledger-card">
+<div class="mini-heading"><h3>Score Ledger</h3><span id="totalScoreLedgerCount">0</span></div>
+<div id="totalScoreLedgerList" class="score-ledger-list"><p class="empty-mini">No score records yet.</p></div>
+</article>
+</section>
 
-                <div class="button-row">
-                  <button type="submit" class="primary-btn">Save Presentation Score</button>
-                  <button id="resetCurrentScoreBtn" type="button" class="secondary-btn">Reset Current Score Sheet</button>
-                </div>
-              </form>
-            </article>
-          </div>
-
-          <article class="panel score-history-card simplified-history-card">
-            <div class="mini-heading">
-              <h3>Presentation History</h3>
-              <span id="scoreHistoryCount">0</span>
-            </div>
-
-            <div id="scoreHistoryList" class="score-history-list">
-              <p class="empty-mini">No saved scores yet.</p>
-            </div>
-          </article>
-        </section>
-
-        <!-- PRESENTERS SECTION -->
-        <section id="presenters" class="tab-section">
-          <div class="section-heading">
-            <div>
-              <p class="eyebrow">Class turns</p>
-              <h2>Presenters Tracker</h2>
-            </div>
-            <button id="pickNextBtn" class="primary-btn teacher-action">Pick Next Presenter</button>
-          </div>
-
-          <div id="nextPresenterBox" class="next-presenter hidden">
-            <span>Next Presenter</span>
-            <strong id="nextPresenterName">Student</strong>
-            <p id="nextPresenterClass">Class</p>
-          </div>
-
-          <div class="presenters-columns">
-            <article class="panel">
-              <div class="mini-heading">
-                <h3>Waiting Turn</h3>
-                <span id="waitingCount">0</span>
-              </div>
-              <div id="waitingList" class="student-list"></div>
-            </article>
-
-            <article class="panel">
-              <div class="mini-heading">
-                <h3>Already Presented</h3>
-                <span id="presentedCount">0</span>
-              </div>
-              <div id="presentedList" class="student-list"></div>
-            </article>
-          </div>
-        </section>
-
-        <!-- LEADERBOARD SECTION -->
-        <section id="leaderboard" class="tab-section">
-          <div class="section-heading">
-            <div>
-              <p class="eyebrow">Points & ranking</p>
-              <h2>Leaderboard</h2>
-            </div>
-            <div class="leaderboard-switch">
-              <button class="board-btn active" data-board="class">Class Leaderboard</button>
-              <button class="board-btn" data-board="dramagic">Dramagic Leaderboard</button>
-            </div>
-          </div>
-
-          <div id="leaderboardList" class="leaderboard-list"></div>
-        </section>
-
-        <!-- CHALLENGES SECTION -->
-        <section id="challenges" class="tab-section">
-          <div class="section-heading">
-            <div>
-              <p class="eyebrow">Extra points</p>
-              <h2>Presentacy Challenges</h2>
-            </div>
-            <span class="pill">Wordle + Practice</span>
-          </div>
-
-          <div class="challenge-grid">
-            <article class="challenge-card">
-              <span>🧩</span>
-              <h3>Wordle Challenge</h3>
-              <p>Earn points by solving the Presentacy word challenge.</p>
-              <button class="secondary-btn">Coming Soon</button>
-            </article>
-
-            <article class="challenge-card">
-              <span>🎭</span>
-              <h3>Drama Voice</h3>
-              <p>Practice voice, emotion, and stage expression.</p>
-              <button class="secondary-btn challenge-points-btn" data-points="5" data-reason="Drama Voice Challenge">Add 5 Demo Points</button>
-            </article>
-
-            <article class="challenge-card">
-              <span>⚡</span>
-              <h3>One-Minute Speech</h3>
-              <p>Speak for one full minute with confidence and clarity.</p>
-              <button class="secondary-btn challenge-points-btn" data-points="10" data-reason="One-Minute Speech">Add 10 Demo Points</button>
-            </article>
-
-            <article class="challenge-card">
-              <span>🌟</span>
-              <h3>Improvement Star</h3>
-              <p>Reward progress, courage, and trying again.</p>
-              <button class="secondary-btn challenge-points-btn" data-points="7" data-reason="Improvement Star">Add 7 Demo Points</button>
-            </article>
-          </div>
-        </section>
-
-        <!-- TEACHER / CEO CONTROLS SECTION -->
-        <section id="controls" class="tab-section">
-          <div class="section-heading">
-            <div>
-              <p class="eyebrow">Teacher / CEO only</p>
-              <h2>Presentacy Management</h2>
-            </div>
-            <span class="pill">Demo Controls</span>
-          </div>
-
-          <div class="controls-grid">
-            <article class="panel">
-              <h3>Add Student</h3>
-
-              <form id="addStudentForm" class="control-form">
-                <label>
+<!-- PRESENTERS SECTION -->
+<section class="tab-section" id="presenters">
+<div class="section-heading">
+<div>
+<p class="eyebrow">Class turns</p>
+<h2>Presenters Tracker</h2>
+</div>
+<button class="primary-btn teacher-action" id="pickNextBtn">Pick Next Presenter</button>
+</div>
+<div class="next-presenter hidden" id="nextPresenterBox">
+<span>Next Presenter</span>
+<strong id="nextPresenterName">Student</strong>
+<p id="nextPresenterClass">Class</p>
+</div>
+<div class="presenters-columns">
+<article class="panel">
+<div class="mini-heading">
+<h3>Waiting Turn</h3>
+<span id="waitingCount">0</span>
+</div>
+<div class="student-list" id="waitingList"></div>
+</article>
+<article class="panel">
+<div class="mini-heading">
+<h3>Already Presented</h3>
+<span id="presentedCount">0</span>
+</div>
+<div class="student-list" id="presentedList"></div>
+</article>
+</div>
+</section>
+<!-- LEADERBOARD SECTION -->
+<section class="tab-section" id="leaderboard">
+<div class="section-heading">
+<div>
+<p class="eyebrow">Points &amp; ranking</p>
+<h2>Leaderboard</h2>
+</div>
+<div class="leaderboard-switch">
+<button class="board-btn active" data-board="class">Class Leaderboard</button>
+<button class="board-btn" data-board="dramagic">Dramagic Leaderboard</button>
+</div>
+</div>
+<div class="leaderboard-list" id="leaderboardList"></div>
+</section>
+<!-- CHALLENGES SECTION -->
+<section class="tab-section" id="challenges">
+<div class="section-heading">
+<div>
+<p class="eyebrow">Extra points</p>
+<h2>Presentacy Challenges</h2>
+</div>
+<span class="pill">Wordle + Practice</span>
+</div>
+<div class="challenge-grid">
+<article class="challenge-card">
+<span>🧩</span>
+<h3>Wordle Challenge</h3>
+<p>Earn points by solving the Presentacy word challenge.</p>
+<button class="secondary-btn">Coming Soon</button>
+</article>
+<article class="challenge-card">
+<span>🎭</span>
+<h3>Drama Voice</h3>
+<p>Practice voice, emotion, and stage expression.</p>
+<button class="secondary-btn challenge-points-btn" data-points="5" data-reason="Drama Voice Challenge">Add 5 Demo Points</button>
+</article>
+<article class="challenge-card">
+<span>⚡</span>
+<h3>One-Minute Speech</h3>
+<p>Speak for one full minute with confidence and clarity.</p>
+<button class="secondary-btn challenge-points-btn" data-points="10" data-reason="One-Minute Speech">Add 10 Demo Points</button>
+</article>
+<article class="challenge-card">
+<span>🌟</span>
+<h3>Improvement Star</h3>
+<p>Reward progress, courage, and trying again.</p>
+<button class="secondary-btn challenge-points-btn" data-points="7" data-reason="Improvement Star">Add 7 Demo Points</button>
+</article>
+</div>
+</section>
+<!-- TEACHER / CEO CONTROLS SECTION -->
+<section class="tab-section" id="controls">
+<div class="section-heading">
+<div>
+<p class="eyebrow">Teacher / CEO only</p>
+<h2>Presentacy Management</h2>
+</div>
+<span class="pill">Demo Controls</span>
+</div>
+<div class="controls-grid">
+<article class="panel">
+<h3>Add Student</h3>
+<form class="control-form" id="addStudentForm">
+<label>
                   Dramagician Name
-                  <input id="newStudentName" type="text" placeholder="Example: Laila Hassan" required />
-                </label>
-
-                <label>
+                  <input id="newStudentName" placeholder="Example: Laila Hassan" required="" type="text"/>
+</label>
+<label>
                   Class
                   <select id="newStudentClass">
-                    <option value="kids-a">Kids A</option>
-                    <option value="kids-b">Kids B</option>
-                    <option value="teens">Teens</option>
-                    <option value="adults">Adults</option>
-                  </select>
-                </label>
-
-                <button type="submit" class="primary-btn">Add Student</button>
-              </form>
-            </article>
-
-            <article class="panel">
-              <h3>Update Selected Student</h3>
-
-              <form id="updateStudentForm" class="control-form">
-                <label>
+<option value="kids-a">Kids A</option>
+<option value="kids-b">Kids B</option>
+<option value="teens">Teens</option>
+<option value="adults">Adults</option>
+</select>
+</label>
+<button class="primary-btn" type="submit">Add Student</button>
+</form>
+</article>
+<article class="panel">
+<h3>Update Selected Student</h3>
+<form class="control-form" id="updateStudentForm">
+<label>
                   Add Points
-                  <input id="pointsInput" type="number" placeholder="Example: 10" />
-                </label>
-
-                <label>
+                  <input id="pointsInput" placeholder="Example: 10" type="number"/>
+</label>
+<label>
                   Reason
-                  <input id="reasonInput" type="text" placeholder="Example: Great opening" />
-                </label>
-
-                <label>
+                  <input id="reasonInput" placeholder="Example: Great opening" type="text"/>
+</label>
+<label>
                   Teacher Notes
                   <textarea id="notesInput" placeholder="Write notes for the selected student..."></textarea>
-                </label>
-
-                <div class="button-row">
-                  <button type="submit" class="primary-btn">Save Update</button>
-                  <button type="button" id="resetDemoBtn" class="secondary-btn">Reset Demo</button>
-                </div>
-              </form>
-            </article>
-          </div>
-        </section>
-      </section>
-    </main>
-  </div>
-
-  <script src="presentacy.js"></script>
-  <script src="dramagic-settings-loader.js" defer></script>
+</label>
+<div class="button-row">
+<button class="primary-btn" type="submit">Save Update</button>
+<button class="secondary-btn" id="resetDemoBtn" type="button">Reset Demo</button>
+</div>
+</form>
+</article>
+</div>
+</section>
+</section>
+</main>
+</div>
+<script src="presentacy.js"></script>
+<script defer="" src="dramagic-settings-loader.js"></script>
+<script defer src="dramagic-nav.js"></script>
+<script defer src="pwa-register.js"></script>
 </body>
 </html>

@@ -48,6 +48,11 @@ const money = new Intl.NumberFormat("ar-EG", {
 init();
 
 function init() {
+  if (!hasCeoFinanceAccess()) {
+    showFinanceAccessDenied();
+    return;
+  }
+
   if (passwordForm) passwordForm.addEventListener("submit", handlePasswordSubmit);
   if (lockFinanceBtn) lockFinanceBtn.addEventListener("click", lockFinance);
 
@@ -76,6 +81,35 @@ function init() {
   } else {
     showLock();
   }
+}
+
+function getFinanceSession() {
+  try {
+    const session = JSON.parse(localStorage.getItem("dramagic_demo_session"));
+    return session && typeof session === "object" ? session : {};
+  } catch {
+    return {};
+  }
+}
+
+function hasCeoFinanceAccess() {
+  const session = getFinanceSession();
+  return String(session.role || "").toLowerCase() === "ceo" && String(session.account_status || "active").toLowerCase() === "active";
+}
+
+function showFinanceAccessDenied() {
+  if (financeApp) financeApp.classList.add("hidden");
+  if (financeLock) financeLock.classList.remove("hidden");
+
+  const title = financeLock ? financeLock.querySelector("h1") : null;
+  const text = financeLock ? financeLock.querySelector(".lock-text") : null;
+  const eyebrow = financeLock ? financeLock.querySelector(".eyebrow") : null;
+  const form = financeLock ? financeLock.querySelector("#passwordForm") : null;
+
+  if (eyebrow) eyebrow.textContent = "غير مصرح";
+  if (title) title.textContent = "لوحة المالية الكاملة للـ CEO فقط";
+  if (text) text.textContent = "هذا القسم يعرض الإيرادات والمصروفات والأرباح والتقارير، لذلك لا يفتح إلا لحساب Omar / CEO. مسؤول إدخال الدفعات يستخدم صفحة Payment Entry فقط.";
+  if (form) form.classList.add("hidden");
 }
 
 async function handlePasswordSubmit(event) {

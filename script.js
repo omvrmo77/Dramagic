@@ -2,7 +2,6 @@
    DRAMAGIC DEMO FRONTEND SCRIPT
    No Supabase. No backend. No email confirmation.
    Fake demo accounts only.
-   Chat is now opened in a separate chat.html page.
 ===================================================== */
 
 /* ===============================
@@ -16,6 +15,15 @@ const DEMO_USERS = [
     password: "ceo123",
     full_name: "Omar Mohamed",
     role: "ceo",
+    account_status: "active",
+    classLetter: null
+  },
+  {
+    username: "finance",
+    email: "finance@dramagic.demo",
+    password: "finance123",
+    full_name: "Finance Entry",
+    role: "finance",
     account_status: "active",
     classLetter: null
   },
@@ -35,7 +43,8 @@ const DEMO_USERS = [
     full_name: "Demo Student A",
     role: "student",
     account_status: "active",
-    classLetter: "A"
+    classLetter: "A",
+    presentacyStudentId: "s1"
   },
   {
     username: "studentb",
@@ -44,13 +53,14 @@ const DEMO_USERS = [
     full_name: "Demo Student B",
     role: "student",
     account_status: "active",
-    classLetter: "B"
+    classLetter: "B",
+    presentacyStudentId: "s3"
   },
   {
     username: "parent",
     email: "parent@dramagic.demo",
     password: "parent123",
-    full_name: "Laila's Parent",
+    full_name: "Sara Hassan",
     role: "parent",
     account_status: "active",
     classLetter: "A",
@@ -67,6 +77,17 @@ const DEMO_USERS = [
         attendanceNote: "Demo attendance summary",
         badge: "🎤",
         badgeText: "Confident Speaker"
+      },
+      {
+        studentId: "DRG-A-002",
+        name: "Youssef Ali",
+        classLetter: "A",
+        className: "Class A",
+        presentacyStudentId: "s2",
+        attendanceText: "Open Sheet",
+        attendanceNote: "View sessions, status, time, late records, and absences.",
+        badge: "⭐",
+        badgeText: "Top Performer"
       }
     ]
   }
@@ -166,6 +187,12 @@ const signupConfirmPassword = document.getElementById("signupConfirmPassword");
 
 const roleBadge = document.getElementById("roleBadge");
 const logoutBtn = document.getElementById("logoutBtn");
+const mobileLogoutBtn = document.getElementById("mobileLogoutBtn");
+const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+const mobileMenuCloseBtn = document.getElementById("mobileMenuCloseBtn");
+const mobileNavOverlay = document.getElementById("mobileNavOverlay");
+const mobileNavPanel = document.getElementById("mobileNavPanel");
+const mobileMenuRole = document.getElementById("mobileMenuRole");
 
 const pendingArea = document.getElementById("pendingArea");
 const studentArea = document.getElementById("studentArea");
@@ -179,6 +206,8 @@ const parentChildRank = document.getElementById("parentChildRank");
 const parentChildPoints = document.getElementById("parentChildPoints");
 const parentChildAttendance = document.getElementById("parentChildAttendance");
 const parentChildAttendanceNote = document.getElementById("parentChildAttendanceNote");
+const parentAttendanceLink = document.getElementById("parentAttendanceLink");
+const parentAgendaLink = document.getElementById("parentAgendaLink");
 const parentChildBadge = document.getElementById("parentChildBadge");
 const parentChildBadgeText = document.getElementById("parentChildBadgeText");
 const parentAnnouncementText = document.getElementById("parentAnnouncementText");
@@ -187,12 +216,8 @@ const parentAnnouncementText = document.getElementById("parentAnnouncementText")
 
 const year = document.getElementById("year");
 
-const studentHomeworkCard = document.getElementById("studentHomeworkCard");
 const studentClassBadge = document.getElementById("studentClassBadge");
-const openStudentChatBtn = document.getElementById("openStudentChatBtn");
 
-const teacherClassSelect = document.getElementById("teacherClassSelect");
-const openTeacherChatBtn = document.getElementById("openTeacherChatBtn");
 
 
 const userMenuBtn = document.getElementById("userMenuBtn");
@@ -230,35 +255,10 @@ function init() {
   if (signinForm) signinForm.addEventListener("submit", handleSignin);
 
   if (logoutBtn) logoutBtn.addEventListener("click", handleLogout);
+  if (mobileLogoutBtn) mobileLogoutBtn.addEventListener("click", handleLogout);
 
-
-
-
-  if (studentHomeworkCard) {
-    studentHomeworkCard.addEventListener("click", function () {
-      openChatPage();
-    });
-  }
-
-  if (openStudentChatBtn) {
-    openStudentChatBtn.addEventListener("click", function () {
-      openChatPage();
-    });
-  }
-
-  if (openTeacherChatBtn) {
-    openTeacherChatBtn.addEventListener("click", function () {
-      openChatPage(teacherClassSelect ? teacherClassSelect.value : "A");
-    });
-  }
-
-  if (teacherClassSelect) {
-    teacherClassSelect.addEventListener("change", function () {
-      localStorage.setItem("dramagic_active_chat_class", teacherClassSelect.value);
-    });
-  }
-
-  setupNavigation();
+  setupMobileMenu();
+setupNavigation();
 
   const savedSession = getSavedSession();
   const requestedAuthMode = window.location.hash === "#signup" ? "signup" : "signin";
@@ -302,7 +302,7 @@ function showSignup() {
 
   showMessage(
     signupMessage,
-    "Demo signup is active now. Parents can test with Child ID DRG-A-001 and Parent Code 8472.",
+    "Signup is ready for backend connection. For now, it uses the current student directory until Supabase is connected.",
     true
   );
 }
@@ -376,7 +376,7 @@ function handleSignupDemo(event) {
   }
 
   if (password.length < 6) {
-    showMessage(signupMessage, "Use at least 6 characters for the demo password.");
+    showMessage(signupMessage, "Use at least 6 characters for the password.");
     return;
   }
 
@@ -390,14 +390,14 @@ function handleSignupDemo(event) {
   });
 
   if (existingUser) {
-    showMessage(signupMessage, "This email already exists in the demo. Use Sign In instead.");
+    showMessage(signupMessage, "This email already exists. Use Sign In instead.");
     return;
   }
 
   const studentRecord = findStudentDirectoryRecord(studentIdValue);
 
   if (!studentRecord) {
-    showMessage(signupMessage, "This student ID was not found in the demo student directory.");
+    showMessage(signupMessage, "This student ID was not found in the current student directory.");
     return;
   }
 
@@ -465,7 +465,7 @@ function handleSignin(event) {
     if (!user) {
       showMessage(
         signinMessage,
-        "Wrong demo login. Try ceo@dramagic.demo / ceo123, teacher@dramagic.demo / teacher123, student@dramagic.demo / student123, parent@dramagic.demo / parent123, or use an account you created in demo signup."
+        "Wrong login. This page is ready to connect to Supabase Auth; use a current test account only until the backend is connected."
       );
       return;
     }
@@ -493,10 +493,15 @@ function handleSignin(event) {
 }
 
 function handleLogout() {
+  closeMobileMenu();
+
   currentUser = null;
   currentProfile = null;
 
   localStorage.removeItem(STORAGE_KEYS.session);
+  localStorage.removeItem("presentacy_role");
+  localStorage.removeItem("presentacy_student");
+  localStorage.removeItem("presentacy_class");
 
   showAuthPage();
   showSignin();
@@ -504,6 +509,28 @@ function handleLogout() {
 
 function saveSession(user) {
   localStorage.setItem(STORAGE_KEYS.session, JSON.stringify(user));
+
+  // Keep role-based pages such as Presentacy in sync with the real logged-in account.
+  if (user && user.role) {
+    const role = String(user.role).toLowerCase();
+    localStorage.setItem("presentacy_role", role);
+
+    if (role === "student" && user.presentacyStudentId) {
+      localStorage.setItem("presentacy_student", user.presentacyStudentId);
+      localStorage.setItem("presentacy_class", String(getPresentacyClassFromLetter(user.classLetter || "A")));
+    } else if (role === "parent" && Array.isArray(user.children) && user.children.length) {
+      const selectedChild = user.children.find(function (child) {
+        return child.studentId === localStorage.getItem("dramagic_selected_parent_child");
+      }) || user.children[0];
+
+      if (selectedChild.presentacyStudentId) {
+        localStorage.setItem("presentacy_student", selectedChild.presentacyStudentId);
+        localStorage.setItem("presentacy_class", String(getPresentacyClassFromLetter(selectedChild.classLetter || "A")));
+      }
+    }
+
+    window.dispatchEvent(new Event("dramagicSessionUpdated"));
+  }
 }
 
 function getSavedSession() {
@@ -541,6 +568,10 @@ function normalizeSession(session) {
     if (linked) cleanSession.children = [makeParentChildRecord(linked)];
   }
 
+  if (cleanSession.role === "parent") {
+    cleanSession.children = addParentPreviewChildren(cleanSession.children, cleanSession);
+  }
+
   return cleanSession;
 }
 
@@ -563,6 +594,12 @@ function loadProfileAndApp() {
       ? ` • Parent of ${currentProfile.linkedStudentName}`
       : "";
     roleBadge.textContent = `${currentProfile.full_name} • ${currentProfile.role.toUpperCase()}${childText || classText}`;
+  }
+
+  if (mobileMenuRole) {
+    const roleText = String(currentProfile.role || "user").toUpperCase();
+    const classText = currentProfile.classLetter ? ` • Class ${currentProfile.classLetter}` : "";
+    mobileMenuRole.textContent = `${roleText}${classText}`;
   }
 
   if (studentClassBadge) {
@@ -608,6 +645,18 @@ function isParent() {
     currentProfile.account_status === "active";
 }
 
+function canSeeFinanceEntry() {
+  return currentProfile &&
+    currentProfile.account_status === "active" &&
+    (currentProfile.role === "finance" || currentProfile.role === "ceo");
+}
+
+function canSeeStudentArea() {
+  return currentProfile &&
+    currentProfile.account_status === "active" &&
+    (currentProfile.role === "student" || currentProfile.role === "teacher" || currentProfile.role === "ceo");
+}
+
 function applyRoleAccess() {
   if (!currentProfile) return;
 
@@ -616,6 +665,10 @@ function applyRoleAccess() {
 
   document.querySelectorAll(".finance-link").forEach(function (item) {
     item.classList.toggle("hidden", !isCEO());
+  });
+
+  document.querySelectorAll(".finance-entry-link").forEach(function (item) {
+    item.classList.toggle("hidden", !canSeeFinanceEntry());
   });
 
   document.querySelectorAll(".ceo-only").forEach(function (item) {
@@ -637,7 +690,7 @@ function applyRoleAccess() {
     - Parents do NOT see it; they use the Parent Dashboard instead.
   */
   document.querySelectorAll(".student-link").forEach(function (item) {
-    item.classList.toggle("hidden", isParent() || role === "pending" || status === "pending");
+    item.classList.toggle("hidden", !canSeeStudentArea());
   });
 
   if (parentArea) parentArea.classList.toggle("hidden", !isParent());
@@ -646,7 +699,7 @@ function applyRoleAccess() {
   if (pendingArea) pendingArea.classList.add("hidden");
 
   if (studentArea) {
-    studentArea.classList.toggle("hidden", isParent() || role === "pending" || status === "pending");
+    studentArea.classList.toggle("hidden", !canSeeStudentArea());
   }
 
 
@@ -655,6 +708,10 @@ function applyRoleAccess() {
   }
 
   if (window.location.hash === "#parentArea" && !isParent()) {
+    window.location.hash = "#home";
+  }
+
+  if (window.location.hash === "#studentArea" && !canSeeStudentArea()) {
     window.location.hash = "#home";
   }
 }
@@ -668,62 +725,90 @@ function setupNavigation() {
     link.addEventListener("click", function (event) {
       const href = link.getAttribute("href");
 
-
       if (href === "#teacherArea" && !canSeeTeacherArea()) {
         event.preventDefault();
         window.location.hash = "#home";
+        closeMobileMenu();
+        setActiveNavLinks("#home");
         return;
       }
 
       if (href === "#parentArea" && !isParent()) {
         event.preventDefault();
         window.location.hash = "#home";
+        closeMobileMenu();
+        setActiveNavLinks("#home");
         return;
       }
 
-      if (href === "#studentArea" && isParent()) {
+      if (href === "#studentArea" && !canSeeStudentArea()) {
         event.preventDefault();
-        window.location.hash = "#parentArea";
+        window.location.hash = isParent() ? "#parentArea" : "#home";
+        closeMobileMenu();
+        setActiveNavLinks(window.location.hash || "#home");
         return;
       }
 
-      document.querySelectorAll(".nav-link").forEach(function (item) {
-        item.classList.remove("active");
-      });
-
-      link.classList.add("active");
+      setActiveNavLinks(href);
+      closeMobileMenu();
     });
+  });
+
+  window.addEventListener("hashchange", function () {
+    setActiveNavLinks(window.location.hash || "#home");
   });
 }
 
-/* ===============================
-   CHAT PAGE LAUNCH
-================================ */
+function setActiveNavLinks(href) {
+  if (!href || !href.startsWith("#")) return;
 
-function openChatPage(classLetter) {
-  if (!currentProfile) return;
+  document.querySelectorAll(".nav-link").forEach(function (item) {
+    item.classList.toggle("active", item.getAttribute("href") === href);
+  });
+}
 
-  let selectedClass = classLetter || "A";
+function setupMobileMenu() {
+  if (!mobileMenuBtn || !mobileNavPanel || !mobileNavOverlay) return;
 
-  if (isStudent()) {
-    selectedClass = getCurrentStudentClass();
+  mobileMenuBtn.addEventListener("click", function () {
+    openMobileMenu();
+  });
+
+  if (mobileMenuCloseBtn) {
+    mobileMenuCloseBtn.addEventListener("click", function () {
+      closeMobileMenu();
+    });
   }
 
-  if ((canSeeTeacherArea() || isCEO()) && teacherClassSelect) {
-    selectedClass = teacherClassSelect.value || selectedClass;
-  }
+  mobileNavOverlay.addEventListener("click", function () {
+    closeMobileMenu();
+  });
 
-  localStorage.setItem("dramagic_active_chat_class", selectedClass);
-  window.location.href = `chat.html?class=${encodeURIComponent(selectedClass)}`;
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") {
+      closeMobileMenu();
+    }
+  });
 }
 
-function openStudentHomeworkChat() {
-  openChatPage();
+function openMobileMenu() {
+  if (!mobileMenuBtn || !mobileNavPanel || !mobileNavOverlay) return;
+
+  mobileNavPanel.classList.remove("hidden");
+  mobileNavOverlay.classList.remove("hidden");
+  document.body.classList.add("mobile-menu-open");
+  mobileMenuBtn.setAttribute("aria-expanded", "true");
 }
 
-function openTeacherHomeworkChat() {
-  openChatPage(teacherClassSelect ? teacherClassSelect.value : "A");
+function closeMobileMenu() {
+  if (!mobileMenuBtn || !mobileNavPanel || !mobileNavOverlay) return;
+
+  mobileNavPanel.classList.add("hidden");
+  mobileNavOverlay.classList.add("hidden");
+  document.body.classList.remove("mobile-menu-open");
+  mobileMenuBtn.setAttribute("aria-expanded", "false");
 }
+
 
 function getCurrentStudentClass() {
   if (currentProfile && currentProfile.classLetter) {
@@ -736,16 +821,6 @@ function getCurrentStudentClass() {
 function renderAll() {
   if (studentClassBadge && currentProfile && currentProfile.role === "student") {
     studentClassBadge.textContent = `Class ${getCurrentStudentClass()}`;
-  }
-
-  if (studentHomeworkCard && currentProfile) {
-    const title = studentHomeworkCard.querySelector("h3");
-    const text = studentHomeworkCard.querySelector("p");
-
-    if (title && text && (currentProfile.role === "teacher" || currentProfile.role === "ceo")) {
-      title.textContent = "Class Homework Chats";
-      text.textContent = "Open class homework rooms, view messages, reply to students, and manage homework chat.";
-    }
   }
 
   renderStudentHomeLeaderboard();
@@ -801,11 +876,44 @@ function makeParentChildRecord(student) {
     classLetter: student.classLetter,
     className: student.className,
     presentacyStudentId: student.presentacyStudentId || null,
-    attendanceText: student.attendanceText || "Demo",
-    attendanceNote: student.attendanceNote || "Attendance will connect later.",
+    attendanceText: "Open Sheet",
+    attendanceNote: "View sessions, status, time, late records, and absences.",
     badge: student.badge || "🎭",
     badgeText: student.badgeText || "Dramagic Star"
   };
+}
+
+function shouldAddParentPreviewChild(profile) {
+  if (!profile || profile.role !== "parent") return false;
+
+  const email = String(profile.email || "").toLowerCase();
+  const username = String(profile.username || "").toLowerCase();
+  const hasLaila = Array.isArray(profile.children) && profile.children.some(function (child) {
+    return String(child.studentId || child.code || "").toUpperCase() === "DRG-A-001";
+  });
+
+  return email === "parent@dramagic.demo" || username === "parent" || hasLaila;
+}
+
+function addParentPreviewChildren(children, profile) {
+  const list = Array.isArray(children) ? children.slice() : [];
+
+  if (!shouldAddParentPreviewChild(profile)) {
+    return list;
+  }
+
+  ["DRG-A-001", "DRG-A-002"].forEach(function (studentId) {
+    const exists = list.some(function (child) {
+      return String(child.studentId || child.code || "").toUpperCase() === studentId;
+    });
+
+    if (!exists) {
+      const record = findStudentDirectoryRecord(studentId);
+      if (record) list.push(makeParentChildRecord(record));
+    }
+  });
+
+  return list;
 }
 
 function renderParentDashboard() {
@@ -857,19 +965,27 @@ function renderParentDashboard() {
 function getParentChildren() {
   if (!currentProfile || currentProfile.role !== "parent") return [];
 
+  let children = [];
+
   if (Array.isArray(currentProfile.children) && currentProfile.children.length) {
-    return currentProfile.children.map(function (child) {
+    children = currentProfile.children.map(function (child) {
       const directoryRecord = findStudentDirectoryRecord(child.studentId) || {};
       return Object.assign({}, directoryRecord, child);
     });
-  }
-
-  if (currentProfile.linkedStudentId) {
+  } else if (currentProfile.linkedStudentId) {
     const child = findStudentDirectoryRecord(currentProfile.linkedStudentId);
-    return child ? [makeParentChildRecord(child)] : [];
+    children = child ? [makeParentChildRecord(child)] : [];
   }
 
-  return [];
+  children = addParentPreviewChildren(children, currentProfile);
+
+  if (children.length) {
+    currentProfile.children = children;
+    currentUser = Object.assign({}, currentUser || {}, { children: children });
+    saveSession(Object.assign({}, currentProfile, { children: children }));
+  }
+
+  return children;
 }
 
 function renderParentChildDetails(child) {
@@ -883,11 +999,41 @@ function renderParentChildDetails(child) {
   if (parentChildMeta) parentChildMeta.textContent = `${child.className || `Class ${child.classLetter || ""}`} • ${child.studentId || "Student ID"}`;
   if (parentChildRank) parentChildRank.textContent = leaderboardData.rank ? `#${leaderboardData.rank}` : "#-";
   if (parentChildPoints) parentChildPoints.textContent = leaderboardData.points;
-  if (parentChildAttendance) parentChildAttendance.textContent = child.attendanceText || "Demo";
-  if (parentChildAttendanceNote) parentChildAttendanceNote.textContent = child.attendanceNote || "Attendance will connect later.";
+
+  const attendanceUrl = buildChildAttendanceUrl(child);
+  if (parentAttendanceLink) parentAttendanceLink.href = attendanceUrl;
+  if (parentChildAttendance) parentChildAttendance.textContent = "Open Sheet";
+  if (parentChildAttendanceNote) {
+    parentChildAttendanceNote.textContent = `View ${child.name || "your child"}'s sessions, status, arrival time, late records, and absences.`;
+  }
+
+  if (parentAgendaLink) parentAgendaLink.href = buildAgendaUrl(child);
   if (parentChildBadge) parentChildBadge.textContent = child.badge || "🎭";
   if (parentChildBadgeText) parentChildBadgeText.textContent = child.badgeText || "Dramagic Star";
-  if (parentAnnouncementText) parentAnnouncementText.textContent = `Latest update for ${child.name}: keep practicing and check new media after each session.`;
+  if (parentAnnouncementText) parentAnnouncementText.textContent = `Check the Weekly Agenda for ${child.name || "your child"} to see the next session plan and preparation notes.`;
+}
+
+
+function buildChildAttendanceUrl(child) {
+  const params = new URLSearchParams();
+
+  params.set("view", "child");
+
+  if (child.studentId) params.set("studentId", child.studentId);
+  if (child.classLetter) params.set("class", child.classLetter);
+  if (child.name) params.set("name", child.name);
+
+  return `attendance.html?${params.toString()}#sheet`;
+}
+
+function buildAgendaUrl(child) {
+  const params = new URLSearchParams();
+
+  if (child.classLetter) params.set("class", child.classLetter);
+  if (child.studentId) params.set("studentId", child.studentId);
+  if (child.name) params.set("name", child.name);
+
+  return `agenda.html?${params.toString()}`;
 }
 
 function getParentLeaderboardData(child) {
@@ -1237,11 +1383,15 @@ function getDefaultAvatar(role) {
   }
 
   if (role === "parent") {
-    return `Your parent dashboard is ready${currentProfile?.linkedStudentName ? ` for ${currentProfile.linkedStudentName}` : ""}.`;
+    return avatarSvg("👨‍👩‍👧", "#08a9d9", "#7edcff");
   }
 
   if (role === "teacher") {
     return avatarSvg("🎭", "#08a9d9", "#6fdfff");
+  }
+
+  if (role === "finance") {
+    return avatarSvg("🧾", "#08a9d9", "#007aa7");
   }
 
   return avatarSvg("🌟", "#08a9d9", "#7edcff");
@@ -1251,7 +1401,7 @@ function renderPersonalization() {
   if (!currentProfile) return;
 
   const savedProfile = getSavedProfile();
-  const displayName = savedProfile.displayName || currentProfile.full_name || "Dramagic Star";
+  const displayName = getProfileDisplayName(savedProfile);
   const avatar = getCurrentUserAvatar();
 
   if (navUserName) navUserName.textContent = displayName;
@@ -1265,6 +1415,21 @@ function renderPersonalization() {
   if (personalMessage) {
     personalMessage.textContent = getRoleMessage(currentProfile.role, currentProfile.classLetter);
   }
+}
+
+function getProfileDisplayName(savedProfile = {}) {
+  const savedName = String(savedProfile.displayName || "").trim();
+  const profileName = String(currentProfile?.full_name || "").trim();
+  const fallback = currentProfile?.role === "parent" ? "Parent" : "Dramagic Star";
+  let name = savedName || profileName || fallback;
+
+  // Old demo sessions sometimes saved the child name as "Laila's Parent".
+  // Do not show that as the greeting. Backend will provide the real parent name.
+  if (currentProfile?.role === "parent" && /\bparent$/i.test(name) && name.includes("'s ")) {
+    name = savedName || currentProfile.parentName || "Parent";
+  }
+
+  return name;
 }
 
 function getGreeting(name) {
@@ -1287,15 +1452,19 @@ function getRoleMessage(role, classLetter) {
   }
 
   if (role === "parent") {
-    return `Your parent dashboard is ready${currentProfile?.linkedStudentName ? ` for ${currentProfile.linkedStudentName}` : ""}.`;
+    return `Your dashboard is ready${currentProfile?.linkedStudentName ? ` for ${currentProfile.linkedStudentName}` : ""}. Check attendance and the weekly agenda from your dashboard.`;
   }
 
   if (role === "teacher") {
-    return "Your classes, homework chats, and Presentacy students are waiting for you.";
+    return "Your classes, weekly agenda, and Presentacy students are waiting for you.";
   }
 
   if (role === "ceo") {
     return "Your academy dashboard is ready: students, finance, memories, and progress.";
+  }
+
+  if (role === "finance") {
+    return "Your payment-entry workspace is ready. You can add student payments and follow remaining balances without opening the full finance dashboard.";
   }
 
   return "Your Dramagic journey is ready.";
@@ -1378,3 +1547,121 @@ function avatarSvg(icon, colorOne, colorTwo) {
 
   return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
 }
+
+
+/* =====================================================
+   DRAMAGIC FIX — Dashboard connected points
+   Presentacy + attendance adjustments are connected.
+   Wordle/game points stay isolated in game.html/game.js.
+===================================================== */
+var DRAMAGIC_ATTENDANCE_POINTS_KEY = "dramagic_attendance_point_adjustments";
+
+function readAttendancePointAdjustmentsForDashboard() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(DRAMAGIC_ATTENDANCE_POINTS_KEY));
+    return Array.isArray(saved) ? saved : [];
+  } catch {
+    return [];
+  }
+}
+
+function homeClassIdToLetter(classId) {
+  const map = { "kids-a": "A", "kids-b": "B", teens: "C", adults: "D" };
+  return map[classId] || "";
+}
+
+function getAttendanceAdjustmentForHomeStudent(student) {
+  const name = String(student?.name || "").trim().toLowerCase();
+  const classLetter = homeClassIdToLetter(student?.classId || "");
+  return readAttendancePointAdjustmentsForDashboard().reduce(function (total, item) {
+    const itemName = String(item.studentName || "").trim().toLowerCase();
+    const itemClass = String(item.classLetter || "").trim().toUpperCase();
+    const sameName = name && itemName === name;
+    const sameClass = !classLetter || !itemClass || itemClass === classLetter;
+    return sameName && sameClass ? total + Number(item.pointDelta || 0) : total;
+  }, 0);
+}
+
+function getDramagicPointsForHomeStudent(student) {
+  return Number(student?.points || 0) + getAttendanceAdjustmentForHomeStudent(student);
+}
+
+function getPresentacyStudentsForHome() {
+  let source = [];
+  try {
+    const saved = JSON.parse(localStorage.getItem("presentacy_students"));
+    if (Array.isArray(saved) && saved.length) source = saved;
+  } catch {
+    source = [];
+  }
+
+  if (!source.length) source = HOME_PRESENTACY_DEFAULT_STUDENTS;
+
+  return source.map(function (student) {
+    const normalized = normalizeHomePresentacyStudent(student);
+    normalized.basePoints = Number(normalized.points || 0);
+    normalized.attendanceAdjustment = getAttendanceAdjustmentForHomeStudent(normalized);
+    normalized.points = normalized.basePoints + normalized.attendanceAdjustment;
+    return normalized;
+  });
+}
+
+function getParentLeaderboardData(child) {
+  const students = getPresentacyStudentsForHome();
+  const classId = getPresentacyClassFromLetter(child.classLetter);
+  const classStudents = students
+    .filter(function (student) { return student.classId === classId; })
+    .sort(function (a, b) { return Number(b.points || 0) - Number(a.points || 0); });
+
+  const matched = classStudents.find(function (student) {
+    return student.id === child.presentacyStudentId ||
+      String(student.name || "").trim().toLowerCase() === String(child.name || "").trim().toLowerCase();
+  });
+
+  if (!matched) return { rank: null, points: 0, basePoints: 0, attendanceAdjustment: 0 };
+
+  return {
+    rank: classStudents.findIndex(function (student) { return student.id === matched.id; }) + 1,
+    points: Number(matched.points || 0),
+    basePoints: Number(matched.basePoints || matched.points || 0),
+    attendanceAdjustment: Number(matched.attendanceAdjustment || 0)
+  };
+}
+
+function renderParentChildDetails(child) {
+  if (!parentChildDashboard || !child) return;
+
+  parentChildDashboard.classList.remove("hidden");
+  const leaderboardData = getParentLeaderboardData(child);
+
+  if (parentChildName) parentChildName.textContent = child.name || "Dramagic Student";
+  if (parentChildMeta) parentChildMeta.textContent = `${child.className || `Class ${child.classLetter || ""}`} • ${child.studentId || "Student ID"}`;
+  if (parentChildRank) parentChildRank.textContent = leaderboardData.rank ? `#${leaderboardData.rank}` : "#-";
+  if (parentChildPoints) parentChildPoints.textContent = leaderboardData.points;
+
+  const attendanceUrl = buildChildAttendanceUrl(child);
+  if (parentAttendanceLink) parentAttendanceLink.href = attendanceUrl;
+  if (parentChildAttendance) parentChildAttendance.textContent = "Open Attendance";
+  if (parentChildAttendanceNote) {
+    const adj = leaderboardData.attendanceAdjustment;
+    parentChildAttendanceNote.textContent = adj
+      ? `Attendance is included in Dramagic points (${adj} point${Math.abs(adj) === 1 ? "" : "s"}).`
+      : `View ${child.name || "your child"}'s sessions, status, arrival time, late records, and absences.`;
+  }
+
+  if (parentAgendaLink) parentAgendaLink.href = buildAgendaUrl(child);
+  if (parentChildBadge) parentChildBadge.textContent = child.badge || "🎭";
+  if (parentChildBadgeText) parentChildBadgeText.textContent = child.badgeText || "Dramagic Star";
+  if (parentAnnouncementText) parentAnnouncementText.textContent = `Check the Weekly Agenda for ${child.name || "your child"} to see the next session plan and preparation notes.`;
+}
+
+window.addEventListener("storage", function (event) {
+  if (event.key === DRAMAGIC_ATTENDANCE_POINTS_KEY) {
+    renderStudentHomeLeaderboard();
+    renderParentDashboard();
+  }
+});
+window.addEventListener("dramagicPointsChanged", function () {
+  renderStudentHomeLeaderboard();
+  renderParentDashboard();
+});
